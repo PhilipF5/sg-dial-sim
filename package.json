@@ -1,10 +1,10 @@
 {
-	"name": "sgcWebApp",
+	"name": "sgc-web-app",
 	"version": "0.0.1",
-	"author": "Ionic Framework",
-	"homepage": "http://ionicframework.com/",
+	"author": "Philip Fulgham",
 	"private": true,
 	"scripts": {
+		"start": "ionic serve",
 		"clean": "ionic-app-scripts clean",
 		"build": "ionic-app-scripts build",
 		"lint": "ionic-app-scripts lint",
@@ -34,5 +34,5 @@
 		"@ionic/app-scripts": "3.1.8",
 		"typescript": "2.4.2"
 	},
-	"description": "An Ionic project"
+	"description": "An Ionic and GreenSock-based SGC dialing computer simulator"
 }
