@@ -1,0 +1,54 @@
+gate {
+	svg {
+		height: 600px;
+		width: 600px;
+		path {
+			stroke: lightskyblue !important;
+		}
+
+		.chevron-head {
+			fill: black !important;
+			stroke-width: 3px !important;
+		}
+
+		.chevron-back {
+			fill: black !important;
+			stroke: none !important;
+		}
+
+		.chevron-tail {
+			fill: black !important;
+			stroke-width: 3px !important;
+		}
+
+		.chevron-wing {
+			fill: none !important;
+		}
+
+		.chevron-lines > path {
+			stroke-width: 2px !important;
+		}
+
+		.chevron-head,
+		.chevron-lines > path {
+			stroke: red !important;
+		}
+
+		.chevron-8,
+		.chevron-9 {
+			.chevron-head,
+			.chevron-lines > path {
+				stroke: gray !important;
+			}
+		}
+
+		.active {
+			.chevron-head {
+				fill: red !important;
+			}
+			.chevron-tail {
+				stroke: red !important;
+			}
+		}
+	}
+}

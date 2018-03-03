@@ -1,2 +1,34 @@
 page-home {
+	.content-md {
+		background-color: black;
+	}
+	gate {
+		position: absolute;
+		top: 25%;
+		left: 50%;
+		transform: translate(-50%, -25%);
+	}
+	.chevron-box {
+		.chevron-number {
+			display: inline-block;
+			font-family: Arial;
+			font-size: 36px;
+			color: white;
+			vertical-align: bottom;
+		}
+		.chevron-symbol-box {
+			display: inline-block;
+			width: 130px;
+			height: 95px;
+			border-color: lightskyblue;
+			border-width: 1px;
+			border-style: solid;
+			border-top-left-radius: 20px;
+		}
+	}
+	.chevron-boxes {
+		position: absolute;
+		top: 10%;
+		right: 5%;
+	}
 }

@@ -1,14 +1,15 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <gate></gate>
+  <div class="chevron-boxes">
+    <ng-template #chevronBox let-number>
+      <div class="chevron-box">
+        <div class="chevron-number chevron-{{number}}">{{ number }}</div>
+        <div class="chevron-symbol-box chevron-{{number}}"></div>
+      </div>
+    </ng-template>
+    <ng-container *ngFor="let number of [1, 2, 3, 4, 5, 6, 7]">
+      <div *ngTemplateOutlet="chevronBox; context: { $implicit: number }"></div>
+    </ng-container>
+    <div *ngTemplateOutlet="chevronBox; context: { $implicit: 8 }"></div>
+  </div>
 </ion-content>
