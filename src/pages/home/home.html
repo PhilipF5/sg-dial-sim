@@ -2,9 +2,11 @@
   <gate></gate>
   <div class="chevron-boxes">
     <ng-template #chevronBox let-number>
-      <div class="chevron-box">
+      <div class="chevron-box chevron-{{number}}">
         <div class="chevron-number chevron-{{number}}">{{ number }}</div>
-        <div class="chevron-symbol-box chevron-{{number}}"></div>
+        <div class="chevron-symbol-box chevron-{{number}}">
+          <div class="sg1-symbol chevron-{{number}}">A</div>
+        </div>
       </div>
     </ng-template>
     <ng-container *ngFor="let number of [1, 2, 3, 4, 5, 6, 7]">
