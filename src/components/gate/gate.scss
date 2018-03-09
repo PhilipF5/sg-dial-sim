@@ -10,7 +10,7 @@ gate {
 		width: 200px;
 	}
 	svg {
-		height: 600px;
+		height: 650px;
 		width: 600px;
 		path {
 			stroke: lightskyblue !important;
@@ -42,6 +42,25 @@ gate {
 		.chevron-head,
 		.chevron-lines > path {
 			stroke: red !important;
+		}
+
+		.chevron-7 {
+			&.engaging-1 {
+				.chevron-tail,
+				.chevron-lines > path {
+					stroke: red !important;
+					transform: translateY(20px);
+				}
+				.chevron-back {
+					transform: translateY(20px);
+				}
+			}
+			&.engaging-2 {
+				.chevron-head {
+					fill: red !important;
+					transform: translateY(-10px);
+				}
+			}
 		}
 
 		.chevron-8,
