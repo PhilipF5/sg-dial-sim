@@ -1,4 +1,14 @@
 gate {
+	.flasher {
+		background: radial-gradient(circle at center, white 0%, orange 20%, red 40%, black 60%);
+		height: 200px;
+		left: 50%;
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		transform-origin: center;
+		width: 200px;
+	}
 	svg {
 		height: 600px;
 		width: 600px;
