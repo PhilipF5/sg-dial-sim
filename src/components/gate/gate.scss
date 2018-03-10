@@ -13,11 +13,11 @@ gate {
 		height: 650px;
 		width: 600px;
 		path {
-			stroke: lightskyblue !important;
+			stroke: #87cefa;
 		}
 
 		.chevron-head {
-			fill: black !important;
+			//fill: black !important;
 			stroke-width: 3px !important;
 		}
 
@@ -26,7 +26,8 @@ gate {
 			stroke: none !important;
 		}
 
-		.chevron-tail {
+		.chevron-tail,
+		.chevron-tail-border {
 			fill: black !important;
 			stroke-width: 3px !important;
 		}
@@ -46,8 +47,7 @@ gate {
 
 		.chevron-7 {
 			&.engaging-1 {
-				.chevron-tail,
-				.chevron-lines > path {
+				.chevron-tail {
 					stroke: red !important;
 					transform: translateY(20px);
 				}
@@ -75,7 +75,7 @@ gate {
 			.chevron-head {
 				fill: red !important;
 			}
-			.chevron-tail {
+			.chevron-tail-border {
 				stroke: red !important;
 			}
 		}
