@@ -14,5 +14,5 @@
     </ng-container>
     <div *ngTemplateOutlet="chevronBox; context: { $implicit: 8 }"></div>
   </div>
-  <keyboard></keyboard>
+  <keyboard (dialAddress)="keyboardStartDialingHandler($event)"></keyboard>
 </ion-content>

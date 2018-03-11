@@ -1,10 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
 
 @Component({
 	selector: "keyboard",
 	templateUrl: "keyboard.html"
 })
 export class KeyboardComponent {
+	@Output() dialAddress: EventEmitter<string[]> = new EventEmitter();
+
 	public address = [];
 	public keys = [
 		"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
@@ -26,6 +28,12 @@ export class KeyboardComponent {
 	public selectGlyph(glyph: string) {
 		if (this.address.length < 6 && !this.isGlyphSelected(glyph)) {
 			this.address.push(glyph);
+		}
+	}
+
+	public validateAndDial() {
+		if (this.address.length === 6) {
+			this.dialAddress.emit(this.address);
 		}
 	}
 }

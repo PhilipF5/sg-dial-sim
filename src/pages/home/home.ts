@@ -63,9 +63,19 @@ export class HomePage {
 						.yoyo(true)
 				],
 				"-=0.5"
-			)
+			);
 		}
 		return chevronTimeline;
+	}
+
+	public beginDialing(address: string[]) {
+		address.push("A");
+		this.glyphs = address;
+		this.runDialingSequence();
+	}
+
+	public keyboardStartDialingHandler(event: string[]) {
+		this.beginDialing(event);
 	}
 
 	ionViewDidLoad() {
