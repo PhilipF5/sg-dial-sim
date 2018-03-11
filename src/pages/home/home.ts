@@ -55,6 +55,15 @@ export class HomePage {
 				],
 				"+=0.5"
 			);
+		} else {
+			chevronTimeline.add(
+				[
+					TweenMax.to(`.chevron-symbol-box`, 0.15, { backgroundColor: "#add8e6" })
+						.repeat(5)
+						.yoyo(true)
+				],
+				"-=0.5"
+			)
 		}
 		return chevronTimeline;
 	}
