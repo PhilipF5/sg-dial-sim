@@ -7,9 +7,10 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { GateComponent } from "../components/gate/gate";
+import { KeyboardComponent } from "../components/keyboard/keyboard";
 
 @NgModule({
-	declarations: [MyApp, HomePage, GateComponent],
+	declarations: [MyApp, HomePage, GateComponent, KeyboardComponent],
 	imports: [BrowserModule, IonicModule.forRoot(MyApp)],
 	bootstrap: [IonicApp],
 	entryComponents: [MyApp, HomePage],
