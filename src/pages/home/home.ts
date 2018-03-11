@@ -54,6 +54,10 @@ export class HomePage {
 	}
 
 	ionViewDidLoad() {
+		TweenMax.to(`.flasher`, 0.5, { scale: 0, ease: Power4.easeOut }).repeat(-1).yoyo(true);
+	}
+
+	runDialingSequence() {
 		for (let i = 1; i <= 7; i++) {
 			this.toolTimeline.add(this.animateChevron(i));
 		}
