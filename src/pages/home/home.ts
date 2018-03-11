@@ -1,27 +1,25 @@
 import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 
-import gsap from "gsap";
-
 @Component({
 	selector: "page-home",
 	templateUrl: "home.html"
 })
 export class HomePage {
-	toolTimeline = new gsap.TimelineLite();
+	toolTimeline = new TimelineLite();
 	glyphs = ["B", "C", "D", "E", "F", "G", "A"];
 
 	constructor(public navCtrl: NavController) {}
 
 	animateChevron(chevron: number) {
-		let chevronTimeline = new gsap.TimelineLite();
+		let chevronTimeline = new TimelineLite();
 		chevronTimeline.to(`.chevron-${chevron}.sg1-symbol`, 2, { css: { className: "+=engaged" } });
 		chevronTimeline.set(`.chevron-${chevron}.sg1-symbol`, { css: { className: "-=starting" } });
 		chevronTimeline.to(`.chevron-${chevron}.sg1-symbol`, 2, { css: { className: "-=engaged" } });
 		chevronTimeline.add([
-			gsap.TweenLite.to(`.chevron-${chevron}.chevron-box`, 0.5, { css: { className: "+=locked" } }),
-			gsap.TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
-			gsap.TweenLite.to(`.chevron-${chevron} > .chevron-head`, 0.5, { fill: "red" })
+			TweenLite.to(`.chevron-${chevron}.chevron-box`, 0.5, { css: { className: "+=locked" } }),
+			TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
+			TweenLite.to(`.chevron-${chevron} > .chevron-head`, 0.5, { fill: "red" })
 		]);
 		let lockAnimation = (chevron === 7 ? this.animateLocking(true) : this.animateLocking());
 		chevronTimeline.add(lockAnimation, 2);
@@ -29,23 +27,27 @@ export class HomePage {
 	}
 
 	animateLocking(finish?: boolean, fail?: boolean) {
-		let chevronTimeline = new gsap.TimelineLite();
-		chevronTimeline.to(`.chevron-tail.chevron-7`, 0.5, { y: 20 });
+		let chevronTimeline = new TimelineLite();
+		chevronTimeline.add([
+			TweenLite.to(`.chevron-tail.chevron-7`, 0.5, { y: 20 }),
+			TweenLite.to(`.chevron-7.chevron-back`, 0.5, { y: 20 })
+		]);
 		chevronTimeline.to(`.chevron-head.chevron-7`, 0.5, { y: -10 });
 		if (!fail) {
 			chevronTimeline.add([
-				gsap.TweenLite.to(`.chevron-7.chevron-tail-border`, 0.5, { stroke: "red" }),
-				gsap.TweenLite.to(`.chevron-7.chevron-head`, 0.5, { fill: "red" })
+				TweenLite.to(`.chevron-7.chevron-tail-border`, 0.5, { stroke: "red" }),
+				TweenLite.to(`.chevron-7.chevron-head`, 0.5, { fill: "red" })
 			]);
 			chevronTimeline.add([
-				gsap.TweenLite.to(`.chevron-tail.chevron-7`, 0.5, { y: 0 }),
-				gsap.TweenLite.to(`.chevron-head.chevron-7`, 0.5, { y: 0 })
+				TweenLite.to(`.chevron-tail.chevron-7`, 0.5, { y: 0 }),
+				TweenLite.to(`.chevron-head.chevron-7`, 0.5, { y: 0 }),
+				TweenLite.to(`.chevron-7.chevron-back`, 0.5, { y: 0})
 			], "+=0.5");
 		}
 		if (!finish) {
 			chevronTimeline.add([
-				gsap.TweenLite.to(`.chevron-7.chevron-tail-border`, 0.5, { stroke: "#87cefa" }),
-				gsap.TweenLite.to(`.chevron-7.chevron-head`, 0.5, { fill: "none" })
+				TweenLite.to(`.chevron-7.chevron-tail-border`, 0.5, { stroke: "#87cefa" }),
+				TweenLite.to(`.chevron-7.chevron-head`, 0.5, { fill: "none" })
 			], "+=0.5");
 		}
 		return chevronTimeline;

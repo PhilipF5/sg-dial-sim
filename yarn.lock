@@ -113,6 +113,10 @@
     localforage "~1.4.2"
     localforage-cordovasqlitedriver "~1.5.0"
 
+"@types/greensock@^1.15.32":
+  version "1.15.32"
+  resolved "https://registry.yarnpkg.com/@types/greensock/-/greensock-1.15.32.tgz#083daac25a9e6f332d5678b1462d6f97a82251f7"
+
 "@types/localforage@0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/localforage/-/localforage-0.0.30.tgz#3d60a6bf6dda38e3f8a469611598379f1f649509"
