@@ -21,7 +21,7 @@ export class HomePage {
 			TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
 			TweenLite.to(`.chevron-${chevron} > .chevron-head`, 0.5, { fill: "red" })
 		]);
-		let lockAnimation = (chevron === 7 ? this.animateLocking(true) : this.animateLocking());
+		let lockAnimation = chevron === 7 ? this.animateLocking(true) : this.animateLocking();
 		chevronTimeline.add(lockAnimation, 2);
 		return chevronTimeline;
 	}
@@ -38,23 +38,31 @@ export class HomePage {
 				TweenLite.to(`.chevron-7.chevron-tail-border`, 0.5, { stroke: "red" }),
 				TweenLite.to(`.chevron-7.chevron-head`, 0.5, { fill: "red" })
 			]);
-			chevronTimeline.add([
-				TweenLite.to(`.chevron-tail.chevron-7`, 0.5, { y: 0 }),
-				TweenLite.to(`.chevron-head.chevron-7`, 0.5, { y: 0 }),
-				TweenLite.to(`.chevron-7.chevron-back`, 0.5, { y: 0})
-			], "+=0.5");
+			chevronTimeline.add(
+				[
+					TweenLite.to(`.chevron-tail.chevron-7`, 0.5, { y: 0 }),
+					TweenLite.to(`.chevron-head.chevron-7`, 0.5, { y: 0 }),
+					TweenLite.to(`.chevron-7.chevron-back`, 0.5, { y: 0 })
+				],
+				"+=0.5"
+			);
 		}
 		if (!finish) {
-			chevronTimeline.add([
-				TweenLite.to(`.chevron-7.chevron-tail-border`, 0.5, { stroke: "#87cefa" }),
-				TweenLite.to(`.chevron-7.chevron-head`, 0.5, { fill: "none" })
-			], "+=0.5");
+			chevronTimeline.add(
+				[
+					TweenLite.to(`.chevron-7.chevron-tail-border`, 0.5, { stroke: "#87cefa" }),
+					TweenLite.to(`.chevron-7.chevron-head`, 0.5, { fill: "none" })
+				],
+				"+=0.5"
+			);
 		}
 		return chevronTimeline;
 	}
 
 	ionViewDidLoad() {
-		TweenMax.to(`.flasher`, 0.5, { scale: 0, ease: Power4.easeOut }).repeat(-1).yoyo(true);
+		TweenMax.to(`.flasher`, 0.5, { scale: 0, ease: Power4.easeOut })
+			.repeat(-1)
+			.yoyo(true);
 	}
 
 	runDialingSequence() {
