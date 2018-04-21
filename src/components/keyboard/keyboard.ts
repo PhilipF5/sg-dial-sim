@@ -5,6 +5,7 @@ import { Component, Output, EventEmitter } from "@angular/core";
 	templateUrl: "keyboard.html"
 })
 export class KeyboardComponent {
+	@Output() close: EventEmitter<void> = new EventEmitter();
 	@Output() dialAddress: EventEmitter<string[]> = new EventEmitter();
 
 	public address = [];
@@ -19,6 +20,10 @@ export class KeyboardComponent {
 
 	public backspace() {
 		this.address.pop();
+	}
+
+	public closeKeyboard() {
+		this.close.emit();
 	}
 
 	public isGlyphSelected(glyph: string): boolean {

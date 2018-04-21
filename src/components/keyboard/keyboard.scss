@@ -8,7 +8,11 @@ keyboard {
 		position: absolute;
 		text-align: center;
 		transform: translateX(-50%);
+		transform-origin: bottom center;
 		width: 1200px;
+		&.minimized {
+			transform:  translateX(-50%) scale(0);
+		}
 		.address {
 			text-align: center;
 			height: 115px;
@@ -53,6 +57,12 @@ keyboard {
 				font-family: sans-serif;
 				position: absolute;
 				width: 200px;
+			}
+			&.close {
+				display: block;
+				position: absolute;
+				right: -10px;
+				top: -10px;
 			}
 			&.dial {
 				bottom: 0;

@@ -74,6 +74,14 @@ export class HomePage {
 		this.runDialingSequence();
 	}
 
+	public closeKeyboard() {
+		TweenMax.to(`.keyboard`, 1, { css: { className: "+=minimized" } });
+	}
+
+	public keyboardCloseHandler() {
+		this.closeKeyboard();
+	}
+
 	public keyboardStartDialingHandler(event: string[]) {
 		this.beginDialing(event);
 	}
@@ -82,6 +90,10 @@ export class HomePage {
 		TweenMax.to(`.flasher`, 0.5, { scale: 0, ease: Power4.easeOut })
 			.repeat(-1)
 			.yoyo(true);
+	}
+
+	public openKeyboard() {
+		TweenMax.to(`.keyboard`, 1, { css: { className: "-=minimized" } });
 	}
 
 	runDialingSequence() {

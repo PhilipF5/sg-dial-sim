@@ -1,4 +1,5 @@
-<div class="keyboard">
+<div class="keyboard minimized">
+  <div class="close key" (click)="closeKeyboard()">X</div>
   <div class="address">
     <div *ngFor="let glyph of [1, 2, 3, 4, 5, 6]" class="selected-glyph">
       {{ address[glyph - 1] || "&nbsp;" }}
