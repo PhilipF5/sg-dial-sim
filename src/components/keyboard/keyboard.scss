@@ -54,6 +54,14 @@ keyboard {
 				position: absolute;
 				width: 200px;
 			}
+			&.dial {
+				bottom: 0;
+				display: block;
+				height: 50px;
+				right: 0;
+				position: absolute;
+				width: 200px;
+			}
 			&.glyph {
 				font-family: "sg1-glyphs";
 				font-size: 50px;
