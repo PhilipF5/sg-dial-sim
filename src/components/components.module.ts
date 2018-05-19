@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
-import { GateComponent } from "./gate/gate";
-import { KeyboardComponent } from "./keyboard/keyboard";
+import { GateComponent } from "./gate/gate.component";
+import { KeyboardComponent } from "./keyboard/keyboard.component";
 @NgModule({
 	declarations: [GateComponent, KeyboardComponent],
 	imports: [],

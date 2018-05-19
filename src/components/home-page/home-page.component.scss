@@ -1,0 +1,117 @@
+:host {
+	background-color: black;
+}
+gate {
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	transform: translate(-50%, -25%);
+}
+.chevron-box {
+	&.chevron-8 {
+		opacity: 0;
+	}
+	&.locked {
+		.chevron-number {
+			opacity: 1;
+		}
+		.chevron-symbol-box {
+			border-color: red;
+		}
+	}
+	.chevron-number {
+		display: inline-block;
+		font-family: Arial;
+		font-size: 36px;
+		color: white;
+		vertical-align: bottom;
+		opacity: 0;
+	}
+	.chevron-symbol-box {
+		display: inline-block;
+		width: 130px;
+		height: 95px;
+		border-color: lightskyblue;
+		border-width: 1px;
+		border-style: solid;
+		border-top-left-radius: 20px;
+		.sg1-symbol {
+			&.chevron-1 {
+				&.starting {
+					transform: translateX(-582px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) scale(5);
+				}
+			}
+			&.chevron-2 {
+				&.starting {
+					transform: translateX(-582px) translateY(-95px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) translateY(-95px) scale(5);
+				}
+			}
+			&.chevron-3 {
+				&.starting {
+					transform: translateX(-582px) translateY(-190px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) translateY(-190px) scale(5);
+				}
+			}
+			&.chevron-4 {
+				&.starting {
+					transform: translateX(-582px) translateY(-285px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) translateY(-285px) scale(5);
+				}
+			}
+			&.chevron-5 {
+				&.starting {
+					transform: translateX(-582px) translateY(-380px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) translateY(-380px) scale(5);
+				}
+			}
+			&.chevron-6 {
+				&.starting {
+					transform: translateX(-582px) translateY(-475px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) translateY(-475px) scale(5);
+				}
+			}
+			&.chevron-7 {
+				&.starting {
+					transform: translateX(-582px) translateY(-570px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) translateY(-570px) scale(5);
+				}
+			}
+			&.chevron-8 {
+				&.starting {
+					transform: translateX(-582px) translateY(-665px) scale(0);
+				}
+				&.engaged {
+					transform: translateX(-582px) translateY(250px) translateY(-665px) scale(5);
+				}
+			}
+		}
+	}
+}
+.chevron-boxes {
+	position: absolute;
+	top: 10%;
+	right: 5%;
+	text-align: center;
+}
+.sg1-symbol {
+	color: white;
+	font-family: "sg1-glyphs";
+	font-size: 90px;
+	margin-top: 10px;
+}

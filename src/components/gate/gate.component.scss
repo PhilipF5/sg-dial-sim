@@ -1,0 +1,81 @@
+.flasher {
+	background: radial-gradient(circle at center, white 0%, orange 20%, red 40%, rgba(0, 0, 0, 0) 60%);
+	height: 200px;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	transform-origin: center;
+	width: 200px;
+}
+svg {
+	height: 650px;
+	width: 600px;
+	path {
+		stroke: #87cefa;
+	}
+
+	.chevron-head {
+		//fill: black !important;
+		stroke-width: 3px !important;
+	}
+
+	.chevron-back {
+		fill: black !important;
+		stroke: none !important;
+	}
+
+	.chevron-tail,
+	.chevron-tail-border {
+		fill: black !important;
+		stroke-width: 3px !important;
+	}
+
+	.chevron-wing {
+		fill: none !important;
+	}
+
+	.chevron-lines > path {
+		stroke-width: 2px !important;
+	}
+
+	.chevron-head,
+	.chevron-lines > path {
+		stroke: red !important;
+	}
+
+	.chevron-7 {
+		&.engaging-1 {
+			.chevron-tail {
+				stroke: red !important;
+				transform: translateY(20px);
+			}
+			.chevron-back {
+				transform: translateY(20px);
+			}
+		}
+		&.engaging-2 {
+			.chevron-head {
+				fill: red !important;
+				transform: translateY(-10px);
+			}
+		}
+	}
+
+	.chevron-8,
+	.chevron-9 {
+		.chevron-head,
+		.chevron-lines > path {
+			stroke: gray !important;
+		}
+	}
+
+	.active {
+		.chevron-head {
+			fill: red !important;
+		}
+		.chevron-tail-border {
+			stroke: red !important;
+		}
+	}
+}
