@@ -44,6 +44,8 @@ keyboard {
 			color: white;
 			cursor: pointer;
 			display: inline-block;
+			font-family: "BankGothic Md BT";
+			font-size: 24px;
 			margin: 15px;
 			&:hover {
 				background: radial-gradient(at center, lightblue 0%, transparent 100%);
@@ -53,8 +55,6 @@ keyboard {
 				display: block;
 				height: 50px;
 				left: 0;
-				font-size: 26px;
-				font-family: sans-serif;
 				position: absolute;
 				width: 200px;
 			}
