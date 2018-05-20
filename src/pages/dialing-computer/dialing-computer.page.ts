@@ -2,11 +2,11 @@ import { Component } from "@angular/core";
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 
 @Component({
-	selector: "home-page",
-	templateUrl: "./home-page.component.html",
-	styleUrls: ["./home-page.component.scss"]
+	selector: "dialing-computer",
+	templateUrl: "./dialing-computer.page.html",
+	styleUrls: ["./dialing-computer.page.scss"]
 })
-export class HomePageComponent {
+export class DialingComputerPage {
 	toolTimeline = new TimelineLite();
 	glyphs = ["B", "C", "D", "E", "F", "G", "A"];
 

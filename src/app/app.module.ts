@@ -4,13 +4,13 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
-import { HomePageComponent } from "../components/home-page/home-page.component";
-import { GateComponent } from "../components/gate/gate.component";
-import { KeyboardComponent } from "../components/keyboard/keyboard.component";
+import { PagesModule } from "../pages/pages.module";
+
+import { ComponentsModule } from "../components/components.module";
 
 @NgModule({
-	declarations: [AppComponent, HomePageComponent, GateComponent, KeyboardComponent],
-	imports: [BrowserModule, AppRoutingModule],
+	declarations: [AppComponent],
+	imports: [BrowserModule, AppRoutingModule, PagesModule, ComponentsModule],
 	providers: [],
 	bootstrap: [AppComponent]
 })
