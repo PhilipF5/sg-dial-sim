@@ -2598,9 +2598,9 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-gsap@^1.20.4:
-  version "1.20.4"
-  resolved "https://registry.yarnpkg.com/gsap/-/gsap-1.20.4.tgz#005fba2a7bfbb3b9d27bd77e1634d2bad365a86a"
+gsap@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-2.0.0.tgz#5d4df9394e80353ff1edbbdbf4c734561022f775"
 
 handle-thing@^1.2.5:
   version "1.2.5"
