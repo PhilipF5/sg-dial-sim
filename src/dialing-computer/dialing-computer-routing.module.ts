@@ -1,10 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-const routes: Routes = [];
+import { DialingComputerPage } from "./pages";
+
+const routes: Routes = [{ path: "**", component: DialingComputerPage }];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class DialingComputerRoutingModule {}
