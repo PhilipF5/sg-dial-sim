@@ -8,6 +8,13 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: "squarish-sans";
+	src: url("assets/fonts/squarish-sans.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
 	background-color: $black;
 }
