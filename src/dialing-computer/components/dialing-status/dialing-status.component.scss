@@ -1,13 +1,15 @@
+@import "variables";
+
 .status-box {
 	align-items: center;
-	border: 3px solid lightskyblue;
+	border: 3px solid $primary;
 	border-radius: 5px;
 	display: flex;
 	justify-content: center;
 
 	.status {
-		color: white;
-		font-family: "BankGothic Md BT";
+		color: $white;
+		font-family: $interface-font;
 		font-size: 72pt;
 	}
 }

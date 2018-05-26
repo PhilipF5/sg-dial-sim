@@ -1,3 +1,5 @@
+@import "variables";
+
 :host {
 	align-items: center;
 	flex-direction: column;
@@ -31,10 +33,6 @@
 	}
 }
 
-gate {
-
-}
-
 dialing-status {
 	width: 100%;
 }
@@ -43,35 +41,41 @@ dialing-status {
 	&.chevron-8 {
 		opacity: 0;
 	}
+
 	&.locked {
 		.chevron-number {
 			opacity: 1;
 		}
+
 		.chevron-symbol-box {
-			border-color: red;
+			border-color: $red;
 		}
 	}
+
 	.chevron-number {
 		display: inline-block;
 		font-family: Arial;
 		font-size: 36px;
-		color: white;
+		color: $white;
 		vertical-align: bottom;
 		opacity: 0;
 	}
+
 	.chevron-symbol-box {
 		display: inline-block;
 		width: 130px;
 		height: 95px;
-		border-color: lightskyblue;
+		border-color: $primary;
 		border-width: 1px;
 		border-style: solid;
 		border-top-left-radius: 20px;
+
 		.sg1-symbol {
 			&.chevron-1 {
 				&.starting {
 					transform: translateX(-582px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) scale(5);
 				}
@@ -80,6 +84,7 @@ dialing-status {
 				&.starting {
 					transform: translateX(-582px) translateY(-95px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) translateY(-95px) scale(5);
 				}
@@ -88,6 +93,7 @@ dialing-status {
 				&.starting {
 					transform: translateX(-582px) translateY(-190px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) translateY(-190px) scale(5);
 				}
@@ -96,6 +102,7 @@ dialing-status {
 				&.starting {
 					transform: translateX(-582px) translateY(-285px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) translateY(-285px) scale(5);
 				}
@@ -104,6 +111,7 @@ dialing-status {
 				&.starting {
 					transform: translateX(-582px) translateY(-380px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) translateY(-380px) scale(5);
 				}
@@ -112,6 +120,7 @@ dialing-status {
 				&.starting {
 					transform: translateX(-582px) translateY(-475px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) translateY(-475px) scale(5);
 				}
@@ -120,6 +129,7 @@ dialing-status {
 				&.starting {
 					transform: translateX(-582px) translateY(-570px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) translateY(-570px) scale(5);
 				}
@@ -128,6 +138,7 @@ dialing-status {
 				&.starting {
 					transform: translateX(-582px) translateY(-665px) scale(0);
 				}
+
 				&.engaged {
 					transform: translateX(-582px) translateY(250px) translateY(-665px) scale(5);
 				}
@@ -135,12 +146,14 @@ dialing-status {
 		}
 	}
 }
+
 .chevron-boxes {
 	text-align: center;
 }
+
 .sg1-symbol {
-	color: white;
-	font-family: "sg1-glyphs";
+	color: $white;
+	font-family: $glyphs-font;
 	font-size: 90px;
 	margin-top: 10px;
 }

@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "variables";
+
+@font-face {
+	font-family: "sg1-glyphs";
+	src: url("assets/fonts/sg1-glyphs.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
-	background-color: black;
+	background-color: $black;
 }

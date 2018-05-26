@@ -1,6 +1,7 @@
+@import "variables";
+
 .keyboard {
-	background-color: black;
-	border: 3px solid lightskyblue;
+	border: 3px solid $primary;
 	bottom: 0;
 	height: 450px;
 	left: 50%;
@@ -9,26 +10,30 @@
 	transform: translateX(-50%);
 	transform-origin: bottom center;
 	width: 1200px;
+
 	&.minimized {
 		transform: translateX(-50%) scale(0);
 	}
+
 	.address {
 		text-align: center;
 		height: 115px;
 		width: 100%;
+
 		.selected-glyph {
-			border: 2px solid red;
-			color: white;
+			border: 2px solid $red;
+			color: $white;
 			display: inline-block;
-			font-family: "sg1-glyphs";
+			font-family: $glyphs-font;
 			font-size: 80px;
 			height: 1em;
 			margin: 15px;
 			position: relative;
 			width: 2em;
+
 			.glyph-number {
-				background-color: red;
-				color: white;
+				background-color: $red;
+				color: $white;
 				bottom: 0;
 				font-family: sans-serif;
 				font-size: 20px;
@@ -38,17 +43,20 @@
 			}
 		}
 	}
+
 	.key {
-		border: 1px solid lightskyblue;
-		color: white;
+		border: 1px solid $primary;
+		color: $white;
 		cursor: pointer;
 		display: inline-block;
-		font-family: "BankGothic Md BT";
+		font-family: $interface-font;
 		font-size: 24px;
 		margin: 15px;
+
 		&:hover {
 			background: radial-gradient(at center, lightblue 0%, transparent 100%);
 		}
+
 		&.backspace {
 			bottom: 0;
 			display: block;
@@ -57,12 +65,14 @@
 			position: absolute;
 			width: 200px;
 		}
+
 		&.close {
 			display: block;
 			position: absolute;
 			right: -10px;
 			top: -10px;
 		}
+
 		&.dial {
 			bottom: 0;
 			display: block;
@@ -71,10 +81,12 @@
 			position: absolute;
 			width: 200px;
 		}
+
 		&.glyph {
-			font-family: "sg1-glyphs";
+			font-family: $glyphs-font;
 			font-size: 50px;
 			width: 1.5em;
+
 			&.selected {
 				background: radial-gradient(at center, red 0%, transparent 100%);
 			}

@@ -1,3 +1,5 @@
+@import "variables";
+
 :host {
 	position: relative;
 }
@@ -12,11 +14,13 @@
 	transform-origin: center;
 	width: 200px;
 }
+
 svg {
 	height: 650px;
 	width: 600px;
+
 	path {
-		stroke: #87cefa;
+		stroke: $primary;
 	}
 
 	.chevron-head {
@@ -25,13 +29,13 @@ svg {
 	}
 
 	.chevron-back {
-		fill: black !important;
+		fill: $black !important;
 		stroke: none !important;
 	}
 
 	.chevron-tail,
 	.chevron-tail-border {
-		fill: black !important;
+		fill: $black !important;
 		stroke-width: 3px !important;
 	}
 
@@ -45,22 +49,23 @@ svg {
 
 	.chevron-head,
 	.chevron-lines > path {
-		stroke: red !important;
+		stroke: $red !important;
 	}
 
 	.chevron-7 {
 		&.engaging-1 {
 			.chevron-tail {
-				stroke: red !important;
+				stroke: $red !important;
 				transform: translateY(20px);
 			}
+
 			.chevron-back {
 				transform: translateY(20px);
 			}
 		}
 		&.engaging-2 {
 			.chevron-head {
-				fill: red !important;
+				fill: $red !important;
 				transform: translateY(-10px);
 			}
 		}
@@ -70,16 +75,17 @@ svg {
 	.chevron-9 {
 		.chevron-head,
 		.chevron-lines > path {
-			stroke: gray !important;
+			stroke: $gray !important;
 		}
 	}
 
 	.active {
 		.chevron-head {
-			fill: red !important;
+			fill: $red !important;
 		}
+
 		.chevron-tail-border {
-			stroke: red !important;
+			stroke: $red !important;
 		}
 	}
 }
