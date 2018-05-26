@@ -1,12 +1,44 @@
 :host {
-	background-color: black;
+	align-items: center;
+	flex-direction: column;
+	display: flex;
+	justify-content: space-evenly;
 }
+
+.column-layout {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.column {
+	flex-direction: column;
+	display: flex;
+	height: 100%;
+	justify-content: space-evenly;
+
+	&.left {
+		align-items: flex-start;
+	}
+
+	&.center {
+		align-items: center;
+	}
+
+	&.right {
+		align-items: flex-end;
+	}
+}
+
 gate {
-	position: absolute;
-	top: 25%;
-	left: 50%;
-	transform: translate(-50%, -25%);
+
 }
+
+dialing-status {
+	width: 100%;
+}
+
 .chevron-box {
 	&.chevron-8 {
 		opacity: 0;
@@ -104,9 +136,6 @@ gate {
 	}
 }
 .chevron-boxes {
-	position: absolute;
-	top: 10%;
-	right: 5%;
 	text-align: center;
 }
 .sg1-symbol {

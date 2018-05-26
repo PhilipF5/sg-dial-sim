@@ -1,16 +1,24 @@
-<gate></gate>
-<div class="chevron-boxes" (click)="openKeyboard()">
-  <ng-template #chevronBox let-number>
-    <div class="chevron-box chevron-{{number}}">
-      <div class="chevron-number chevron-{{number}}">{{ number }}</div>
-      <div class="chevron-symbol-box chevron-{{number}}">
-        <div class="sg1-symbol chevron-{{number}} starting">{{ glyphs[number - 1] }}</div>
-      </div>
+<div class="column-layout">
+  <div class="left column"></div>
+  <div class="center column">
+    <gate></gate>
+    <dialing-status></dialing-status>
+  </div>
+  <div class="right column">
+    <div class="chevron-boxes" (click)="openKeyboard()">
+      <ng-template #chevronBox let-number>
+        <div class="chevron-box chevron-{{number}}">
+          <div class="chevron-number chevron-{{number}}">{{ number }}</div>
+          <div class="chevron-symbol-box chevron-{{number}}">
+            <div class="sg1-symbol chevron-{{number}} starting">{{ glyphs[number - 1] }}</div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-container *ngFor="let number of [1, 2, 3, 4, 5, 6, 7]">
+        <div *ngTemplateOutlet="chevronBox; context: { $implicit: number }"></div>
+      </ng-container>
+      <div *ngTemplateOutlet="chevronBox; context: { $implicit: 8 }"></div>
     </div>
-  </ng-template>
-  <ng-container *ngFor="let number of [1, 2, 3, 4, 5, 6, 7]">
-    <div *ngTemplateOutlet="chevronBox; context: { $implicit: number }"></div>
-  </ng-container>
-  <div *ngTemplateOutlet="chevronBox; context: { $implicit: 8 }"></div>
+  </div>
 </div>
 <keyboard (dialAddress)="keyboardStartDialingHandler($event)" (close)="keyboardCloseHandler($event)"></keyboard>

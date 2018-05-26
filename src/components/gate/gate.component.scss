@@ -1,3 +1,7 @@
+:host {
+	position: relative;
+}
+
 .flasher {
 	background: radial-gradient(circle at center, white 0%, orange 20%, red 40%, rgba(0, 0, 0, 0) 60%);
 	height: 200px;
