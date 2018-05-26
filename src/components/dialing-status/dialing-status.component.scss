@@ -1,0 +1,13 @@
+.status-box {
+	align-items: center;
+	border: 3px solid lightskyblue;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+
+	.status {
+		color: white;
+		font-family: "BankGothic Md BT";
+		font-size: 72pt;
+	}
+}
