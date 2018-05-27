@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
+import { GateComponent } from "../../../shared/components";
+import { ChevronBoxComponent } from "../../components";
 
 @Component({
 	selector: "dialing-computer",
@@ -7,18 +9,22 @@ import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 	styleUrls: ["./dialing-computer.page.scss"]
 })
 export class DialingComputerPage {
-	toolTimeline = new TimelineLite();
-	glyphs = ["B", "C", "D", "E", "F", "G", "A"];
+	public gatePosition: DOMRect;
+	public glyphs: string[] = ["B", "C", "D", "E", "F", "G", "A"];
 
-	constructor() {}
+	@ViewChildren(ChevronBoxComponent)
+	private chevronBoxes: QueryList<ChevronBoxComponent>;
+
+	@ViewChild(GateComponent, { read: ElementRef })
+	private gateElement: ElementRef;
+
+	private toolTimeline = new TimelineLite();
 
 	animateChevron(chevron: number) {
 		let chevronTimeline = new TimelineLite();
-		chevronTimeline.to(`.chevron-${chevron}.sg1-symbol`, 2, { css: { className: "+=engaged" } });
-		chevronTimeline.set(`.chevron-${chevron}.sg1-symbol`, { css: { className: "-=starting" } });
-		chevronTimeline.to(`.chevron-${chevron}.sg1-symbol`, 2, { css: { className: "-=engaged" } });
+		let chevronBox = this.chevronBoxes.find(box => box.number === chevron);
+		chevronTimeline.add(chevronBox.engageSymbol(this.gatePosition));
 		chevronTimeline.add([
-			TweenLite.to(`.chevron-${chevron}.chevron-box`, 0.5, { css: { className: "+=locked" } }),
 			TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
 			TweenLite.to(`.chevron-${chevron} > .chevron-head`, 0.5, { fill: "red" })
 		]);
@@ -98,8 +104,13 @@ export class DialingComputerPage {
 	}
 
 	runDialingSequence() {
+		this.updateGatePosition();
 		for (let i = 1; i <= 7; i++) {
 			this.toolTimeline.add(this.animateChevron(i));
 		}
+	}
+
+	private updateGatePosition(): void {
+		this.gatePosition = this.gateElement.nativeElement.getBoundingClientRect();
 	}
 }
