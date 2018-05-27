@@ -10,9 +10,13 @@
 	left: 50%;
 	position: absolute;
 	top: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%) scale(0);
 	transform-origin: center;
 	width: 200px;
+
+	&.active {
+		background: radial-gradient(circle at center, white 0%, turquoise 40%, rgba(0, 0, 0, 0) 60%);
+	}
 }
 
 svg {

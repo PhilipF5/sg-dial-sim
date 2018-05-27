@@ -6,5 +6,6 @@ import { Component, Input } from "@angular/core";
 	styleUrls: ["./dialing-status.component.scss"]
 })
 export class DialingStatusComponent {
-	@Input() status = "IDLE";
+	@Input()
+	public status: string;
 }

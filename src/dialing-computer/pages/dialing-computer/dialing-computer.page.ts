@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 import { GateComponent } from "../../../shared/components";
 import { ChevronBoxComponent } from "../../components";
@@ -11,6 +11,7 @@ import { ChevronBoxComponent } from "../../components";
 export class DialingComputerPage {
 	public gatePosition: DOMRect;
 	public glyphs: string[] = ["B", "C", "D", "E", "F", "G", "A"];
+	public status: string = "IDLE";
 
 	@ViewChildren(ChevronBoxComponent)
 	private chevronBoxes: QueryList<ChevronBoxComponent>;
@@ -19,6 +20,8 @@ export class DialingComputerPage {
 	private gateElement: ElementRef;
 
 	private toolTimeline = new TimelineLite();
+
+	constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
 	animateChevron(chevron: number) {
 		let chevronTimeline = new TimelineLite();
@@ -71,6 +74,10 @@ export class DialingComputerPage {
 				],
 				"-=0.5"
 			);
+			chevronTimeline.add(() => {
+				this.status = "ACTIVE";
+				this.changeDetectorRef.detectChanges();
+			});
 		}
 		return chevronTimeline;
 	}
@@ -91,12 +98,6 @@ export class DialingComputerPage {
 
 	public keyboardStartDialingHandler(event: string[]) {
 		this.beginDialing(event);
-	}
-
-	ngAfterViewInit() {
-		TweenMax.to(`.flasher`, 0.5, { scale: 0, ease: Power4.easeOut })
-			.repeat(-1)
-			.yoyo(true);
 	}
 
 	public openKeyboard() {
