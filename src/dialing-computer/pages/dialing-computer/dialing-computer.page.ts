@@ -32,10 +32,13 @@ export class DialingComputerPage {
 			engageSymbolTimeline,
 			() => this.ngZone.run(() => this.status = "ENGAGED")
 		]);
-		chevronTimeline.add([
-			TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
-			TweenLite.to(`.chevron-${chevron} > .chevron-head`, 0.5, { fill: "red" })
-		]);
+		chevronTimeline.add(
+			[
+				TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
+				TweenLite.to(`.chevron-${chevron} > .chevron-head`, 0.5, { fill: "red" })
+			],
+			"-=0.5"
+		);
 		let lockAnimation = chevron === 7 ? this.animateLocking(true) : this.animateLocking();
 		chevronTimeline.add(lockAnimation, 2);
 		return chevronTimeline;
