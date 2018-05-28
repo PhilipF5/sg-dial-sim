@@ -15,7 +15,7 @@ export class GateComponent {
 	private eventHorizon: ElementRef;
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.status && changes.status.previousValue !== changes.status.currentValue) {
+		if (changes.status && changes.status.previousValue !== changes.status.currentValue && !["DIALING", "ENGAGED"].includes(this.status)) {
 			this.updateFlasher();
 		}
 	}
@@ -27,6 +27,7 @@ export class GateComponent {
 		switch (this.status) {
 			case "IDLE":
 			case "DIALING":
+			case "ENGAGED":
 				TweenMax.fromTo(this.eventHorizon.nativeElement, 0.5, { scale: 0, ease: Power4.easeIn }, { scale: 1, ease: Power4.easeIn })
 					.repeat(-1)
 					.yoyo(true);
