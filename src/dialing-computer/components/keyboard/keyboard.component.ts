@@ -74,6 +74,7 @@ export class KeyboardComponent {
 	public validateAndDial() {
 		if (this.address.length === 6) {
 			this.dialAddress.emit(this.address);
+			this.close.emit();
 		}
 	}
 }

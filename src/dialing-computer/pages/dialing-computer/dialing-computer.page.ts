@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 import { GateComponent } from "../../../shared/components";
-import { ChevronBoxComponent } from "../../components";
+import { ChevronBoxComponent, KeyboardComponent } from "../../components";
 
 @Component({
 	selector: "dialing-computer",
@@ -18,6 +18,9 @@ export class DialingComputerPage {
 
 	@ViewChild(GateComponent, { read: ElementRef })
 	private gateElement: ElementRef;
+
+	@ViewChild(KeyboardComponent, { read: ElementRef })
+	private keyboard: ElementRef;
 
 	private toolTimeline = new TimelineLite();
 
@@ -89,7 +92,8 @@ export class DialingComputerPage {
 	}
 
 	public closeKeyboard() {
-		TweenMax.to(`.keyboard`, 1, { css: { className: "+=minimized" } });
+		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "+=minimized" } });
+	}
 	}
 
 	public keyboardCloseHandler() {
@@ -101,7 +105,7 @@ export class DialingComputerPage {
 	}
 
 	public openKeyboard() {
-		TweenMax.to(`.keyboard`, 1, { css: { className: "-=minimized" } });
+		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "-=minimized" } });
 	}
 
 	runDialingSequence() {

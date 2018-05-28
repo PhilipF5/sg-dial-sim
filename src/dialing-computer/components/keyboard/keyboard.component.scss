@@ -1,6 +1,6 @@
 @import "variables";
 
-.keyboard {
+:host {
 	background-color: $black;
 	border: 3px solid $primary;
 	bottom: 0;
