@@ -30,6 +30,7 @@ export class DialingComputerPage {
 		let chevronTimeline = new TimelineLite();
 		chevronTimeline.add([
 			engageSymbolTimeline,
+			() => this.ngZone.run(() => this.status = "ENGAGED")
 		]);
 		chevronTimeline.add([
 			TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
@@ -69,6 +70,7 @@ export class DialingComputerPage {
 				],
 				"+=0.5"
 			);
+			chevronTimeline.add(() => this.ngZone.run(() => this.status = "DIALING"));
 		} else {
 			chevronTimeline.add(
 				[
@@ -86,6 +88,7 @@ export class DialingComputerPage {
 	public beginDialing(address: string[]) {
 		address.push("A");
 		this.glyphs = address;
+		this.status = "DIALING";
 		this.runDialingSequence();
 	}
 
