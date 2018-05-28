@@ -1,5 +1,7 @@
-import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { Component, ElementRef, NgZone, QueryList, ViewChild, ViewChildren } from "@angular/core";
+
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
+
 import { GateComponent } from "../../../shared/components";
 import { ChevronBoxComponent, KeyboardComponent } from "../../components";
 
@@ -22,7 +24,7 @@ export class DialingComputerPage {
 
 	private toolTimeline = new TimelineLite();
 
-	constructor(private changeDetectorRef: ChangeDetectorRef) {}
+	constructor(private ngZone: NgZone) {}
 
 	animateChevron(chevron: number, engageSymbolTimeline: TimelineLite) {
 		let chevronTimeline = new TimelineLite();
@@ -76,10 +78,7 @@ export class DialingComputerPage {
 				],
 				"-=0.5"
 			);
-			chevronTimeline.add(() => {
-				this.status = "ACTIVE";
-				this.changeDetectorRef.detectChanges();
-			});
+			chevronTimeline.add(() => this.ngZone.run(() => this.status = "ACTIVE"));
 		}
 		return chevronTimeline;
 	}
