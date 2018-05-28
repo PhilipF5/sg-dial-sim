@@ -10,6 +10,9 @@
         *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8]"
         [glyph]="glyphs[number - 1]"
         [number]="number"
+        [chevronEngaged]="chevronEngaged"
+        [gatePosition]="gatePosition"
+        (engageSymbol)="engageSymbolHandler($event)"
       >
       </chevron-box>
     </div>

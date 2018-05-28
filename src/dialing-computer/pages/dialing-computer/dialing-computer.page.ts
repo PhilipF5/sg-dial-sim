@@ -9,12 +9,10 @@ import { ChevronBoxComponent, KeyboardComponent } from "../../components";
 	styleUrls: ["./dialing-computer.page.scss"]
 })
 export class DialingComputerPage {
+	public chevronEngaged: number = 0;
 	public gatePosition: DOMRect;
 	public glyphs: string[] = ["B", "C", "D", "E", "F", "G", "A"];
 	public status: string = "IDLE";
-
-	@ViewChildren(ChevronBoxComponent)
-	private chevronBoxes: QueryList<ChevronBoxComponent>;
 
 	@ViewChild(GateComponent, { read: ElementRef })
 	private gateElement: ElementRef;
@@ -26,10 +24,11 @@ export class DialingComputerPage {
 
 	constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
-	animateChevron(chevron: number) {
+	animateChevron(chevron: number, engageSymbolTimeline: TimelineLite) {
 		let chevronTimeline = new TimelineLite();
-		let chevronBox = this.chevronBoxes.find(box => box.number === chevron);
-		chevronTimeline.add(chevronBox.engageSymbol(this.gatePosition));
+		chevronTimeline.add([
+			engageSymbolTimeline,
+		]);
 		chevronTimeline.add([
 			TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
 			TweenLite.to(`.chevron-${chevron} > .chevron-head`, 0.5, { fill: "red" })
@@ -94,6 +93,9 @@ export class DialingComputerPage {
 	public closeKeyboard() {
 		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "+=minimized" } });
 	}
+
+	public engageSymbolHandler(event: { chevron: number, timeline: TimelineLite }) {
+		this.toolTimeline.add(this.animateChevron(event.chevron, event.timeline));
 	}
 
 	public keyboardCloseHandler() {
@@ -111,7 +113,9 @@ export class DialingComputerPage {
 	runDialingSequence() {
 		this.updateGatePosition();
 		for (let i = 1; i <= 7; i++) {
-			this.toolTimeline.add(this.animateChevron(i));
+			setTimeout(() => {
+				this.chevronEngaged = i;
+			}, i * 1000);
 		}
 	}
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from "@angular/core";
 
 import { TimelineLite } from "gsap";
 
@@ -8,6 +8,15 @@ import { TimelineLite } from "gsap";
 	styleUrls: ["./chevron-box.component.scss"]
 })
 export class ChevronBoxComponent {
+	@Input("chevronEngaged")
+	public chevronEngaged: number;
+
+	@Output()
+	public engageSymbol: EventEmitter<{ chevron: number, timeline: TimelineLite }> = new EventEmitter();
+
+	@Input()
+	public gatePosition: DOMRect;
+
 	@Input()
 	public glyph: string;
 
@@ -22,7 +31,16 @@ export class ChevronBoxComponent {
 	@ViewChild("symbol")
 	private symbol: ElementRef;
 
-	public engageSymbol(gatePosition: DOMRect): TimelineLite {
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.chevronEngaged && this.chevronEngaged === this.number) {
+			this.engageSymbol.emit({
+				chevron: this.number,
+				timeline: this.createSymbolTimeline(this.gatePosition)
+			});
+		}
+	}
+
+	public createSymbolTimeline(gatePosition: DOMRect): TimelineLite {
 		this.updateSymbolPosition();
 
 		let startX =
