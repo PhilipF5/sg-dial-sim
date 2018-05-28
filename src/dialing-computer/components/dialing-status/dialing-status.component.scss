@@ -11,5 +11,10 @@
 		color: $white;
 		font-family: $interface-font;
 		font-size: 72pt;
+		opacity: 0;
+
+		&.warning {
+			color: $red;
+		}
 	}
 }
