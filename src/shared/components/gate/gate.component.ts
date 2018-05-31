@@ -43,7 +43,10 @@ export class GateComponent {
 				);
 				break;
 			case "SHUTDOWN":
-				timeline.to(this.eventHorizon.nativeElement, 1, { scale: 4, opacity: 0, ease: Power4.easeIn });
+				timeline.to(this.eventHorizon.nativeElement, 2, { scale: 4, ease: Power1.easeInOut });
+				timeline.to(this.eventHorizon.nativeElement, 1, { scale: 0, ease: Power4.easeIn });
+				timeline.to(this.eventHorizon.nativeElement, 1, { scale: 5, opacity: 0 });
+				timeline.set(this.eventHorizon.nativeElement, { css: { className: "-=active" } });
 				break;
 		}
 	}

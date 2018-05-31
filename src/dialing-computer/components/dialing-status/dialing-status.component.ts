@@ -28,6 +28,9 @@ export class DialingStatusComponent {
 				case "DIALING":
 					this.hide();
 					break;
+				case "SHUTDOWN":
+					this.flashOnce();
+					break;
 			}
 		}
 	}
