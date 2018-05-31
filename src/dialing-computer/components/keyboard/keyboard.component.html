@@ -6,5 +6,10 @@
   </div>
 </div>
 <div *ngFor="let glyph of keys" class="glyph key" (click)="selectGlyph(glyph)" [ngClass]="{ 'selected': isGlyphSelected(glyph) }">{{ glyph }}</div>
-<div class="backspace key" (click)="backspace()">Backspace</div>
-<div class="dial key" (click)="validateAndDial()">Dial</div>
+<div class="left corner">
+  <div class="backspace key" (click)="backspace()">Backspace</div>
+</div>
+<div class="right corner">
+  <div class="dial key" (click)="validateAndDial()">Dial</div>
+  <div class="shutdown key" (click)="shutdown()">Shutdown</div>
+</div>

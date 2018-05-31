@@ -107,6 +107,10 @@ export class DialingComputerPage {
 		this.closeKeyboard();
 	}
 
+	public keyboardShutdownHandler() {
+		this.shutdown();
+	}
+
 	public keyboardStartDialingHandler(event: string[]) {
 		this.beginDialing(event);
 	}
@@ -122,6 +126,10 @@ export class DialingComputerPage {
 				this.chevronEngaged = i;
 			}, i * 1000);
 		}
+	}
+
+	public shutdown() {
+		this.status = "SHUTDOWN";
 	}
 
 	private updateGatePosition(): void {

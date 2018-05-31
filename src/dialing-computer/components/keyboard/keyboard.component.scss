@@ -45,6 +45,26 @@
 		}
 	}
 
+	.corner {
+		display: flex;
+		position: absolute;
+
+		&.left {
+			bottom: 0;
+			left: 0;
+		}
+
+		&.right {
+			bottom: 0;
+			right: 0;
+		}
+
+		.key {
+			font-variant: small-caps;
+			padding: 5px;
+		}
+	}
+
 	.key {
 		border: 1px solid $primary;
 		color: $white;
@@ -58,29 +78,11 @@
 			background: radial-gradient(at center, lightblue 0%, transparent 100%);
 		}
 
-		&.backspace {
-			bottom: 0;
-			display: block;
-			height: 50px;
-			left: 0;
-			position: absolute;
-			width: 200px;
-		}
-
 		&.close {
 			display: block;
 			position: absolute;
 			right: -10px;
 			top: -10px;
-		}
-
-		&.dial {
-			bottom: 0;
-			display: block;
-			height: 50px;
-			right: 0;
-			position: absolute;
-			width: 200px;
 		}
 
 		&.glyph {

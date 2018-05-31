@@ -6,8 +6,14 @@ import { Component, Output, EventEmitter } from "@angular/core";
 	styleUrls: ["./keyboard.component.scss"]
 })
 export class KeyboardComponent {
-	@Output() close: EventEmitter<void> = new EventEmitter();
-	@Output() dialAddress: EventEmitter<string[]> = new EventEmitter();
+	@Output()
+	public close: EventEmitter<void> = new EventEmitter();
+
+	@Output()
+	public dialAddress: EventEmitter<string[]> = new EventEmitter();
+
+	@Output()
+	public shutdownGate: EventEmitter<void> = new EventEmitter();
 
 	public address = [];
 	public keys = [
@@ -69,6 +75,10 @@ export class KeyboardComponent {
 		if (this.address.length < 6 && !this.isGlyphSelected(glyph)) {
 			this.address.push(glyph);
 		}
+	}
+
+	public shutdown(): void {
+		this.shutdownGate.emit();
 	}
 
 	public validateAndDial() {
