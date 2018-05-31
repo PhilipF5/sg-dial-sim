@@ -8,14 +8,18 @@
     <div class="chevron-boxes" (click)="openKeyboard()">
       <chevron-box
         *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8]"
-        [glyph]="glyphs[number - 1]"
-        [number]="number"
         [chevronEngaged]="chevronEngaged"
         [gatePosition]="gatePosition"
+        [glyph]="glyphs[number - 1]"
+        [number]="number"
         (engageSymbol)="engageSymbolHandler($event)"
-      >
-      </chevron-box>
+      ></chevron-box>
     </div>
   </div>
 </div>
-<keyboard class="minimized" (dialAddress)="keyboardStartDialingHandler($event)" (close)="keyboardCloseHandler($event)" (shutdownGate)="keyboardShutdownHandler($event)"></keyboard>
+<keyboard
+  class="minimized"
+  (close)="keyboardCloseHandler($event)"
+  (dialAddress)="keyboardStartDialingHandler($event)"
+  (shutdownGate)="keyboardShutdownHandler($event)"
+></keyboard>

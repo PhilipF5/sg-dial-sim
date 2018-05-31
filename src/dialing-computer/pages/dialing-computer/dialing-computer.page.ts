@@ -22,11 +22,46 @@ export class DialingComputerPage {
 	@ViewChild(KeyboardComponent, { read: ElementRef })
 	private keyboard: ElementRef;
 
-	private toolTimeline = new TimelineLite();
+	private sequenceTimeline = new TimelineLite();
 
 	constructor(private ngZone: NgZone) {}
 
-	animateChevron(chevron: number, engageSymbolTimeline: TimelineLite) {
+	public beginDialing(address: string[]) {
+		address.push("A");
+		this.glyphs = address;
+		this.status = "DIALING";
+		this.runDialingSequence();
+	}
+
+	public closeKeyboard() {
+		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "+=minimized" } });
+	}
+
+	public engageSymbolHandler(event: { chevron: number, timeline: TimelineLite }) {
+		this.sequenceTimeline.add(this.animateChevron(event.chevron, event.timeline));
+	}
+
+	public keyboardCloseHandler() {
+		this.closeKeyboard();
+	}
+
+	public keyboardShutdownHandler() {
+		this.shutdown();
+	}
+
+	public keyboardStartDialingHandler(event: string[]) {
+		this.beginDialing(event);
+	}
+
+	public openKeyboard() {
+		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "-=minimized" } });
+	}
+
+	public shutdown() {
+		this.status = "SHUTDOWN";
+	}
+
+	private animateChevron(chevron: number, engageSymbolTimeline: TimelineLite) {
 		let chevronTimeline = new TimelineLite();
 		chevronTimeline.add([
 			engageSymbolTimeline,
@@ -44,7 +79,7 @@ export class DialingComputerPage {
 		return chevronTimeline;
 	}
 
-	animateLocking(finish?: boolean, fail?: boolean) {
+	private animateLocking(finish?: boolean, fail?: boolean) {
 		let chevronTimeline = new TimelineLite();
 		chevronTimeline.add([
 			TweenLite.to(`.chevron-tail.chevron-7`, 0.5, { y: 20 }),
@@ -88,48 +123,13 @@ export class DialingComputerPage {
 		return chevronTimeline;
 	}
 
-	public beginDialing(address: string[]) {
-		address.push("A");
-		this.glyphs = address;
-		this.status = "DIALING";
-		this.runDialingSequence();
-	}
-
-	public closeKeyboard() {
-		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "+=minimized" } });
-	}
-
-	public engageSymbolHandler(event: { chevron: number, timeline: TimelineLite }) {
-		this.toolTimeline.add(this.animateChevron(event.chevron, event.timeline));
-	}
-
-	public keyboardCloseHandler() {
-		this.closeKeyboard();
-	}
-
-	public keyboardShutdownHandler() {
-		this.shutdown();
-	}
-
-	public keyboardStartDialingHandler(event: string[]) {
-		this.beginDialing(event);
-	}
-
-	public openKeyboard() {
-		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "-=minimized" } });
-	}
-
-	runDialingSequence() {
+	private runDialingSequence() {
 		this.updateGatePosition();
 		for (let i = 1; i <= 7; i++) {
 			setTimeout(() => {
 				this.chevronEngaged = i;
 			}, i * 1000);
 		}
-	}
-
-	public shutdown() {
-		this.status = "SHUTDOWN";
 	}
 
 	private updateGatePosition(): void {
