@@ -1,14 +1,25 @@
 <div class="close key" (click)="closeKeyboard()">X</div>
+
 <div class="address">
   <div *ngFor="let glyph of [1, 2, 3, 4, 5, 6]" class="selected-glyph">
-    {{ address[glyph - 1] || "&nbsp;" }}
+    {{ address[glyph - 1]?.char || "&nbsp;" }}
     <div class="glyph-number">{{ glyph }}</div>
   </div>
 </div>
-<div *ngFor="let glyph of keys" class="glyph key" (click)="selectGlyph(glyph)" [ngClass]="{ 'selected': isGlyphSelected(glyph) }">{{ glyph }}</div>
+
+<div
+  *ngFor="let glyph of keys"
+  class="glyph key"
+  (click)="selectGlyph(glyph)"
+  [ngClass]="{ 'selected': isGlyphSelected(glyph) }"
+>
+  {{ glyph.char }}
+</div>
+
 <div class="left corner">
   <div class="backspace key" (click)="backspace()">Backspace</div>
 </div>
+
 <div class="right corner">
   <div class="dial key" (click)="validateAndDial()">Dial</div>
   <div class="shutdown key" (click)="shutdown()">Shutdown</div>

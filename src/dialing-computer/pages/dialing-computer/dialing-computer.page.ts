@@ -3,6 +3,7 @@ import { Component, ElementRef, NgZone, QueryList, ViewChild, ViewChildren } fro
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 
 import { GateComponent } from "../../../shared/components";
+import { Glyph } from "../../../shared/models";
 import { ChevronBoxComponent, KeyboardComponent } from "../../components";
 
 @Component({
@@ -13,7 +14,7 @@ import { ChevronBoxComponent, KeyboardComponent } from "../../components";
 export class DialingComputerPage {
 	public chevronEngaged: number = 0;
 	public gatePosition: DOMRect;
-	public glyphs: string[] = ["B", "C", "D", "E", "F", "G", "A"];
+	public glyphs: Glyph[] = [];
 	public status: string = "IDLE";
 
 	@ViewChild(GateComponent, { read: ElementRef })
@@ -26,8 +27,8 @@ export class DialingComputerPage {
 
 	constructor(private ngZone: NgZone) {}
 
-	public beginDialing(address: string[]) {
-		address.push("A");
+	public beginDialing(address: Glyph[]) {
+		address.push(new Glyph({ char: "A", name: "Tau'ri"}));
 		this.glyphs = address;
 		this.status = "DIALING";
 		this.runDialingSequence();
@@ -49,7 +50,7 @@ export class DialingComputerPage {
 		this.shutdown();
 	}
 
-	public keyboardStartDialingHandler(event: string[]) {
+	public keyboardStartDialingHandler(event: Glyph[]) {
 		this.beginDialing(event);
 	}
 
