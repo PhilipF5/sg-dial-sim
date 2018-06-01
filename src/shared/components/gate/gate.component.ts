@@ -20,7 +20,7 @@ export class GateComponent {
 		}
 	}
 
-	private updateFlasher() {
+	private updateFlasher(): void {
 		TweenMax.killTweensOf(this.eventHorizon.nativeElement);
 		TweenMax.to(this.eventHorizon.nativeElement, 0.5, { scale: 0, ease: Power4.easeIn });
 		let timeline = new TimelineLite();

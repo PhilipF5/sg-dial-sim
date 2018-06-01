@@ -59,13 +59,11 @@ export class KeyboardComponent {
 		new Glyph({ char: "m", name: "Leo" })
 	];
 
-	constructor() {}
-
-	public backspace() {
+	public backspace(): void {
 		this.address.pop();
 	}
 
-	public closeKeyboard() {
+	public closeKeyboard(): void {
 		this.close.emit();
 	}
 
@@ -83,7 +81,7 @@ export class KeyboardComponent {
 		this.shutdownGate.emit();
 	}
 
-	public validateAndDial() {
+	public validateAndDial(): void {
 		if (this.address.length === 6) {
 			this.dialAddress.emit(this.address);
 			this.close.emit();

@@ -23,46 +23,46 @@ export class DialingComputerPage {
 	@ViewChild(KeyboardComponent, { read: ElementRef })
 	private keyboard: ElementRef;
 
-	private sequenceTimeline = new TimelineLite();
+	private sequenceTimeline: TimelineLite = new TimelineLite();
 
 	constructor(private ngZone: NgZone) {}
 
-	public beginDialing(address: Glyph[]) {
+	public beginDialing(address: Glyph[]): void {
 		address.push(new Glyph({ char: "A", name: "Tau'ri"}));
 		this.glyphs = address;
 		this.status = "DIALING";
 		this.runDialingSequence();
 	}
 
-	public closeKeyboard() {
+	public closeKeyboard(): void {
 		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "+=minimized" } });
 	}
 
-	public engageSymbolHandler(event: { chevron: number, timeline: TimelineLite }) {
+	public engageSymbolHandler(event: { chevron: number, timeline: TimelineLite }): void {
 		this.sequenceTimeline.add(this.animateChevron(event.chevron, event.timeline));
 	}
 
-	public keyboardCloseHandler() {
+	public keyboardCloseHandler(): void {
 		this.closeKeyboard();
 	}
 
-	public keyboardShutdownHandler() {
+	public keyboardShutdownHandler(): void {
 		this.shutdown();
 	}
 
-	public keyboardStartDialingHandler(event: Glyph[]) {
+	public keyboardStartDialingHandler(event: Glyph[]): void {
 		this.beginDialing(event);
 	}
 
-	public openKeyboard() {
+	public openKeyboard(): void {
 		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "-=minimized" } });
 	}
 
-	public shutdown() {
+	public shutdown(): void {
 		this.status = "SHUTDOWN";
 	}
 
-	private animateChevron(chevron: number, engageSymbolTimeline: TimelineLite) {
+	private animateChevron(chevron: number, engageSymbolTimeline: TimelineLite): TimelineLite {
 		let chevronTimeline = new TimelineLite();
 		chevronTimeline.add([
 			engageSymbolTimeline,
@@ -80,7 +80,7 @@ export class DialingComputerPage {
 		return chevronTimeline;
 	}
 
-	private animateLocking(finish?: boolean, fail?: boolean) {
+	private animateLocking(finish?: boolean, fail?: boolean): TimelineLite {
 		let chevronTimeline = new TimelineLite();
 		chevronTimeline.add([
 			TweenLite.to(`.chevron-tail.chevron-7`, 0.5, { y: 20 }),
@@ -124,7 +124,7 @@ export class DialingComputerPage {
 		return chevronTimeline;
 	}
 
-	private runDialingSequence() {
+	private runDialingSequence(): void {
 		this.updateGatePosition();
 		for (let i = 1; i <= 7; i++) {
 			setTimeout(() => {
