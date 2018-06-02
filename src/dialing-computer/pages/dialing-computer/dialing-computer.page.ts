@@ -3,6 +3,7 @@ import { Component, ElementRef, NgZone, QueryList, ViewChild, ViewChildren } fro
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 
 import { ChevronBoxComponent, KeyboardComponent } from "dialing-computer/components";
+import { ChevronAnimation } from "dialing-computer/models";
 import { GateComponent } from "shared/components";
 import { Glyph } from "shared/models";
 
@@ -28,7 +29,7 @@ export class DialingComputerPage {
 	constructor(private ngZone: NgZone) {}
 
 	public beginDialing(address: Glyph[]): void {
-		address.push(new Glyph({ char: "A", name: "Tau'ri"}));
+		address.push({ char: "A", name: "Tau'ri" });
 		this.glyphs = address;
 		this.status = "DIALING";
 		this.runDialingSequence();
@@ -38,7 +39,7 @@ export class DialingComputerPage {
 		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "+=minimized" } });
 	}
 
-	public engageSymbolHandler(event: { chevron: number, timeline: TimelineLite }): void {
+	public engageSymbolHandler(event: ChevronAnimation): void {
 		this.sequenceTimeline.add(this.animateChevron(event.chevron, event.timeline));
 	}
 
@@ -64,10 +65,7 @@ export class DialingComputerPage {
 
 	private animateChevron(chevron: number, engageSymbolTimeline: TimelineLite): TimelineLite {
 		let chevronTimeline = new TimelineLite();
-		chevronTimeline.add([
-			engageSymbolTimeline,
-			() => this.ngZone.run(() => this.status = "ENGAGED")
-		]);
+		chevronTimeline.add([engageSymbolTimeline, () => this.ngZone.run(() => (this.status = "ENGAGED"))]);
 		chevronTimeline.add(
 			[
 				TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
@@ -109,7 +107,7 @@ export class DialingComputerPage {
 				],
 				"+=0.5"
 			);
-			chevronTimeline.add(() => this.ngZone.run(() => this.status = "DIALING"));
+			chevronTimeline.add(() => this.ngZone.run(() => (this.status = "DIALING")));
 		} else {
 			chevronTimeline.add(
 				[
@@ -119,7 +117,7 @@ export class DialingComputerPage {
 				],
 				"-=0.5"
 			);
-			chevronTimeline.add(() => this.ngZone.run(() => this.status = "ACTIVE"));
+			chevronTimeline.add(() => this.ngZone.run(() => (this.status = "ACTIVE")));
 		}
 		return chevronTimeline;
 	}

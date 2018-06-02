@@ -1,3 +1,3 @@
-import { Glyph, IGlyph } from "./glyph";
+import { Glyph } from "./glyph.model";
 
-export { Glyph, IGlyph } from "./glyph";
+export { Glyph } from "./glyph.model";

@@ -8,55 +8,52 @@ import { Glyph } from "shared/models";
 	styleUrls: ["./keyboard.component.scss"]
 })
 export class KeyboardComponent {
-	@Output()
-	public close: EventEmitter<void> = new EventEmitter();
+	@Output() close: EventEmitter<void> = new EventEmitter();
 
-	@Output()
-	public dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
+	@Output() dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
 
-	@Output()
-	public shutdownGate: EventEmitter<void> = new EventEmitter();
+	@Output() shutdownGate: EventEmitter<void> = new EventEmitter();
 
 	public address: Glyph[] = [];
 	public keys: Glyph[] = [
-		new Glyph({ char: "B", name: "Crater" }),
-		new Glyph({ char: "C", name: "Virgo" }),
-		new Glyph({ char: "D", name: "Bootes" }),
-		new Glyph({ char: "E", name: "Centaurus" }),
-		new Glyph({ char: "F", name: "Libra" }),
-		new Glyph({ char: "G", name: "Serpens Caput" }),
-		new Glyph({ char: "H", name: "Norma" }),
-		new Glyph({ char: "I", name: "Scorpius" }),
-		new Glyph({ char: "J", name: "Corona Australis" }),
-		new Glyph({ char: "K", name: "Scutum"}),
-		new Glyph({ char: "L", name: "Sagittarius" }),
-		new Glyph({ char: "M", name: "Aquila" }),
-		new Glyph({ char: "N", name: "Microscopium" }),
-		new Glyph({ char: "O", name: "Capricornus" }),
-		new Glyph({ char: "P", name: "Piscis Austrinus" }),
-		new Glyph({ char: "Q", name: "Equuleus" }),
-		new Glyph({ char: "R", name: "Aquarius" }),
-		new Glyph({ char: "S", name: "Pegasus" }),
-		new Glyph({ char: "T", name: "Sculptor" }),
-		new Glyph({ char: "U", name: "Pisces" }),
-		new Glyph({ char: "V", name: "Andromeda" }),
-		new Glyph({ char: "W", name: "Triangulum" }),
-		new Glyph({ char: "X", name: "Aries" }),
-		new Glyph({ char: "Y", name: "Perseus" }),
-		new Glyph({ char: "Z", name: "Cetus" }),
-		new Glyph({ char: "a", name: "Taurus" }),
-		new Glyph({ char: "b", name: "Auriga" }),
-		new Glyph({ char: "c", name: "Eridanus" }),
-		new Glyph({ char: "d", name: "Orion" }),
-		new Glyph({ char: "e", name: "Canis Minor" }),
-		new Glyph({ char: "f", name: "Monoceros" }),
-		new Glyph({ char: "g", name: "Gemini" }),
-		new Glyph({ char: "h", name: "Hydra" }),
-		new Glyph({ char: "i", name: "Lynx" }),
-		new Glyph({ char: "j", name: "Cancer" }),
-		new Glyph({ char: "k", name: "Sextans" }),
-		new Glyph({ char: "l", name: "Leo Minor" }),
-		new Glyph({ char: "m", name: "Leo" })
+		{ char: "B", name: "Crater" },
+		{ char: "C", name: "Virgo" },
+		{ char: "D", name: "Bootes" },
+		{ char: "E", name: "Centaurus" },
+		{ char: "F", name: "Libra" },
+		{ char: "G", name: "Serpens Caput" },
+		{ char: "H", name: "Norma" },
+		{ char: "I", name: "Scorpius" },
+		{ char: "J", name: "Corona Australis" },
+		{ char: "K", name: "Scutum" },
+		{ char: "L", name: "Sagittarius" },
+		{ char: "M", name: "Aquila" },
+		{ char: "N", name: "Microscopium" },
+		{ char: "O", name: "Capricornus" },
+		{ char: "P", name: "Piscis Austrinus" },
+		{ char: "Q", name: "Equuleus" },
+		{ char: "R", name: "Aquarius" },
+		{ char: "S", name: "Pegasus" },
+		{ char: "T", name: "Sculptor" },
+		{ char: "U", name: "Pisces" },
+		{ char: "V", name: "Andromeda" },
+		{ char: "W", name: "Triangulum" },
+		{ char: "X", name: "Aries" },
+		{ char: "Y", name: "Perseus" },
+		{ char: "Z", name: "Cetus" },
+		{ char: "a", name: "Taurus" },
+		{ char: "b", name: "Auriga" },
+		{ char: "c", name: "Eridanus" },
+		{ char: "d", name: "Orion" },
+		{ char: "e", name: "Canis Minor" },
+		{ char: "f", name: "Monoceros" },
+		{ char: "g", name: "Gemini" },
+		{ char: "h", name: "Hydra" },
+		{ char: "i", name: "Lynx" },
+		{ char: "j", name: "Cancer" },
+		{ char: "k", name: "Sextans" },
+		{ char: "l", name: "Leo Minor" },
+		{ char: "m", name: "Leo" }
 	];
 
 	public backspace(): void {

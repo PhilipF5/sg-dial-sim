@@ -2,34 +2,25 @@ import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, View
 
 import { TimelineLite } from "gsap";
 
+import { ChevronAnimation } from "dialing-computer/models";
+
 @Component({
 	selector: "chevron-box",
 	templateUrl: "./chevron-box.component.html",
 	styleUrls: ["./chevron-box.component.scss"]
 })
 export class ChevronBoxComponent {
-	@Input("chevronEngaged")
-	public chevronEngaged: number;
-
-	@Output()
-	public engageSymbol: EventEmitter<{ chevron: number, timeline: TimelineLite }> = new EventEmitter();
-
-	@Input()
-	public gatePosition: DOMRect;
-
-	@Input()
-	public glyph: string;
-
-	@Input()
-	public number: number;
+	@Input() chevronEngaged: number;
+	@Output() engageSymbol: EventEmitter<ChevronAnimation> = new EventEmitter();
+	@Input() gatePosition: DOMRect;
+	@Input() glyph: string;
+	@Input() number: number;
 
 	@ViewChild("chevronBox", { read: ElementRef })
 	private chevronBox: ElementRef;
 
 	private position: DOMRect;
-
-	@ViewChild("symbol")
-	private symbol: ElementRef;
+	@ViewChild("symbol") private symbol: ElementRef;
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.chevronEngaged && this.chevronEngaged === this.number) {
@@ -43,13 +34,9 @@ export class ChevronBoxComponent {
 	public createSymbolTimeline(gatePosition: DOMRect): TimelineLite {
 		this.updateSymbolPosition();
 
-		let startX =
-			gatePosition.x + (gatePosition.width / 2) -
-			this.position.x - (this.position.width / 2);
+		let startX = gatePosition.x + gatePosition.width / 2 - this.position.x - this.position.width / 2;
 		let startY = gatePosition.y - this.position.y + 50;
-		let centerY =
-			gatePosition.y + (gatePosition.height / 2) -
-			this.position.y - (this.position.height / 2);
+		let centerY = gatePosition.y + gatePosition.height / 2 - this.position.y - this.position.height / 2;
 
 		let timeline = new TimelineLite();
 		timeline.set(this.symbol.nativeElement, { x: startX, y: startY, scale: 0 });

@@ -8,11 +8,9 @@ import { TimelineLite, TweenMax } from "gsap";
 	styleUrls: ["./dialing-status.component.scss"]
 })
 export class DialingStatusComponent {
-	@Input()
-	public status: string;
+	@Input() status: string;
 
-	@ViewChild("statusText")
-	private statusText: ElementRef;
+	@ViewChild("statusText") private statusText: ElementRef;
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.status && changes.status.previousValue !== changes.status.currentValue) {

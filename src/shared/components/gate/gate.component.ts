@@ -8,14 +8,17 @@ import { Elastic, Power1, Power4, TimelineLite, TweenMax } from "gsap";
 	styleUrls: ["./gate.component.scss"]
 })
 export class GateComponent {
-	@Input()
-	public status: string;
+	@Input() status: string;
 
 	@ViewChild("eventHorizon", { read: ElementRef })
 	private eventHorizon: ElementRef;
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.status && changes.status.previousValue !== changes.status.currentValue && !["DIALING", "ENGAGED"].includes(this.status)) {
+		if (
+			changes.status &&
+			changes.status.previousValue !== changes.status.currentValue &&
+			!["DIALING", "ENGAGED"].includes(this.status)
+		) {
 			this.updateFlasher();
 		}
 	}
@@ -28,7 +31,12 @@ export class GateComponent {
 			case "IDLE":
 			case "DIALING":
 			case "ENGAGED":
-				TweenMax.fromTo(this.eventHorizon.nativeElement, 0.5, { scale: 0, ease: Power4.easeIn }, { scale: 1, ease: Power4.easeIn })
+				TweenMax.fromTo(
+					this.eventHorizon.nativeElement,
+					0.5,
+					{ scale: 0, ease: Power4.easeIn },
+					{ scale: 1, ease: Power4.easeIn }
+				)
 					.repeat(-1)
 					.yoyo(true);
 				break;
@@ -37,9 +45,10 @@ export class GateComponent {
 				timeline.set(this.eventHorizon.nativeElement, { css: { className: "+=active" } });
 				timeline.to(this.eventHorizon.nativeElement, 1, { scale: 4, ease: Power1.easeInOut });
 				timeline.to(this.eventHorizon.nativeElement, 2.5, { scale: 3, ease: Elastic.easeInOut });
-				timeline.add(TweenMax.to(this.eventHorizon.nativeElement, 1, { scale: 2.75, ease: Power1.easeInOut })
-					.repeat(-1)
-					.yoyo(true)
+				timeline.add(
+					TweenMax.to(this.eventHorizon.nativeElement, 1, { scale: 2.75, ease: Power1.easeInOut })
+						.repeat(-1)
+						.yoyo(true)
 				);
 				break;
 			case "SHUTDOWN":
