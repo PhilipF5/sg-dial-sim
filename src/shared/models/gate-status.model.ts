@@ -1,0 +1,8 @@
+export enum GateStatus {
+	Idle = "IDLE",
+	Dialing = "DIALING",
+	Engaged = "ENGAGED",
+	Active = "ACTIVE",
+	Shutdown = "SHUTDOWN",
+	Incoming = "INCOMING"
+}

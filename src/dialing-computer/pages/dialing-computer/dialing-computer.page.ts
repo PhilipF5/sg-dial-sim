@@ -5,7 +5,8 @@ import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 import { ChevronBoxComponent, KeyboardComponent } from "dialing-computer/components";
 import { ChevronAnimation } from "dialing-computer/models";
 import { GateComponent } from "shared/components";
-import { Glyph } from "shared/models";
+import { GateStatus, Glyph } from "shared/models";
+import { GateStatusService } from "shared/services";
 
 @Component({
 	selector: "dialing-computer",
@@ -16,7 +17,7 @@ export class DialingComputerPage {
 	public chevronEngaged: number = 0;
 	public gatePosition: DOMRect;
 	public glyphs: Glyph[] = [];
-	public status: string = "IDLE";
+	public status: GateStatus;
 
 	@ViewChild(GateComponent, { read: ElementRef })
 	private gateElement: ElementRef;
@@ -26,12 +27,12 @@ export class DialingComputerPage {
 
 	private sequenceTimeline: TimelineLite = new TimelineLite();
 
-	constructor(private ngZone: NgZone) {}
+	constructor(private gateStatus: GateStatusService, private ngZone: NgZone) {}
 
 	public beginDialing(address: Glyph[]): void {
 		address.push({ char: "A", name: "Tau'ri" });
 		this.glyphs = address;
-		this.status = "DIALING";
+		this.gateStatus.dialing();
 		this.runDialingSequence();
 	}
 
@@ -60,12 +61,12 @@ export class DialingComputerPage {
 	}
 
 	public shutdown(): void {
-		this.status = "SHUTDOWN";
+		this.gateStatus.shutdown();
 	}
 
 	private animateChevron(chevron: number, engageSymbolTimeline: TimelineLite): TimelineLite {
 		let chevronTimeline = new TimelineLite();
-		chevronTimeline.add([engageSymbolTimeline, () => this.ngZone.run(() => (this.status = "ENGAGED"))]);
+		chevronTimeline.add([engageSymbolTimeline, () => this.ngZone.run(() => (this.gateStatus.engaged()))]);
 		chevronTimeline.add(
 			[
 				TweenLite.to(`.chevron-${chevron} > .chevron-tail`, 0.5, { stroke: "red" }),
@@ -107,7 +108,7 @@ export class DialingComputerPage {
 				],
 				"+=0.5"
 			);
-			chevronTimeline.add(() => this.ngZone.run(() => (this.status = "DIALING")));
+			chevronTimeline.add(() => this.ngZone.run(() => (this.gateStatus.dialing())));
 		} else {
 			chevronTimeline.add(
 				[
@@ -117,7 +118,7 @@ export class DialingComputerPage {
 				],
 				"-=0.5"
 			);
-			chevronTimeline.add(() => this.ngZone.run(() => (this.status = "ACTIVE")));
+			chevronTimeline.add(() => this.ngZone.run(() => (this.gateStatus.active())));
 		}
 		return chevronTimeline;
 	}

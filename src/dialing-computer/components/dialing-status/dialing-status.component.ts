@@ -2,35 +2,26 @@ import { Component, ElementRef, Input, SimpleChanges, ViewChild } from "@angular
 
 import { TimelineLite, TweenMax } from "gsap";
 
+import { GateStatus } from "shared/models";
+import { GateStatusService } from "shared/services";
+
 @Component({
 	selector: "dialing-status",
 	templateUrl: "./dialing-status.component.html",
 	styleUrls: ["./dialing-status.component.scss"]
 })
 export class DialingStatusComponent {
-	@Input() status: string;
+	public status: GateStatus;
 
 	@ViewChild("statusText") private statusText: ElementRef;
 
-	ngOnChanges(changes: SimpleChanges) {
-		if (changes.status && changes.status.previousValue !== changes.status.currentValue) {
-			this.killAnimation();
-			switch (this.status) {
-				case "IDLE":
-				case "ACTIVE":
-					this.flashNormal();
-					break;
-				case "ENGAGED":
-					this.flashOnce();
-					break;
-				case "DIALING":
-					this.hide();
-					break;
-				case "SHUTDOWN":
-					this.flashOnce();
-					break;
-			}
-		}
+	constructor(private gateStatus: GateStatusService) {}
+
+	ngOnInit() {
+		this.gateStatus.subscribe(status => {
+			this.status = status;
+			this.updateAnimation(status);
+		});
 	}
 
 	private flashNormal(): TweenMax {
@@ -59,5 +50,24 @@ export class DialingStatusComponent {
 
 	private killAnimation(): void {
 		TweenMax.killTweensOf(this.statusText.nativeElement);
+	}
+
+	private updateAnimation(status: GateStatus): void {
+		this.killAnimation();
+		switch (status) {
+			case GateStatus.Idle:
+			case GateStatus.Active:
+				this.flashNormal();
+				break;
+			case GateStatus.Engaged:
+				this.flashOnce();
+				break;
+			case GateStatus.Dialing:
+				this.hide();
+				break;
+			case GateStatus.Shutdown:
+				this.flashOnce();
+				break;
+		}
 	}
 }
