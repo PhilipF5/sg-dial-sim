@@ -1,0 +1,11 @@
+:host {
+	background: radial-gradient(circle at center, white 0%, orange 20%, red 40%, rgba(0, 0, 0, 0) 60%);
+	height: 200px;
+	transform: translate(-50%, -50%) scale(0);
+	transform-origin: center;
+	width: 200px;
+
+	&.active {
+		background: radial-gradient(circle at center, white 0%, turquoise 40%, rgba(0, 0, 0, 0) 60%);
+	}
+}
