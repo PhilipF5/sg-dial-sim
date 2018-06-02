@@ -2,9 +2,9 @@ import { Component, ElementRef, NgZone, QueryList, ViewChild, ViewChildren } fro
 
 import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 
-import { GateComponent } from "../../../shared/components";
-import { Glyph } from "../../../shared/models";
-import { ChevronBoxComponent, KeyboardComponent } from "../../components";
+import { ChevronBoxComponent, KeyboardComponent } from "dialing-computer/components";
+import { GateComponent } from "shared/components";
+import { Glyph } from "shared/models";
 
 @Component({
 	selector: "dialing-computer",

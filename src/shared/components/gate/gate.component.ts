@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, SimpleChanges } from "@angular/core";
+import { Component, ElementRef, Input, SimpleChanges, ViewChild } from "@angular/core";
 
 import { Elastic, Power1, Power4, TimelineLite, TweenMax } from "gsap";
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 
-import { Glyph } from "../../../shared/models";
+import { Glyph } from "shared/models";
 
 @Component({
 	selector: "keyboard",
