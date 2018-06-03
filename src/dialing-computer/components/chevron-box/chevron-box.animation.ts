@@ -11,6 +11,12 @@ export interface ChevronBoxAnimationConfig {
 }
 
 export class ChevronBoxAnimations {
+	public static clearSymbol(box: ElementRef, symbol: ElementRef): TimelineLite {
+		return new TimelineLite()
+			.set(symbol.nativeElement, { css: { className: "-=active" } })
+			.set(box.nativeElement, { css: { className: "-=locked" } });
+	}
+
 	public static flashOnActivate(box: ElementRef): TimelineLite {
 		return new TimelineLite().add(
 			TweenMax.to(box.nativeElement.querySelector(".chevron-symbol-box"), 0.15, { backgroundColor: "#add8e6" })

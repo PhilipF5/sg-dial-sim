@@ -12,11 +12,12 @@ export class EventHorizonAnimations {
 	}
 
 	public static inactiveFlasher(elem: ElementRef): TimelineLite {
-		return new TimelineLite().add(
+		return new TimelineLite().add([
 			TweenMax.fromTo(elem.nativeElement, 0.5, { scale: 0, ease: Power4.easeIn }, { scale: 1, ease: Power4.easeIn })
 				.repeat(-1)
-				.yoyo(true)
-		);
+				.yoyo(true),
+			TweenMax.set(elem.nativeElement, { opacity: 1 })
+		]);
 	}
 
 	public static gateOpen(elem: ElementRef): TimelineLite {

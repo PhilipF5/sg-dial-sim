@@ -4,7 +4,7 @@ import { Power4, TimelineLite, TweenLite, TweenMax } from "gsap";
 import { BehaviorSubject } from "rxjs";
 
 import { KeyboardComponent } from "dialing-computer/components";
-import { DialingService } from "dialing-computer/services";
+import { GateControlService } from "dialing-computer/services";
 import { GateComponent } from "shared/components";
 import { GateStatus, Glyph } from "shared/models";
 import { GateStatusService } from "shared/services";
@@ -27,7 +27,7 @@ export class DialingComputerPage {
 
 	private sequenceTimeline: TimelineLite = new TimelineLite();
 
-	constructor(private dialing: DialingService, private gateStatus: GateStatusService, private ngZone: NgZone) {}
+	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService, private ngZone: NgZone) {}
 
 	public beginDialing(address: Glyph[]): void {
 		address.push({ char: "A", name: "Tau'ri" });
@@ -57,13 +57,13 @@ export class DialingComputerPage {
 	}
 
 	public shutdown(): void {
-		this.gateStatus.shutdown();
+		this.gateControl.shutdown();
 	}
 
 	private runDialingSequence(): void {
 		this.updateGatePosition();
-		this.dialing.loadAddress(this.glyphs);
-		this.dialing.dial();
+		this.gateControl.loadAddress(this.glyphs);
+		this.gateControl.dial();
 	}
 
 	private updateGatePosition(): void {

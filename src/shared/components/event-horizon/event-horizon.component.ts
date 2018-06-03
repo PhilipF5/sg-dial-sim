@@ -1,4 +1,4 @@
-import { Component, ElementRef } from "@angular/core";
+import { Component, ElementRef, NgZone } from "@angular/core";
 
 import { TimelineLite, TweenMax } from "gsap";
 
@@ -14,7 +14,7 @@ import { GateStatusService } from "shared/services";
 export class EventHorizonComponent {
 	private readonly ignoredStatuses = [GateStatus.Dialing, GateStatus.Engaged];
 
-	constructor(private elem: ElementRef, private gateStatus: GateStatusService) {}
+	constructor(private elem: ElementRef, private gateStatus: GateStatusService, private ngZone: NgZone) {}
 
 	ngOnInit() {
 		this.gateStatus.subscribe(status => {
@@ -32,7 +32,9 @@ export class EventHorizonComponent {
 			case GateStatus.Active:
 				return EventHorizonAnimations.gateOpen(this.elem);
 			case GateStatus.Shutdown:
-				return EventHorizonAnimations.shutdown(this.elem);
+				return new TimelineLite()
+					.add(EventHorizonAnimations.shutdown(this.elem))
+					.add(() => this.ngZone.run(() => this.gateStatus.idle()), "+=1");
 		}
 	}
 }

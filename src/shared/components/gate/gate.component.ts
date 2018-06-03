@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, QueryList, ViewChildren } from "@angular/
 
 import { Elastic, Power1, Power4, TimelineLite, TweenMax } from "gsap";
 
-import { DialingService } from "dialing-computer/services";
+import { GateControlService } from "dialing-computer/services";
 import { ChevronDirective } from "shared/directives";
 import { GateStatus } from "shared/models";
 import { GateStatusService } from "shared/services";
@@ -15,18 +15,31 @@ import { GateStatusService } from "shared/services";
 export class GateComponent {
 	@ViewChildren(ChevronDirective) private chevrons: QueryList<ChevronDirective>;
 
-	constructor(private dialing: DialingService, private gateStatus: GateStatusService) {}
+	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
+
+	ngAfterViewInit() {
+		this.gateStatus.subscribe(status => {
+			if (status === GateStatus.Idle) {
+				for (let chevron of this.chevrons.filter(c => c.enabled)) {
+					chevron.inactivate();
+				}
+			}
+		});
+	}
 
 	ngOnInit() {
-		this.gateStatus.subscribe(status => {});
-		this.dialing.activations$.subscribe(a => {
+		this.gateControl.activations$.subscribe(a => {
 			a.chevronTimeline = this.engageChevron(a.chevron);
-			this.dialing.chevronAnimReady$.next(a.chevron);
+			this.gateControl.chevronAnimReady$.next(a.chevron);
 		});
 	}
 
 	public chevron(index: number): ChevronDirective {
 		return this.chevrons.find(c => c.chevron === index);
+	}
+
+	private disengageChevron(chevron: number): TimelineLite {
+		return new TimelineLite().add(this.chevron(chevron).inactivate());
 	}
 
 	private engageChevron(chevron: number): TimelineLite {

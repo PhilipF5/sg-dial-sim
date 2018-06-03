@@ -8,6 +8,7 @@ import { Time } from "@angular/common";
 @Directive({ selector: "[chevron]" })
 export class ChevronDirective {
 	@Input() chevron: number;
+	public enabled: boolean;
 
 	private parts: ChevronParts;
 
@@ -21,6 +22,10 @@ export class ChevronDirective {
 			tail: elem.querySelector(".chevron-tail"),
 			tailBorder: elem.querySelector(".chevron-tail-border")
 		};
+	}
+
+	ngOnInit() {
+		this.enabled = this.chevron <= 7;
 	}
 
 	public activate(): TimelineLite {

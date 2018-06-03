@@ -4,8 +4,9 @@ import { TimelineLite } from "gsap";
 import { BehaviorSubject } from "rxjs";
 import { filter, take } from "rxjs/operators";
 
-import { DialingService } from "dialing-computer/services";
-import { Glyph } from "shared/models";
+import { GateControlService } from "dialing-computer/services";
+import { GateStatus, Glyph } from "shared/models";
+import { GateStatusService } from "shared/services";
 import { ChevronBoxAnimations } from "./chevron-box.animation";
 
 @Component({
@@ -24,22 +25,33 @@ export class ChevronBoxComponent {
 	private position: DOMRect;
 	@ViewChild("symbol") private symbol: ElementRef;
 
-	constructor(private dialing: DialingService) {}
+	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
 
 	ngOnInit() {
-		this.dialing.activations$.pipe(filter(a => a.chevron === this.number)).subscribe(a => {
+		this.gateControl.activations$.pipe(filter(a => a.chevron === this.number)).subscribe(a => {
 			this.glyph = a.glyph;
 			this.gatePosition$.pipe(filter(pos => !!pos), take(1)).subscribe(pos => {
 				a.symbolTimeline = this.lockSymbolSuccess(pos);
-				this.dialing.symbolAnimReady$.next(this.number);
+				this.gateControl.symbolAnimReady$.next(this.number);
 			});
 		});
 
-		this.dialing.result$.subscribe(res => {
+		this.gateControl.result$.subscribe(res => {
 			if (res.success) {
 				ChevronBoxAnimations.flashOnActivate(this.chevronBox);
 			}
 		});
+
+		this.gateStatus.subscribe(status => {
+			if (status === GateStatus.Idle) {
+				this.clearSymbol();
+			}
+		});
+	}
+
+	public clearSymbol(): void {
+		ChevronBoxAnimations.clearSymbol(this.chevronBox, this.symbol);
+		this.glyph = undefined;
 	}
 
 	public lockSymbolSuccess(gatePosition: DOMRect): TimelineLite {

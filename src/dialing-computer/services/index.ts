@@ -1,5 +1,5 @@
-import { DialingService } from "./dialing.service";
+import { GateControlService } from "./gate-control.service";
 
-export { DialingService } from "./dialing.service";
+export { GateControlService } from "./gate-control.service";
 
-export const SERVICES = [DialingService];
+export const SERVICES = [GateControlService];

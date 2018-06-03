@@ -9,7 +9,7 @@ import { GateStatus, Glyph } from "shared/models";
 import { GateStatusService } from "shared/services";
 
 @Injectable()
-export class DialingService {
+export class GateControlService {
 	public activations$: Subject<ChevronActivation> = new Subject();
 	public chevronAnimReady$: Subject<number> = new Subject();
 	public result$: Subject<DialingResult> = new Subject();
@@ -27,14 +27,17 @@ export class DialingService {
 				[this.activationQueue[chevron - 1].chevronTimeline, () => this.ngZone.run(() => this.gateStatus.engaged())],
 				`chevron${chevron}`
 			);
+
 			if (chevron === 7) {
 				timeline.add(() => this.ngZone.run(() => this.result$.next({ success: true })), "+=1");
-				timeline.add(() => this.ngZone.run(() => this.gateStatus.active()));
+				timeline.add(() => this.ngZone.run(() => this.gateStatus.active()), "+=2");
 			}
 		});
+
 		this.symbolAnimReady$.pipe(takeWhile(chevron => chevron <= this.activationQueue.length)).subscribe(chevron => {
 			timeline.add(this.activationQueue[chevron - 1].symbolTimeline, `chevron${chevron}`);
 		});
+
 		for (let activation of this.activationQueue) {
 			this.activations$.next(activation);
 		}
@@ -51,5 +54,11 @@ export class DialingService {
 				glyph: glyph
 			});
 		}
+	}
+
+	public shutdown(): void {
+		this.gateStatus.shutdown();
+		this.chevronAnimReady$ = new Subject();
+		this.symbolAnimReady$ = new Subject();
 	}
 }

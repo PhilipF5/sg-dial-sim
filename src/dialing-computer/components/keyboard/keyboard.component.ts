@@ -60,6 +60,10 @@ export class KeyboardComponent {
 		this.address.pop();
 	}
 
+	public clearAddress(): void {
+		this.address = [];
+	}
+
 	public closeKeyboard(): void {
 		this.close.emit();
 	}
@@ -76,6 +80,8 @@ export class KeyboardComponent {
 
 	public shutdown(): void {
 		this.shutdownGate.emit();
+		this.close.emit();
+		this.clearAddress();
 	}
 
 	public validateAndDial(): void {
