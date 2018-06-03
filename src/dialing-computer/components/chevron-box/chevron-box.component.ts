@@ -1,9 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from "@angular/core";
 
 import { TimelineLite } from "gsap";
+import { BehaviorSubject } from "rxjs";
+import { filter, take } from "rxjs/operators";
 
-import { ChevronAnimation } from "dialing-computer/models";
-import { anim_lockSymbolSuccess } from "./chevron-box.animation";
+import { DialingService } from "dialing-computer/services";
+import { Glyph } from "shared/models";
+import { ChevronBoxAnimations } from "./chevron-box.animation";
 
 @Component({
 	selector: "chevron-box",
@@ -11,10 +14,8 @@ import { anim_lockSymbolSuccess } from "./chevron-box.animation";
 	styleUrls: ["./chevron-box.component.scss"]
 })
 export class ChevronBoxComponent {
-	@Input() chevronEngaged: number;
-	@Output() engageSymbol: EventEmitter<ChevronAnimation> = new EventEmitter();
-	@Input() gatePosition: DOMRect;
-	@Input() glyph: string;
+	@Input("gatePosition") gatePosition$: BehaviorSubject<DOMRect>;
+	public glyph: Glyph;
 	@Input() number: number;
 
 	@ViewChild("chevronBox", { read: ElementRef })
@@ -23,13 +24,22 @@ export class ChevronBoxComponent {
 	private position: DOMRect;
 	@ViewChild("symbol") private symbol: ElementRef;
 
-	ngOnChanges(changes: SimpleChanges) {
-		if (changes.chevronEngaged && this.chevronEngaged === this.number) {
-			this.engageSymbol.emit({
-				chevron: this.number,
-				timeline: this.lockSymbolSuccess(this.gatePosition)
+	constructor(private dialing: DialingService) {}
+
+	ngOnInit() {
+		this.dialing.activations$.pipe(filter(a => a.chevron === this.number)).subscribe(a => {
+			this.glyph = a.glyph;
+			this.gatePosition$.pipe(filter(pos => !!pos), take(1)).subscribe(pos => {
+				a.symbolTimeline = this.lockSymbolSuccess(pos);
+				this.dialing.symbolAnimReady$.next(this.number);
 			});
-		}
+		});
+
+		this.dialing.result$.subscribe(res => {
+			if (res.success) {
+				ChevronBoxAnimations.flashOnActivate(this.chevronBox);
+			}
+		});
 	}
 
 	public lockSymbolSuccess(gatePosition: DOMRect): TimelineLite {
@@ -39,7 +49,7 @@ export class ChevronBoxComponent {
 		let startY = gatePosition.y - this.position.y + 50;
 		let centerY = gatePosition.y + gatePosition.height / 2 - this.position.y - this.position.height / 2;
 
-		return anim_lockSymbolSuccess({
+		return ChevronBoxAnimations.lockSymbolSuccess({
 			chevronBox: this.chevronBox,
 			centerY: centerY,
 			startX: startX,

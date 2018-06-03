@@ -2,9 +2,9 @@ import { Component, ElementRef } from "@angular/core";
 
 import { TimelineLite, TweenMax } from "gsap";
 
+import { EventHorizonAnimations } from "shared/animations";
 import { GateStatus } from "shared/models";
 import { GateStatusService } from "shared/services";
-import { EventHorizonAnimations } from "./event-horizon.animation";
 
 @Component({
 	selector: "event-horizon",
@@ -28,11 +28,11 @@ export class EventHorizonComponent {
 		TweenMax.killTweensOf(this.elem);
 		switch (status) {
 			case GateStatus.Idle:
-				return EventHorizonAnimations.anim_inactiveFlasher(this.elem);
+				return EventHorizonAnimations.inactiveFlasher(this.elem);
 			case GateStatus.Active:
-				return EventHorizonAnimations.anim_gateOpen(this.elem);
+				return EventHorizonAnimations.gateOpen(this.elem);
 			case GateStatus.Shutdown:
-				return EventHorizonAnimations.anim_shutdown(this.elem);
+				return EventHorizonAnimations.shutdown(this.elem);
 		}
 	}
 }

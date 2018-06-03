@@ -1,3 +1,5 @@
-import { ChevronAnimation } from "./chevron-animation.model";
+import { ChevronActivation } from "./chevron-activation.model";
+import { DialingResult } from "./dialing-result.model";
 
-export { ChevronAnimation } from "./chevron-animation.model";
+export { ChevronActivation } from "./chevron-activation.model";
+export { DialingResult } from "./dialing-result.model";
