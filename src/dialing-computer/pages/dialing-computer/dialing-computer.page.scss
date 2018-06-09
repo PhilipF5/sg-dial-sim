@@ -4,7 +4,8 @@
 	align-items: center;
 	flex-direction: column;
 	display: flex;
-	justify-content: space-evenly;
+	height: 100%;
+	justify-content: space-between;
 }
 
 .column-layout {
@@ -31,6 +32,10 @@
 	&.right {
 		align-items: flex-end;
 	}
+}
+
+.chevron-boxes {
+	max-height: 750px;
 }
 
 dialing-status {
