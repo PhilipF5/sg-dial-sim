@@ -5,7 +5,9 @@
     <dialing-status></dialing-status>
   </div>
   <div class="right column">
-    <div class="chevron-boxes" (click)="openKeyboard()">
+    <segment-display [align]="'right'" [border]="'top'" [size]="8"></segment-display>
+    <div class="label">Destination</div>
+    <div class="chevron-boxes">
       <chevron-box
         *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8]"
         [gatePosition]="gatePosition$"
