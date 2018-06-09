@@ -1,0 +1,30 @@
+@import "variables";
+
+.char-box {
+	border-left: 1px solid $primary;
+	color: $primary;
+	display: inline-block;
+	font-family: $interface-font;
+	font-size: 16pt;
+	height: 30px;
+	margin: 0;
+	text-align: center;
+	width: 25px;
+
+	&:last-of-type {
+		border-right: 1px solid $primary;
+	}
+
+	&.top {
+		border-top: 1px solid $primary;
+	}
+
+	&.bottom {
+		border-bottom: 1px solid $primary;
+	}
+
+	&.both {
+		border-bottom: 1px solid $primary;
+		border-top: 1px solid $primary;
+	}
+}
