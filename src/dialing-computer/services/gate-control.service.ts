@@ -23,9 +23,13 @@ export class GateControlService {
 		let timeline = new TimelineLite();
 
 		this.chevronAnimReady$.pipe(takeWhile(chevron => chevron <= this.activationQueue.length)).subscribe(chevron => {
-			timeline.add(
-				[this.activationQueue[chevron - 1].chevronTimeline, () => this.ngZone.run(() => this.gateStatus.engaged())],
-				`chevron${chevron}`
+			let chevronTimeline = this.activationQueue[chevron - 1].chevronTimeline
+
+			timeline.add(chevronTimeline, `chevron${chevron}`);
+
+			timeline.addLabel(
+				`chevron${chevron}Start`,
+				chevronTimeline.startTime() + chevronTimeline.getLabelTime("chevronStart")
 			);
 
 			if (chevron === 7) {
@@ -35,7 +39,10 @@ export class GateControlService {
 		});
 
 		this.symbolAnimReady$.pipe(takeWhile(chevron => chevron <= this.activationQueue.length)).subscribe(chevron => {
-			timeline.add(this.activationQueue[chevron - 1].symbolTimeline, `chevron${chevron}`);
+			timeline.add(
+				[this.activationQueue[chevron - 1].symbolTimeline, () => this.ngZone.run(() => this.gateStatus.engaged())],
+				`chevron${chevron}Start`
+			);
 		});
 
 		for (let activation of this.activationQueue) {

@@ -1,6 +1,6 @@
 import { ElementRef } from "@angular/core";
 
-import { TimelineLite, TweenLite } from "gsap";
+import { Power1, Linear, TimelineLite, TweenLite } from "gsap";
 
 import { ChevronParts } from "shared/models";
 
@@ -31,5 +31,12 @@ export class GateAnimations {
 		timeline.add([TweenLite.to(parts.tailBorder, 0.5, { stroke: "red" }), TweenLite.to(parts.head, 0.5, { fill: "red" })]);
 		timeline.add(TweenLite.to([parts.tail, parts.head, parts.back], 0.5, { y: 0 }), "+=0.5");
 		return timeline;
+	}
+
+	public static spinRing(ring: ElementRef, duration: number, degrees: string) {
+		return new TimelineLite()
+			.to(ring.nativeElement, 1, { rotation: degrees.substr(0, 2) + "4.61538", transformOrigin: "center center", ease: Power1.easeIn })
+			.to(ring.nativeElement, duration, { rotation: degrees, transformOrigin: "center center", ease: Linear.easeNone })
+			.to(ring.nativeElement, 1, { rotation: degrees.substr(0, 2) + "4.61538", transformOrigin: "center center", ease: Power1.easeOut });
 	}
 }
