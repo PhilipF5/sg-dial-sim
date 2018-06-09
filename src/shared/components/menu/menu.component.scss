@@ -1,0 +1,27 @@
+@import "variables";
+
+:host {
+	align-items: center;
+	border: 3px solid $primary;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding: 20px;
+}
+
+.button {
+	align-items: center;
+	border: 1px solid $primary;
+	color: $white;
+	cursor: pointer;
+	display: flex;
+	font-family: $interface-font;
+	font-size: 14pt;
+	font-variant: small-caps;
+	justify-content: center;
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+	width: 80%;
+}
