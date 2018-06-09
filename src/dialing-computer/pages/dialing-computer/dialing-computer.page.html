@@ -14,6 +14,16 @@
     </div>
   </div>
 </div>
+<div class="footer">
+  <div class="auth-code">
+    <div class="label">Auth Code</div>
+    <segment-display [text]="authCode" [border]="'bottom'"></segment-display>
+  </div>
+  <div class="action-menu" (click)="onFooterMenuClick()">
+    MENU
+    <menu #footerMenu [buttons]="footerMenuButtons"></menu>
+  </div>
+</div>
 <keyboard
   class="minimized"
   (close)="keyboardCloseHandler($event)"

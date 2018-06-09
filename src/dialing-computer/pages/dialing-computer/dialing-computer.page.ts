@@ -15,9 +15,16 @@ import { GateStatusService } from "shared/services";
 	styleUrls: ["./dialing-computer.page.scss"]
 })
 export class DialingComputerPage {
+	public authCode = "10183523652-4354393";
+	public footerMenuButtons: any = [{ text: "Keyboard", callback: () => this.openKeyboard() }];
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public glyphs: Glyph[] = [];
 	public status: GateStatus;
+
+	@ViewChild("footerMenu", { read: ElementRef })
+	private footerMenu: ElementRef;
+
+	private footerMenuIsOpen: boolean = false;
 
 	@ViewChild(GateComponent, { read: ElementRef })
 	private gateElement: ElementRef;
@@ -50,6 +57,11 @@ export class DialingComputerPage {
 
 	public keyboardStartDialingHandler(event: Glyph[]): void {
 		this.beginDialing(event);
+	}
+
+	public onFooterMenuClick(): void {
+		TweenLite.to(this.footerMenu.nativeElement, 1, { scale: +!this.footerMenuIsOpen });
+		this.footerMenuIsOpen = !this.footerMenuIsOpen;
 	}
 
 	public openKeyboard(): void {

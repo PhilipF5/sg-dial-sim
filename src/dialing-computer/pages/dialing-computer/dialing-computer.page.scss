@@ -36,3 +36,43 @@
 dialing-status {
 	width: 100%;
 }
+
+.label {
+	color: $white;
+	font-family: $interface-font;
+	font-size: 12pt;
+	font-variant: small-caps;
+}
+
+.footer {
+	align-items: flex-end;
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
+
+	.action-menu {
+		align-items: center;
+		border: 1px solid $primary;
+		color: $white;
+		cursor: pointer;
+		display: flex;
+		font-family: $interface-font;
+		font-size: 16pt;
+		justify-content: center;
+		padding: 5px;
+		position: relative;
+		text-align: center;
+		width: 75px;
+
+		menu {
+			background-color: $black;
+			bottom: 0;
+			cursor: default;
+			position: absolute;
+			left: 50%;
+			transform: scale(0);
+			transform-origin: bottom left;
+			width: 150px;
+		}
+	}
+}
