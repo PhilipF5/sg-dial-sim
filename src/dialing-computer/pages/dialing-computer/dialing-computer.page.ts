@@ -6,7 +6,7 @@ import { BehaviorSubject } from "rxjs";
 import { KeyboardComponent } from "dialing-computer/components";
 import { GateControlService } from "dialing-computer/services";
 import { GateComponent } from "shared/components";
-import { GateStatus, Glyph } from "shared/models";
+import { GateStatus, Glyph, Glyphs } from "shared/models";
 import { GateStatusService } from "shared/services";
 
 @Component({
@@ -30,7 +30,7 @@ export class DialingComputerPage {
 	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService, private ngZone: NgZone) {}
 
 	public beginDialing(address: Glyph[]): void {
-		address.push({ char: "A", name: "Tau'ri", position: 1 });
+		address.push(Glyphs.pointOfOrigin);
 		this.glyphs = address;
 		this.gateStatus.dialing();
 		this.runDialingSequence();
