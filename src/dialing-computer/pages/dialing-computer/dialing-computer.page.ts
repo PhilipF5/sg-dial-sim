@@ -30,7 +30,7 @@ export class DialingComputerPage {
 	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService, private ngZone: NgZone) {}
 
 	public beginDialing(address: Glyph[]): void {
-		address.push({ char: "A", name: "Tau'ri" });
+		address.push({ char: "A", name: "Tau'ri", position: 1 });
 		this.glyphs = address;
 		this.gateStatus.dialing();
 		this.runDialingSequence();
