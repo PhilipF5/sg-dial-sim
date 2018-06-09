@@ -21,6 +21,7 @@
 		"@angular/router": "^6.0.2",
 		"core-js": "^2.5.4",
 		"gsap": "^2.0.0",
+		"node-sass": "^4.9.0",
 		"rxjs": "^6.0.0",
 		"zone.js": "^0.8.26"
 	},
