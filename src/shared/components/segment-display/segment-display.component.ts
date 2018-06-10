@@ -3,7 +3,7 @@ import { Component, Input } from "@angular/core";
 @Component({
 	selector: "segment-display",
 	templateUrl: "./segment-display.component.html",
-	styleUrls: ["./segment-display.component.scss"]
+	styleUrls: ["./segment-display.component.scss"],
 })
 export class SegmentDisplayComponent {
 	@Input() align: string;
@@ -16,8 +16,7 @@ export class SegmentDisplayComponent {
 		if (this.size) {
 			if (this.align === "right") {
 				text = text.padStart(this.size);
-			}
-			else {
+			} else {
 				text = text.padEnd(this.size);
 			}
 		}

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { BehaviorSubject, PartialObserver, Subscription } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 
 import { GateStatus } from "shared/models";
 
@@ -34,7 +34,6 @@ export class GateStatusService {
 
 	public shutdown(): void {
 		this.update(GateStatus.Shutdown);
-		this.status$.subscribe()
 	}
 
 	public subscribe(observer: (status: GateStatus) => any): Subscription {

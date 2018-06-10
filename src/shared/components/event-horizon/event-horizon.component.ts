@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone } from "@angular/core";
+import { Component, ElementRef, NgZone, OnInit } from "@angular/core";
 
 import { TimelineLite, TweenMax } from "gsap";
 
@@ -9,12 +9,21 @@ import { AudioService, GateStatusService } from "shared/services";
 @Component({
 	selector: "event-horizon",
 	templateUrl: "./event-horizon.component.html",
-	styleUrls: ["./event-horizon.component.scss"]
+	styleUrls: ["./event-horizon.component.scss"],
 })
-export class EventHorizonComponent {
+export class EventHorizonComponent implements OnInit {
 	private readonly ignoredStatuses = [GateStatus.Dialing, GateStatus.Engaged];
 
-	constructor(private audio: AudioService, private elem: ElementRef, private gateStatus: GateStatusService, private ngZone: NgZone) {}
+	private get elem(): HTMLElement {
+		return this._elem.nativeElement;
+	}
+
+	constructor(
+		private audio: AudioService,
+		private _elem: ElementRef,
+		private gateStatus: GateStatusService,
+		private ngZone: NgZone
+	) {}
 
 	ngOnInit() {
 		this.gateStatus.subscribe(status => {
@@ -30,8 +39,7 @@ export class EventHorizonComponent {
 			case GateStatus.Idle:
 				return EventHorizonAnimations.inactiveFlasher(this.elem);
 			case GateStatus.Active:
-				return EventHorizonAnimations.gateOpen(this.elem)
-					.add(() => this.audio.startEventHorizon(), 0);
+				return EventHorizonAnimations.gateOpen(this.elem).add(() => this.audio.startEventHorizon(), 0);
 			case GateStatus.Shutdown:
 				return new TimelineLite()
 					.add(EventHorizonAnimations.shutdown(this.elem))

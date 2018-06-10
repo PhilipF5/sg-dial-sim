@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 
-import { Subject } from "rxjs";
-
 import { Sound } from "shared/models";
 
 @Injectable()
@@ -35,7 +33,7 @@ export class AudioService {
 
 		audio.onended = () => {
 			this.eventHorizonAudio.play();
-		}
+		};
 	}
 
 	public startRing(): void {

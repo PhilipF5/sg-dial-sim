@@ -1,13 +1,13 @@
-import { Directive, ElementRef, Input, ViewChild } from "@angular/core";
+import { AfterViewInit, Directive, ElementRef, Input, OnInit } from "@angular/core";
 
 import { TimelineLite } from "gsap";
 
 import { GateAnimations } from "shared/animations";
-import { ChevronPart, ChevronParts, Sound } from "shared/models";
+import { ChevronParts, Sound } from "shared/models";
 import { AudioService } from "shared/services";
 
 @Directive({ selector: "[chevron]" })
-export class ChevronDirective {
+export class ChevronDirective implements AfterViewInit, OnInit {
 	@Input() chevron: number;
 	public enabled: boolean;
 

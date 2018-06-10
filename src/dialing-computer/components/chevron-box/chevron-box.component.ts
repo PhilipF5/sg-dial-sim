@@ -1,20 +1,20 @@
-import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 
 import { TimelineLite } from "gsap";
 import { BehaviorSubject } from "rxjs";
 import { filter, take } from "rxjs/operators";
 
+import { ChevronBoxAnimations } from "dialing-computer/animations";
 import { GateControlService } from "dialing-computer/services";
 import { GateStatus, Glyph } from "shared/models";
 import { GateStatusService } from "shared/services";
-import { ChevronBoxAnimations } from "./chevron-box.animation";
 
 @Component({
 	selector: "chevron-box",
 	templateUrl: "./chevron-box.component.html",
-	styleUrls: ["./chevron-box.component.scss"]
+	styleUrls: ["./chevron-box.component.scss"],
 })
-export class ChevronBoxComponent {
+export class ChevronBoxComponent implements OnInit {
 	@Input("gatePosition") gatePosition$: BehaviorSubject<DOMRect>;
 	public glyph: Glyph;
 	@Input() number: number;
@@ -30,10 +30,15 @@ export class ChevronBoxComponent {
 	ngOnInit() {
 		this.gateControl.activations$.pipe(filter(a => a.chevron === this.number)).subscribe(a => {
 			this.glyph = a.glyph;
-			this.gatePosition$.pipe(filter(pos => !!pos), take(1)).subscribe(pos => {
-				a.symbolTimeline = this.lockSymbolSuccess(pos);
-				this.gateControl.symbolAnimReady$.next(this.number);
-			});
+			this.gatePosition$
+				.pipe(
+					filter(pos => !!pos),
+					take(1)
+				)
+				.subscribe(pos => {
+					a.symbolTimeline = this.lockSymbolSuccess(pos);
+					this.gateControl.symbolAnimReady$.next(this.number);
+				});
 		});
 
 		this.gateControl.result$.subscribe(res => {
@@ -57,16 +62,12 @@ export class ChevronBoxComponent {
 	public lockSymbolSuccess(gatePosition: DOMRect): TimelineLite {
 		this.updateSymbolPosition();
 
-		let startX = gatePosition.x + gatePosition.width / 2 - this.position.x - this.position.width / 2;
-		let startY = gatePosition.y - this.position.y + 50;
-		let centerY = gatePosition.y + gatePosition.height / 2 - this.position.y - this.position.height / 2;
-
 		return ChevronBoxAnimations.lockSymbolSuccess({
 			chevronBox: this.chevronBox,
-			centerY: centerY,
-			startX: startX,
-			startY: startY,
-			symbol: this.symbol
+			centerY: gatePosition.y + gatePosition.height / 2 - this.position.y - this.position.height / 2,
+			startX: gatePosition.x + gatePosition.width / 2 - this.position.x - this.position.width / 2,
+			startY: gatePosition.y - this.position.y + 50,
+			symbol: this.symbol,
 		});
 	}
 

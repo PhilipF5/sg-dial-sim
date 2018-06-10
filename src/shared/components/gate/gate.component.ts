@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
 
-import { Elastic, Power1, Power4, TimelineLite, TweenMax } from "gsap";
+import { TimelineLite, TweenMax } from "gsap";
 
 import { ChevronActivation } from "dialing-computer/models";
 import { GateControlService } from "dialing-computer/services";
@@ -12,28 +12,34 @@ import { AudioService, GateStatusService } from "shared/services";
 @Component({
 	selector: "gate",
 	templateUrl: "./gate.component.html",
-	styleUrls: ["./gate.component.scss"]
+	styleUrls: ["./gate.component.scss"],
 })
-export class GateComponent {
+export class GateComponent implements AfterViewInit, OnInit {
 	@ViewChildren(ChevronDirective) private chevrons: QueryList<ChevronDirective>;
 	@ViewChild("ring") private ring: ElementRef;
 	private ringPosition: number = 1;
 
-	constructor(private audio: AudioService, private gateControl: GateControlService, private gateStatus: GateStatusService) {}
+	constructor(
+		private audio: AudioService,
+		private gateControl: GateControlService,
+		private gateStatus: GateStatusService
+	) {}
 
 	ngAfterViewInit() {
 		this.gateStatus.subscribe(status => {
-			if (status === GateStatus.Aborted) {
-				this.audio.failRing().onended = () => {
-					this.gateStatus.idle();
-				}
-			}
-			if (status === GateStatus.Idle) {
-				this.resetRing();
-				this.audio.play(Sound.ChevronLock);
-				for (let chevron of this.chevrons.filter(c => c.enabled)) {
-					chevron.inactivate();
-				}
+			switch (status) {
+				case GateStatus.Aborted:
+					this.audio.failRing().onended = () => {
+						this.gateStatus.idle();
+					};
+					break;
+				case GateStatus.Idle:
+					this.resetRing();
+					this.audio.play(Sound.ChevronLock);
+					for (let chevron of this.chevrons.filter(c => c.enabled)) {
+						chevron.inactivate();
+					}
+					break;
 			}
 		});
 	}
@@ -54,10 +60,9 @@ export class GateComponent {
 	}
 
 	private engageChevron(chevron: number): TimelineLite {
-		let timeline = new TimelineLite();
-		timeline.add(this.chevron(7).lock(true, chevron === 7), "+=1");
-		timeline.add(this.chevron(chevron).activate(), "-=1");
-		return timeline;
+		return new TimelineLite()
+			.add(this.chevron(7).lock(true, chevron === 7), "+=1")
+			.add(this.chevron(chevron).activate(), "-=1");
 	}
 
 	private resetRing(): TweenMax {
@@ -83,22 +88,19 @@ export class GateComponent {
 			direction = "-=";
 			if (activation.glyph.position > startPosition) {
 				positionsToRotate = activation.glyph.position - startPosition - 1;
+			} else if (activation.glyph.position < startPosition) {
+				positionsToRotate = 39 - startPosition + activation.glyph.position;
 			}
-			else if (activation.glyph.position < startPosition) {
-				positionsToRotate = (39 - startPosition + activation.glyph.position);
-			}
-		}
-		else {
+		} else {
 			direction = "+=";
 			if (activation.glyph.position > startPosition) {
 				positionsToRotate = startPosition + 39 - activation.glyph.position;
-			}
-			else if (activation.glyph.position < startPosition) {
+			} else if (activation.glyph.position < startPosition) {
 				positionsToRotate = startPosition - activation.glyph.position - 1;
 			}
 		}
 
-		degreesToRotate = direction + (degreesPerPosition * positionsToRotate);
+		degreesToRotate = direction + degreesPerPosition * positionsToRotate;
 		return GateAnimations.spinRing(this.ring, positionsToRotate / 2.5, degreesToRotate)
 			.add(() => this.audio.startRing(), 0)
 			.add(() => this.audio.stopRing());

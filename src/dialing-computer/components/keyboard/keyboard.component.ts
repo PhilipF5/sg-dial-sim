@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output } from "@angular/core";
+import { Component, ElementRef, EventEmitter, OnInit, Output } from "@angular/core";
 
 import { TweenLite } from "gsap";
 
@@ -9,22 +9,32 @@ import { GateStatusService } from "shared/services";
 @Component({
 	selector: "keyboard",
 	templateUrl: "./keyboard.component.html",
-	styleUrls: ["./keyboard.component.scss"]
+	styleUrls: ["./keyboard.component.scss"],
 })
-export class KeyboardComponent {
-	@Output() dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
-
+export class KeyboardComponent implements OnInit {
 	public address: Glyph[] = [];
+	@Output() dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
 	public keys: Glyph[] = Glyphs.standard;
 
-	constructor(private element: ElementRef, private gateControl: GateControlService, private gateStatus: GateStatusService) {}
+	private get element(): HTMLElement {
+		return this._element.nativeElement;
+	}
+
+	constructor(
+		private _element: ElementRef,
+		private gateControl: GateControlService,
+		private gateStatus: GateStatusService
+	) {}
 
 	ngOnInit() {
 		this.gateStatus.subscribe(status => {
-			if (status === GateStatus.Aborted || status === GateStatus.Shutdown) {
-				this.clearAddress();
+			switch (status) {
+				case GateStatus.Aborted:
+				case GateStatus.Shutdown:
+					this.clearAddress();
+					break;
 			}
-		})
+		});
 	}
 
 	public backspace(): void {
@@ -36,11 +46,11 @@ export class KeyboardComponent {
 	}
 
 	public closeKeyboard(): void {
-		TweenLite.to(this.element.nativeElement, 1, { css: { className: "+=minimized" } });
+		TweenLite.to(this.element, 1, { css: { className: "+=minimized" } });
 	}
 
 	public isGlyphSelected(glyph: Glyph): boolean {
-		return this.address.filter(item => item === glyph).length !== 0;
+		return !!this.address.find(item => item === glyph);
 	}
 
 	public selectGlyph(glyph: Glyph): void {

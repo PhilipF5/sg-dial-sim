@@ -26,9 +26,9 @@ export class ChevronBoxAnimations {
 	}
 
 	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): TimelineLite {
-		let timeline = this.lockSymbolAttempt(config);
-		timeline.to(config.chevronBox.nativeElement, 0.5, { css: { className: "+=locked" } });
-		return timeline;
+		return this.lockSymbolAttempt(config).to(config.chevronBox.nativeElement, 0.5, {
+			css: { className: "+=locked" },
+		});
 	}
 
 	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): TimelineLite {

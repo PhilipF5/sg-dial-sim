@@ -22,11 +22,15 @@ export class GateControlService {
 	constructor(private gateStatus: GateStatusService, private ngZone: NgZone) {
 		this.gateStatus.subscribe(status => {
 			this.status = status;
-			if (status === GateStatus.Aborted && this.dialingSequence) {
-				this.dialingSequence.pause();
-			}
-			if (status === GateStatus.Idle && this.dialingSequence) {
-				this.dialingSequence.clear();
+			if (!!this.dialingSequence) {
+				switch (status) {
+					case GateStatus.Aborted:
+						this.dialingSequence.pause();
+						break;
+					case GateStatus.Idle:
+						this.dialingSequence.clear();
+						break;
+				}
 			}
 		});
 	}
@@ -35,24 +39,28 @@ export class GateControlService {
 		let timeline = new TimelineLite();
 
 		this.chevronAnimReady$.pipe(takeWhile(chevron => chevron <= this.activationQueue.length)).subscribe(chevron => {
-			let chevronTimeline = this.activationQueue[chevron - 1].chevronTimeline
+			let chevronTimeline = this.activationQueue[chevron - 1].chevronTimeline;
 
-			timeline.add(chevronTimeline, `chevron${chevron}`);
-
-			timeline.addLabel(
-				`chevron${chevron}Start`,
-				chevronTimeline.startTime() + chevronTimeline.getLabelTime("chevronStart")
-			);
+			timeline
+				.add(chevronTimeline, `chevron${chevron}`)
+				.addLabel(
+					`chevron${chevron}Start`,
+					chevronTimeline.startTime() + chevronTimeline.getLabelTime("chevronStart")
+				);
 
 			if (chevron === 7) {
-				timeline.add(() => this.ngZone.run(() => this.result$.next({ success: true })), "+=1");
-				timeline.add(() => this.ngZone.run(() => this.gateStatus.active()), "+=2");
+				timeline
+					.add(() => this.ngZone.run(() => this.result$.next({ success: true })), "+=1")
+					.add(() => this.ngZone.run(() => this.gateStatus.active()), "+=2");
 			}
 		});
 
 		this.symbolAnimReady$.pipe(takeWhile(chevron => chevron <= this.activationQueue.length)).subscribe(chevron => {
 			timeline.add(
-				[this.activationQueue[chevron - 1].symbolTimeline, () => this.ngZone.run(() => this.gateStatus.engaged())],
+				[
+					this.activationQueue[chevron - 1].symbolTimeline,
+					() => this.ngZone.run(() => this.gateStatus.engaged()),
+				],
 				`chevron${chevron}Start`
 			);
 		});
@@ -72,7 +80,7 @@ export class GateControlService {
 		for (let [index, glyph] of address.entries()) {
 			this.activationQueue.push({
 				chevron: index + 1,
-				glyph: glyph
+				glyph: glyph,
 			});
 		}
 	}
