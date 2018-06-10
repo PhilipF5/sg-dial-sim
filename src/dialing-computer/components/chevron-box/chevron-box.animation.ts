@@ -13,7 +13,7 @@ export interface ChevronBoxAnimationConfig {
 export class ChevronBoxAnimations {
 	public static clearSymbol(box: ElementRef, symbol: ElementRef): TimelineLite {
 		return new TimelineLite()
-			.set(symbol.nativeElement, { css: { className: "-=active" } })
+			.set(symbol.nativeElement, { x: 0, y: 0, css: { className: "-=active" } })
 			.set(box.nativeElement, { css: { className: "-=locked" } });
 	}
 
@@ -32,11 +32,14 @@ export class ChevronBoxAnimations {
 	}
 
 	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): TimelineLite {
-		let timeline = new TimelineLite();
-		timeline.set(config.symbol.nativeElement, { x: config.startX, y: config.startY, scale: 0 });
-		timeline.set(config.symbol.nativeElement, { css: { className: "+=active" } });
-		timeline.to(config.symbol.nativeElement, 2, { y: config.centerY, scale: 5 });
-		timeline.to(config.symbol.nativeElement, 2, { x: 0, y: 0, scale: 1 });
-		return timeline;
+		return new TimelineLite()
+			.fromTo(
+				config.symbol.nativeElement,
+				2,
+				{ x: config.startX, y: config.startY, scale: 0, immediateRender: false },
+				{ y: config.centerY, scale: 5 }
+			)
+			.set(config.symbol.nativeElement, { immediateRender: false, css: { className: "+=active" } }, 0)
+			.to(config.symbol.nativeElement, 2, { x: 0, y: 0, scale: 1 });
 	}
 }
