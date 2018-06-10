@@ -94,7 +94,7 @@ export class GateComponent {
 		}
 
 		degreesToRotate = direction + (degreesPerPosition * positionsToRotate);
-		return GateAnimations.spinRing(this.ring, positionsToRotate / 2, degreesToRotate)
+		return GateAnimations.spinRing(this.ring, positionsToRotate / 2.5, degreesToRotate)
 			.add(() => this.audio.startRing(), 0)
 			.add(() => this.audio.stopRing());
 	}
