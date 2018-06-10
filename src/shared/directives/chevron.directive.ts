@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, ViewChild } from "@angular/core";
 
-import { GateAnimations } from "shared/animations";
-import { ChevronPart, ChevronParts } from "shared/models";
 import { TimelineLite } from "gsap";
-import { Time } from "@angular/common";
+
+import { GateAnimations } from "shared/animations";
+import { ChevronPart, ChevronParts, Sound } from "shared/models";
+import { AudioService } from "shared/services";
 
 @Directive({ selector: "[chevron]" })
 export class ChevronDirective {
@@ -12,7 +13,7 @@ export class ChevronDirective {
 
 	private parts: ChevronParts;
 
-	constructor(private elem: ElementRef) {}
+	constructor(private audio: AudioService, private elem: ElementRef) {}
 
 	ngAfterViewInit() {
 		let elem = this.elem.nativeElement;
@@ -38,9 +39,17 @@ export class ChevronDirective {
 
 	public lock(succeed: boolean = true, final: boolean = false): TimelineLite {
 		let timeline = new TimelineLite();
-		timeline.add(GateAnimations.lockTopChevronAttempt(this.parts));
+		timeline.add(
+			GateAnimations.lockTopChevronAttempt(this.parts)
+				.add(() => this.audio.play(Sound.ChevronOpen), "tailOpen")
+				.add(() => this.audio.play(Sound.ChevronOpen), "headOpen")
+		);
 		if (succeed) {
-			timeline.add(GateAnimations.lockTopChevronSuccess(this.parts));
+			timeline.add(
+				GateAnimations.lockTopChevronSuccess(this.parts)
+					.add(() => this.audio.play(Sound.ChevronLight), "light")
+					.add(() => this.audio.play(Sound.ChevronLock), "lock")
+			);
 		}
 		if (!final) {
 			timeline.add(GateAnimations.inactivateChevron(this.parts), "+=0.5");

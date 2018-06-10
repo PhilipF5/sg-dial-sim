@@ -6,8 +6,8 @@ import { ChevronActivation } from "dialing-computer/models";
 import { GateControlService } from "dialing-computer/services";
 import { GateAnimations } from "shared/animations";
 import { ChevronDirective } from "shared/directives";
-import { GateStatus } from "shared/models";
-import { GateStatusService } from "shared/services";
+import { GateStatus, Sound } from "shared/models";
+import { AudioService, GateStatusService } from "shared/services";
 
 @Component({
 	selector: "gate",
@@ -19,12 +19,13 @@ export class GateComponent {
 	@ViewChild("ring") private ring: ElementRef;
 	private ringPosition: number = 1;
 
-	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
+	constructor(private audio: AudioService, private gateControl: GateControlService, private gateStatus: GateStatusService) {}
 
 	ngAfterViewInit() {
 		this.gateStatus.subscribe(status => {
 			if (status === GateStatus.Idle) {
 				this.resetRing();
+				this.audio.play(Sound.ChevronLock);
 				for (let chevron of this.chevrons.filter(c => c.enabled)) {
 					chevron.inactivate();
 				}
@@ -93,6 +94,8 @@ export class GateComponent {
 		}
 
 		degreesToRotate = direction + (degreesPerPosition * positionsToRotate);
-		return GateAnimations.spinRing(this.ring, positionsToRotate / 2, degreesToRotate);
+		return GateAnimations.spinRing(this.ring, positionsToRotate / 2, degreesToRotate)
+			.add(() => this.audio.startRing(), 0)
+			.add(() => this.audio.stopRing());
 	}
 }

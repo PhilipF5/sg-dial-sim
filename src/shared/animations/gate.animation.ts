@@ -21,15 +21,16 @@ export class GateAnimations {
 
 	public static lockTopChevronAttempt(parts: ChevronParts) {
 		let timeline = new TimelineLite();
-		timeline.add([TweenLite.to(parts.tail, 0.5, { y: 20 }), TweenLite.to(parts.back, 0.5, { y: 20 })]);
-		timeline.to(parts.head, 0.5, { y: -10 });
+		timeline.add([TweenLite.to(parts.tail, 0.5, { y: 20 }), TweenLite.to(parts.back, 0.5, { y: 20 })], "tailOpen");
+		timeline.to(parts.head, 0.5, { y: -10 }, "headOpen");
 		return timeline;
 	}
 
 	public static lockTopChevronSuccess(parts: ChevronParts) {
 		let timeline = new TimelineLite();
-		timeline.add([TweenLite.to(parts.tailBorder, 0.5, { stroke: "red" }), TweenLite.to(parts.head, 0.5, { fill: "red" })]);
-		timeline.add(TweenLite.to([parts.tail, parts.head, parts.back], 0.5, { y: 0 }), "+=0.5");
+		timeline.add([TweenLite.to(parts.tailBorder, 0.5, { stroke: "red" }), TweenLite.to(parts.head, 0.5, { fill: "red" })], "light");
+		timeline.add("lock", "+=0.5");
+		timeline.add(TweenLite.to([parts.tail, parts.head, parts.back], 0.5, { y: 0 }), "lock");
 		return timeline;
 	}
 
