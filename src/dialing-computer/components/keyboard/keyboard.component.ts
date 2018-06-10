@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Output } from "@angular/core";
 
+import { TweenLite } from "gsap";
+
+import { GateControlService } from "dialing-computer/services";
 import { GateStatus, Glyph, Glyphs } from "shared/models";
 import { GateStatusService } from "shared/services";
 
@@ -9,20 +12,16 @@ import { GateStatusService } from "shared/services";
 	styleUrls: ["./keyboard.component.scss"]
 })
 export class KeyboardComponent {
-	@Output() close: EventEmitter<void> = new EventEmitter();
-
 	@Output() dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
-
-	@Output() shutdownGate: EventEmitter<void> = new EventEmitter();
 
 	public address: Glyph[] = [];
 	public keys: Glyph[] = Glyphs.standard;
 
-	constructor(private gateStatus: GateStatusService) {}
+	constructor(private element: ElementRef, private gateControl: GateControlService, private gateStatus: GateStatusService) {}
 
 	ngOnInit() {
 		this.gateStatus.subscribe(status => {
-			if (status === GateStatus.Aborted) {
+			if (status === GateStatus.Aborted || status === GateStatus.Shutdown) {
 				this.clearAddress();
 			}
 		})
@@ -37,7 +36,7 @@ export class KeyboardComponent {
 	}
 
 	public closeKeyboard(): void {
-		this.close.emit();
+		TweenLite.to(this.element.nativeElement, 1, { css: { className: "+=minimized" } });
 	}
 
 	public isGlyphSelected(glyph: Glyph): boolean {
@@ -51,15 +50,14 @@ export class KeyboardComponent {
 	}
 
 	public shutdown(): void {
-		this.shutdownGate.emit();
-		this.close.emit();
-		this.clearAddress();
+		this.gateControl.shutdown();
+		this.closeKeyboard();
 	}
 
 	public validateAndDial(): void {
 		if (this.address.length === 6) {
 			this.dialAddress.emit(this.address);
-			this.close.emit();
+			this.closeKeyboard();
 		}
 	}
 }

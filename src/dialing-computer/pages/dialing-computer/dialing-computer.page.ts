@@ -16,7 +16,10 @@ import { GateStatusService } from "shared/services";
 })
 export class DialingComputerPage {
 	public authCode = "10183523652-4354393";
-	public footerMenuButtons: any = [{ text: "Keyboard", callback: () => this.openKeyboard() }];
+	public footerMenuButtons: any = [
+		{ text: "Keyboard", callback: () => this.openKeyboard() },
+		{ text: "Shutdown", callback: () => this.shutdown() }
+	];
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public glyphs: Glyph[] = [];
 	public status: GateStatus;
@@ -45,14 +48,6 @@ export class DialingComputerPage {
 
 	public closeKeyboard(): void {
 		TweenMax.to(this.keyboard.nativeElement, 1, { css: { className: "+=minimized" } });
-	}
-
-	public keyboardCloseHandler(): void {
-		this.closeKeyboard();
-	}
-
-	public keyboardShutdownHandler(): void {
-		this.shutdown();
 	}
 
 	public keyboardStartDialingHandler(event: Glyph[]): void {
