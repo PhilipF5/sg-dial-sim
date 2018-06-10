@@ -23,6 +23,11 @@ export class GateComponent {
 
 	ngAfterViewInit() {
 		this.gateStatus.subscribe(status => {
+			if (status === GateStatus.Aborted) {
+				this.audio.failRing().onended = () => {
+					this.gateStatus.idle();
+				}
+			}
 			if (status === GateStatus.Idle) {
 				this.resetRing();
 				this.audio.play(Sound.ChevronLock);

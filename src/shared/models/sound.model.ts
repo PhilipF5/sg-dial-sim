@@ -5,6 +5,7 @@ export enum Sound {
 	EventHorizon = "assets/sounds/event_horizon.mp3",
 	GateClose = "assets/sounds/shutdown.mp3",
 	GateOpen = "assets/sounds/kawoosh.mp3",
+	RingFail = "assets/sounds/ring_fail.mp3",
 	RingSpin = "assets/sounds/ring.mp3",
 	RingStop = "assets/sounds/ring_stop.mp3"
 }

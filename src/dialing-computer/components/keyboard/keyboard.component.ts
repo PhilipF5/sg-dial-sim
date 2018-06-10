@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 
-import { Glyph, Glyphs } from "shared/models";
+import { GateStatus, Glyph, Glyphs } from "shared/models";
+import { GateStatusService } from "shared/services";
 
 @Component({
 	selector: "keyboard",
@@ -16,6 +17,16 @@ export class KeyboardComponent {
 
 	public address: Glyph[] = [];
 	public keys: Glyph[] = Glyphs.standard;
+
+	constructor(private gateStatus: GateStatusService) {}
+
+	ngOnInit() {
+		this.gateStatus.subscribe(status => {
+			if (status === GateStatus.Aborted) {
+				this.clearAddress();
+			}
+		})
+	}
 
 	public backspace(): void {
 		this.address.pop();

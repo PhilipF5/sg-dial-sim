@@ -60,13 +60,12 @@ export class DialingStatusComponent {
 				this.flashNormal();
 				break;
 			case GateStatus.Engaged:
+			case GateStatus.Shutdown:
+			case GateStatus.Aborted:
 				this.flashOnce();
 				break;
 			case GateStatus.Dialing:
 				this.hide();
-				break;
-			case GateStatus.Shutdown:
-				this.flashOnce();
 				break;
 		}
 	}

@@ -9,10 +9,19 @@ export class AudioService {
 	private eventHorizonAudio: HTMLAudioElement;
 	private ringAudio: HTMLAudioElement;
 
-	public play(sound: Sound): void {
+	public failRing(): HTMLAudioElement {
+		let audio = new Audio();
+		audio.src = Sound.RingFail;
+		audio.play();
+		this.ringAudio.pause();
+		return audio;
+	}
+
+	public play(sound: Sound): HTMLAudioElement {
 		let audio = new Audio();
 		audio.src = sound;
 		audio.play();
+		return audio;
 	}
 
 	public startEventHorizon(): void {

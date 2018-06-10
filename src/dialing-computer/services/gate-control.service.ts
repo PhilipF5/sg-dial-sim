@@ -16,8 +16,20 @@ export class GateControlService {
 	public symbolAnimReady$: Subject<number> = new Subject();
 
 	private activationQueue: ChevronActivation[] = [];
+	private dialingSequence: TimelineLite;
+	private status: GateStatus;
 
-	constructor(private gateStatus: GateStatusService, private ngZone: NgZone) {}
+	constructor(private gateStatus: GateStatusService, private ngZone: NgZone) {
+		this.gateStatus.subscribe(status => {
+			this.status = status;
+			if (status === GateStatus.Aborted && this.dialingSequence) {
+				this.dialingSequence.pause();
+			}
+			if (status === GateStatus.Idle && this.dialingSequence) {
+				this.dialingSequence.clear();
+			}
+		});
+	}
 
 	public dial(): void {
 		let timeline = new TimelineLite();
@@ -48,6 +60,8 @@ export class GateControlService {
 		for (let activation of this.activationQueue) {
 			this.activations$.next(activation);
 		}
+
+		this.dialingSequence = timeline;
 	}
 
 	public loadAddress(address: Glyph[]): void {
@@ -64,7 +78,15 @@ export class GateControlService {
 	}
 
 	public shutdown(): void {
-		this.gateStatus.shutdown();
+		switch (this.status) {
+			case GateStatus.Dialing:
+			case GateStatus.Engaged:
+				this.gateStatus.aborted();
+				break;
+			case GateStatus.Active:
+				this.gateStatus.shutdown();
+				break;
+		}
 		this.chevronAnimReady$ = new Subject();
 		this.symbolAnimReady$ = new Subject();
 	}

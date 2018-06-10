@@ -8,6 +8,10 @@ import { GateStatus } from "shared/models";
 export class GateStatusService {
 	public readonly status$: BehaviorSubject<GateStatus> = new BehaviorSubject<GateStatus>(GateStatus.Idle);
 
+	public aborted(): void {
+		this.update(GateStatus.Aborted);
+	}
+
 	public active(): void {
 		this.update(GateStatus.Active);
 	}

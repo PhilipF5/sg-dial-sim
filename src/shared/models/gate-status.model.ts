@@ -4,5 +4,6 @@ export enum GateStatus {
 	Engaged = "ENGAGED",
 	Active = "ACTIVE",
 	Shutdown = "SHUTDOWN",
-	Incoming = "INCOMING"
+	Incoming = "INCOMING",
+	Aborted = "ABORTED"
 }
