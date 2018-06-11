@@ -16,11 +16,21 @@ svg {
 
 	path {
 		stroke: $primary;
+		stroke-width: 3px !important;
+	}
+
+	.ring path {
+		stroke: $white;
+		stroke-width: 1px !important;
+
+		&.outer {
+			stroke-width: 3px !important;
+		}
 	}
 
 	.chevron-head {
 		//fill: black !important;
-		stroke-width: 3px !important;
+		stroke-width: 2px !important;
 	}
 
 	.chevron-back {
@@ -31,7 +41,8 @@ svg {
 	.chevron-tail,
 	.chevron-tail-border {
 		fill: $black !important;
-		stroke-width: 3px !important;
+		stroke: $white;
+		stroke-width: 1px !important;
 	}
 
 	.chevron-wing {
@@ -39,12 +50,12 @@ svg {
 	}
 
 	.chevron-lines > path {
-		stroke-width: 2px !important;
+		stroke-width: 1px !important;
 	}
 
 	.chevron-head,
 	.chevron-lines > path {
-		stroke: $red !important;
+		stroke: $white;
 	}
 
 	.chevron-7 {
@@ -69,6 +80,7 @@ svg {
 	.chevron-8,
 	.chevron-9 {
 		.chevron-head,
+		.chevron-tail,
 		.chevron-lines > path {
 			stroke: $gray !important;
 		}

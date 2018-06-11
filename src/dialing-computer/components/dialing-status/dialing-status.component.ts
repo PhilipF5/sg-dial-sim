@@ -29,21 +29,23 @@ export class DialingStatusComponent implements OnInit {
 	}
 
 	private flashNormal(): TweenMax {
-		return TweenMax.fromTo(this.statusText, 1, { opacity: 0 }, { opacity: 1 })
+		TweenMax.set(this.statusText, { css: { className: "-=red" } });
+		return TweenMax.fromTo(this.statusText, 0.5, { opacity: 0 }, { opacity: 0.8 })
 			.repeat(-1)
 			.yoyo(true);
 	}
 
 	private flashOnce(): TweenMax {
-		return TweenMax.fromTo(this.statusText, 1, { opacity: 0 }, { opacity: 1 })
+		TweenMax.set(this.statusText, { css: { className: "-=red" } });
+		return TweenMax.fromTo(this.statusText, 1, { opacity: 0 }, { opacity: 0.8 })
 			.repeat(1)
-			.repeatDelay(3)
+			.repeatDelay(2)
 			.yoyo(true);
 	}
 
-	private flashWarning(): TweenMax {
-		TweenMax.set(this.statusText, { css: { className: "+=warning" } });
-		return TweenMax.fromTo(this.statusText, 1, { opacity: 0 }, { opacity: 1 })
+	private flashRed(): TweenMax {
+		TweenMax.set(this.statusText, { css: { className: "+=red" } });
+		return TweenMax.fromTo(this.statusText, 0.5, { opacity: 0 }, { opacity: 0.6 })
 			.repeat(-1)
 			.yoyo(true);
 	}
@@ -60,6 +62,8 @@ export class DialingStatusComponent implements OnInit {
 		this.killAnimation();
 		switch (status) {
 			case GateStatus.Idle:
+				this.flashRed();
+				break;
 			case GateStatus.Active:
 				this.flashNormal();
 				break;

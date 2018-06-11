@@ -19,7 +19,7 @@
 .chevron-number {
 	display: inline-block;
 	font-family: $interface-font;
-	font-size: 36px;
+	font-size: 24px;
 	color: $white;
 	vertical-align: bottom;
 	opacity: 0;
@@ -30,7 +30,7 @@
 	width: 130px;
 	height: 95px;
 	border-color: $primary;
-	border-width: 1px;
+	border-width: 3px;
 	border-style: solid;
 	border-top-left-radius: 20px;
 	position: relative;
@@ -42,6 +42,7 @@
 		margin-top: 10px;
 		position: absolute;
 		text-align: center;
+		text-shadow: 1px 4px 0 gray;
 		transform-origin: center;
 		visibility: hidden;
 		width: 100%;

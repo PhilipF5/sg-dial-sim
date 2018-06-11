@@ -11,10 +11,10 @@
 	.status {
 		color: $white;
 		font-family: $interface-font;
-		font-size: 72pt;
+		font-size: 60pt;
 		opacity: 0;
 
-		&.warning {
+		&.red {
 			color: $red;
 		}
 	}

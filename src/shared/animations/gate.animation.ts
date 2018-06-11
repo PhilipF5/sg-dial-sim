@@ -7,15 +7,17 @@ import { ChevronParts } from "shared/models";
 export class GateAnimations {
 	public static activateChevron(parts: ChevronParts) {
 		return new TimelineLite().add([
-			TweenLite.to(parts.head, 0.5, { fill: "red" }),
+			TweenLite.to(parts.head, 0.5, { fill: "red", stroke: "red" }),
 			TweenLite.to(parts.tail, 0.5, { stroke: "red" }),
+			TweenLite.to(parts.lines, 0.5, { stroke: "red" }),
 		]);
 	}
 
 	public static inactivateChevron(parts: ChevronParts) {
 		return new TimelineLite().add([
-			TweenLite.to(parts.head, 0.5, { fill: "none" }),
-			TweenLite.to(parts.tailBorder || parts.tail, 0.5, { stroke: "#87cefa" }),
+			TweenLite.to(parts.head, 0.5, { fill: "none", stroke: "white" }),
+			TweenLite.to(parts.tailBorder || parts.tail, 0.5, { stroke: "white" }),
+			TweenLite.to(parts.lines, 0.5, { stroke: "white" }),
 		]);
 	}
 
@@ -30,7 +32,8 @@ export class GateAnimations {
 			.add(
 				[
 					TweenLite.to(parts.tailBorder, 0.5, { stroke: "red" }),
-					TweenLite.to(parts.head, 0.5, { fill: "red" }),
+					TweenLite.to(parts.head, 0.5, { fill: "red", stroke: "red" }),
+					TweenLite.to(parts.lines, 0.5, { stroke: "red" }),
 				],
 				"light"
 			)
