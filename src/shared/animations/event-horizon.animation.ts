@@ -25,16 +25,16 @@ export class EventHorizonAnimations {
 	public static kawoosh(elem: HTMLElement): TimelineLite {
 		return new TimelineLite()
 			.to(elem, 0.5, { scale: 0, ease: Power4.easeOut })
-			.set(elem, { immediateRender: false, css: { className: "+=active" } })
+			.set(elem, { immediateRender: false, className: "activating" })
 			.to(elem, 1, { scale: 4, ease: Power1.easeInOut })
-			.to(elem, 2.5, { scale: 3, ease: Elastic.easeInOut });
+			.to(elem, 2.5, { scale: 3, ease: Elastic.easeInOut, className: "active" });
 	}
 
 	public static shutdown(elem: HTMLElement): TimelineLite {
 		return new TimelineLite()
-			.to(elem, 2, { scale: 4, ease: Power1.easeInOut })
-			.to(elem, 1, { scale: 0, ease: Power4.easeIn })
+			.to(elem, 1.5, { scale: 4, ease: Power1.easeInOut, className: "activating" })
+			.to(elem, 0.5, { scale: 0, ease: Power4.easeIn })
 			.to(elem, 1, { scale: 5, opacity: 0 })
-			.set(elem, { immediateRender: false, css: { className: "-=active" } });
+			.set(elem, { immediateRender: false, className: "-=activating" });
 	}
 }

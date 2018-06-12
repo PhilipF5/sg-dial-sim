@@ -8,8 +8,17 @@
 	&.active {
 		background: radial-gradient(
 			circle at center,
-			rgba(255, 255, 255, 0.8) 0%,
-			rgba(64, 224, 208, 0.8) 40%,
+			rgba(0, 119, 255, 0.8) 0%,
+			rgba(0, 60, 255, 0.5) 40%,
+			rgba(0, 0, 0, 0) 60%
+		);
+	}
+
+	&.activating {
+		background: radial-gradient(
+			circle at center,
+			rgb(255, 255, 255) 0%,
+			rgb(128, 158, 255) 40%,
 			rgba(0, 0, 0, 0) 60%
 		);
 	}
