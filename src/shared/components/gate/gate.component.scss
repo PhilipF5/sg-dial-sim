@@ -23,8 +23,18 @@ svg {
 		stroke: $white;
 		stroke-width: 1px !important;
 
-		&.outer {
+		&.outer, &.inner {
 			stroke-width: 3px !important;
+		}
+
+		&.edge {
+			stroke: $primary;
+			stroke-width: 3px !important;
+		}
+
+		&.cover {
+			stroke: $black;
+			stroke-width: 15px !important;
 		}
 	}
 
