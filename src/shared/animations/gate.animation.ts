@@ -9,21 +9,19 @@ export class GateAnimations {
 		return new TimelineLite().add([
 			TweenLite.to(parts.head, 0.5, { fill: "red", stroke: "red" }),
 			TweenLite.to(parts.tail, 0.5, { stroke: "red" }),
-			TweenLite.to(parts.lines, 0.5, { stroke: "red" }),
 		]);
 	}
 
 	public static inactivateChevron(parts: ChevronParts) {
 		return new TimelineLite().add([
-			TweenLite.to(parts.head, 0.5, { fill: "none", stroke: "white" }),
-			TweenLite.to(parts.tailBorder || parts.tail, 0.5, { stroke: "white" }),
-			TweenLite.to(parts.lines, 0.5, { stroke: "white" }),
+			TweenLite.to(parts.head, 0.5, { fill: "black", stroke: "white" }),
+			TweenLite.to(parts.tail, 0.5, { stroke: "white" }),
 		]);
 	}
 
 	public static lockTopChevronAttempt(parts: ChevronParts) {
 		return new TimelineLite()
-			.add([TweenLite.to(parts.tail, 0.5, { y: 20 }), TweenLite.to(parts.back, 0.5, { y: 20 })], "tailOpen")
+			.add(TweenLite.to(parts.tail, 0.5, { y: 20 }), "tailOpen")
 			.to(parts.head, 0.5, { y: -10 }, "headOpen");
 	}
 
@@ -31,14 +29,13 @@ export class GateAnimations {
 		return new TimelineLite()
 			.add(
 				[
-					TweenLite.to(parts.tailBorder, 0.5, { stroke: "red" }),
+					TweenLite.to(parts.tail, 0.5, { stroke: "red" }),
 					TweenLite.to(parts.head, 0.5, { fill: "red", stroke: "red" }),
-					TweenLite.to(parts.lines, 0.5, { stroke: "red" }),
 				],
 				"light"
 			)
 			.add("lock", "+=0.5")
-			.add(TweenLite.to([parts.tail, parts.head, parts.back], 0.5, { y: 0 }), "lock");
+			.add(TweenLite.to([parts.tail, parts.head], 0.5, { y: 0 }), "lock");
 	}
 
 	public static spinRing(ring: ElementRef, duration: number, degrees: string) {

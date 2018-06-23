@@ -14,95 +14,30 @@ svg {
 	height: 650px;
 	width: 600px;
 
-	path {
+	.base {
+		fill: transparent;
 		stroke: $primary;
-		stroke-width: 3px !important;
 	}
 
-	.ring path {
+	.ring {
+		fill: transparent;
 		stroke: $white;
-		stroke-width: 1px !important;
-
-		&.outer, &.inner {
-			stroke-width: 3px !important;
-		}
-
-		&.edge {
-			stroke: $primary;
-			stroke-width: 3px !important;
-		}
-
-		&.cover {
-			stroke: $black;
-			stroke-width: 15px !important;
-		}
 	}
 
 	.chevron-head {
-		//fill: black !important;
-		stroke-width: 2px !important;
-	}
-
-	.chevron-back {
-		fill: $black !important;
-		stroke: none !important;
-	}
-
-	.chevron-tail,
-	.chevron-tail-border {
-		fill: $black !important;
-		stroke: $white;
-		stroke-width: 1px !important;
-	}
-
-	.chevron-wing {
-		fill: none !important;
-	}
-
-	.chevron-lines > path {
-		stroke-width: 1px !important;
-	}
-
-	.chevron-head,
-	.chevron-lines > path {
+		fill: $black;
 		stroke: $white;
 	}
 
-	.chevron-7 {
-		&.engaging-1 {
-			.chevron-tail {
-				stroke: $red !important;
-				transform: translateY(20px);
-			}
-
-			.chevron-back {
-				transform: translateY(20px);
-			}
-		}
-		&.engaging-2 {
-			.chevron-head {
-				fill: $red !important;
-				transform: translateY(-10px);
-			}
-		}
+	.chevron-tail {
+		fill: $black;
+		stroke: $white;
 	}
 
-	.chevron-8,
-	.chevron-9 {
+	[ng-reflect-chevron="8"], [ng-reflect-chevron="9"] {
 		.chevron-head,
-		.chevron-tail,
-		.chevron-lines > path {
-			stroke: $gray !important;
-		}
-	}
-
-	.active {
-		.chevron-head {
-			fill: $red !important;
-		}
-
-		.chevron-tail-border {
-			stroke: $red !important;
+		.chevron-tail {
+			stroke: $gray;
 		}
 	}
 }

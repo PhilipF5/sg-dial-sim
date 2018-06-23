@@ -18,11 +18,8 @@ export class ChevronDirective implements AfterViewInit, OnInit {
 	ngAfterViewInit() {
 		let elem = this.elem.nativeElement;
 		this.parts = {
-			back: elem.querySelector(".chevron-back"),
 			head: elem.querySelector(".chevron-head"),
-			lines: elem.querySelectorAll(".chevron-lines > path"),
-			tail: elem.querySelector(".chevron-tail"),
-			tailBorder: elem.querySelector(".chevron-tail-border")
+			tail: elem.querySelector(".chevron-tail")
 		};
 	}
 
