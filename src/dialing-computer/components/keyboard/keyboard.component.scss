@@ -90,6 +90,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 		font-size: 24px;
 		margin: 15px;
 
+		&.disabled {
+			cursor: default;
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
 		&:hover {
 			background: radial-gradient(at center, lightblue 0%, transparent 100%);
 		}

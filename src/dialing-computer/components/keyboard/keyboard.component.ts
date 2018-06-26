@@ -30,6 +30,7 @@ import { GateStatusService } from "shared/services";
 export class KeyboardComponent implements OnInit {
 	public address: Glyph[] = [];
 	@Output() dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
+	public isDialingAvailable: boolean;
 	public keys: Glyph[] = Glyphs.standard;
 
 	private get element(): HTMLElement {
@@ -45,10 +46,14 @@ export class KeyboardComponent implements OnInit {
 	ngOnInit() {
 		this.gateStatus.subscribe(status => {
 			switch (status) {
+				case GateStatus.Idle:
+					this.isDialingAvailable = true;
+					break;
 				case GateStatus.Aborted:
 				case GateStatus.Shutdown:
 					this.clearAddress();
-					break;
+				default:
+					this.isDialingAvailable = false;
 			}
 		});
 	}

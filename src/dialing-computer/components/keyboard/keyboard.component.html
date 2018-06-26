@@ -27,16 +27,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   *ngFor="let glyph of keys"
   class="glyph key"
   (click)="selectGlyph(glyph)"
-  [ngClass]="{ 'selected': isGlyphSelected(glyph) }"
+  [ngClass]="{ 'selected': isGlyphSelected(glyph), 'disabled': !isDialingAvailable }"
 >
   {{ glyph.char }}
 </div>
 
 <div class="left corner">
-  <div class="backspace key" (click)="backspace()">Backspace</div>
+  <div class="backspace key" (click)="backspace()" [ngClass]="{ 'disabled': !isDialingAvailable }">Backspace</div>
 </div>
 
 <div class="right corner">
-  <div class="dial key" (click)="validateAndDial()">Dial</div>
-  <div class="shutdown key" (click)="shutdown()">Shutdown</div>
+  <div class="dial key" (click)="validateAndDial()" [ngClass]="{ 'disabled': !isDialingAvailable }">Dial</div>
+  <div class="shutdown key" (click)="shutdown()" [ngClass]="{ 'disabled': isDialingAvailable }">Shutdown</div>
 </div>
