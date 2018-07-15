@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 587.58 586.67">
+  <defs>
+    <style>
+      .cls-1, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-2, .cls-4 {
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-3 {
+        stroke-width: 3px;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-6 {
+        fill: none;
+      }
+
+      .cls-3, .cls-5, .cls-6 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke-width: 5px;
+      }
+    </style>
+    <symbol id="Chevron" data-name="Chevron" viewBox="0 0 72.83 57.04">
+      <polygon class="cls-1" points="60.6 1.5 38.22 45.11 34.54 45.11 12.6 1.5 1.5 1.5 27.84 55.54 45 55.54 71.33 1.5 60.6 1.5"/>
+      <polygon class="cls-1" points="47.02 9.34 36.42 35.51 25.81 9.34 25.81 1.62 47.02 1.62 47.02 9.34"/>
+      <line class="cls-2" x1="39.78" y1="42.08" x2="51.62" y2="42.08"/>
+      <line class="cls-2" x1="21.28" y1="42.08" x2="33.02" y2="42.08"/>
+      <line class="cls-2" x1="41.34" y1="39.04" x2="53.07" y2="39.04"/>
+      <line class="cls-2" x1="19.8" y1="39.04" x2="31.49" y2="39.04"/>
+      <line class="cls-2" x1="43.15" y1="35.99" x2="54.56" y2="35.99"/>
+      <line class="cls-2" x1="18.31" y1="35.99" x2="29.95" y2="35.99"/>
+      <line class="cls-2" x1="44.42" y1="33.04" x2="55.65" y2="33.04"/>
+      <line class="cls-2" x1="16.87" y1="33.04" x2="28.47" y2="33.04"/>
+      <line class="cls-2" x1="45.74" y1="30.47" x2="57.25" y2="30.47"/>
+      <line class="cls-2" x1="15.62" y1="30.47" x2="27.17" y2="30.47"/>
+      <line class="cls-2" x1="47.23" y1="27.57" x2="58.66" y2="27.57"/>
+      <line class="cls-2" x1="14.2" y1="27.57" x2="25.71" y2="27.57"/>
+      <line class="cls-2" x1="48.75" y1="24.6" x2="60.18" y2="24.6"/>
+      <line class="cls-2" x1="12.76" y1="24.6" x2="24.22" y2="24.6"/>
+      <line class="cls-2" x1="50.21" y1="21.76" x2="61.16" y2="21.76"/>
+      <line class="cls-2" x1="11.37" y1="21.76" x2="22.79" y2="21.76"/>
+      <line class="cls-2" x1="51.85" y1="18.56" x2="63.02" y2="18.56"/>
+      <line class="cls-2" x1="9.81" y1="18.56" x2="21.18" y2="18.56"/>
+    </symbol>
+  </defs>
+  <title>gate</title>
+  <g id="Gate_Base" data-name="Gate Base">
+    <circle class="cls-3" cx="293.79" cy="293.33" r="216.87"/>
+    <circle class="cls-4" cx="293.79" cy="293.33" r="290.83"/>
+    <path class="cls-5" d="M303,76.06" transform="translate(-6.21 -31.67)"/>
+  </g>
+  <g id="Symbol_Ring" data-name="Symbol Ring">
+    <g>
+      <circle class="cls-3" cx="293.79" cy="293.33" r="252.29"/>
+      <g>
+        <line class="cls-6" x1="311.93" y1="68.85" x2="314.11" y2="41.86"/>
+        <line class="cls-6" x1="347.71" y1="74.62" x2="354.18" y2="48.38"/>
+        <line class="cls-6" x1="382.1" y1="86.1" x2="392.7" y2="61.24"/>
+        <line class="cls-6" x1="414.18" y1="102.98" x2="428.65" y2="80.11"/>
+        <line class="cls-6" x1="443.14" y1="124.77" x2="461.1" y2="104.5"/>
+        <line class="cls-6" x1="468.25" y1="150.91" x2="489.23" y2="133.79"/>
+        <line class="cls-6" x1="488.86" y1="180.73" x2="512.29" y2="167.2"/>
+        <line class="cls-6" x1="504.42" y1="213.47" x2="529.69" y2="203.89"/>
+        <line class="cls-6" x1="514.49" y1="248.29" x2="540.99" y2="242.89"/>
+        <line class="cls-6" x1="518.82" y1="284.28" x2="545.88" y2="283.19"/>
+        <line class="cls-6" x1="517.37" y1="320.5" x2="544.24" y2="323.76"/>
+        <line class="cls-6" x1="510.15" y1="356.02" x2="536.11" y2="363.54"/>
+        <line class="cls-6" x1="497.29" y1="389.91" x2="521.71" y2="401.5"/>
+        <line class="cls-6" x1="479.14" y1="421.29" x2="501.41" y2="436.67"/>
+        <line class="cls-6" x1="456.2" y1="449.35" x2="475.73" y2="468.11"/>
+        <line class="cls-6" x1="429.08" y1="473.39" x2="445.34" y2="495.04"/>
+        <line class="cls-6" x1="398.46" y1="492.79" x2="411.02" y2="516.73"/>
+        <line class="cls-6" x1="365.11" y1="507.01" x2="373.66" y2="532.65"/>
+        <line class="cls-6" x1="329.9" y1="515.66" x2="334.24" y2="542.36"/>
+        <line class="cls-6" x1="293.77" y1="518.54" x2="293.77" y2="545.62"/>
+        <line class="cls-6" x1="257.64" y1="515.65" x2="253.3" y2="542.36"/>
+        <line class="cls-6" x1="222.44" y1="507" x2="213.88" y2="532.64"/>
+        <line class="cls-6" x1="189.09" y1="492.78" x2="176.53" y2="516.72"/>
+        <line class="cls-6" x1="158.48" y1="473.37" x2="142.21" y2="495.02"/>
+        <line class="cls-6" x1="131.36" y1="449.33" x2="111.82" y2="468.09"/>
+        <line class="cls-6" x1="108.42" y1="421.26" x2="86.15" y2="436.64"/>
+        <line class="cls-6" x1="90.27" y1="389.89" x2="65.85" y2="401.47"/>
+        <line class="cls-6" x1="77.42" y1="355.99" x2="51.45" y2="363.51"/>
+        <line class="cls-6" x1="70.2" y1="320.47" x2="43.33" y2="323.73"/>
+        <line class="cls-6" x1="68.76" y1="284.25" x2="41.7" y2="283.16"/>
+        <line class="cls-6" x1="73.09" y1="248.26" x2="46.6" y2="242.85"/>
+        <line class="cls-6" x1="83.16" y1="213.44" x2="57.9" y2="203.85"/>
+        <line class="cls-6" x1="98.73" y1="180.7" x2="75.31" y2="167.17"/>
+        <line class="cls-6" x1="119.35" y1="150.89" x2="98.37" y2="133.76"/>
+        <line class="cls-6" x1="144.46" y1="124.75" x2="126.5" y2="104.48"/>
+        <line class="cls-6" x1="173.42" y1="102.96" x2="158.96" y2="80.09"/>
+        <line class="cls-6" x1="205.51" y1="86.09" x2="194.92" y2="61.22"/>
+        <line class="cls-6" x1="239.9" y1="74.62" x2="233.43" y2="48.37"/>
+        <line class="cls-6" x1="275.68" y1="68.84" x2="273.51" y2="41.86"/>
+      </g>
+      <path class="cls-3" d="M300,550.21C175.62,550.21,74.79,449.38,74.79,325S175.62,99.79,300,99.79,525.21,200.62,525.21,325,424.38,550.21,300,550.21Z" transform="translate(-6.21 -31.67)"/>
+    </g>
+  </g>
+  <g id="Chevron_1" data-name="Chevron 1">
+    <use id="Chevron-3" data-name="Chevron" width="72.83" height="57.04" transform="translate(452.81 45.7) rotate(40)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_2" data-name="Chevron 2">
+    <use id="Chevron-6" data-name="Chevron" width="72.83" height="57.04" transform="translate(575.17 206.43) rotate(80)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_3" data-name="Chevron 3">
+    <use id="Chevron-9" data-name="Chevron" width="72.83" height="57.04" transform="translate(565 407.56) rotate(120)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_4" data-name="Chevron 4">
+    <use id="Chevron-12" data-name="Chevron" width="72.83" height="57.04" transform="translate(59 470.63) rotate(-120)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_5" data-name="Chevron 5">
+    <use id="Chevron-15" data-name="Chevron" width="72.83" height="57.04" transform="translate(-0.24 278.16) rotate(-80)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_6" data-name="Chevron 6">
+    <use id="Chevron-18" data-name="Chevron" width="72.83" height="57.04" transform="translate(78.11 92.64) rotate(-40)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_7" data-name="Chevron 7">
+    <use id="Chevron-21" data-name="Chevron" width="72.83" height="57.04" transform="translate(257.37 0.88)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_8" data-name="Chevron 8">
+    <use id="Chevron-24" data-name="Chevron" width="72.83" height="57.04" transform="translate(427.93 555.09) rotate(160)" xlink:href="#Chevron"/>
+  </g>
+  <g id="Chevron_9" data-name="Chevron 9">
+    <use id="Chevron-27" data-name="Chevron" width="72.83" height="57.04" transform="matrix(-0.94, -0.34, 0.34, -0.94, 228.09, 580)" xlink:href="#Chevron"/>
+  </g>
+</svg>
