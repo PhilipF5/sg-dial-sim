@@ -1,4 +1,4 @@
-/* SGC Computer Simulator
+<!-- SGC Computer Simulator
 Copyright (C) 2018  Philip Fulgham
 
 This program is free software: you can redistribute it and/or modify
@@ -12,12 +12,12 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>. */
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
-export { ChevronPart } from "./chevron-part.model";
-export { ChevronParts } from "./chevron-parts.model";
-export { ChevronStatus } from "./chevron-status.model";
-export { ChevronStatuses, DefaultChevronStatuses, PartialChevronStatuses } from "./chevron-statuses.model";
-export { GateStatus } from "./gate-status.model";
-export { Glyph, Glyphs } from "./glyph.model";
-export { Sound } from "./sound.model";
+<div class="row" *ngFor="let chevron of [1, 2, 3, 4, 5, 6, 7]">
+  <div class="bullet light"></div>
+  <div class="fail light" [ngClass]="{ 'lit': isFailed(chevron) }"></div>
+  <div class="number">{{ chevron }}</div>
+  <div class="success light" [ngClass]="{ 'lit': isEngaged(chevron) }"></div>
+  <div class="ok" [ngClass]="{ 'visible': isEngaged(chevron) }">OK</div>
+</div>

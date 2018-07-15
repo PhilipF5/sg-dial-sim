@@ -1,0 +1,76 @@
+/* SGC Computer Simulator
+Copyright (C) 2018  Philip Fulgham
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. */
+
+@import "variables";
+
+:host {
+	background-color: $secondary;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	font-family: $interface-font;
+	font-size: 12pt;
+	padding: 10px;
+	width: 200px;
+}
+
+.row {
+	align-items: center;
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
+}
+
+.light {
+	background-color: $black;
+	border: 2px inset $secondary;
+	height: 15px;
+
+	&.fail {
+		width: 35px;
+
+		&.lit {
+			background: radial-gradient(at center, $red 0%, transparent 100%), $black;
+		}
+	}
+
+	&.success {
+		width: 15px;
+
+		&.lit {
+			background: radial-gradient(at center, lightgreen 0%, transparent 100%), $black;
+		}
+	}
+
+	&.bullet {
+		height: 10px;
+		width: 10px;
+	}
+}
+
+.number {
+	color: $white;
+}
+
+.ok {
+	color: green;
+	opacity: 0;
+
+	&.visible {
+		opacity: 1;
+	}
+}

@@ -14,10 +14,9 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
-export { ChevronPart } from "./chevron-part.model";
-export { ChevronParts } from "./chevron-parts.model";
-export { ChevronStatus } from "./chevron-status.model";
-export { ChevronStatuses, DefaultChevronStatuses, PartialChevronStatuses } from "./chevron-statuses.model";
-export { GateStatus } from "./gate-status.model";
-export { Glyph, Glyphs } from "./glyph.model";
-export { Sound } from "./sound.model";
+export enum ChevronStatus {
+	Idle = 0,
+	Engaged = 2,
+	Failed = 1,
+	Inactive = -1,
+}

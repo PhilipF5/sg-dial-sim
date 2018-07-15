@@ -14,7 +14,16 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	NgZone,
+	OnInit,
+	QueryList,
+	ViewChild,
+	ViewChildren,
+} from "@angular/core";
 
 import { TimelineLite, TweenMax } from "gsap";
 
@@ -38,7 +47,8 @@ export class GateComponent implements AfterViewInit, OnInit {
 	constructor(
 		private audio: AudioService,
 		private gateControl: GateControlService,
-		private gateStatus: GateStatusService
+		private gateStatus: GateStatusService,
+		private ngZone: NgZone
 	) {}
 
 	ngAfterViewInit() {
@@ -53,7 +63,7 @@ export class GateComponent implements AfterViewInit, OnInit {
 					this.resetRing();
 					this.audio.play(Sound.ChevronLock);
 					for (let chevron of this.chevrons.filter(c => c.enabled)) {
-						chevron.inactivate();
+						this.disengageChevron(chevron.chevron);
 					}
 					break;
 			}
@@ -72,13 +82,22 @@ export class GateComponent implements AfterViewInit, OnInit {
 	}
 
 	private disengageChevron(chevron: number): TimelineLite {
-		return new TimelineLite().add(this.chevron(chevron).inactivate());
+		return new TimelineLite().add([
+			this.chevron(chevron).inactivate(),
+			() => this.ngZone.run(() => this.gateStatus.chevrons.idle(chevron)),
+		]);
 	}
 
 	private engageChevron(chevron: number): TimelineLite {
 		return new TimelineLite()
 			.add(this.chevron(7).lock(true, chevron === 7), "+=1")
-			.add(this.chevron(chevron).activate(), "-=1");
+			.add(
+				[
+					this.chevron(chevron).activate(),
+					() => this.ngZone.run(() => this.gateStatus.chevrons.engaged(chevron)),
+				],
+				"-=1"
+			);
 	}
 
 	private resetRing(): TweenMax {
