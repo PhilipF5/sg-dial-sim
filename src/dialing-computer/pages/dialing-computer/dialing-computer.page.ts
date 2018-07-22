@@ -31,7 +31,7 @@ import { GateStatusService } from "shared/services";
 	styleUrls: ["./dialing-computer.page.scss"],
 })
 export class DialingComputerPage {
-	public authCode = "10183523652-4354393";
+	public authCode: string = "10183523652-4354393";
 	public footerMenuButtons: any = [
 		{ text: "Keyboard", callback: () => this.openKeyboard() },
 		{ text: "Shutdown", callback: () => this.shutdown() },
@@ -39,6 +39,7 @@ export class DialingComputerPage {
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public glyphs: Glyph[] = [];
 	public status: GateStatus;
+	public user: string = "W. Harriman";
 
 	@ViewChild("footerMenu", { read: ElementRef })
 	private _footerMenu: ElementRef;

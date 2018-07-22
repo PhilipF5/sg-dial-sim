@@ -39,6 +39,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div class="label">Auth Code</div>
     <segment-display [text]="authCode" [border]="'bottom'"></segment-display>
   </div>
+  <div class="info">
+    <div class="label">User: {{ user }}</div>
+    <div class="label">Sys: Nominal</div>
+  </div>
   <div class="action-menu" (click)="onFooterMenuClick()">
     MENU
     <menu #footerMenu [buttons]="footerMenuButtons"></menu>
