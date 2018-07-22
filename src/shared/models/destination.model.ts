@@ -14,28 +14,16 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
-import { Component, Input } from "@angular/core";
+import { Glyph, Glyphs } from "./glyph.model";
 
-@Component({
-	selector: "segment-display",
-	templateUrl: "./segment-display.component.html",
-	styleUrls: ["./segment-display.component.scss"],
-})
-export class SegmentDisplayComponent {
-	@Input() align: string;
-	@Input() border: string = "both";
-	@Input() size: number;
-	@Input() text: string = "";
-
-	public get chars(): string[] {
-		let text = this.text || "";
-		if (this.size) {
-			if (this.align === "right") {
-				text = text.padStart(this.size);
-			} else {
-				text = text.padEnd(this.size);
-			}
-		}
-		return text.split("");
-	}
+export interface Destination {
+	address: Glyph[];
+	name: string;
 }
+
+export const DefaultAddressSet: Destination[] = [
+	{
+		address: [28, 26, 5, 36, 11, 29].map(n => Glyphs.standard.find(g => g.position === n)),
+		name: "Earth",
+	},
+];

@@ -21,8 +21,8 @@ import { Subject } from "rxjs";
 import { takeWhile } from "rxjs/operators";
 
 import { ChevronActivation, DialingResult } from "dialing-computer/models";
-import { GateStatus, Glyph } from "shared/models";
-import { GateStatusService } from "shared/services";
+import { Destination, GateStatus, Glyph } from "shared/models";
+import { GateNetworkService, GateStatusService } from "shared/services";
 
 @Injectable()
 export class GateControlService {
@@ -32,10 +32,16 @@ export class GateControlService {
 	public symbolAnimReady$: Subject<number> = new Subject();
 
 	private activationQueue: ChevronActivation[] = [];
+	private address: Glyph[];
+	private destination: Destination;
 	private dialingSequence: TimelineLite;
 	private status: GateStatus;
 
-	constructor(private gateStatus: GateStatusService, private ngZone: NgZone) {
+	constructor(
+		private gateNetwork: GateNetworkService,
+		private gateStatus: GateStatusService,
+		private ngZone: NgZone
+	) {
 		this.gateStatus.subscribe(status => {
 			this.status = status;
 			if (!!this.dialingSequence) {
@@ -47,6 +53,18 @@ export class GateControlService {
 						this.dialingSequence.clear();
 						break;
 				}
+			}
+		});
+
+		this.result$.subscribe(res => {
+			if (res.destination) {
+				setTimeout(() => {
+					this.gateStatus.active();
+				}, 2000);
+			} else {
+				setTimeout(() => {
+					this.shutdown();
+				}, 4000);
 			}
 		});
 	}
@@ -64,10 +82,22 @@ export class GateControlService {
 					chevronTimeline.startTime() + chevronTimeline.getLabelTime("chevronStart")
 				);
 
-			if (chevron === 7) {
-				timeline
-					.add(() => this.ngZone.run(() => this.result$.next({ success: true })), "+=1")
-					.add(() => this.ngZone.run(() => this.gateStatus.active()), "+=2");
+			if (chevron === this.address.length) {
+				timeline.add(() => this.ngZone.run(() => this.result$.next({ destination: this.destination })), "+=1");
+			} else if (chevron === this.address.length - 1) {
+				timeline.add(() =>
+					this.ngZone.run(() => {
+						this.destination = this.gateNetwork.getActiveAddress(this.address);
+						let activation = {
+							chevron: this.address.length,
+							fail: !this.destination,
+							glyph: this.address[chevron],
+						};
+
+						this.activationQueue.push(activation);
+						this.activations$.next(activation);
+					})
+				);
 			}
 		});
 
@@ -89,14 +119,15 @@ export class GateControlService {
 	}
 
 	public loadAddress(address: Glyph[]): void {
+		this.address = address;
 		if (this.activationQueue.length > 0) {
 			this.activationQueue = [];
 		}
 
-		for (let [index, glyph] of address.entries()) {
+		for (let i = 0; i < address.length - 1; i++) {
 			this.activationQueue.push({
-				chevron: index + 1,
-				glyph: glyph,
+				chevron: i + 1,
+				glyph: address[i],
 			});
 		}
 	}
@@ -111,6 +142,7 @@ export class GateControlService {
 				this.gateStatus.shutdown();
 				break;
 		}
+		this.address = undefined;
 		this.chevronAnimReady$ = new Subject();
 		this.symbolAnimReady$ = new Subject();
 	}

@@ -14,7 +14,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 import { TweenMax } from "gsap";
 import { BehaviorSubject } from "rxjs";
@@ -30,8 +30,9 @@ import { GateStatusService } from "shared/services";
 	templateUrl: "./dialing-computer.page.html",
 	styleUrls: ["./dialing-computer.page.scss"],
 })
-export class DialingComputerPage {
+export class DialingComputerPage implements OnInit {
 	public authCode: string = "10183523652-4354393";
+	public destination: string;
 	public footerMenuButtons: any = [
 		{ text: "Keyboard", callback: () => this.openKeyboard() },
 		{ text: "Shutdown", callback: () => this.shutdown() },
@@ -65,6 +66,15 @@ export class DialingComputerPage {
 	}
 
 	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
+
+	ngOnInit() {
+		this.gateControl.result$.subscribe(res => (this.destination = res.destination.name.toUpperCase()));
+		this.gateStatus.subscribe(status => {
+			if (status === GateStatus.Idle) {
+				this.destination = undefined;
+			}
+		});
+	}
 
 	public beginDialing(address: Glyph[]): void {
 		address.push(Glyphs.pointOfOrigin);

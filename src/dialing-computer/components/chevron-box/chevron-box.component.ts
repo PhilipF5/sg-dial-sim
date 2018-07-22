@@ -20,7 +20,7 @@ import { TimelineLite } from "gsap";
 import { BehaviorSubject } from "rxjs";
 import { filter, take } from "rxjs/operators";
 
-import { ChevronBoxAnimations } from "dialing-computer/animations";
+import { ChevronBoxAnimations, ChevronBoxAnimationConfig } from "dialing-computer/animations";
 import { GateControlService } from "dialing-computer/services";
 import { GateStatus, Glyph } from "shared/models";
 import { GateStatusService } from "shared/services";
@@ -46,19 +46,14 @@ export class ChevronBoxComponent implements OnInit {
 	ngOnInit() {
 		this.gateControl.activations$.pipe(filter(a => a.chevron === this.number)).subscribe(a => {
 			this.glyph = a.glyph;
-			this.gatePosition$
-				.pipe(
-					filter(pos => !!pos),
-					take(1)
-				)
-				.subscribe(pos => {
-					a.symbolTimeline = this.lockSymbolSuccess(pos);
-					this.gateControl.symbolAnimReady$.next(this.number);
-				});
+			this.gatePosition$.pipe(filter(pos => !!pos), take(1)).subscribe(pos => {
+				a.symbolTimeline = a.fail ? this.lockSymbolFailed(pos) : this.lockSymbolSuccess(pos);
+				this.gateControl.symbolAnimReady$.next(this.number);
+			});
 		});
 
 		this.gateControl.result$.subscribe(res => {
-			if (res.success) {
+			if (res.destination) {
 				ChevronBoxAnimations.flashOnActivate(this.chevronBox);
 			}
 		});
@@ -75,16 +70,24 @@ export class ChevronBoxComponent implements OnInit {
 		this.glyph = undefined;
 	}
 
+	public lockSymbolFailed(gatePosition: DOMRect): TimelineLite {
+		return ChevronBoxAnimations.lockSymbolFailed(this.buildAnimationConfig(gatePosition));
+	}
+
 	public lockSymbolSuccess(gatePosition: DOMRect): TimelineLite {
+		return ChevronBoxAnimations.lockSymbolSuccess(this.buildAnimationConfig(gatePosition));
+	}
+
+	private buildAnimationConfig(gatePosition: DOMRect): ChevronBoxAnimationConfig {
 		this.updateSymbolPosition();
 
-		return ChevronBoxAnimations.lockSymbolSuccess({
+		return {
 			chevronBox: this.chevronBox,
 			centerY: gatePosition.y + gatePosition.height / 2 - this.position.y - this.position.height / 2,
 			startX: gatePosition.x + gatePosition.width / 2 - this.position.x - this.position.width / 2,
 			startY: gatePosition.y - this.position.y + 50,
 			symbol: this.symbol,
-		});
+		};
 	}
 
 	private updateSymbolPosition(): void {
