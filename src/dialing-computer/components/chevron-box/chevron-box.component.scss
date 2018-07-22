@@ -22,10 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 	}
 
 	&.locked {
-		.chevron-number {
-			opacity: 1;
-		}
-
 		.chevron-symbol-box {
 			border-color: $red;
 		}
@@ -38,7 +34,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 	font-size: 24px;
 	color: $white;
 	vertical-align: bottom;
-	opacity: 0;
 }
 
 .chevron-symbol-box {
