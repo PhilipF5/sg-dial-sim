@@ -99,6 +99,8 @@ export class GateComponent implements AfterViewInit, OnInit {
 				],
 				"-=1"
 			);
+		} else {
+			timeline.add(() => this.ngZone.run(() => this.gateStatus.chevrons.failed(chevron)));
 		}
 
 		return timeline;
