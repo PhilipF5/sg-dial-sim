@@ -30,8 +30,8 @@ export class GateAnimations {
 
 	public static inactivateChevron(parts: ChevronParts) {
 		return new TimelineLite().add([
-			TweenLite.to(parts.head, 0.5, { fill: "black", stroke: "white" }),
-			TweenLite.to(parts.tail, 0.5, { stroke: "white" }),
+			TweenLite.to(parts.head, 0.5, { y: 0, fill: "black", stroke: "white" }),
+			TweenLite.to(parts.tail, 0.5, { y: 0, stroke: "white" }),
 		]);
 	}
 

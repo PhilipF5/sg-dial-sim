@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
 import { ElementRef } from "@angular/core";
 
-import { TimelineLite, TweenMax } from "gsap";
+import { Power1, TimelineLite, TweenMax } from "gsap";
 
 export interface ChevronBoxAnimationConfig {
 	chevronBox: ElementRef;
@@ -47,9 +47,12 @@ export class ChevronBoxAnimations {
 				x: config.startX,
 				y: config.centerY,
 				scale: 5,
+				ease: Power1.easeIn,
+			}),
+			TweenMax.to(config.symbol.nativeElement, 2, {
 				css: { className: "+=failed" },
 			}),
-		]);
+		], "+=0.5");
 	}
 
 	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): TimelineLite {

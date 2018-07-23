@@ -64,7 +64,7 @@ export class GateControlService {
 			} else {
 				setTimeout(() => {
 					this.shutdown();
-				}, 4000);
+				}, 7000);
 			}
 		});
 	}
@@ -102,13 +102,11 @@ export class GateControlService {
 		});
 
 		this.symbolAnimReady$.pipe(takeWhile(chevron => chevron <= this.activationQueue.length)).subscribe(chevron => {
-			timeline.add(
-				[
-					this.activationQueue[chevron - 1].symbolTimeline,
-					() => this.ngZone.run(() => this.gateStatus.engaged()),
-				],
-				`chevron${chevron}Start`
-			);
+			timeline.add(this.activationQueue[chevron - 1].symbolTimeline, `chevron${chevron}Start`);
+
+			if (!this.activationQueue[chevron - 1].fail) {
+				timeline.add(() => this.ngZone.run(() => this.gateStatus.engaged()), `chevron${chevron}Start`);
+			}
 		});
 
 		for (let activation of this.activationQueue) {

@@ -88,16 +88,20 @@ export class GateComponent implements AfterViewInit, OnInit {
 		]);
 	}
 
-	private engageChevron(chevron: number): TimelineLite {
-		return new TimelineLite()
-			.add(this.chevron(7).lock(true, chevron === 7), "+=1")
-			.add(
+	private engageChevron(chevron: number, succeed: boolean = true): TimelineLite {
+		let timeline = new TimelineLite().add(this.chevron(7).lock(succeed, chevron === 7), "+=1");
+
+		if (succeed) {
+			timeline.add(
 				[
 					this.chevron(chevron).activate(),
 					() => this.ngZone.run(() => this.gateStatus.chevrons.engaged(chevron)),
 				],
 				"-=1"
 			);
+		}
+
+		return timeline;
 	}
 
 	private resetRing(): TweenMax {
@@ -108,7 +112,7 @@ export class GateComponent implements AfterViewInit, OnInit {
 	private selectAndEngage(activation: ChevronActivation): TimelineLite {
 		return new TimelineLite()
 			.add(this.spinTo(activation))
-			.add(this.engageChevron(activation.chevron), "chevronStart");
+			.add(this.engageChevron(activation.chevron, !activation.fail), "chevronStart");
 	}
 
 	private spinTo(activation: ChevronActivation): TimelineLite {
