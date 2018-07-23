@@ -44,17 +44,20 @@ export class ChevronBoxAnimations {
 	}
 
 	public static lockSymbolFailed(config: ChevronBoxAnimationConfig): TimelineLite {
-		return this.lockSymbolAttempt(config).add([
-			TweenMax.to(config.symbol.nativeElement, 2, {
-				x: config.startX,
-				y: config.centerY,
-				scale: 5,
-				ease: Power1.easeIn,
-			}),
-			TweenMax.to(config.symbol.nativeElement, 2, {
-				css: { className: "+=failed" },
-			}),
-		], "+=0.5");
+		return this.lockSymbolAttempt(config).add(
+			[
+				TweenMax.to(config.symbol.nativeElement, 2, {
+					x: config.startX,
+					y: config.centerY,
+					scale: 5,
+					ease: Power1.easeIn,
+				}),
+				TweenMax.to(config.symbol.nativeElement, 2, {
+					css: { className: "+=failed" },
+				}),
+			],
+			"+=0.5"
+		);
 	}
 
 	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): TimelineLite {
