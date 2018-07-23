@@ -28,9 +28,6 @@ export class GateNetworkService {
 			.filter(d => d.address[4].position === address[4].position)
 			.filter(d => d.address[5].position === address[5].position);
 
-		console.log("Address input", address);
-		console.log("Matches", sixSymbolMatches);
-
 		if (sixSymbolMatches.length === 0) {
 			return null;
 		} else if (address.length === 7) {
