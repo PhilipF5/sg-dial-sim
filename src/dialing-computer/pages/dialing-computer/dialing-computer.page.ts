@@ -68,7 +68,7 @@ export class DialingComputerPage implements OnInit {
 	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
 
 	ngOnInit() {
-		this.gateControl.result$.subscribe(res => (this.destination = res.destination.name.toUpperCase()));
+		this.gateControl.result$.subscribe(res => (this.destination = res.destination && res.destination.name.toUpperCase()));
 		this.gateStatus.subscribe(status => {
 			if (status === GateStatus.Idle) {
 				this.destination = undefined;

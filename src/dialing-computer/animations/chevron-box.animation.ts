@@ -29,7 +29,9 @@ export interface ChevronBoxAnimationConfig {
 export class ChevronBoxAnimations {
 	public static clearSymbol(box: ElementRef, symbol: ElementRef): TimelineLite {
 		return new TimelineLite()
-			.set(symbol.nativeElement, { x: 0, y: 0, css: { className: "-=active" } })
+			.set(symbol.nativeElement, { css: { className: "-=active" } })
+			.set(symbol.nativeElement, { css: { className: "-=failed" } })
+			.set(symbol.nativeElement, { x: 0, y: 0 })
 			.set(box.nativeElement, { css: { className: "-=locked" } });
 	}
 
