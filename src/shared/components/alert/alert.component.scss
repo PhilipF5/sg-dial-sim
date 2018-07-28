@@ -1,0 +1,42 @@
+@import "variables";
+
+:host {
+	align-items: center;
+	background-color: $black;
+	border: 3px solid $primary;
+	border-radius: 5px;
+	display: flex;
+	font-family: $interface-font;
+	font-variant: small-caps;
+	height: 300px;
+	justify-content: center;
+	text-transform: uppercase;
+	width: 650px;
+}
+
+.container {
+	align-items: center;
+	border: 1px solid $secondary;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	height: 95%;
+	justify-content: center;
+	width: 95%;
+}
+
+.title {
+	color: $primary;
+	font-size: 16pt;
+	text-align: center;
+}
+
+.text {
+	color: $white;
+	font-size: 34pt;
+	text-align: center;
+
+	&.critical {
+		color: $darkred;
+	}
+}

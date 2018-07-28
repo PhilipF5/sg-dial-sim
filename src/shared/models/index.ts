@@ -1,3 +1,4 @@
+export { AlertConfig } from "./alert-config.model";
 export { ChevronPart } from "./chevron-part.model";
 export { ChevronParts } from "./chevron-parts.model";
 export { ChevronStatus } from "./chevron-status.model";
