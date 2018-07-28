@@ -5,9 +5,13 @@ export interface Destination {
 	name: string;
 }
 
-export const DefaultAddressSet: Destination[] = [
+const addresses = [
 	{
-		address: [28, 26, 5, 36, 11, 29].map(n => Glyphs.standard.find(g => g.position === n)),
+		address: [28, 26, 5, 36, 11, 29],
 		name: "Earth",
 	},
 ];
+
+export const DefaultAddressSet: Destination[] = addresses.map(a => {
+	return { address: a.address.map(n => Glyphs.standard.find(g => g.position === n)), name: a.name };
+});
