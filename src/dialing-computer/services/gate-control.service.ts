@@ -6,7 +6,7 @@ import { takeWhile } from "rxjs/operators";
 
 import { ChevronActivation, DialingResult } from "dialing-computer/models";
 import { Destination, GateStatus, Glyph } from "shared/models";
-import { GateNetworkService, GateStatusService } from "shared/services";
+import { AlertService, GateNetworkService, GateStatusService } from "shared/services";
 
 @Injectable()
 export class GateControlService {
@@ -22,6 +22,7 @@ export class GateControlService {
 	private status: GateStatus;
 
 	constructor(
+		private alert: AlertService,
 		private gateNetwork: GateNetworkService,
 		private gateStatus: GateStatusService,
 		private ngZone: NgZone
@@ -46,6 +47,12 @@ export class GateControlService {
 					this.gateStatus.active();
 				}, 2000);
 			} else {
+				this.alert.alerts.next({
+					critical: true,
+					duration: 7000,
+					message: "404 Not Found",
+					title: "Cannot Establish Connection",
+				});
 				setTimeout(() => {
 					this.shutdown();
 				}, 7000);
