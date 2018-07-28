@@ -22,7 +22,7 @@ The simulator is built in Angular with TypeScript. Animations are built with the
 
 ## Legal
 
-The source code to this project is copyright by the author(s), and made available under the GNU Affero General Public License v3.0. No copyright or trademark claim is made by the author(s) to Stargate or related marks, names, sounds, or symbols. Furthermore, no trademark claim is made by the author(s) to the name "SGC Computer Simulator."
+The source code to this project is copyright by the author(s), and made available under the MIT License. No copyright or trademark claim is made by the author(s) to Stargate or related marks, names, sounds, or symbols. Furthermore, no trademark claim is made by the author(s) to the name "SGC Computer Simulator."
 
 Stargate and related marks are trademarks of Metro-Goldwyn-Mayer Studios® Incorporated. SGC Computer Simulator is produced noncommercially, as a hobby project, with the purpose of promoting the Stargate franchise. This project is not affiliated with Metro-Goldwyn-Mayer Studios® Incorporated or its agents.
 
