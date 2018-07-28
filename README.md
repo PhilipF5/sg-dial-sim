@@ -1,8 +1,8 @@
-# SGC Computer Simulator
+# SG Dialing Simulator
 
 **IMPORTANT: This project is in a pre-alpha stage of development. Functionality is very limited, and there may be a lot of bugs.**
 
-SGC Computer Simulator aims to be a realistic recreation of the dialing computer depicted in the television show "Stargate SG-1."
+SG Dialing Simulator aims to be a realistic recreation of the dialing computer depicted in the television show "Stargate SG-1."
 
 ## How to Use
 
@@ -12,7 +12,7 @@ For those who are comfortable with DIY, simply clone this repo into a directory 
 
 ### Current Functionality
 
-You can dial the gate with a 7-symbol address. The dialing keyboard in the menu at the bottom of the screen can be used to select symbols. Currently, any 6-symbol combination will work, and the point of origin will be added to the dialing sequence automatically. You can abort the dialing sequence, or shut the gate down if it's active.
+You can dial the gate with a 7-symbol address. The dialing keyboard in the menu at the bottom of the screen can be used to select symbols. Currently, only the address of Earth will work, and the point of origin will be added to the dialing sequence automatically. You can abort the dialing sequence, or shut the gate down if it's active.
 
 More functionality is planned for the future.
 
@@ -22,9 +22,9 @@ The simulator is built in Angular with TypeScript. Animations are built with the
 
 ## Legal
 
-The source code to this project is copyright by the author(s), and made available under the MIT License. No copyright or trademark claim is made by the author(s) to Stargate or related marks, names, sounds, or symbols. Furthermore, no trademark claim is made by the author(s) to the name "SGC Computer Simulator."
+The source code to this project is copyright by the author(s), and made available under the MIT License. No copyright or trademark claim is made by the author(s) to Stargate or related marks, names, sounds, or symbols. Furthermore, no trademark claim is made by the author(s) to the name "SG Dialing Simulator."
 
-Stargate and related marks are trademarks of Metro-Goldwyn-Mayer Studios® Incorporated. SGC Computer Simulator is produced noncommercially, as a hobby project, with the purpose of promoting the Stargate franchise. This project is not affiliated with Metro-Goldwyn-Mayer Studios® Incorporated or its agents.
+Stargate and related marks are trademarks of Metro-Goldwyn-Mayer Studios® Incorporated. SG Dialing Simulator is produced noncommercially, as a hobby project, with the purpose of promoting the Stargate franchise. This project is not affiliated with Metro-Goldwyn-Mayer Studios® Incorporated or its agents.
 
 Sounds are copyright Metro-Goldwyn-Mayer Studios® Incorporated, and obtained from various Internet sources under fair use.
 
