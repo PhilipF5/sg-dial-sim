@@ -1,3 +1,10 @@
+<div class="header">
+  <div></div>
+  <div class="destination">
+    <segment-display [align]="'right'" [border]="'top'" [size]="8" [text]="destination"></segment-display>
+    <div class="label">Destination</div>
+  </div>
+</div>
 <div class="column-layout">
   <div class="left column">
     <chevron-status></chevron-status>
@@ -7,8 +14,6 @@
     <dialing-status></dialing-status>
   </div>
   <div class="right column">
-    <segment-display [align]="'right'" [border]="'top'" [size]="8" [text]="destination"></segment-display>
-    <div class="label">Destination</div>
     <div class="chevron-boxes">
       <chevron-box
         *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8]"

@@ -2,27 +2,48 @@
 
 :host {
 	align-items: center;
+	border: 5px solid $primary;
+	border-bottom-right-radius: 25px;
+	border-top-left-radius: 25px;
 	flex-direction: column;
 	display: flex;
 	height: 100%;
 	justify-content: space-between;
+	padding: 10px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+
+	.destination {
+		align-items: flex-end;
+		display: flex;
+		flex-direction: column;
+	}
 }
 
 .column-layout {
-	align-items: center;
+	align-items: stretch;
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
 
 .column {
+	align-items: center;
 	flex-direction: column;
 	display: flex;
-	height: 100%;
 	justify-content: space-evenly;
 
 	&.left {
 		align-items: flex-start;
+		border: 3px solid $primary;
+		border-bottom-right-radius: 5px;
+		border-left: none;
+		border-top-right-radius: 5px;
+		padding: 5px;
 	}
 
 	&.center {
@@ -32,10 +53,6 @@
 	&.right {
 		align-items: flex-end;
 	}
-}
-
-.chevron-boxes {
-	max-height: 750px;
 }
 
 dialing-status {
