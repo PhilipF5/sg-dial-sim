@@ -44,6 +44,14 @@
 		border-left: none;
 		border-top-right-radius: 5px;
 		padding: 5px;
+
+		.scrolling-bits-container {
+			border: 1px solid $secondary;
+			border-top-right-radius: 5px;
+			height: 500px;
+			padding: 5px;
+			width: 200px;
+		}
 	}
 
 	&.center {
