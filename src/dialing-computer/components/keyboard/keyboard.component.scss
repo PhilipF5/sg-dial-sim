@@ -99,6 +99,14 @@
 			&.selected {
 				background: radial-gradient(at center, red 0%, transparent 100%);
 			}
+
+			&:hover tooltip {
+				opacity: 1;
+			}
+
+			.glyph-name {
+				font-variant: small-caps;
+			}
 		}
 	}
 }

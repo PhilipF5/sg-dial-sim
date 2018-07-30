@@ -14,6 +14,9 @@
   [ngClass]="{ 'selected': isGlyphSelected(glyph), 'disabled': !isDialingAvailable }"
 >
   {{ glyph.char }}
+  <tooltip>
+    <span class="glyph-name">{{ glyph.name }}</span> ({{ glyph.char }})
+  </tooltip>
 </div>
 
 <div class="left corner">
