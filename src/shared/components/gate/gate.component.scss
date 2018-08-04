@@ -37,7 +37,7 @@ svg {
 	[ng-reflect-chevron="8"], [ng-reflect-chevron="9"] {
 		.chevron-head,
 		.chevron-tail {
-			stroke: $gray;
+			opacity: 0.25
 		}
 	}
 }
