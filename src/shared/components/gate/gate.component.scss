@@ -2,6 +2,7 @@
 
 :host {
 	position: relative;
+	width: 100%;
 }
 
 event-horizon {
@@ -11,9 +12,6 @@ event-horizon {
 }
 
 svg {
-	height: 650px;
-	width: 600px;
-
 	.base {
 		fill: transparent;
 		stroke: $primary;

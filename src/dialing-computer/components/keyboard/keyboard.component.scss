@@ -4,13 +4,13 @@
 	background-color: $black;
 	border: 3px solid $primary;
 	bottom: 0;
-	height: 450px;
+	height: 350px;
 	left: 50%;
 	position: absolute;
 	text-align: center;
 	transform: translateX(-50%);
 	transform-origin: bottom center;
-	width: 1200px;
+	width: 900px;
 
 	&.minimized {
 		transform: translateX(-50%) scale(0);
@@ -18,7 +18,7 @@
 
 	.address {
 		text-align: center;
-		height: 115px;
+		height: 75px;
 		width: 100%;
 
 		.selected-glyph {
@@ -26,20 +26,22 @@
 			color: $white;
 			display: inline-block;
 			font-family: $glyphs-font;
-			font-size: 80px;
-			height: 1em;
-			margin: 15px;
+			font-size: 3rem;
+			height: 1.25em;
+			margin: 5px;
 			position: relative;
-			width: 2em;
+			text-align: right;
+			width: 1.75em;
 
 			.glyph-number {
 				background-color: $red;
 				color: $white;
 				bottom: 0;
 				font-family: sans-serif;
-				font-size: 20px;
+				font-size: 1.25rem;
 				left: 0;
 				position: absolute;
+				text-align: center;
 				width: 1em;
 			}
 		}
@@ -71,7 +73,7 @@
 		cursor: pointer;
 		display: inline-block;
 		font-family: $interface-font;
-		font-size: 24px;
+		font-size: 1rem;
 		margin: 15px;
 
 		&.disabled {
@@ -93,7 +95,7 @@
 
 		&.glyph {
 			font-family: $glyphs-font;
-			font-size: 50px;
+			font-size: 2rem;
 			width: 1.5em;
 
 			&.selected {

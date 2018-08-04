@@ -1,6 +1,18 @@
 @import "variables";
 
+:host {
+	height: 20%;
+	margin-bottom: 2px;
+	width: 100%;
+}
+
 .chevron-box {
+	align-items: flex-end;
+	display: flex;
+	height: 100%;
+	justify-content: right;
+	width: 100%;
+
 	&.chevron-8 {
 		opacity: 0;
 	}
@@ -13,17 +25,16 @@
 }
 
 .chevron-number {
-	display: inline-block;
 	font-family: $interface-font;
-	font-size: 24px;
+	font-size: 1.5rem;
 	color: $white;
 	vertical-align: bottom;
 }
 
 .chevron-symbol-box {
-	display: inline-block;
-	width: 130px;
-	height: 95px;
+	box-sizing: border-box;
+	width: 75%;
+	height: 100%;
 	border-color: $primary;
 	border-width: 3px;
 	border-style: solid;
@@ -33,7 +44,7 @@
 	.sg1-symbol {
 		color: $white;
 		font-family: $glyphs-font;
-		font-size: 90px;
+		font-size: 3.125rem;
 		margin-top: 10px;
 		position: absolute;
 		text-align: center;

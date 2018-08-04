@@ -7,9 +7,8 @@
 	display: flex;
 	flex-direction: column;
 	font-family: $interface-font;
-	font-size: 12pt;
+	font-size: 0.75rem;
 	padding: 10px;
-	width: 200px;
 }
 
 .row {
@@ -22,10 +21,10 @@
 .light {
 	background-color: $black;
 	border: 2px inset $secondary;
-	height: 15px;
+	height: 1em;
 
 	&.fail {
-		width: 35px;
+		width: 3em;
 
 		&.lit {
 			background: radial-gradient(at center, $red 0%, transparent 100%), $black;
@@ -33,7 +32,7 @@
 	}
 
 	&.success {
-		width: 15px;
+		width: 1.25em;
 
 		&.lit {
 			background: radial-gradient(at center, lightgreen 0%, transparent 100%), $black;
@@ -41,8 +40,8 @@
 	}
 
 	&.bullet {
-		height: 10px;
-		width: 10px;
+		height: 0.75em;
+		width: 0.75em;
 	}
 }
 

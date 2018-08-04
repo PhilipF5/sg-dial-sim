@@ -5,12 +5,12 @@
 	color: $white;
 	display: inline-block;
 	font-family: $interface-font;
-	font-size: 16pt;
-	height: 30px;
+	font-size: 1em;
+	height: 1.5em;
 	margin: 0;
 	text-align: center;
 	vertical-align: top;
-	width: 25px;
+	width: 1.2em;
 
 	&:last-of-type {
 		border-right: 1px solid $primary;
