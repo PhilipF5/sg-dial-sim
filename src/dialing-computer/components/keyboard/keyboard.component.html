@@ -1,8 +1,14 @@
 <div class="close key" (click)="closeKeyboard()">X</div>
 
-<div class="address">
-  <div *ngFor="let glyph of [1, 2, 3, 4, 5, 6]" class="selected-glyph">
-    {{ address[glyph - 1]?.char || "&nbsp;" }}
+<div class="address" [ngClass]="{ 'valid': isAddressValid() }">
+  <div
+    *ngFor="let glyph of [1, 2, 3, 4, 5, 6, 7, 8]"
+    class="selected-glyph"
+    [ngClass]="{ 'selected': isGlyphNumberSelected(glyph), 'inactive': isGlyphNumberInactive(glyph) }"
+  >
+    <div class="glyph">
+      {{ addressWithOrigin[glyph - 1]?.char || "&nbsp;" }}
+    </div>
     <div class="glyph-number">{{ glyph }}</div>
   </div>
 </div>

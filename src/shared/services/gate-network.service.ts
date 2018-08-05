@@ -5,6 +5,10 @@ import { DefaultAddressSet, Destination, Glyph } from "shared/models";
 @Injectable()
 export class GateNetworkService {
 	public getActiveAddress(address: Glyph[]): Destination {
+		if (address.length < 7) {
+			return null;
+		}
+
 		let sixSymbolMatches = DefaultAddressSet.filter(d => d.address[0].position === address[0].position)
 			.filter(d => d.address[1].position === address[1].position)
 			.filter(d => d.address[2].position === address[2].position)

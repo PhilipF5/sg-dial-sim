@@ -4,45 +4,76 @@
 	background-color: $black;
 	border: 3px solid $primary;
 	bottom: 0;
+	box-sizing: border-box;
 	height: 350px;
 	left: 50%;
 	position: absolute;
 	text-align: center;
 	transform: translateX(-50%);
 	transform-origin: bottom center;
-	width: 900px;
+	width: 1024px;
 
 	&.minimized {
 		transform: translateX(-50%) scale(0);
 	}
 
 	.address {
-		text-align: center;
+		align-items: center;
+		display: flex;
 		height: 75px;
+		justify-content: center;
+		text-align: center;
 		width: 100%;
 
 		.selected-glyph {
-			border: 2px solid $red;
+			align-items: center;
+			border: 2px solid $gray;
 			color: $white;
-			display: inline-block;
+			display: flex;
 			font-family: $glyphs-font;
 			font-size: 3rem;
 			height: 1.25em;
+			justify-content: space-between;
 			margin: 5px;
+			padding-right: 5px;
 			position: relative;
-			text-align: right;
 			width: 1.75em;
 
+			&.inactive {
+				opacity: 0.25;
+			}
+
+			.glyph {
+				order: 2;
+			}
+
 			.glyph-number {
-				background-color: $red;
+				align-self: flex-end;
+				background-color: $gray;
 				color: $white;
-				bottom: 0;
-				font-family: sans-serif;
+				font-family: $interface-font;
 				font-size: 1.25rem;
-				left: 0;
-				position: absolute;
+				order: 1;
 				text-align: center;
 				width: 1em;
+			}
+
+			&.selected {
+				border-color: $red;
+
+				.glyph-number {
+					background-color: $red;
+				}
+			}
+		}
+
+		&.valid {
+			.selected-glyph.selected {
+				border-color: $green;
+
+				.glyph-number {
+					background-color: $green;
+				}
 			}
 		}
 	}
@@ -68,7 +99,6 @@
 	}
 
 	.key {
-		border: 1px solid $primary;
 		color: $white;
 		cursor: pointer;
 		display: inline-block;
@@ -83,7 +113,7 @@
 		}
 
 		&:hover {
-			background: radial-gradient(at center, lightblue 0%, transparent 100%);
+			background: radial-gradient(at center, lightblue 0%, transparent 75%);
 		}
 
 		&.close {
@@ -95,15 +125,25 @@
 
 		&.glyph {
 			font-family: $glyphs-font;
-			font-size: 2rem;
+			font-size: 2.5rem;
+			transition:  text-shadow 1s ease-in-out, transform 1s ease-in-out;
 			width: 1.5em;
 
 			&.selected {
-				background: radial-gradient(at center, red 0%, transparent 100%);
+				background: radial-gradient(at center, red 0%, transparent 75%);
 			}
 
-			&:hover tooltip {
-				opacity: 1;
+			&:hover {
+				text-shadow: 1px 4px 0 gray;
+				transform: scale(2);
+
+				tooltip {
+					left: 0;
+					opacity: 1;
+					text-shadow: none;
+					top: -50%;
+					width: 200%;
+				}
 			}
 
 			.glyph-name {

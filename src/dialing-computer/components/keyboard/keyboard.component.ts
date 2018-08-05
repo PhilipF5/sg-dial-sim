@@ -4,7 +4,7 @@ import { TweenLite } from "gsap";
 
 import { GateControlService } from "dialing-computer/services";
 import { GateStatus, Glyph, Glyphs } from "shared/models";
-import { GateStatusService } from "shared/services";
+import { GateNetworkService, GateStatusService } from "shared/services";
 
 @Component({
 	selector: "keyboard",
@@ -17,6 +17,14 @@ export class KeyboardComponent implements OnInit {
 	public isDialingAvailable: boolean;
 	public keys: Glyph[] = Glyphs.standard;
 
+	public get addressWithOrigin(): Glyph[] {
+		let address = this.address.slice();
+		if (this.address.length >= 6) {
+			address.push(Glyphs.pointOfOrigin);
+		}
+		return address;
+	}
+
 	private get element(): HTMLElement {
 		return this._element.nativeElement;
 	}
@@ -24,6 +32,7 @@ export class KeyboardComponent implements OnInit {
 	constructor(
 		private _element: ElementRef,
 		private gateControl: GateControlService,
+		private gateNetwork: GateNetworkService,
 		private gateStatus: GateStatusService
 	) {}
 
@@ -52,6 +61,18 @@ export class KeyboardComponent implements OnInit {
 
 	public closeKeyboard(): void {
 		TweenLite.to(this.element, 1, { css: { className: "+=minimized" } });
+	}
+
+	public isAddressValid(): boolean {
+		return !!this.gateNetwork.getActiveAddress(this.addressWithOrigin);
+	}
+
+	public isGlyphNumberInactive(glyph: number): boolean {
+		return glyph > 6;
+	}
+
+	public isGlyphNumberSelected(glyph: number): boolean {
+		return !!this.address[glyph - 1];
 	}
 
 	public isGlyphSelected(glyph: Glyph): boolean {
