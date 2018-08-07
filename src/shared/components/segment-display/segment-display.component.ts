@@ -15,9 +15,9 @@ export class SegmentDisplayComponent {
 		let text = this.text || "";
 		if (this.size) {
 			if (this.align === "right") {
-				text = text.padStart(this.size);
+				text = text.substring(0, this.size).padStart(this.size);
 			} else {
-				text = text.padEnd(this.size);
+				text = text.substring(0, this.size).padEnd(this.size);
 			}
 		}
 		return text.split("");
