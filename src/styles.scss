@@ -19,3 +19,19 @@ body {
 	background-color: $black;
 	margin: 0;
 }
+
+body, html {
+	height: 100%;
+}
+
+@media (min-height: 960px) {
+	body {
+		zoom: 1.25;
+	}
+}
+
+@media (min-height: 1160px) {
+	body {
+		zoom: 1.50;
+	}
+}
