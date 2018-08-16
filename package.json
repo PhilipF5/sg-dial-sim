@@ -4,12 +4,15 @@
 	"author": "Philip Fulgham (https://www.philipfulgham.com)",
 	"license": "MIT",
 	"private": true,
+	"main": "main.js",
+	"repository": "github:philipf5/sg-dial-sim",
 	"scripts": {
 		"ng": "ng",
-		"start": "ng serve",
+		"start": "ng serve & (sleep 12 && electron .)",
 		"build": "ng build",
 		"test": "ng test",
-		"lint": "ng lint"
+		"lint": "ng lint",
+		"electron": "electron ."
 	},
 	"dependencies": {
 		"@angular/animations": "^6.0.2",
@@ -37,6 +40,7 @@
 		"@types/jasminewd2": "~2.0.3",
 		"@types/node": "~8.9.4",
 		"codelyzer": "~4.2.1",
+		"electron": "^2.0.7",
 		"jasmine-core": "~2.99.1",
 		"jasmine-spec-reporter": "~4.2.1",
 		"karma": "~1.7.1",
