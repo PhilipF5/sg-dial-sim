@@ -9,6 +9,7 @@ function createWindow() {
 		backgroundColor: "#000000",
 		useContentSize: true,
 		resizable: false,
+		fullscreen: true,
 	});
 
 	win.loadURL(`http://localhost:4200`);
