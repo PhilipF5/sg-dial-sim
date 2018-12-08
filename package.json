@@ -8,8 +8,9 @@
 	"repository": "github:philipf5/sg-dial-sim",
 	"scripts": {
 		"ng": "ng",
-		"start": "ng serve & (sleep 12 && electron .)",
-		"build": "ng build",
+		"start": "ng serve",
+		"start:electron": "yarn start & (sleep 12 && yarn electron)",
+		"build": "ng build --prod",
 		"test": "ng test",
 		"lint": "ng lint",
 		"electron": "electron ."
