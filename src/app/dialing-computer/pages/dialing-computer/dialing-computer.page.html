@@ -1,34 +1,48 @@
-<div class="destination">
-  <segment-display [align]="'right'" [border]="'top'" [size]="10" [text]="destination"></segment-display>
-  <div class="label">Destination</div>
-</div>
-<div class="sidebar">
-  <div class="scrolling-bits-container">
-    <scrolling-bits [enabled]="true" [length]="518"></scrolling-bits>
-  </div>
-  <div class="chevron-status-container">
-    <chevron-status></chevron-status>
+<div class="header">
+  <div></div>
+  <div class="destination">
+    <segment-display [align]="'right'" [border]="'top'" [size]="10" [text]="destination"></segment-display>
+    <div class="label">Destination</div>
   </div>
 </div>
-<gate></gate>
-<dialing-status></dialing-status>
-<div class="chevron-boxes">
-  <chevron-box
-    *ngFor="let number of [1, 2, 3, 4, 5, 6, 7]"
-    [gatePosition]="gatePosition$"
-    [number]="number"
-  ></chevron-box>
+<div class="column-layout">
+  <div class="left column">
+    <div class="scrolling-bits-container">
+      <scrolling-bits [enabled]="true" [length]="518"></scrolling-bits>
+    </div>
+    <div class="chevron-status-container">
+      <chevron-status></chevron-status>
+    </div>
+  </div>
+  <div class="center column">
+    <gate></gate>
+    <dialing-status></dialing-status>
+  </div>
+  <div class="right column">
+    <div class="chevron-boxes">
+      <chevron-box
+        *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8]"
+        [gatePosition]="gatePosition$"
+        [number]="number"
+      ></chevron-box>
+    </div>
+  </div>
 </div>
-<div class="auth-code">
-  <div class="label">Auth Code</div>
-  <segment-display [text]="authCode" [border]="'bottom'"></segment-display>
+<div class="footer">
+  <div class="auth-code">
+    <div class="label">Auth Code</div>
+    <segment-display [text]="authCode" [border]="'bottom'"></segment-display>
+  </div>
+  <div class="info">
+    <div class="label">User: {{ user }}</div>
+    <div class="label">Sys: Nominal</div>
+  </div>
+  <div class="action-menu" (click)="onFooterMenuClick()">
+    MENU
+    <menu #footerMenu [buttons]="footerMenuButtons"></menu>
+  </div>
 </div>
-<div class="info">
-  <div class="label">User: {{ user }}</div>
-  <div class="label">Sys: Nominal</div>
-</div>
-<div class="action-menu" (click)="onFooterMenuClick()">
-  MENU
-  <menu #footerMenu [buttons]="footerMenuButtons"></menu>
-</div>
-<keyboard class="minimized" (dialAddress)="keyboardStartDialingHandler($event)"></keyboard>
+<keyboard
+  class="minimized"
+  (dialAddress)="keyboardStartDialingHandler($event)"
+></keyboard>
