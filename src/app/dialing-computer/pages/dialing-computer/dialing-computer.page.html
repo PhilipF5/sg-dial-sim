@@ -1,5 +1,8 @@
 <div class="header">
-  <div></div>
+  <div class="action-menu" (click)="onFooterMenuClick()">
+    MENU
+    <menu #footerMenu class="lower-right" [buttons]="footerMenuButtons"></menu>
+  </div>
   <div class="destination">
     <segment-display [align]="'right'" [border]="'top'" [size]="10" [text]="destination"></segment-display>
     <div class="label">Destination</div>
@@ -36,10 +39,6 @@
   <div class="info">
     <div class="label">User: {{ user }}</div>
     <div class="label">Sys: Nominal</div>
-  </div>
-  <div class="action-menu" (click)="onFooterMenuClick()">
-    MENU
-    <menu #footerMenu [buttons]="footerMenuButtons"></menu>
   </div>
 </div>
 <keyboard
