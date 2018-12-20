@@ -1,1 +1,16 @@
-<address-row *ngFor="let destination of destinations" [destination]="destination"></address-row>
+<div class="header">
+	<div class="top-row">
+		<span class="title">System Glyphs</span>
+		<span class="separator">/</span>
+		<span class="subtitle">File Archive</span>
+		<span class="separator">/</span>
+		<span class="status">Display: Complete</span>
+	</div>
+	<div class="headings-row">
+		<div class="glyph heading" *ngFor="let i of glyphHeadings">{{ i }}</div>
+		<div class="details heading">Profile</div>
+	</div>
+</div>
+<div class="addresses">
+	<address-row *ngFor="let destination of destinations" [destination]="destination"></address-row>
+</div>

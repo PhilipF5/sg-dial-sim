@@ -11,11 +11,52 @@
 	height: 100%;
 	min-height: 768px;
 	min-width: 1024px;
-	overflow-y: scroll;
+	overflow-y: hidden;
 	padding: 10px;
 }
 
-.addresses {
+.top-row {
+	border-bottom: 3px solid $primary;
+	color: $primary;
+	font-size: 18px;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-transform: uppercase;
+
+	.title, .separator {
+		font-size: 1.4em;
+	}
+
+	.subtitle {
+		color: $white;
+		font-size: 1.2em;
+	}
+
+	.status {
+		color: $white;
+	}
+
+	.separator {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+
+.headings-row {
+	color: $primary;
 	display: flex;
-	flex-direction: column;
+	font-size: 20px;
+	margin-left: 10px;
+	text-transform: uppercase;
+
+	.heading {
+		margin-left: 2px;
+		text-align: center;
+		width: 100px;
+	}
+}
+
+.addresses {
+	height: 610px;
+	overflow-y: scroll;
 }

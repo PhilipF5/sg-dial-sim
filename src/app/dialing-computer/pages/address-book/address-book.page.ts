@@ -10,6 +10,7 @@ import { GateNetworkService } from "app/shared/services";
 })
 export class AddressBookPage implements OnInit {
 	public destinations: Destination[];
+	public glyphHeadings = Array.from("123456");
 
 	constructor(private gateNetwork: GateNetworkService) {}
 
