@@ -1,0 +1,25 @@
+@import "variables";
+
+:host {
+	border-top: 2px solid $primary;
+	color: $white;
+	display: flex;
+	margin: 5px 10px;
+}
+
+.glyphs {
+	border-bottom: 2px solid $primary;
+	border-left: 2px solid $primary;
+	border-top: 2px solid $primary;
+	display: flex;
+}
+
+.details {
+	padding: 5px;
+
+	.name {
+		font-size: 24px;
+		letter-spacing: 5px;
+		text-transform: uppercase;
+	}
+}

@@ -1,0 +1,27 @@
+@import "variables";
+
+:host {
+	border-right: 2px solid $primary;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 110px;
+	width: 100px;
+}
+
+.glyph {
+	align-items: center;
+	display: flex;
+	font-family: $glyphs-font;
+	font-size: 50px;
+	justify-content: center;
+	padding: 5px;
+}
+
+.name {
+	border-top: 2px solid $primary;
+	display: flex;
+	height: 1.5em;
+	justify-content: center;
+	padding: 5px;
+}

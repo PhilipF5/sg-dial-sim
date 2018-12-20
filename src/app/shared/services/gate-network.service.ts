@@ -22,4 +22,8 @@ export class GateNetworkService {
 			return sixSymbolMatches.filter(m => m.address.length === 6)[0];
 		}
 	}
+
+	public getAllAddresses(): Destination[] {
+		return DefaultAddressSet;
+	}
 }
