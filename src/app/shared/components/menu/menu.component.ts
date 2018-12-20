@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, ElementRef, Input } from "@angular/core";
 
 @Component({
 	selector: "menu",
@@ -6,5 +6,9 @@ import { Component, Input } from "@angular/core";
 	styleUrls: ["./menu.component.scss"],
 })
 export class MenuComponent {
-	@Input() buttons: any[];
+	public get elem(): HTMLElement {
+		return this._elem.nativeElement;
+	}
+
+	constructor(private _elem: ElementRef) {}
 }

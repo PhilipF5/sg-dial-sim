@@ -1,0 +1,17 @@
+@import "variables";
+
+:host {
+	align-items: center;
+	border: 1px solid $primary;
+	color: $white;
+	cursor: pointer;
+	display: flex;
+	font-family: $interface-font;
+	font-size: 0.875rem;
+	font-variant: small-caps;
+	justify-content: center;
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+	width: 80%;
+}

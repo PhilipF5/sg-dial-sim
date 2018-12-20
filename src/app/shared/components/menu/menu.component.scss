@@ -2,26 +2,40 @@
 
 :host {
 	align-items: center;
+	background-color: $black;
 	border: 3px solid $primary;
 	border-radius: 5px;
+	cursor: default;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	padding: 20px;
-}
 
-.button {
-	align-items: center;
-	border: 1px solid $primary;
-	color: $white;
-	cursor: pointer;
-	display: flex;
-	font-family: $interface-font;
-	font-size: 0.875rem;
-	font-variant: small-caps;
-	justify-content: center;
-	margin: 5px;
-	padding: 5px;
-	text-align: center;
-	width: 80%;
+	&.lower-left {
+		position: absolute;
+		right: 50%;
+		top: 0;
+		transform-origin: top right;
+	}
+
+	&.lower-right {
+		left: 50%;
+		position: absolute;
+		top: 0;
+		transform-origin: top left;
+	}
+
+	&.upper-left {
+		bottom: 0;
+		position: absolute;
+		right: 50%;
+		transform-origin: bottom right;
+	}
+
+	&.upper-right {
+		bottom: 0;
+		left: 50%;
+		position: absolute;
+		transform-origin: bottom left;
+	}
 }

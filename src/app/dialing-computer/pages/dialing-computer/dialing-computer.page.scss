@@ -102,41 +102,6 @@ dialing-status {
 	width: 100%;
 }
 
-.action-menu {
-	align-items: center;
-	border: 1px solid $primary;
-	color: $white;
-	cursor: pointer;
-	display: flex;
-	font-family: $interface-font;
-	font-size: 1rem;
-	justify-content: center;
-	padding: 5px;
-	position: relative;
-	text-align: center;
-	width: 75px;
-
-	menu {
-		background-color: $black;
-		cursor: default;
-		position: absolute;
-		transform: scale(0);
-		width: 150px;
-
-		&.lower-right {
-			left: 50%;
-			top: 0;
-			transform-origin: top left;
-		}
-
-		&.upper-right {
-			bottom: 0;
-			left: 50%;
-			transform-origin: bottom left;
-		}
-	}
-}
-
 .info {
 	display: flex;
 	flex-direction: column;
