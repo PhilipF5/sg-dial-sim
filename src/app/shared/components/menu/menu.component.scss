@@ -10,6 +10,7 @@
 	flex-direction: column;
 	justify-content: space-evenly;
 	padding: 20px;
+	z-index: 10;
 
 	&.lower-left {
 		position: absolute;
