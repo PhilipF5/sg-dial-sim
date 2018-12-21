@@ -2,6 +2,7 @@ import { Glyph, Glyphs } from "./glyph.model";
 
 export interface Destination {
 	address: Glyph[];
+	id: number;
 	name: string;
 }
 
@@ -348,6 +349,6 @@ const addresses = [
 	},
 ];
 
-export const DefaultAddressSet: Destination[] = addresses.map(a => {
-	return { address: a.address.map(n => Glyphs.standard.find(g => g.position === n)), name: a.name };
+export const DefaultAddressSet: Destination[] = addresses.map((a, i) => {
+	return { address: a.address.map(n => Glyphs.standard.find(g => g.position === n)), id: i + 1, name: a.name };
 });

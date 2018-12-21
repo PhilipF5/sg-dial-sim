@@ -18,6 +18,7 @@
 			*ngFor="let destination of destinations | slice: topItem : bottomItem"
 			[destination]="destination"
 			(mouseenter)="moveSelector($event.target)"
+			(click)="loadAddress(destination)"
 		></address-row>
 	</div>
 	<div class="scroll-controls">

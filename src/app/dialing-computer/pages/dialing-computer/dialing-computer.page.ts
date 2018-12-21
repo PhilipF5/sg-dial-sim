@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { TweenMax } from "gsap";
 import { BehaviorSubject } from "rxjs";
+import { take } from "rxjs/operators";
 
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { GateControlService } from "app/dialing-computer/services";
@@ -50,7 +51,12 @@ export class DialingComputerPage implements OnInit {
 		return this._keyboard.nativeElement;
 	}
 
-	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService, private router: Router) {}
+	constructor(
+		private gateControl: GateControlService,
+		private gateStatus: GateStatusService,
+		private route: ActivatedRoute,
+		private router: Router,
+	) {}
 
 	ngOnInit() {
 		this.gateControl.result$.subscribe(
@@ -61,6 +67,11 @@ export class DialingComputerPage implements OnInit {
 				this.destination = undefined;
 			}
 		});
+		this.route.paramMap.pipe(take(1)).subscribe(params => {
+			if (params.has("dest")) {
+				console.log(+params.get("dest"));
+			}
+		})
 	}
 
 	public beginDialing(address: Glyph[]): void {
