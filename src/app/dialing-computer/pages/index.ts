@@ -1,10 +1,10 @@
 import { AddressBookPage } from "./address-book/address-book.page";
-import { DialingComputerPage } from "./dialing-computer/dialing-computer.page";
+import { GateScreenPage } from "./gate-screen/gate-screen.page";
 
 export { AddressBookPage } from "./address-book/address-book.page";
-export { DialingComputerPage } from "./dialing-computer/dialing-computer.page";
+export { GateScreenPage } from "./gate-screen/gate-screen.page";
 
 export const PAGES = [
 	AddressBookPage,
-	DialingComputerPage,
+	GateScreenPage,
 ];

@@ -12,11 +12,11 @@ import { GateStatus, Glyph, Glyphs } from "app/shared/models";
 import { GateStatusService } from "app/shared/services";
 
 @Component({
-	selector: "dialing-computer",
-	templateUrl: "./dialing-computer.page.html",
-	styleUrls: ["./dialing-computer.page.scss"],
+	selector: "gate-screen",
+	templateUrl: "./gate-screen.page.html",
+	styleUrls: ["./gate-screen.page.scss"],
 })
-export class DialingComputerPage implements OnInit {
+export class GateScreenPage implements OnInit {
 	public authCode: string = "10183523652-4354393";
 	public destination: string;
 	public footerMenuButtons: any = [

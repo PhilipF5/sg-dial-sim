@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { AddressBookPage, DialingComputerPage } from "./pages";
+import { AddressBookPage, GateScreenPage } from "./pages";
 
 const routes: Routes = [
 	{
-		path: "dialing-computer",
-		component: DialingComputerPage,
+		path: "dialing-computer/gate-screen",
+		component: GateScreenPage,
 	},
 	{
 		path: "dialing-computer/address-book",
