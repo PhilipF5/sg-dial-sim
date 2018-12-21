@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
 
 import { TimelineLite, TweenLite } from "gsap";
 
@@ -10,7 +10,7 @@ import { GateNetworkService } from "app/shared/services";
 	templateUrl: "./address-book.page.html",
 	styleUrls: ["./address-book.page.scss"]
 })
-export class AddressBookPage implements OnInit {
+export class AddressBookPage implements AfterViewInit, OnInit {
 	@ViewChild("selector") _selector: ElementRef;
 
 	public destinations: Destination[];
@@ -39,6 +39,10 @@ export class AddressBookPage implements OnInit {
 
 	constructor(private gateNetwork: GateNetworkService) {}
 
+	ngAfterViewInit() {
+		TweenLite.set(this.selector, { top: -250 });
+	}
+
 	ngOnInit() {
 		this.destinations = this.gateNetwork.getAllAddresses();
 	}
@@ -47,8 +51,8 @@ export class AddressBookPage implements OnInit {
 		let targetBox = target.getBoundingClientRect();
 		// 6 to adjust for 3px border due to box-sizing
 		return new TimelineLite()
-			.set(this.selector, { opacity: 1 })
-			.to(this.selector, 0.5, { top: targetBox.top, width: targetBox.right - targetBox.left - 6 })
+			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - 6 })
+			.to(this.selector, 0.5, { top: targetBox.top })
 			.set(target, { className: "+=selected" });
 	}
 
