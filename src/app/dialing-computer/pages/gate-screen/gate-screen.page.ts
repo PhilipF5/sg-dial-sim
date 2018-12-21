@@ -63,7 +63,7 @@ export class GateScreenPage implements OnInit {
 	}
 
 	public goToAddressBook(): void {
-		this.router.navigate(["/dialing-computer/address-book"]);
+		this.router.navigate(["/dialing-computer/address-book"], { skipLocationChange: true });
 	}
 
 	public keyboardStartDialingHandler(event: Glyph[]): void {
