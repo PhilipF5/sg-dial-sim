@@ -19,6 +19,8 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	public glyphHeadings = Array.from("123456");
 	public scrollOffset: number = 0;
 
+	private selectorTimeline: TimelineLite = new TimelineLite();
+
 	public get bottomItem(): number {
 		return 5 + this.scrollOffset;
 	}
@@ -54,9 +56,10 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public moveSelector(target: HTMLElement): TimelineLite {
+		this.selectorTimeline.kill();
 		let targetBox = target.getBoundingClientRect();
 		// 6 to adjust for 3px border due to box-sizing
-		return new TimelineLite()
+		return this.selectorTimeline = new TimelineLite()
 			.add(this.removeSelector(this.addressRowElems.filter(el => el !== target)))
 			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - 6 })
 			.to(this.selector, 0.5, { top: targetBox.top })
@@ -64,8 +67,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public removeSelector(targets: HTMLElement[]): TimelineLite {
-		TweenLite.killTweensOf(targets);
-		return new TimelineLite().set(targets, { className: "-=selected" })
+		return new TimelineLite().set(targets, { className: "-=selected" });
 	}
 
 	public scrollDown(): void {
