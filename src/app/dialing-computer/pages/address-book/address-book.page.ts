@@ -19,6 +19,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	public glyphHeadings = Array.from("123456");
 	public scrollOffset: number = 0;
 
+	private selectedIndex: number;
 	private selectorTimeline: TimelineLite = new TimelineLite();
 
 	public get bottomItem(): number {
@@ -49,20 +50,26 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	ngAfterViewInit() {
 		TweenLite.set(this.selector, { top: -250 });
+		this.addressRows.changes.subscribe(() => {
+			if (this.selectedIndex !== undefined) {
+				this.moveSelector(this.addressRowElems[this.selectedIndex], true);
+			}
+		});
 	}
 
 	ngOnInit() {
 		this.destinations = this.gateNetwork.getAllAddresses();
 	}
 
-	public moveSelector(target: HTMLElement): TimelineLite {
+	public moveSelector(target: HTMLElement, instant?: boolean): TimelineLite {
 		this.selectorTimeline.kill();
+		this.selectedIndex = this.addressRowElems.findIndex(el => el === target);
 		let targetBox = target.getBoundingClientRect();
 		// 6 to adjust for 3px border due to box-sizing
 		return this.selectorTimeline = new TimelineLite()
 			.add(this.removeSelector(this.addressRowElems.filter(el => el !== target)))
 			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - 6 })
-			.to(this.selector, 0.5, { top: targetBox.top })
+			.to(this.selector, (instant ? 0 : 0.5), { top: targetBox.top })
 			.set(target, { className: "+=selected" });
 	}
 
