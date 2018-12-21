@@ -27,9 +27,10 @@ export class AddressBookPage implements OnInit {
 	}
 
 	public moveSelector(target: HTMLElement): TimelineLite {
-		let topOfTarget = target.getBoundingClientRect().top;
+		let targetBox = target.getBoundingClientRect();
+		// 6 to adjust for 3px border due to box-sizing
 		return new TimelineLite()
-			.to(this.selector, 0.5, { top: topOfTarget })
+			.to(this.selector, 0.5, { top: targetBox.top, width: targetBox.right - targetBox.left - 6 })
 			.set(target, { className: "+=selected" });
 	}
 
