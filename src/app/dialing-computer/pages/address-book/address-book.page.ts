@@ -22,7 +22,7 @@ export class AddressBookPage implements OnInit {
 	}
 
 	public get canScrollDown(): boolean {
-		return !!this.destinations[this.bottomItem + 1];
+		return this.bottomItem < this.destinations.length;
 	}
 
 	public get canScrollUp(): boolean {
