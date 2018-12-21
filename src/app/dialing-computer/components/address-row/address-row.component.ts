@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from "@angular/core";
+import { Component, ElementRef, HostBinding, Input, OnInit } from "@angular/core";
 
 import { Destination } from "app/shared/models";
 
@@ -7,7 +7,8 @@ import { Destination } from "app/shared/models";
 	templateUrl: "./address-row.component.html",
 	styleUrls: ["./address-row.component.scss"]
 })
-export class AddressRowComponent {
+export class AddressRowComponent implements OnInit {
+	@HostBinding("attr.data-name") dataName: string;
 	@Input() destination: Destination;
 
 	public get elem(): HTMLElement {
@@ -15,4 +16,8 @@ export class AddressRowComponent {
 	}
 
 	constructor(private _elem: ElementRef) {}
+
+	ngOnInit() {
+		this.dataName = this.destination.name;
+	}
 }
