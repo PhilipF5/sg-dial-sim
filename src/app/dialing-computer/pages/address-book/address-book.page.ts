@@ -62,12 +62,16 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.destinations = this.gateNetwork.getAllAddresses();
 	}
 
-	public goToGateScreen(dest: Destination = null) {
-		this.router.navigate(["/dialing-computer/gate-screen", { dest: dest.id }], { skipLocationChange: true });
+	public goToGateScreen(dest?: number) {
+		if (dest) {
+			this.router.navigate(["/dialing-computer/gate-screen", { dest }], { skipLocationChange: true });
+		} else {
+			this.router.navigate(["/dialing-computer/gate-screen"], { skipLocationChange: true });
+		}
 	}
 
 	public loadAddress(dest: Destination) {
-		this.goToGateScreen(dest);
+		this.goToGateScreen(dest.id);
 	}
 
 	public moveSelector(target: HTMLElement, instant?: boolean): TimelineLite {
