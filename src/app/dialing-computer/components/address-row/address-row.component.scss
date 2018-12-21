@@ -9,6 +9,10 @@
 	&.selected {
 		border-color: $green;
 
+		.glyphs {
+			border-color: $green;
+		}
+
 		address-glyph-display {
 			border-color: $green;
 
