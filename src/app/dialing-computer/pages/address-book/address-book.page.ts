@@ -30,6 +30,7 @@ export class AddressBookPage implements OnInit {
 		let targetBox = target.getBoundingClientRect();
 		// 6 to adjust for 3px border due to box-sizing
 		return new TimelineLite()
+			.set(this.selector, { opacity: 1 })
 			.to(this.selector, 0.5, { top: targetBox.top, width: targetBox.right - targetBox.left - 6 })
 			.set(target, { className: "+=selected" });
 	}
