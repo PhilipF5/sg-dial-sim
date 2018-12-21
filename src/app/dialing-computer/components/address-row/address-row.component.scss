@@ -4,7 +4,23 @@
 	border-top: 2px solid $primary;
 	color: $white;
 	display: flex;
-	margin: 5px 10px;
+	margin-bottom: 10px;
+
+	&.selected {
+		border-color: $green;
+
+		address-glyph-display {
+			border-color: $green;
+
+			.name {
+				border-color: $green;
+			}
+		}
+	}
+
+	* {
+		pointer-events: none;
+	}
 }
 
 .glyphs {

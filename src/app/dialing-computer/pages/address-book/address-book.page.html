@@ -12,5 +12,11 @@
 	</div>
 </div>
 <div class="addresses">
-	<address-row *ngFor="let destination of destinations" [destination]="destination"></address-row>
+	<div #selector class="selector"></div>
+	<address-row
+		*ngFor="let destination of destinations"
+		[destination]="destination"
+		(mouseenter)="moveSelector($event.target)"
+		(mouseleave)="removeSelector($event.target)"
+	></address-row>
 </div>

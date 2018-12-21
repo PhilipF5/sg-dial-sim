@@ -59,4 +59,13 @@
 .addresses {
 	height: 610px;
 	overflow-y: scroll;
+	padding: 0 10px;
+}
+
+.selector {
+	border: 3px solid $green;
+	height: 110px;
+	pointer-events: none;
+	position: absolute;
+	width: 100%;
 }

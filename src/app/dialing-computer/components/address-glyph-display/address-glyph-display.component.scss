@@ -1,6 +1,7 @@
 @import "variables";
 
 :host {
+	border-color: $primary;
 	border-right: 2px solid $primary;
 	display: flex;
 	flex-direction: column;
@@ -12,6 +13,7 @@
 .glyph {
 	align-items: center;
 	display: flex;
+	flex-grow: 1;
 	font-family: $glyphs-font;
 	font-size: 50px;
 	justify-content: center;
@@ -19,7 +21,9 @@
 }
 
 .name {
-	border-top: 2px solid $primary;
+	border-color: inherit;
+	border-top-style: solid;
+	border-top-width: 2px;
 	display: flex;
 	height: 1.5em;
 	justify-content: center;
