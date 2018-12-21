@@ -16,14 +16,23 @@ import { GateStatusService } from "app/shared/services";
 })
 export class ChevronBoxComponent implements OnDestroy, OnInit {
 	@Input("gatePosition") gatePosition$: BehaviorSubject<DOMRect>;
-	public glyph: Glyph;
 	@Input() number: number;
 
-	@ViewChild("chevronBox", { read: ElementRef })
-	private chevronBox: ElementRef;
+	@ViewChild("chevronBox") private _chevronBox: ElementRef;
+	@ViewChild("symbol") private _symbol: ElementRef;
+
+	public glyph: Glyph;
+
 	private killSubscriptions: Subject<{}> = new Subject();
 	private position: DOMRect;
-	@ViewChild("symbol") private symbol: ElementRef;
+
+	private get chevronBox(): HTMLElement {
+		return this._chevronBox.nativeElement;
+	}
+
+	private get symbol(): HTMLElement {
+		return this._symbol.nativeElement;
+	}
 
 	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
 
@@ -85,6 +94,6 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	}
 
 	private updateSymbolPosition(): void {
-		this.position = this.symbol.nativeElement.getBoundingClientRect();
+		this.position = this.symbol.getBoundingClientRect() as DOMRect;
 	}
 }

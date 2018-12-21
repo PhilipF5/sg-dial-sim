@@ -13,11 +13,11 @@ import { GateStatusService } from "app/shared/services";
 	styleUrls: ["./dialing-status.component.scss"],
 })
 export class DialingStatusComponent implements OnDestroy, OnInit {
+	@ViewChild("statusText") private _statusText: ElementRef;
+	
 	public status: GateStatus;
 
 	private killSubscriptions: Subject<{}> = new Subject();
-
-	@ViewChild("statusText") private _statusText: ElementRef;
 
 	private get statusText(): HTMLElement {
 		return this._statusText.nativeElement;

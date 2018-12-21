@@ -15,7 +15,6 @@ import { AudioService, GateStatusService } from "app/shared/services";
 })
 export class EventHorizonComponent implements OnDestroy, OnInit {
 	private readonly ignoredStatuses = [GateStatus.Dialing, GateStatus.Engaged];
-
 	private killSubscriptions: Subject<{}> = new Subject();
 
 	private get elem(): HTMLElement {

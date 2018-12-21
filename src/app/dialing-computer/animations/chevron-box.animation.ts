@@ -3,25 +3,25 @@ import { ElementRef } from "@angular/core";
 import { Power1, TimelineLite, TweenMax } from "gsap";
 
 export interface ChevronBoxAnimationConfig {
-	chevronBox: ElementRef;
+	chevronBox: HTMLElement;
 	centerY: number;
 	startX: number;
 	startY: number;
-	symbol: ElementRef;
+	symbol: HTMLElement;
 }
 
 export class ChevronBoxAnimations {
-	public static clearSymbol(box: ElementRef, symbol: ElementRef): TimelineLite {
+	public static clearSymbol(box: HTMLElement, symbol: HTMLElement): TimelineLite {
 		return new TimelineLite()
-			.set(symbol.nativeElement, { css: { className: "-=active" } })
-			.set(symbol.nativeElement, { css: { className: "-=failed" } })
-			.set(symbol.nativeElement, { x: 0, y: 0 })
-			.set(box.nativeElement, { css: { className: "-=locked" } });
+			.set(symbol, { css: { className: "-=active" } })
+			.set(symbol, { css: { className: "-=failed" } })
+			.set(symbol, { x: 0, y: 0 })
+			.set(box, { css: { className: "-=locked" } });
 	}
 
-	public static flashOnActivate(box: ElementRef): TimelineLite {
+	public static flashOnActivate(box: HTMLElement): TimelineLite {
 		return new TimelineLite().add(
-			TweenMax.to(box.nativeElement.querySelector(".chevron-symbol-box"), 0.15, { backgroundColor: "#add8e6" })
+			TweenMax.to(box.querySelector(".chevron-symbol-box"), 0.15, { backgroundColor: "#add8e6" })
 				.repeat(5)
 				.yoyo(true)
 		);
@@ -30,13 +30,13 @@ export class ChevronBoxAnimations {
 	public static lockSymbolFailed(config: ChevronBoxAnimationConfig): TimelineLite {
 		return this.lockSymbolAttempt(config).add(
 			[
-				TweenMax.to(config.symbol.nativeElement, 2, {
+				TweenMax.to(config.symbol, 2, {
 					x: config.startX,
 					y: config.centerY,
 					scale: 5,
 					ease: Power1.easeIn,
 				}),
-				TweenMax.to(config.symbol.nativeElement, 2, {
+				TweenMax.to(config.symbol, 2, {
 					css: { className: "+=failed" },
 				}),
 			],
@@ -45,7 +45,7 @@ export class ChevronBoxAnimations {
 	}
 
 	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): TimelineLite {
-		return this.lockSymbolAttempt(config).to(config.chevronBox.nativeElement, 0.5, {
+		return this.lockSymbolAttempt(config).to(config.chevronBox, 0.5, {
 			css: { className: "+=locked" },
 		});
 	}
@@ -53,12 +53,12 @@ export class ChevronBoxAnimations {
 	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): TimelineLite {
 		return new TimelineLite()
 			.fromTo(
-				config.symbol.nativeElement,
+				config.symbol,
 				2,
 				{ x: config.startX, y: config.startY, scale: 0, immediateRender: false },
 				{ y: config.centerY, scale: 5 }
 			)
-			.set(config.symbol.nativeElement, { immediateRender: false, css: { className: "+=active" } }, 0)
-			.to(config.symbol.nativeElement, 2, { x: 0, y: 0, scale: 1 });
+			.set(config.symbol, { immediateRender: false, css: { className: "+=active" } }, 0)
+			.to(config.symbol, 2, { x: 0, y: 0, scale: 1 });
 	}
 }
