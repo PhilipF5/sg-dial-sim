@@ -1,9 +1,18 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { DialingComputerPage } from "./pages";
+import { AddressBookPage, DialingComputerPage } from "./pages";
 
-const routes: Routes = [{ path: "**", component: DialingComputerPage }];
+const routes: Routes = [
+	{
+		path: "dialing-computer",
+		component: DialingComputerPage,
+	},
+	{
+		path: "dialing-computer/address-book",
+		component: AddressBookPage,
+	}
+];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],

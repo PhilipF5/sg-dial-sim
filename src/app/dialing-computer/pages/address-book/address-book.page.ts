@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { TimelineLite, TweenLite } from "gsap";
 
@@ -46,7 +47,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		return this._selector.nativeElement;
 	}
 
-	constructor(private gateNetwork: GateNetworkService) {}
+	constructor(private gateNetwork: GateNetworkService, private router: Router) {}
 
 	ngAfterViewInit() {
 		TweenLite.set(this.selector, { top: -250 });
@@ -59,6 +60,10 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	ngOnInit() {
 		this.destinations = this.gateNetwork.getAllAddresses();
+	}
+
+	public goToGateScreen() {
+		this.router.navigate(["/dialing-computer"]);
 	}
 
 	public moveSelector(target: HTMLElement, instant?: boolean): TimelineLite {

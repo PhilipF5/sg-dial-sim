@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { TweenMax } from "gsap";
 import { BehaviorSubject } from "rxjs";
@@ -49,7 +50,7 @@ export class DialingComputerPage implements OnInit {
 		return this._keyboard.nativeElement;
 	}
 
-	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
+	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService, private router: Router) {}
 
 	ngOnInit() {
 		this.gateControl.result$.subscribe(
@@ -71,6 +72,10 @@ export class DialingComputerPage implements OnInit {
 
 	public closeKeyboard(): void {
 		TweenMax.to(this.keyboard, 1, { css: { className: "+=minimized" } });
+	}
+
+	public goToAddressBook(): void {
+		this.router.navigate(["/dialing-computer/address-book"]);
 	}
 
 	public keyboardStartDialingHandler(event: Glyph[]): void {
