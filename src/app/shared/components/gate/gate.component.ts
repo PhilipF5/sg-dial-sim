@@ -28,6 +28,7 @@ export class GateComponent implements AfterViewInit, OnInit {
 	@ViewChild("ring") private ring: ElementRef;
 
 	private ringPosition: number = 1;
+	private statusUpdateCount: number = 0;
 
 	public get elem(): HTMLElement {
 		return this._elem.nativeElement;
@@ -51,12 +52,16 @@ export class GateComponent implements AfterViewInit, OnInit {
 					break;
 				case GateStatus.Idle:
 					this.resetRing();
-					this.audio.play(Sound.ChevronLock);
+					if (this.statusUpdateCount > 0) {
+						this.audio.play(Sound.ChevronLock);
+					}
 					for (let chevron of this.chevrons.filter(c => c.enabled)) {
 						this.disengageChevron(chevron.chevron);
 					}
 					break;
 			}
+
+			this.statusUpdateCount++;
 		});
 	}
 
