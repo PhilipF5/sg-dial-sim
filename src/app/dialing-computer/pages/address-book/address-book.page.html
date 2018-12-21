@@ -11,12 +11,18 @@
 		<div class="details heading">Profile</div>
 	</div>
 </div>
-<div class="addresses">
-	<div #selector class="selector"></div>
-	<address-row
-		*ngFor="let destination of destinations"
-		[destination]="destination"
-		(mouseenter)="moveSelector($event.target)"
-		(mouseleave)="removeSelector($event.target)"
-	></address-row>
+<div class="scroll-pane">
+	<div class="addresses">
+		<div #selector class="selector"></div>
+		<address-row
+			*ngFor="let destination of destinations | slice: topItem : bottomItem"
+			[destination]="destination"
+			(mouseenter)="moveSelector($event.target)"
+			(mouseleave)="removeSelector($event.target)"
+		></address-row>
+	</div>
+	<div class="scroll-controls">
+		<div class="scroll-button up" (click)="scrollUp()">&#8227;</div>
+		<div class="scroll-button down" (click)="scrollDown()">&#8227;</div>
+	</div>
 </div>

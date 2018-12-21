@@ -56,10 +56,43 @@
 	}
 }
 
-.addresses {
-	height: 610px;
-	overflow-y: scroll;
+.scroll-pane {
+	display: flex;
+	justify-content: space-between;
+	height: 620px;
 	padding: 0 10px;
+}
+
+.scroll-controls {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-between;
+}
+
+.scroll-button {
+	align-items: center;
+	border: 1px solid $primary;
+	color: $white;
+	cursor: pointer;
+	display: flex;
+	font-size: 24px;
+	height: 1.2em;
+	justify-content: center;
+	user-select: none;
+	width: 1.2em;
+
+	&.down {
+		transform: rotateZ(90deg);
+	}
+
+	&.up {
+		transform: rotateZ(-90deg);
+	}
+}
+
+.addresses {
+	flex-grow: 1;
 }
 
 .selector {
