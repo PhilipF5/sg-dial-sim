@@ -23,6 +23,10 @@ export class GateNetworkService {
 		}
 	}
 
+	public getAddressById(id: number): Destination {
+		return DefaultAddressSet.find(d => d.id === id);
+	}
+
 	public getAllAddresses(): Destination[] {
 		return DefaultAddressSet;
 	}

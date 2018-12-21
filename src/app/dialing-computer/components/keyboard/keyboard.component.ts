@@ -80,6 +80,10 @@ export class KeyboardComponent implements OnInit {
 		return !!this.address.find(item => item === glyph);
 	}
 
+	public loadAddressById(id: number): void {
+		this.address = this.gateNetwork.getAddressById(id).address;
+	}
+
 	public selectGlyph(glyph: Glyph): void {
 		if (this.address.length < 6 && !this.isGlyphSelected(glyph)) {
 			this.address.push(glyph);

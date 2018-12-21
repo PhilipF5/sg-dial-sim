@@ -45,7 +45,8 @@ export class GateScreenPage implements OnInit {
 		});
 		this.route.paramMap.pipe(take(1)).subscribe(params => {
 			if (params.has("dest")) {
-				console.log(+params.get("dest"));
+				this.keyboard.loadAddressById(+params.get("dest"));
+				this.openKeyboard();
 			}
 		})
 	}

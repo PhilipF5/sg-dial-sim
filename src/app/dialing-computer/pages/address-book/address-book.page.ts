@@ -63,7 +63,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public goToGateScreen(dest: Destination = null) {
-		this.router.navigate(["/dialing-computer", { dest: dest.id }]);
+		this.router.navigate(["/dialing-computer/gate-screen", { dest: dest.id }]);
 	}
 
 	public loadAddress(dest: Destination) {
