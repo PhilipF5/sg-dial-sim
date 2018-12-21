@@ -65,10 +65,10 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.selectorTimeline.kill();
 		this.selectedIndex = this.addressRowElems.findIndex(el => el === target);
 		let targetBox = target.getBoundingClientRect();
-		// 6 to adjust for 3px border due to box-sizing
+		let borderAdjustment = 6; // 6 to adjust for 3px border due to box-sizing
 		return this.selectorTimeline = new TimelineLite()
 			.add(this.removeSelector(this.addressRowElems.filter(el => el !== target)))
-			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - 6 })
+			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - borderAdjustment })
 			.to(this.selector, (instant ? 0 : 0.5), { top: targetBox.top })
 			.set(target, { className: "+=selected" });
 	}
