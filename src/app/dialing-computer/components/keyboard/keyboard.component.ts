@@ -12,8 +12,9 @@ import { GateNetworkService, GateStatusService } from "app/shared/services";
 	styleUrls: ["./keyboard.component.scss"],
 })
 export class KeyboardComponent implements OnInit {
-	public address: Glyph[] = [];
 	@Output() dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
+
+	public address: Glyph[] = [];
 	public isDialingAvailable: boolean;
 	public keys: Glyph[] = Glyphs.standard;
 
@@ -25,12 +26,12 @@ export class KeyboardComponent implements OnInit {
 		return address;
 	}
 
-	private get element(): HTMLElement {
-		return this._element.nativeElement;
+	public get elem(): HTMLElement {
+		return this._elem.nativeElement;
 	}
 
 	constructor(
-		private _element: ElementRef,
+		private _elem: ElementRef,
 		private gateControl: GateControlService,
 		private gateNetwork: GateNetworkService,
 		private gateStatus: GateStatusService
@@ -60,7 +61,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public closeKeyboard(): void {
-		TweenLite.to(this.element, 1, { css: { className: "+=minimized" } });
+		TweenLite.to(this.elem, 1, { css: { className: "+=minimized" } });
 	}
 
 	public isAddressValid(): boolean {

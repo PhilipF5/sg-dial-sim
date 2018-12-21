@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { TweenMax } from "gsap";
@@ -17,39 +17,15 @@ import { GateStatusService } from "app/shared/services";
 	styleUrls: ["./gate-screen.page.scss"],
 })
 export class GateScreenPage implements OnInit {
+	@ViewChild(GateComponent) private gate: GateComponent;
+	@ViewChild(KeyboardComponent) private keyboard: KeyboardComponent;
+
 	public authCode: string = "10183523652-4354393";
 	public destination: string;
-	public footerMenuButtons: any = [
-		{ text: "Keyboard", callback: () => this.openKeyboard() },
-		{ text: "Shutdown", callback: () => this.shutdown() },
-	];
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public glyphs: Glyph[] = [];
 	public status: GateStatus;
 	public user: string = "W. Harriman";
-
-	@ViewChild("footerMenu", { read: ElementRef })
-	private _footerMenu: ElementRef;
-
-	private get footerMenu(): HTMLElement {
-		return this._footerMenu.nativeElement;
-	}
-
-	private footerMenuIsOpen: boolean = false;
-
-	@ViewChild(GateComponent, { read: ElementRef })
-	private _gateElement: ElementRef;
-
-	private get gateElement(): HTMLElement {
-		return this._gateElement.nativeElement;
-	}
-
-	@ViewChild(KeyboardComponent, { read: ElementRef })
-	private _keyboard: ElementRef;
-
-	private get keyboard(): HTMLElement {
-		return this._keyboard.nativeElement;
-	}
 
 	constructor(
 		private gateControl: GateControlService,
@@ -93,13 +69,8 @@ export class GateScreenPage implements OnInit {
 		this.beginDialing(event);
 	}
 
-	public onFooterMenuClick(): void {
-		TweenMax.to(this.footerMenu, 1, { scale: +!this.footerMenuIsOpen });
-		this.footerMenuIsOpen = !this.footerMenuIsOpen;
-	}
-
 	public openKeyboard(): void {
-		TweenMax.to(this.keyboard, 1, { css: { className: "-=minimized" } });
+		TweenMax.to(this.keyboard.elem, 1, { css: { className: "-=minimized" } });
 	}
 
 	public shutdown(): void {
@@ -113,6 +84,6 @@ export class GateScreenPage implements OnInit {
 	}
 
 	private updateGatePosition(): void {
-		this.gatePosition$.next(this.gateElement.getBoundingClientRect() as DOMRect);
+		this.gatePosition$.next(this.gate.elem.getBoundingClientRect() as DOMRect);
 	}
 }

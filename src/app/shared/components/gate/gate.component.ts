@@ -26,13 +26,19 @@ import { AudioService, GateStatusService } from "app/shared/services";
 export class GateComponent implements AfterViewInit, OnInit {
 	@ViewChildren(ChevronDirective) private chevrons: QueryList<ChevronDirective>;
 	@ViewChild("ring") private ring: ElementRef;
+
 	private ringPosition: number = 1;
+
+	public get elem(): HTMLElement {
+		return this._elem.nativeElement;
+	}
 
 	constructor(
 		private audio: AudioService,
+		private _elem: ElementRef,
 		private gateControl: GateControlService,
 		private gateStatus: GateStatusService,
-		private ngZone: NgZone
+		private ngZone: NgZone,
 	) {}
 
 	ngAfterViewInit() {
