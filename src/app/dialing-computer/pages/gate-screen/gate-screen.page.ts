@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { TweenMax } from "gsap";
-import { BehaviorSubject } from "rxjs";
-import { take } from "rxjs/operators";
+import { BehaviorSubject, Subject } from "rxjs";
+import { take, takeUntil } from "rxjs/operators";
 
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { GateControlService } from "app/dialing-computer/services";
@@ -16,7 +16,7 @@ import { GateStatusService } from "app/shared/services";
 	templateUrl: "./gate-screen.page.html",
 	styleUrls: ["./gate-screen.page.scss"],
 })
-export class GateScreenPage implements OnInit {
+export class GateScreenPage implements OnDestroy, OnInit {
 	@ViewChild(GateComponent) private gate: GateComponent;
 	@ViewChild(KeyboardComponent) private keyboard: KeyboardComponent;
 
@@ -27,6 +27,8 @@ export class GateScreenPage implements OnInit {
 	public status: GateStatus;
 	public user: string = "W. Harriman";
 
+	private killSubscriptions: Subject<{}> = new Subject();
+
 	constructor(
 		private gateControl: GateControlService,
 		private gateStatus: GateStatusService,
@@ -34,15 +36,23 @@ export class GateScreenPage implements OnInit {
 		private router: Router,
 	) {}
 
+	ngOnDestroy() {
+		this.killSubscriptions.next();
+	}
+
 	ngOnInit() {
-		this.gateControl.result$.subscribe(
-			res => (this.destination = res.destination && res.destination.name.toUpperCase())
-		);
-		this.gateStatus.subscribe(status => {
-			if (status === GateStatus.Idle) {
-				this.destination = undefined;
-			}
-		});
+		this.gateControl.result$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(
+				res => (this.destination = res.destination && res.destination.name.toUpperCase())
+			);
+		this.gateStatus.status$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(status => {
+				if (status === GateStatus.Idle) {
+					this.destination = undefined;
+				}
+			});
 		this.route.paramMap.pipe(take(1)).subscribe(params => {
 			if (params.has("dest")) {
 				this.keyboard.loadAddressById(+params.get("dest"));

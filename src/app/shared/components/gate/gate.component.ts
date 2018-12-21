@@ -3,6 +3,7 @@ import {
 	Component,
 	ElementRef,
 	NgZone,
+	OnDestroy,
 	OnInit,
 	QueryList,
 	ViewChild,
@@ -10,6 +11,8 @@ import {
 } from "@angular/core";
 
 import { TimelineLite, TweenMax } from "gsap";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators"
 
 import { ChevronActivation } from "app/dialing-computer/models";
 import { GateControlService } from "app/dialing-computer/services";
@@ -23,10 +26,11 @@ import { AudioService, GateStatusService } from "app/shared/services";
 	templateUrl: "./gate.component.html",
 	styleUrls: ["./gate.component.scss"],
 })
-export class GateComponent implements AfterViewInit, OnInit {
+export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	@ViewChildren(ChevronDirective) private chevrons: QueryList<ChevronDirective>;
 	@ViewChild("ring") private ring: ElementRef;
 
+	private killSubscriptions: Subject<{}> = new Subject();
 	private ringPosition: number = 1;
 	private statusUpdateCount: number = 0;
 
@@ -43,33 +47,41 @@ export class GateComponent implements AfterViewInit, OnInit {
 	) {}
 
 	ngAfterViewInit() {
-		this.gateStatus.subscribe(status => {
-			switch (status) {
-				case GateStatus.Aborted:
-					this.audio.failRing().onended = () => {
-						this.gateStatus.idle();
-					};
-					break;
-				case GateStatus.Idle:
-					this.resetRing();
-					if (this.statusUpdateCount > 0) {
-						this.audio.play(Sound.ChevronLock);
-					}
-					for (let chevron of this.chevrons.filter(c => c.enabled)) {
-						this.disengageChevron(chevron.chevron);
-					}
-					break;
-			}
+		this.gateStatus.status$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(status => {
+				switch (status) {
+					case GateStatus.Aborted:
+						this.audio.failRing().onended = () => {
+							this.gateStatus.idle();
+						};
+						break;
+					case GateStatus.Idle:
+						this.resetRing();
+						if (this.statusUpdateCount > 0) {
+							this.audio.play(Sound.ChevronLock);
+						}
+						for (let chevron of this.chevrons.filter(c => c.enabled)) {
+							this.disengageChevron(chevron.chevron);
+						}
+						break;
+				}
 
-			this.statusUpdateCount++;
-		});
+				this.statusUpdateCount++;
+			});
+	}
+
+	ngOnDestroy() {
+		this.killSubscriptions.next();
 	}
 
 	ngOnInit() {
-		this.gateControl.activations$.subscribe(a => {
-			a.chevronTimeline = this.selectAndEngage(a);
-			this.gateControl.chevronAnimReady$.next(a.chevron);
-		});
+		this.gateControl.activations$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(a => {
+				a.chevronTimeline = this.selectAndEngage(a);
+				this.gateControl.chevronAnimReady$.next(a.chevron);
+			});
 	}
 
 	public chevron(index: number): ChevronDirective {

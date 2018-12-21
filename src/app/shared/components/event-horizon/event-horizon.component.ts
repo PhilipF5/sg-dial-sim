@@ -1,6 +1,8 @@
-import { Component, ElementRef, NgZone, OnInit } from "@angular/core";
+import { Component, ElementRef, NgZone, OnDestroy, OnInit } from "@angular/core";
 
 import { TimelineLite, TweenMax } from "gsap";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 import { EventHorizonAnimations } from "app/shared/animations";
 import { GateStatus } from "app/shared/models";
@@ -11,8 +13,10 @@ import { AudioService, GateStatusService } from "app/shared/services";
 	templateUrl: "./event-horizon.component.html",
 	styleUrls: ["./event-horizon.component.scss"],
 })
-export class EventHorizonComponent implements OnInit {
+export class EventHorizonComponent implements OnDestroy, OnInit {
 	private readonly ignoredStatuses = [GateStatus.Dialing, GateStatus.Engaged];
+
+	private killSubscriptions: Subject<{}> = new Subject();
 
 	private get elem(): HTMLElement {
 		return this._elem.nativeElement;
@@ -25,12 +29,18 @@ export class EventHorizonComponent implements OnInit {
 		private ngZone: NgZone
 	) {}
 
+	ngOnDestroy() {
+		this.killSubscriptions.next();
+	}
+
 	ngOnInit() {
-		this.gateStatus.subscribe(status => {
-			if (!this.ignoredStatuses.includes(status)) {
-				this.setAnimation(status);
-			}
-		});
+		this.gateStatus.status$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(status => {
+				if (!this.ignoredStatuses.includes(status)) {
+					this.setAnimation(status);
+				}
+			});
 	}
 
 	private setAnimation(status: GateStatus): TimelineLite {

@@ -1,6 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
 import { TweenMax } from "gsap";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 import { GateStatus } from "app/shared/models";
 import { GateStatusService } from "app/shared/services";
@@ -10,8 +12,10 @@ import { GateStatusService } from "app/shared/services";
 	templateUrl: "./dialing-status.component.html",
 	styleUrls: ["./dialing-status.component.scss"],
 })
-export class DialingStatusComponent implements OnInit {
+export class DialingStatusComponent implements OnDestroy, OnInit {
 	public status: GateStatus;
+
+	private killSubscriptions: Subject<{}> = new Subject();
 
 	@ViewChild("statusText") private _statusText: ElementRef;
 
@@ -21,11 +25,17 @@ export class DialingStatusComponent implements OnInit {
 
 	constructor(private gateStatus: GateStatusService) {}
 
+	ngOnDestroy() {
+		this.killSubscriptions.next();
+	}
+
 	ngOnInit() {
-		this.gateStatus.subscribe(status => {
-			this.status = status;
-			this.updateAnimation(status);
-		});
+		this.gateStatus.status$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(status => {
+				this.status = status;
+				this.updateAnimation(status);
+			});
 	}
 
 	private flashNormal(): TweenMax {

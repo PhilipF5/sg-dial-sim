@@ -1,8 +1,8 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
 import { TimelineLite } from "gsap";
-import { BehaviorSubject } from "rxjs";
-import { filter, take } from "rxjs/operators";
+import { BehaviorSubject, Subject } from "rxjs";
+import { filter, take, takeUntil } from "rxjs/operators";
 
 import { ChevronBoxAnimations, ChevronBoxAnimationConfig } from "app/dialing-computer/animations";
 import { GateControlService } from "app/dialing-computer/services";
@@ -14,39 +14,49 @@ import { GateStatusService } from "app/shared/services";
 	templateUrl: "./chevron-box.component.html",
 	styleUrls: ["./chevron-box.component.scss"],
 })
-export class ChevronBoxComponent implements OnInit {
+export class ChevronBoxComponent implements OnDestroy, OnInit {
 	@Input("gatePosition") gatePosition$: BehaviorSubject<DOMRect>;
 	public glyph: Glyph;
 	@Input() number: number;
 
 	@ViewChild("chevronBox", { read: ElementRef })
 	private chevronBox: ElementRef;
-
+	private killSubscriptions: Subject<{}> = new Subject();
 	private position: DOMRect;
 	@ViewChild("symbol") private symbol: ElementRef;
 
 	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
 
+	ngOnDestroy() {
+		this.killSubscriptions.next();
+	}
+
 	ngOnInit() {
-		this.gateControl.activations$.pipe(filter(a => a.chevron === this.number)).subscribe(a => {
-			this.glyph = a.glyph;
-			this.gatePosition$.pipe(filter(pos => !!pos), take(1)).subscribe(pos => {
-				a.symbolTimeline = a.fail ? this.lockSymbolFailed(pos) : this.lockSymbolSuccess(pos);
-				this.gateControl.symbolAnimReady$.next(this.number);
+		this.gateControl.activations$
+			.pipe(filter(a => a.chevron === this.number), takeUntil(this.killSubscriptions))
+			.subscribe(a => {
+				this.glyph = a.glyph;
+				this.gatePosition$.pipe(filter(pos => !!pos), take(1)).subscribe(pos => {
+					a.symbolTimeline = a.fail ? this.lockSymbolFailed(pos) : this.lockSymbolSuccess(pos);
+					this.gateControl.symbolAnimReady$.next(this.number);
+				});
 			});
-		});
 
-		this.gateControl.result$.subscribe(res => {
-			if (res.destination) {
-				ChevronBoxAnimations.flashOnActivate(this.chevronBox);
-			}
-		});
+		this.gateControl.result$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(res => {
+				if (res.destination) {
+					ChevronBoxAnimations.flashOnActivate(this.chevronBox);
+				}
+			});
 
-		this.gateStatus.subscribe(status => {
-			if (status === GateStatus.Idle) {
-				this.clearSymbol();
-			}
-		});
+		this.gateStatus.status$
+			.pipe(takeUntil(this.killSubscriptions))
+			.subscribe(status => {
+				if (status === GateStatus.Idle) {
+					this.clearSymbol();
+				}
+			});
 	}
 
 	public clearSymbol(): void {
