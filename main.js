@@ -12,7 +12,7 @@ function createWindow() {
 		fullscreen: true,
 	});
 
-	win.loadURL(`http://localhost:4200`);
+	win.loadFile(`dist/sgc/index.html`);
 
 	win.on("closed", function() {
 		win = null;
@@ -22,9 +22,7 @@ function createWindow() {
 app.on("ready", createWindow);
 
 app.on("window-all-closed", function() {
-	if (process.platform !== "darwin") {
-		app.quit();
-	}
+	app.quit();
 });
 
 app.on("activate", function() {

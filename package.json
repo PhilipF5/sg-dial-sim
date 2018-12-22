@@ -10,10 +10,31 @@
 		"ng": "ng",
 		"start": "ng serve",
 		"start:electron": "yarn start & (sleep 12 && yarn electron)",
-		"build": "ng build --prod",
+		"build": "ng build --prod --base-href ./ && electron-builder build",
+		"build:electron": "electron-builder",
 		"test": "ng test",
 		"lint": "ng lint",
 		"electron": "electron ."
+	},
+	"build": {
+		"appId": "com.philipf5.sg-dial-sim",
+		"productName": "SG Dial Sim",
+		"copyright": "Copyright © 2018 Philip Fulgham",
+		"directories": {
+			"output": "electron-build"
+		},
+		"files": [
+			"dist/",
+			"main.js",
+			"package.json"
+		],
+		"mac": {
+			"category": "public.app-category.games",
+			"target": "dmg"
+		},
+		"win": {
+			"target": "portable"
+		}
 	},
 	"dependencies": {
 		"@angular/animations": "^7.1.4",
@@ -40,6 +61,7 @@
 		"@types/node": "~10.12.18",
 		"codelyzer": "~4.5.0",
 		"electron": "^4.0.0",
+		"electron-builder": "^20.38.4",
 		"ts-node": "~7.0.1",
 		"tslint": "~5.12.0",
 		"typescript": "3.1.1"
