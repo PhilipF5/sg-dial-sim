@@ -29,6 +29,20 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	private killSubscriptions: Subject<{}> = new Subject();
 
+	public get canOpenAddressBook(): boolean {
+		return this.status === GateStatus.Idle;
+	}
+
+	public get canShutdown(): boolean {
+		switch (this.status) {
+			case GateStatus.Active:
+			case GateStatus.Dialing:
+				return true;
+			default:
+				return false;
+		}
+	}
+
 	constructor(
 		private gateControl: GateControlService,
 		private gateStatus: GateStatusService,
@@ -49,7 +63,8 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		this.gateStatus.status$
 			.pipe(takeUntil(this.killSubscriptions))
 			.subscribe(status => {
-				if (status === GateStatus.Idle) {
+				this.status = status;
+				if (this.status === GateStatus.Idle) {
 					this.destination = undefined;
 				}
 			});

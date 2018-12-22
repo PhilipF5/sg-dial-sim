@@ -1,8 +1,8 @@
 <div class="header">
   <menu-button class="action-menu" position="lower-right" text="MENU">
-    <sg-button text="Address Book" (sgClick)="goToAddressBook()"></sg-button>
+    <sg-button text="Address Book" [disabled]="!canOpenAddressBook" (sgClick)="goToAddressBook()"></sg-button>
     <sg-button text="Keyboard" (sgClick)="openKeyboard()"></sg-button>
-    <sg-button text="Shutdown" (sgClick)="shutdown()"></sg-button>
+    <sg-button text="Shutdown" [disabled]="!canShutdown" (sgClick)="shutdown()"></sg-button>
   </menu-button>
   <div class="destination">
     <segment-display [align]="'right'" [border]="'top'" [size]="10" [text]="destination"></segment-display>
