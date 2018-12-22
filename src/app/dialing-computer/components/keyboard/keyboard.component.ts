@@ -81,7 +81,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public loadAddressById(id: number): void {
-		this.address = this.gateNetwork.getAddressById(id).address;
+		this.address = this.gateNetwork.getDestinationById(id).address.slice();
 	}
 
 	public selectGlyph(glyph: Glyph): void {
