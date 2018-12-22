@@ -1,18 +1,7 @@
 @import "variables";
 
 :host {
-	align-items: center;
-	border: 1px solid $primary;
-	color: $white;
-	cursor: pointer;
-	display: flex;
-	font-family: $interface-font;
-	font-size: 1rem;
-	justify-content: center;
-	padding: 5px;
 	position: relative;
-	text-align: center;
-	width: 75px;
 }
 
 menu {

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, ViewChild } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 import { TweenMax } from "gsap";
 
 import { MenuComponent } from "../menu/menu.component";
@@ -16,7 +16,6 @@ export class MenuButtonComponent {
 
 	public isMenuOpen: boolean;
 
-	@HostListener("click")
 	public toggleMenu(): void {
 		this.isMenuOpen = !this.isMenuOpen;
 		TweenMax.to(this.menu.elem, 1, { scale: +this.isMenuOpen });

@@ -1,4 +1,4 @@
-<span class="label">{{ text }}</span>
+<sg-button [text]="text" (click)="toggleMenu()"></sg-button>
 <menu [ngClass]="position">
 	<ng-content></ng-content>
 </menu>
