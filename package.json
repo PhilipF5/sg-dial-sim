@@ -9,10 +9,7 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"start:electron": "yarn start & (sleep 12 && yarn electron)",
-		"build": "ng build --prod --base-href ./ && electron-builder build",
-		"build:electron": "electron-builder",
-		"test": "ng test",
+		"build": "ng build --prod --base-href ./ && electron-builder build -mw",
 		"lint": "ng lint",
 		"electron": "electron ."
 	},
