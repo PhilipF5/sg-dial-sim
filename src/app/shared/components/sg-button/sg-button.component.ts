@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { Component, EventEmitter, HostListener, Input, Output, HostBinding } from "@angular/core";
 
 @Component({
 	selector: "sg-button",
@@ -6,6 +6,7 @@ import { Component, EventEmitter, HostListener, Input, Output } from "@angular/c
 	styleUrls: ["./sg-button.component.scss"]
 })
 export class SgButtonComponent {
+	@Input() @HostBinding("class.disabled") disabled: boolean;
 	@Input() text: string;
 
 	@Output() sgClick = new EventEmitter();

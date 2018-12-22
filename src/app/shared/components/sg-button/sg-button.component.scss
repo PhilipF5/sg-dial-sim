@@ -15,6 +15,11 @@
 	text-align: center;
 	width: 80%;
 
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
 	&:hover {
 		background-color: $highlight;
 	}
