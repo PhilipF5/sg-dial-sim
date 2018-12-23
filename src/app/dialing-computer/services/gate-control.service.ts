@@ -68,6 +68,7 @@ export class GateControlService {
 
 			timeline
 				.add(chevronTimeline, `chevron${chevron}`)
+				.add(() => this.ngZone.run(() => this.gateStatus.dialing()))
 				.addLabel(
 					`chevron${chevron}Start`,
 					chevronTimeline.startTime() + chevronTimeline.getLabelTime("chevronStart")
