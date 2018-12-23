@@ -20,7 +20,7 @@ export class KeyboardComponent implements OnInit {
 
 	public get addressWithOrigin(): Glyph[] {
 		let address = this.address.slice();
-		if (this.address.length >= 6) {
+		if (this.address.length >= 6 && this.address[this.address.length - 1] != Glyphs.pointOfOrigin) {
 			address.push(Glyphs.pointOfOrigin);
 		}
 		return address;
