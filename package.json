@@ -9,7 +9,8 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build": "ng build --prod --base-href ./ && electron-builder build -mw",
+		"build": "ng build --prod --base-href ./",
+		"package": "electron-build build -mw",
 		"lint": "ng lint",
 		"electron": "electron ."
 	},
