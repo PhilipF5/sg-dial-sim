@@ -1,3 +1,6 @@
+variables:
+  - group: GitHub
+
 pool:
   vmImage: 'macOS-10.13'
 
