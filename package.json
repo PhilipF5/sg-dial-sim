@@ -10,7 +10,7 @@
 		"ng": "ng",
 		"start": "ng serve",
 		"build": "ng build --prod --base-href ./",
-		"package": "electron-build build -mw",
+		"package": "electron-builder build -mw",
 		"lint": "ng lint",
 		"electron": "electron ."
 	},
