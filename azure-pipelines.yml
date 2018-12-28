@@ -27,8 +27,8 @@ steps:
   - task: CopyFiles@2
     inputs:
       Contents: |
-        'electron-build/SG Dial Sim*.exe'
-        'electron-build/SG Dial Sim*.dmg'
+        'electron-build\SG Dial Sim*.exe'
+        'electron-build\SG Dial Sim*.dmg'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: PublishPipelineArtifact@0
