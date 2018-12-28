@@ -24,12 +24,14 @@ steps:
       command: 'custom'
       customCommand: 'run package'
 
-  - task: PublishPipelineArtifact@0
+  - task: CopyFiles@2
     inputs:
-      artifactName: 'Windows build'
-      targetPath: 'electron-build/SG Dial Sim.exe'
+      Contents: |
+        'electron-build/SG Dial Sim*.exe'
+        'electron-build/SG Dial Sim*.dmg'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: PublishPipelineArtifact@0
     inputs:
-      artifactName: 'Mac build'
-      targetPath: 'electron-build/SG Dial Sim.dmg'
+      artifactName: 'Electron executables'
+      targetPath: '$(Build.ArtifactStagingDirectory)'
