@@ -23,3 +23,8 @@ steps:
     inputs:
       command: 'custom'
       customCommand: 'run package'
+
+  - task: PublishPipelineArtifact@0
+    inputs:
+      artifactName: 'Electron executables'
+      targetPath: 'electron-build'
