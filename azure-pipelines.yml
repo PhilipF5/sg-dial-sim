@@ -27,9 +27,9 @@ steps:
   - task: PublishPipelineArtifact@0
     inputs:
       artifactName: 'Windows build'
-      targetPath: 'electron-build/SG Dial Sim*.exe'
+      targetPath: 'electron-build/SG Dial Sim.exe'
 
   - task: PublishPipelineArtifact@0
     inputs:
       artifactName: 'Mac build'
-      targetPath: 'electron-build/SG Dial Sim*.dmg'
+      targetPath: 'electron-build/SG Dial Sim.dmg'
