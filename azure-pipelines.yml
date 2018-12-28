@@ -26,9 +26,10 @@ steps:
 
   - task: CopyFiles@2
     inputs:
+      SourceFolder: 'electron-build'
       Contents: |
-        electron-build/*.exe
-        electron-build/*.dmg
+        *.exe
+        *.dmg
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: PublishPipelineArtifact@0
