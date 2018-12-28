@@ -17,7 +17,6 @@
 	"build": {
 		"appId": "com.philipf5.sg-dial-sim",
 		"productName": "SG Dial Sim",
-		"copyright": "Copyright © 2018 Philip Fulgham",
 		"artifactName": "${productName} ${version}-${os}.${ext}",
 		"directories": {
 			"output": "electron-build"
