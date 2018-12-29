@@ -11,10 +11,9 @@ import { AlertService } from "app/shared/services";
 	entryComponents: [AlertComponent],
 })
 export class AlertFactoryComponent implements OnInit {
-	private alert: ComponentRef<AlertComponent>;
+	@ViewChild("container", { read: ViewContainerRef }) private container: ViewContainerRef;
 
-	@ViewChild("container", { read: ViewContainerRef })
-	private container: ViewContainerRef;
+	private alert: ComponentRef<AlertComponent>;
 
 	constructor(private alertService: AlertService, private resolver: ComponentFactoryResolver) {}
 

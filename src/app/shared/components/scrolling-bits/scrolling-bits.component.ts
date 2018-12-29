@@ -11,8 +11,15 @@ const plugins = [ScrollToPlugin];
 	styleUrls: ["./scrolling-bits.component.scss"],
 })
 export class ScrollingBitsComponent {
+	@Input() length: number;
+
+	@ViewChild("first") private _firstGroup: ElementRef;
+	@ViewChild("second") private _secondGroup: ElementRef;
+
 	public bits: string = "";
-	@Input() public length: number;
+
+	private _enabled: boolean;
+	private timeline: TimelineLite;
 
 	public get enabled(): boolean {
 		return this._enabled;
@@ -28,11 +35,6 @@ export class ScrollingBitsComponent {
 
 		this._enabled = value;
 	}
-
-	private _enabled: boolean;
-	@ViewChild("first") private _firstGroup: ElementRef;
-	@ViewChild("second") private _secondGroup: ElementRef;
-	private timeline: TimelineLite;
 
 	private get elem(): HTMLElement {
 		return this._elem.nativeElement;

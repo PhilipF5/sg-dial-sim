@@ -1,5 +1,3 @@
-import { ElementRef } from "@angular/core";
-
 import { Power1, TimelineLite, TweenMax } from "gsap";
 
 export interface ChevronBoxAnimationConfig {

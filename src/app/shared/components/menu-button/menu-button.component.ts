@@ -10,7 +10,7 @@ import { SgButtonComponent } from "../sg-button/sg-button.component";
 @Component({
 	selector: "menu-button",
 	templateUrl: "./menu-button.component.html",
-	styleUrls: ["./menu-button.component.scss"]
+	styleUrls: ["./menu-button.component.scss"],
 })
 export class MenuButtonComponent implements AfterContentChecked {
 	@ContentChildren(SgButtonComponent, { descendants: true }) buttons: QueryList<SgButtonComponent>;

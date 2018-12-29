@@ -8,9 +8,9 @@ import { Power1, TweenMax } from "gsap";
 	styleUrls: ["./alert.component.scss"],
 })
 export class AlertComponent implements AfterViewInit {
-	@Input() public critical: boolean;
-	@Input() public message: string;
-	@Input() public title: string;
+	@Input() critical: boolean;
+	@Input() message: string;
+	@Input() title: string;
 
 	@ViewChild("messageElement") private _messageElement: ElementRef;
 

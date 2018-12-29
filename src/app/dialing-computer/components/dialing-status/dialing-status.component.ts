@@ -14,7 +14,7 @@ import { GateStatusService } from "app/shared/services";
 })
 export class DialingStatusComponent implements OnDestroy, OnInit {
 	@ViewChild("statusText") private _statusText: ElementRef;
-	
+
 	public status: GateStatus;
 
 	private killSubscriptions: Subject<{}> = new Subject();
@@ -30,12 +30,10 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		this.gateStatus.status$
-			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(status => {
-				this.status = status;
-				this.updateAnimation(status);
-			});
+		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
+			this.status = status;
+			this.updateAnimation(status);
+		});
 	}
 
 	private flashNormal(): TweenMax {

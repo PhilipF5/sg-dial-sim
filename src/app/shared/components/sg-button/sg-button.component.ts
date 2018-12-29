@@ -3,7 +3,7 @@ import { Component, EventEmitter, HostListener, Input, Output, HostBinding } fro
 @Component({
 	selector: "sg-button",
 	templateUrl: "./sg-button.component.html",
-	styleUrls: ["./sg-button.component.scss"]
+	styleUrls: ["./sg-button.component.scss"],
 })
 export class SgButtonComponent {
 	@Input() @HostBinding("class.disabled") disabled: boolean;

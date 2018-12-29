@@ -10,7 +10,7 @@ import { GateNetworkService } from "app/shared/services";
 @Component({
 	selector: "address-book",
 	templateUrl: "./address-book.page.html",
-	styleUrls: ["./address-book.page.scss"]
+	styleUrls: ["./address-book.page.scss"],
 })
 export class AddressBookPage implements AfterViewInit, OnInit {
 	@ViewChildren(AddressRowComponent) addressRows: QueryList<AddressRowComponent>;
@@ -62,7 +62,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.destinations = this.gateNetwork.getAllAddresses();
 	}
 
-	public goToGateScreen(dest?: number) {
+	public goToGateScreen(dest?: number): void {
 		if (dest) {
 			this.router.navigate(["/dialing-computer/gate-screen", { dest }], { skipLocationChange: true });
 		} else {
@@ -70,7 +70,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		}
 	}
 
-	public loadAddress(dest: Destination) {
+	public loadAddress(dest: Destination): void {
 		this.goToGateScreen(dest.id);
 	}
 
@@ -79,11 +79,11 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.selectedIndex = this.addressRowElems.findIndex(el => el === target);
 		let targetBox = target.getBoundingClientRect();
 		let borderAdjustment = 6; // 6 to adjust for 3px border due to box-sizing
-		return this.selectorTimeline = new TimelineLite()
+		return (this.selectorTimeline = new TimelineLite()
 			.add(this.removeSelector(this.addressRowElems.filter(el => el !== target)))
 			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - borderAdjustment })
-			.to(this.selector, (instant ? 0 : 0.5), { top: targetBox.top })
-			.set(target, { className: "+=selected" });
+			.to(this.selector, instant ? 0 : 0.5, { top: targetBox.top })
+			.set(target, { className: "+=selected" }));
 	}
 
 	public removeSelector(targets: HTMLElement[]): TimelineLite {

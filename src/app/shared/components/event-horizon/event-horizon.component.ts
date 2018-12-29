@@ -33,13 +33,11 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		this.gateStatus.status$
-			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(status => {
-				if (!this.ignoredStatuses.includes(status)) {
-					this.setAnimation(status);
-				}
-			});
+		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
+			if (!this.ignoredStatuses.includes(status)) {
+				this.setAnimation(status);
+			}
+		});
 	}
 
 	private setAnimation(status: GateStatus): TimelineLite {

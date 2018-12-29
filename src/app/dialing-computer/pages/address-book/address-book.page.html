@@ -1,9 +1,7 @@
 <div class="header">
 	<div class="top-row">
-		<span class="title">System Glyphs</span>
-		<span class="separator">/</span>
-		<span class="subtitle">File Archive</span>
-		<span class="separator">/</span>
+		<span class="title">System Glyphs</span> <span class="separator">/</span>
+		<span class="subtitle">File Archive</span> <span class="separator">/</span>
 		<span class="status">Display: Complete</span>
 	</div>
 	<div class="headings-row">
@@ -15,7 +13,7 @@
 	<div class="addresses">
 		<div #selector class="selector"></div>
 		<address-row
-			*ngFor="let destination of destinations | slice: topItem : bottomItem"
+			*ngFor="let destination of (destinations | slice: topItem:bottomItem)"
 			[destination]="destination"
 			(mouseenter)="moveSelector($event.target)"
 			(click)="loadAddress(destination)"
@@ -26,6 +24,4 @@
 		<div class="scroll-button down" (click)="scrollDown()">&#8227;</div>
 	</div>
 </div>
-<div class="footer">
-	<sg-button text="RETURN" (click)="goToGateScreen()"></sg-button>
-</div>
+<div class="footer"><sg-button text="RETURN" (click)="goToGateScreen()"></sg-button></div>

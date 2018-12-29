@@ -23,11 +23,9 @@ export class ChevronStatusComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		this.gateStatus.chevrons.statuses$
-			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(statuses => {
-				this.statuses = statuses;
-			});
+		this.gateStatus.chevrons.statuses$.pipe(takeUntil(this.killSubscriptions)).subscribe(statuses => {
+			this.statuses = statuses;
+		});
 	}
 
 	public isEngaged(chevron: number): boolean {

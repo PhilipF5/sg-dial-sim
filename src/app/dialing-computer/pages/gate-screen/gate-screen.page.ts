@@ -53,7 +53,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		private gateControl: GateControlService,
 		private gateStatus: GateStatusService,
 		private route: ActivatedRoute,
-		private router: Router,
+		private router: Router
 	) {}
 
 	ngOnDestroy() {
@@ -63,23 +63,21 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	ngOnInit() {
 		this.gateControl.result$
 			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(
-				res => (this.destination = res.destination && res.destination.name.toUpperCase())
-			);
-		this.gateStatus.status$
-			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(status => {
-				this.status = status;
-				if (this.status === GateStatus.Idle) {
-					this.destination = undefined;
-				}
-			});
+			.subscribe(res => (this.destination = res.destination && res.destination.name.toUpperCase()));
+
+		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
+			this.status = status;
+			if (this.status === GateStatus.Idle) {
+				this.destination = undefined;
+			}
+		});
+
 		this.route.paramMap.pipe(take(1)).subscribe(params => {
 			if (params.has("dest")) {
 				this.keyboard.loadAddressById(+params.get("dest"));
 				this.openKeyboard();
 			}
-		})
+		});
 	}
 
 	public beginDialing(address: Glyph[]): void {

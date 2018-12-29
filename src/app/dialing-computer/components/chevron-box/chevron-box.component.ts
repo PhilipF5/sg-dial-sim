@@ -42,30 +42,34 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 
 	ngOnInit() {
 		this.gateControl.activations$
-			.pipe(filter(a => a.chevron === this.number), takeUntil(this.killSubscriptions))
+			.pipe(
+				filter(a => a.chevron === this.number),
+				takeUntil(this.killSubscriptions)
+			)
 			.subscribe(a => {
 				this.glyph = a.glyph;
-				this.gatePosition$.pipe(filter(pos => !!pos), take(1)).subscribe(pos => {
-					a.symbolTimeline = a.fail ? this.lockSymbolFailed(pos) : this.lockSymbolSuccess(pos);
-					this.gateControl.symbolAnimReady$.next(this.number);
-				});
+				this.gatePosition$
+					.pipe(
+						filter(pos => !!pos),
+						take(1)
+					)
+					.subscribe(pos => {
+						a.symbolTimeline = a.fail ? this.lockSymbolFailed(pos) : this.lockSymbolSuccess(pos);
+						this.gateControl.symbolAnimReady$.next(this.number);
+					});
 			});
 
-		this.gateControl.result$
-			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(res => {
-				if (res.destination) {
-					ChevronBoxAnimations.flashOnActivate(this.chevronBox);
-				}
-			});
+		this.gateControl.result$.pipe(takeUntil(this.killSubscriptions)).subscribe(res => {
+			if (res.destination) {
+				ChevronBoxAnimations.flashOnActivate(this.chevronBox);
+			}
+		});
 
-		this.gateStatus.status$
-			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(status => {
-				if (status === GateStatus.Idle) {
-					this.clearSymbol();
-				}
-			});
+		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
+			if (status === GateStatus.Idle) {
+				this.clearSymbol();
+			}
+		});
 	}
 
 	public clearSymbol(): void {

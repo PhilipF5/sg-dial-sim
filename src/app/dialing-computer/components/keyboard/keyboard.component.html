@@ -1,35 +1,33 @@
 <div class="close key" (click)="closeKeyboard()">X</div>
 
-<div class="address" [ngClass]="{ 'valid': isAddressValid() }">
-  <div
-    *ngFor="let glyph of [1, 2, 3, 4, 5, 6, 7, 8]"
-    class="selected-glyph"
-    [ngClass]="{ 'selected': isGlyphNumberSelected(glyph), 'inactive': isGlyphNumberInactive(glyph) }"
-  >
-    <div class="glyph">
-      {{ addressWithOrigin[glyph - 1]?.char || "&nbsp;" }}
-    </div>
-    <div class="glyph-number">{{ glyph }}</div>
-  </div>
+<div class="address" [ngClass]="{ valid: isAddressValid() }">
+	<div
+		*ngFor="let glyph of [1, 2, 3, 4, 5, 6, 7, 8]"
+		class="selected-glyph"
+		[ngClass]="{ selected: isGlyphNumberSelected(glyph), inactive: isGlyphNumberInactive(glyph) }"
+	>
+		<div class="glyph">{{ addressWithOrigin[glyph - 1]?.char || "&nbsp;" }}</div>
+		<div class="glyph-number">{{ glyph }}</div>
+	</div>
 </div>
 
 <div
-  *ngFor="let glyph of keys"
-  class="glyph key"
-  (click)="selectGlyph(glyph)"
-  [ngClass]="{ 'selected': isGlyphSelected(glyph), 'disabled': !isDialingAvailable }"
+	*ngFor="let glyph of keys"
+	class="glyph key"
+	(click)="selectGlyph(glyph)"
+	[ngClass]="{ selected: isGlyphSelected(glyph), disabled: !isDialingAvailable }"
 >
-  {{ glyph.char }}
-  <tooltip>
-    <span class="glyph-name">{{ glyph.name }}</span> ({{ glyph.char }})
-  </tooltip>
+	{{ glyph.char }}
+	<tooltip>
+		<span class="glyph-name">{{ glyph.name }}</span> ({{ glyph.char }})
+	</tooltip>
 </div>
 
 <div class="left corner">
-  <div class="backspace key" (click)="backspace()" [ngClass]="{ 'disabled': !isDialingAvailable }">Backspace</div>
+	<div class="backspace key" (click)="backspace()" [ngClass]="{ disabled: !isDialingAvailable }">Backspace</div>
 </div>
 
 <div class="right corner">
-  <div class="dial key" (click)="validateAndDial()" [ngClass]="{ 'disabled': !isDialingAvailable }">Dial</div>
-  <div class="shutdown key" (click)="shutdown()" [ngClass]="{ 'disabled': isDialingAvailable }">Shutdown</div>
+	<div class="dial key" (click)="validateAndDial()" [ngClass]="{ disabled: !isDialingAvailable }">Dial</div>
+	<div class="shutdown key" (click)="shutdown()" [ngClass]="{ disabled: isDialingAvailable }">Shutdown</div>
 </div>
