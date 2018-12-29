@@ -4274,6 +4274,13 @@ neo-async@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
 
+ngx-electron@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-electron/-/ngx-electron-2.0.0.tgz#589f230af1c8dddd3f87ae86342e647b29945257"
+  integrity sha512-TmfYrBtVcXrb7kQV8xFCOhNnuhqMc4uzSyFg4+PRJPUt4khz7+sbY8UrXp/6XBASG2Op+fO40hOKyoZMEzT5XQ==
+  dependencies:
+    tslib "^1.9.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

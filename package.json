@@ -46,6 +46,7 @@
 		"@angular/router": "^7.1.4",
 		"core-js": "^2.6.1",
 		"gsap": "^2.0.2",
+		"ngx-electron": "^2.0.0",
 		"node-sass": "^4.11.0",
 		"rxjs": "^6.3.3",
 		"zone.js": "^0.8.26"

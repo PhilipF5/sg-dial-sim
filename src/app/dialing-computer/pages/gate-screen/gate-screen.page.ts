@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { TweenMax } from "gsap";
+import { ElectronService } from "ngx-electron";
 import { BehaviorSubject, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
 
@@ -43,7 +44,12 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		}
 	}
 
+	public get electronWindow(): import("electron").BrowserWindow {
+		return this.electron.remote.BrowserWindow.getFocusedWindow();
+	}
+
 	constructor(
+		private electron: ElectronService,
 		private gateControl: GateControlService,
 		private gateStatus: GateStatusService,
 		private route: ActivatedRoute,
@@ -99,8 +105,16 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		TweenMax.to(this.keyboard.elem, 1, { css: { className: "-=minimized" } });
 	}
 
+	public quit(): void {
+		this.electron.remote.app.quit();
+	}
+
 	public shutdown(): void {
 		this.gateControl.shutdown();
+	}
+
+	public toggleFullscreen(): void {
+		this.electronWindow.setFullScreen(!this.electronWindow.isFullScreen());
 	}
 
 	private runDialingSequence(): void {
