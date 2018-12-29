@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 
 import { Linear, TimelineLite, TimelineMax, TweenLite } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ElectronService } from "ngx-electron";
 
 const plugins = [ScrollToPlugin];
 
@@ -10,7 +11,7 @@ const plugins = [ScrollToPlugin];
 	templateUrl: "./scrolling-bits.component.html",
 	styleUrls: ["./scrolling-bits.component.scss"],
 })
-export class ScrollingBitsComponent {
+export class ScrollingBitsComponent implements OnInit {
 	@Input() length: number;
 
 	@ViewChild("first") private _firstGroup: ElementRef;
@@ -48,10 +49,20 @@ export class ScrollingBitsComponent {
 		return this._secondGroup.nativeElement;
 	}
 
-	constructor(private cdRef: ChangeDetectorRef, private _elem: ElementRef) {}
+	constructor(private cdRef: ChangeDetectorRef, private electron: ElectronService, private _elem: ElementRef) {}
+
+	ngOnInit() {
+		if (this.electron.isElectronApp) {
+			let electronWindow = this.electron.remote.BrowserWindow.getFocusedWindow();
+			electronWindow.addListener("resize", () => this.restart())
+				.addListener("enter-full-screen", () => this.restart())
+				.addListener("leave-full-screen", () => this.restart());
+		}
+	}
 
 	public disable(): void {
 		this.bits = "";
+		this.timeline.progress(0);
 		this.timeline.kill();
 		TweenLite.set(this.firstGroup, { opacity: 0 });
 	}
@@ -59,6 +70,13 @@ export class ScrollingBitsComponent {
 	public enable(): void {
 		this.loadBits();
 		setTimeout(() => this.animate(), 100);
+	}
+
+	public restart(): void {
+		this.disable();
+		if (this.enabled) {
+			this.enable();
+		}
 	}
 
 	private animate(): void {
