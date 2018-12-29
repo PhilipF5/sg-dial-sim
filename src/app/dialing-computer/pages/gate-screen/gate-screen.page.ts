@@ -48,6 +48,10 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		return this.electron.remote.BrowserWindow.getFocusedWindow();
 	}
 
+	public get isElectronApp(): boolean {
+		return this.electron.isElectronApp;
+	}
+
 	constructor(
 		private electron: ElectronService,
 		private gateControl: GateControlService,
