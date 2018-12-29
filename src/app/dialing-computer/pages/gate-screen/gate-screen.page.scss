@@ -48,7 +48,9 @@
 		border-bottom-right-radius: 5px;
 		border-left: none;
 		border-top-right-radius: 5px;
-		width: 150px;
+		flex-grow: 1;
+		max-width: 10%;
+		min-width: 150px;
 		padding: 5px;
 
 		.scrolling-bits-container {
@@ -66,7 +68,12 @@
 
 	&.center {
 		align-items: center;
-		width: 450px;
+		align-self: flex-end;
+		flex-grow: 1;
+		justify-content: flex-end;
+		max-height: 90vh;
+		max-width: 40vw;
+		min-width: 450px;
 	}
 
 	&.right {
@@ -84,6 +91,7 @@
 }
 
 dialing-status {
+	margin-top: 10%;
 	width: 100%;
 }
 
