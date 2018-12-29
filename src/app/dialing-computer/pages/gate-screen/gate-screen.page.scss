@@ -68,12 +68,15 @@
 
 	&.center {
 		align-items: center;
-		align-self: flex-end;
 		flex-grow: 1;
-		justify-content: flex-end;
-		max-height: 90vh;
-		max-width: 40vw;
+		justify-content: flex-start;
+		max-width: 40%;
 		min-width: 450px;
+		position: relative;
+
+		@media (aspect-ratio: 4/3) {
+			padding-top: 5vh;
+		}
 	}
 
 	&.right {
@@ -91,7 +94,9 @@
 }
 
 dialing-status {
-	margin-top: 10%;
+	bottom: 0;
+	left: 0;
+	position: absolute;
 	width: 100%;
 }
 

@@ -1,6 +1,8 @@
 @import "variables";
 
 :host {
+	max-height: 68vh;
+	max-width: 68vh;
 	position: relative;
 	width: 100%;
 }
