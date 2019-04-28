@@ -1,8 +1,9 @@
 import { TimelineLite } from "gsap";
-import { Destination, GateStatus } from "app/shared/models";
+import { Destination, GateStatus, Glyph } from "app/shared/models";
 
 export interface DialingComputerState {
+	currentAnimation: TimelineLite;
 	destination: Destination;
-	dialingSequence: TimelineLite;
 	gateStatus: GateStatus;
+	nextSymbol: Glyph;
 }
