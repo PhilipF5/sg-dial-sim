@@ -14,6 +14,11 @@
 		"lint": "ng lint",
 		"electron": "electron ."
 	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
+	},
 	"build": {
 		"appId": "com.philipf5.sg-dial-sim",
 		"productName": "SG Dial Sim",
@@ -61,6 +66,9 @@
 		"codelyzer": "~4.5.0",
 		"electron": "^4.0.0",
 		"electron-builder": "^20.38.4",
+		"husky": "^2.1.0",
+		"prettier": "^1.17.0",
+		"pretty-quick": "^1.10.0",
 		"ts-node": "~7.0.1",
 		"tslint": "~5.12.0",
 		"typescript": "3.1.1"
