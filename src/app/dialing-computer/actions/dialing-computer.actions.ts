@@ -4,10 +4,14 @@ import { Glyph } from "app/shared/models";
 export enum DialingComputerActionTypes {
 	AbortDialing = "[Dialing Computer] Abort Dialing",
 	BeginDialing = "[Dialing Computer] Begin Dialing",
-	DialGlyph = "[Dialing Computer] Dialing Glyph",
+	ChevronEngaged = "[Dialing Computer] Chevron Engaged",
+	DialNextGlyph = "[Dialing Computer] Dial Next Glyph",
 	EngageChevron = "[Dialing Computer] Engage Chevron",
+	GlyphReady = "[Dialing Computer] Glyph Ready",
 	OpenGate = "[Dialing Computer] Open Gate",
 	ShutdownGate = "[Dialing Computer] Shutdown Gate",
+	SpinRing = "[Dialing Computer] Spin Ring",
+	TryEngageChevron = "[Dialing Computer] Try Engage Chevron",
 }
 
 export namespace DialingComputerActions {
@@ -20,13 +24,22 @@ export namespace DialingComputerActions {
 		constructor(public payload: { address: Glyph[] }) {}
 	}
 
-	export class DialGlyph implements Action {
-		readonly type = DialingComputerActionTypes.DialGlyph;
-		constructor(public payload: { index: number }) {}
+	export class ChevronEngaged implements Action {
+		readonly type = DialingComputerActionTypes.ChevronEngaged;
+		constructor(public payload: { chevron: number }) {}
+	}
+
+	export class DialNextGlyph implements Action {
+		readonly type = DialingComputerActionTypes.DialNextGlyph;
 	}
 
 	export class EngageChevron implements Action {
 		readonly type = DialingComputerActionTypes.EngageChevron;
+		constructor(public payload: { chevron: number; glyph: Glyph }) {}
+	}
+
+	export class GlyphReady implements Action {
+		readonly type = DialingComputerActionTypes.GlyphReady;
 		constructor(public payload: { chevron: number; glyph: Glyph }) {}
 	}
 
@@ -37,12 +50,25 @@ export namespace DialingComputerActions {
 	export class ShutdownGate implements Action {
 		readonly type = DialingComputerActionTypes.ShutdownGate;
 	}
+
+	export class SpinRing implements Action {
+		readonly type = DialingComputerActionTypes.SpinRing;
+		constructor(public payload: { chevron: number; glyph: Glyph }) {}
+	}
+
+	export class TryEngageChevron implements Action {
+		readonly type = DialingComputerActionTypes.TryEngageChevron;
+	}
 }
 
 export type DialingComputerAction =
 	| DialingComputerActions.AbortDialing
 	| DialingComputerActions.BeginDialing
-	| DialingComputerActions.DialGlyph
+	| DialingComputerActions.ChevronEngaged
+	| DialingComputerActions.DialNextGlyph
 	| DialingComputerActions.EngageChevron
+	| DialingComputerActions.GlyphReady
 	| DialingComputerActions.OpenGate
-	| DialingComputerActions.ShutdownGate;
+	| DialingComputerActions.ShutdownGate
+	| DialingComputerActions.SpinRing
+	| DialingComputerActions.TryEngageChevron;
