@@ -1,9 +1,11 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
+import { Actions, ofType } from "@ngrx/effects";
 import { TimelineLite } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
-import { filter, take, takeUntil } from "rxjs/operators";
+import { filter, take, takeUntil, tap } from "rxjs/operators";
 
+import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { ChevronBoxAnimations, ChevronBoxAnimationConfig } from "app/dialing-computer/animations";
 import { GateControlService } from "app/dialing-computer/services";
 import { GateStatus, Glyph } from "app/shared/models";
@@ -34,7 +36,11 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 		return this._symbol.nativeElement;
 	}
 
-	constructor(private gateControl: GateControlService, private gateStatus: GateStatusService) {}
+	constructor(
+		private actions$: Actions,
+		private gateControl: GateControlService,
+		private gateStatus: GateStatusService
+	) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
@@ -70,6 +76,17 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 				this.clearSymbol();
 			}
 		});
+
+		this.actions$
+			.pipe(
+				ofType<DialingComputerActions.EngageChevron>(DialingComputerActionTypes.EngageChevron),
+				filter(({ payload: { chevron } }) => chevron === this.number),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(async ({ payload: { glyph } }) => {
+				this.glyph = glyph;
+				this.lockSymbolSuccess(await this.getLatestGatePosition());
+			});
 	}
 
 	public clearSymbol(): void {
@@ -95,6 +112,15 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 			startY: gatePosition.y - this.position.y + 50,
 			symbol: this.symbol,
 		};
+	}
+
+	private async getLatestGatePosition(): Promise<DOMRect> {
+		return this.gatePosition$
+			.pipe(
+				filter(pos => !!pos),
+				take(1)
+			)
+			.toPromise();
 	}
 
 	private updateSymbolPosition(): void {
