@@ -17,7 +17,14 @@ export const initialState: DialingComputerState = {
 export function dialingComputerReducer(state = initialState, action: DialingComputerAction) {
 	switch (action.type) {
 		case DialingComputerActionTypes.BeginDialing:
-			return { ...state, address: [...action.payload.address], gateStatus: GateStatus.Dialing, nextSymbol: 0 };
+			return { ...state, address: [...action.payload.address], nextSymbol: 0 };
+		case DialingComputerActionTypes.ChevronEngaged:
+			let nextSymbol = !!state.address[state.nextSymbol + 1] ? state.nextSymbol + 1 : null;
+			return { ...state, nextSymbol };
+		case DialingComputerActionTypes.DialNextGlyph:
+			return { ...state, gateStatus: GateStatus.Dialing };
+		case DialingComputerActionTypes.EngageChevron:
+			return { ...state, gateStatus: GateStatus.Engaged };
 		default:
 			return state;
 	}

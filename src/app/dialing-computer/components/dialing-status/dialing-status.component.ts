@@ -1,9 +1,11 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
+import { Store, select } from "@ngrx/store";
 import { TweenMax } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
+import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus } from "app/shared/models";
 import { GateStatusService } from "app/shared/services";
 
@@ -23,17 +25,26 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		return this._statusText.nativeElement;
 	}
 
-	constructor(private gateStatus: GateStatusService) {}
+	constructor(private gateStatus: GateStatusService, private store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
 	}
 
 	ngOnInit() {
-		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
-			this.status = status;
-			this.updateAnimation(status);
-		});
+		// this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
+		// 	this.status = status;
+		// 	this.updateAnimation(status);
+		// });
+		this.store$
+			.pipe(
+				select(getGateStatus),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(status => {
+				this.status = status;
+				this.updateAnimation(status);
+			});
 	}
 
 	private flashNormal(): TweenMax {
