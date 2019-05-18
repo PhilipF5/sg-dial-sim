@@ -10,10 +10,13 @@ import {
 	ViewChildren,
 } from "@angular/core";
 
+import { Actions, ofType } from "@ngrx/effects";
+import { Store } from "@ngrx/store";
 import { TimelineLite, TweenMax } from "gsap";
 import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { takeUntil, tap, take } from "rxjs/operators";
 
+import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { ChevronActivation } from "app/dialing-computer/models";
 import { GateControlService } from "app/dialing-computer/services";
 import { GateAnimations } from "app/shared/animations";
@@ -39,11 +42,13 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	}
 
 	constructor(
+		private actions$: Actions,
 		private audio: AudioService,
 		private _elem: ElementRef,
 		private gateControl: GateControlService,
 		private gateStatus: GateStatusService,
-		private ngZone: NgZone
+		private ngZone: NgZone,
+		private store$: Store<any>
 	) {}
 
 	ngAfterViewInit() {
@@ -78,6 +83,26 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			a.chevronTimeline = this.selectAndEngage(a);
 			this.gateControl.chevronAnimReady$.next(a.chevron);
 		});
+		this.actions$
+			.pipe(
+				ofType<DialingComputerActions.EngageChevron>(DialingComputerActionTypes.EngageChevron),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(({ payload: { chevron } }) =>
+				this.engageChevron(chevron).add(() =>
+					this.store$.dispatch(new DialingComputerActions.ChevronEngaged({ chevron }))
+				)
+			);
+		this.actions$
+			.pipe(
+				ofType<DialingComputerActions.SpinRing>(DialingComputerActionTypes.SpinRing),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(({ payload: activation }) =>
+				this.spinTo(activation).add(() =>
+					this.store$.dispatch(new DialingComputerActions.GlyphReady(activation))
+				)
+			);
 	}
 
 	public chevron(index: number): ChevronDirective {

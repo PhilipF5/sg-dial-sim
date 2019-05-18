@@ -58,6 +58,7 @@ export namespace DialingComputerActions {
 
 	export class TryEngageChevron implements Action {
 		readonly type = DialingComputerActionTypes.TryEngageChevron;
+		constructor(public payload: { chevron: number; glyph: Glyph }) {}
 	}
 }
 

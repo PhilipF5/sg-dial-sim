@@ -16,5 +16,5 @@ export const getNextChevron = createSelector(
 
 export const getNextGlyph = createSelector(
 	selectDialingComputerState,
-	state => state.address[state.nextSymbol]
+	state => state && state.address && state.address[state.nextSymbol]
 );
