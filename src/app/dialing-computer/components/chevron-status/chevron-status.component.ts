@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 
+import { Store, select } from "@ngrx/store";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
+import { getChevronStatus } from "app/dialing-computer/selectors";
 import { ChevronStatus, ChevronStatuses } from "app/shared/models";
 import { GateStatusService } from "app/shared/services";
 
@@ -16,16 +18,21 @@ export class ChevronStatusComponent implements OnDestroy, OnInit {
 
 	private killSubscriptions: Subject<{}> = new Subject();
 
-	constructor(private gateStatus: GateStatusService) {}
+	constructor(private gateStatus: GateStatusService, private store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
 	}
 
 	ngOnInit() {
-		this.gateStatus.chevrons.statuses$.pipe(takeUntil(this.killSubscriptions)).subscribe(statuses => {
-			this.statuses = statuses;
-		});
+		this.store$
+			.pipe(
+				select(getChevronStatus),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(statuses => {
+				this.statuses = statuses;
+			});
 	}
 
 	public isEngaged(chevron: number): boolean {

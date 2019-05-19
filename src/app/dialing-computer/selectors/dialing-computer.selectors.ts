@@ -14,6 +14,11 @@ export const getAddressGlyphAtIndex = (index: number) =>
 		state => state.address[index]
 	);
 
+export const getChevronStatus = createSelector(
+	selectDialingComputerState,
+	state => state.chevronStatus
+);
+
 export const getDestination = createSelector(
 	selectDialingComputerState,
 	state => state.destination
