@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, OnInit, Output } from "@angular/co
 import { Store, select } from "@ngrx/store";
 import { TweenLite } from "gsap";
 
+import { DialingComputerActions } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateControlService } from "app/dialing-computer/services";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
@@ -94,7 +95,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public shutdown(): void {
-		this.gateControl.shutdown();
+		this.store$.dispatch(new DialingComputerActions.ShutdownGate());
 		this.closeKeyboard();
 	}
 

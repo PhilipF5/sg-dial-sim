@@ -10,6 +10,7 @@ export enum DialingComputerActionTypes {
 	EngageChevron = "[Dialing Computer] Engage Chevron",
 	EstablishConnection = "[Dialing Computer] Establish Connection",
 	FailChevron = "[Dialing Computer] Fail Chevron",
+	GateClosed = "[Dialing Computer] Gate Closed",
 	GlyphReady = "[Dialing Computer] Glyph Ready",
 	OpenGate = "[Dialing Computer] Open Gate",
 	Reset = "[Dialing Computer] Reset",
@@ -59,6 +60,10 @@ export namespace DialingComputerActions {
 		constructor(public payload: { chevron: number; glyph: Glyph }) {}
 	}
 
+	export class GateClosed implements Action {
+		readonly type = DialingComputerActionTypes.GateClosed;
+	}
+
 	export class GlyphReady implements Action {
 		readonly type = DialingComputerActionTypes.GlyphReady;
 		constructor(public payload: { chevron: number; glyph: Glyph }) {}
@@ -104,6 +109,7 @@ export type DialingComputerAction =
 	| DialingComputerActions.EngageChevron
 	| DialingComputerActions.EstablishConnection
 	| DialingComputerActions.FailChevron
+	| DialingComputerActions.GateClosed
 	| DialingComputerActions.GlyphReady
 	| DialingComputerActions.OpenGate
 	| DialingComputerActions.Reset

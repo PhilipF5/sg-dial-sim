@@ -5,6 +5,7 @@ import { TimelineLite, TweenMax } from "gsap";
 import { Subject } from "rxjs";
 import { filter, takeUntil } from "rxjs/operators";
 
+import { DialingComputerActions } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { EventHorizonAnimations } from "app/shared/animations";
 import { GateStatus } from "app/shared/models";
@@ -56,7 +57,7 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 				return new TimelineLite()
 					.add(EventHorizonAnimations.shutdown(this.elem))
 					.add(() => this.audio.stopEventHorizon(), 0)
-					.add(() => this.ngZone.run(() => this.gateStatus.idle()), "+=1");
+					.add(() => this.store$.dispatch(new DialingComputerActions.GateClosed()), "+=1");
 		}
 	}
 }

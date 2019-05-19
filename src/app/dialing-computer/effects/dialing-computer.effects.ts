@@ -59,6 +59,12 @@ export class DialingComputerEffects {
 	);
 
 	@Effect()
+	resetOnGateClose$ = this.actions$.pipe(
+		ofType<DialingComputerActions.GateClosed>(DialingComputerActionTypes.GateClosed),
+		switchMap(() => of(new DialingComputerActions.Reset()))
+	);
+
+	@Effect()
 	startRingSpin$ = this.actions$.pipe(
 		ofType<DialingComputerActions.DialNextGlyph>(DialingComputerActionTypes.DialNextGlyph),
 		withLatestFrom(this.store$.pipe(select(getNextGlyph)), this.store$.pipe(select(getNextChevron))),

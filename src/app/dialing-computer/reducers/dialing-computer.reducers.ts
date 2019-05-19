@@ -33,6 +33,8 @@ export function dialingComputerReducer(state = initialState, action: DialingComp
 			return { ...state, gateStatus: GateStatus.Active };
 		case DialingComputerActionTypes.Reset:
 			return { ...initialState };
+		case DialingComputerActionTypes.ShutdownGate:
+			return { ...state, gateStatus: GateStatus.Shutdown };
 		default:
 			return state;
 	}

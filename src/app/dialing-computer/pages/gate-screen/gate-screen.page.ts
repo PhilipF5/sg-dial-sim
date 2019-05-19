@@ -115,7 +115,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public shutdown(): void {
-		this.gateControl.shutdown();
+		this.store$.dispatch(new DialingComputerActions.ShutdownGate());
 	}
 
 	public toggleFullscreen(): void {
