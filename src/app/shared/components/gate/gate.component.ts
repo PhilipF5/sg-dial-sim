@@ -95,15 +95,16 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 				),
 				takeUntil(this.killSubscriptions)
 			)
-			.subscribe(({ payload: { chevron }, type }) =>
-				this.engageChevron(chevron, type === DialingComputerActionTypes.EngageChevron).add(() =>
-					this.store$.dispatch(
-						type === DialingComputerActionTypes.EngageChevron
-							? new DialingComputerActions.ChevronEngaged({ chevron })
-							: new DialingComputerActions.ChevronFailed({ chevron })
-					)
-				)
-			);
+			.subscribe(({ payload: { chevron }, type }) => {
+				let engage = type === DialingComputerActionTypes.EngageChevron;
+				if (engage) {
+					this.engageChevron(chevron).add(() =>
+						this.store$.dispatch(new DialingComputerActions.ChevronEngaged({ chevron }))
+					);
+				} else {
+					this.engageChevron(chevron, false);
+				}
+			});
 
 		this.actions$
 			.pipe(

@@ -94,13 +94,15 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 				filter(({ payload: { chevron } }) => chevron === this.number),
 				takeUntil(this.killSubscriptions)
 			)
-			.subscribe(async ({ payload: { glyph }, type }) => {
-				this.glyph = glyph;
+			.subscribe(async ({ payload, type }) => {
+				this.glyph = payload.glyph;
 				let gatePos = await this.getLatestGatePosition();
 				if (type === DialingComputerActionTypes.EngageChevron) {
 					this.lockSymbolSuccess(gatePos);
 				} else {
-					this.lockSymbolFailed(gatePos);
+					this.lockSymbolFailed(gatePos).add(() =>
+						this.store$.dispatch(new DialingComputerActions.ChevronFailed(payload))
+					);
 				}
 			});
 
