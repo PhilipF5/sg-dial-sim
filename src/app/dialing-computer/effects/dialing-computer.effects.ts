@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Store, select } from "@ngrx/store";
 import { of } from "rxjs";
-import { delay, switchMap, withLatestFrom } from "rxjs/operators";
+import { delay, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { getAddress, getDestination, getNextChevron, getNextGlyph } from "app/dialing-computer/selectors";
-import { GateNetworkService } from "app/shared/services";
+import { AlertService, GateNetworkService } from "app/shared/services";
 
 @Injectable()
 export class DialingComputerEffects {
@@ -25,6 +25,12 @@ export class DialingComputerEffects {
 	);
 
 	@Effect()
+	onChevronFailed$ = this.actions$.pipe(
+		ofType<DialingComputerActions.ChevronFailed>(DialingComputerActionTypes.ChevronFailed),
+		switchMap(() => of(new DialingComputerActions.SequenceFailed()))
+	);
+
+	@Effect()
 	onGlyphReady$ = this.actions$.pipe(
 		ofType<DialingComputerActions.GlyphReady>(DialingComputerActionTypes.GlyphReady),
 		switchMap(({ payload }) => of(new DialingComputerActions.TryEngageChevron(payload)))
@@ -35,6 +41,21 @@ export class DialingComputerEffects {
 		ofType<DialingComputerActions.SequenceComplete>(DialingComputerActionTypes.SequenceComplete),
 		switchMap(() => of(new DialingComputerActions.OpenGate())),
 		delay(2000)
+	);
+
+	@Effect()
+	onSequenceFailed$ = this.actions$.pipe(
+		ofType<DialingComputerActions.SequenceFailed>(DialingComputerActionTypes.SequenceFailed),
+		tap(() =>
+			this.alert.alerts.next({
+				critical: true,
+				duration: 7000,
+				message: "404 Not Found",
+				title: "Cannot Establish Connection",
+			})
+		),
+		switchMap(() => of(new DialingComputerActions.AbortDialing())),
+		delay(7000)
 	);
 
 	@Effect()
@@ -56,6 +77,8 @@ export class DialingComputerEffects {
 						new DialingComputerActions.EngageChevron(payload),
 						new DialingComputerActions.EstablishConnection({ destination }),
 					];
+				} else {
+					return of(new DialingComputerActions.FailChevron(payload));
 				}
 			} else {
 				return of(new DialingComputerActions.EngageChevron(payload));
@@ -63,7 +86,12 @@ export class DialingComputerEffects {
 		})
 	);
 
-	constructor(private actions$: Actions, private gateNetwork: GateNetworkService, private store$: Store<any>) {}
+	constructor(
+		private actions$: Actions,
+		private alert: AlertService,
+		private gateNetwork: GateNetworkService,
+		private store$: Store<any>
+	) {}
 }
 
 export const EFFECTS = [DialingComputerEffects];

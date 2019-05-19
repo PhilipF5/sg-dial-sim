@@ -1,7 +1,9 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from "@angular/core";
 
+import { Store, select } from "@ngrx/store";
 import { TweenLite } from "gsap";
 
+import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateControlService } from "app/dialing-computer/services";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
 import { GateNetworkService, GateStatusService } from "app/shared/services";
@@ -34,11 +36,12 @@ export class KeyboardComponent implements OnInit {
 		private _elem: ElementRef,
 		private gateControl: GateControlService,
 		private gateNetwork: GateNetworkService,
-		private gateStatus: GateStatusService
+		private gateStatus: GateStatusService,
+		private store$: Store<any>
 	) {}
 
 	ngOnInit() {
-		this.gateStatus.subscribe(status => {
+		this.store$.pipe(select(getGateStatus)).subscribe(status => {
 			switch (status) {
 				case GateStatus.Idle:
 					this.isDialingAvailable = true;

@@ -1,12 +1,14 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
 import { Actions, ofType } from "@ngrx/effects";
+import { Store, select } from "@ngrx/store";
 import { TimelineLite } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
 import { filter, take, takeUntil, tap } from "rxjs/operators";
 
 import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { ChevronBoxAnimations, ChevronBoxAnimationConfig } from "app/dialing-computer/animations";
+import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateControlService } from "app/dialing-computer/services";
 import { GateStatus, Glyph } from "app/shared/models";
 import { GateStatusService } from "app/shared/services";
@@ -39,7 +41,8 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	constructor(
 		private actions$: Actions,
 		private gateControl: GateControlService,
-		private gateStatus: GateStatusService
+		private gateStatus: GateStatusService,
+		private store$: Store<any>
 	) {}
 
 	ngOnDestroy() {
@@ -71,21 +74,34 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 			}
 		});
 
-		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
-			if (status === GateStatus.Idle) {
-				this.clearSymbol();
-			}
-		});
+		this.store$
+			.pipe(
+				select(getGateStatus),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(status => {
+				if (status === GateStatus.Idle) {
+					this.clearSymbol();
+				}
+			});
 
 		this.actions$
 			.pipe(
-				ofType<DialingComputerActions.EngageChevron>(DialingComputerActionTypes.EngageChevron),
+				ofType<DialingComputerActions.EngageChevron | DialingComputerActions.FailChevron>(
+					DialingComputerActionTypes.EngageChevron,
+					DialingComputerActionTypes.FailChevron
+				),
 				filter(({ payload: { chevron } }) => chevron === this.number),
 				takeUntil(this.killSubscriptions)
 			)
-			.subscribe(async ({ payload: { glyph } }) => {
+			.subscribe(async ({ payload: { glyph }, type }) => {
 				this.glyph = glyph;
-				this.lockSymbolSuccess(await this.getLatestGatePosition());
+				let gatePos = await this.getLatestGatePosition();
+				if (type === DialingComputerActionTypes.EngageChevron) {
+					this.lockSymbolSuccess(gatePos);
+				} else {
+					this.lockSymbolFailed(gatePos);
+				}
 			});
 
 		this.actions$

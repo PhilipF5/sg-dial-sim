@@ -11,13 +11,14 @@ import {
 } from "@angular/core";
 
 import { Actions, ofType } from "@ngrx/effects";
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
 import { TimelineLite, TweenMax } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil, tap, take } from "rxjs/operators";
 
 import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { ChevronActivation } from "app/dialing-computer/models";
+import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateControlService } from "app/dialing-computer/services";
 import { GateAnimations } from "app/shared/animations";
 import { ChevronDirective } from "app/shared/directives";
@@ -52,26 +53,29 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	) {}
 
 	ngAfterViewInit() {
-		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
-			switch (status) {
-				case GateStatus.Aborted:
-					this.audio.failRing().onended = () => {
-						this.gateStatus.idle();
-					};
-					break;
-				case GateStatus.Idle:
-					this.resetRing();
-					if (this.statusUpdateCount > 0) {
-						this.audio.play(Sound.ChevronLock);
-					}
-					for (let chevron of this.chevrons.filter(c => c.enabled)) {
-						this.disengageChevron(chevron.chevron);
-					}
-					break;
-			}
+		this.store$
+			.pipe(
+				select(getGateStatus),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(status => {
+				switch (status) {
+					case GateStatus.Aborted:
+						this.audio.failRing().onended = () => this.store$.dispatch(new DialingComputerActions.Reset());
+						break;
+					case GateStatus.Idle:
+						this.resetRing();
+						if (this.statusUpdateCount > 0) {
+							this.audio.play(Sound.ChevronLock);
+						}
+						for (let chevron of this.chevrons.filter(c => c.enabled)) {
+							this.disengageChevron(chevron.chevron);
+						}
+						break;
+				}
 
-			this.statusUpdateCount++;
-		});
+				this.statusUpdateCount++;
+			});
 	}
 
 	ngOnDestroy() {
@@ -85,14 +89,22 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		});
 		this.actions$
 			.pipe(
-				ofType<DialingComputerActions.EngageChevron>(DialingComputerActionTypes.EngageChevron),
+				ofType<DialingComputerActions.EngageChevron | DialingComputerActions.FailChevron>(
+					DialingComputerActionTypes.EngageChevron,
+					DialingComputerActionTypes.FailChevron
+				),
 				takeUntil(this.killSubscriptions)
 			)
-			.subscribe(({ payload: { chevron } }) =>
-				this.engageChevron(chevron).add(() =>
-					this.store$.dispatch(new DialingComputerActions.ChevronEngaged({ chevron }))
+			.subscribe(({ payload: { chevron }, type }) =>
+				this.engageChevron(chevron, type === DialingComputerActionTypes.EngageChevron).add(() =>
+					this.store$.dispatch(
+						type === DialingComputerActionTypes.EngageChevron
+							? new DialingComputerActions.ChevronEngaged({ chevron })
+							: new DialingComputerActions.ChevronFailed({ chevron })
+					)
 				)
 			);
+
 		this.actions$
 			.pipe(
 				ofType<DialingComputerActions.SpinRing>(DialingComputerActionTypes.SpinRing),

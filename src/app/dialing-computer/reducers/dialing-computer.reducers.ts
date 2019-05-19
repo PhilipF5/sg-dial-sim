@@ -16,6 +16,8 @@ export const initialState: DialingComputerState = {
 
 export function dialingComputerReducer(state = initialState, action: DialingComputerAction) {
 	switch (action.type) {
+		case DialingComputerActionTypes.AbortDialing:
+			return { ...state, gateStatus: GateStatus.Aborted };
 		case DialingComputerActionTypes.BeginDialing:
 			return { ...state, address: [...action.payload.address, Glyphs.pointOfOrigin], nextSymbol: 0 };
 		case DialingComputerActionTypes.ChevronEngaged:
@@ -29,6 +31,8 @@ export function dialingComputerReducer(state = initialState, action: DialingComp
 			return { ...state, destination: action.payload.destination };
 		case DialingComputerActionTypes.OpenGate:
 			return { ...state, gateStatus: GateStatus.Active };
+		case DialingComputerActionTypes.Reset:
+			return { ...initialState };
 		default:
 			return state;
 	}

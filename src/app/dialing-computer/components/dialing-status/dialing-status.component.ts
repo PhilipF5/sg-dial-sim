@@ -32,10 +32,6 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		// this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
-		// 	this.status = status;
-		// 	this.updateAnimation(status);
-		// });
 		this.store$
 			.pipe(
 				select(getGateStatus),
