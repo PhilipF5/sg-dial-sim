@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-
-import { Store, select } from "@ngrx/store";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-
+import { select, Store } from "@ngrx/store";
 import { getChevronStatus } from "app/dialing-computer/selectors";
 import { ChevronStatus, ChevronStatuses } from "app/shared/models";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
 	selector: "chevron-status",

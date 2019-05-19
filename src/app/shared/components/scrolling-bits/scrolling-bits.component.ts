@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-
 import { Linear, TimelineLite, TimelineMax, TweenLite } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ElectronService } from "ngx-electron";
@@ -54,7 +53,8 @@ export class ScrollingBitsComponent implements OnInit {
 	ngOnInit() {
 		if (this.electron.isElectronApp) {
 			let electronWindow = this.electron.remote.BrowserWindow.getFocusedWindow();
-			electronWindow.addListener("resize", () => this.restart())
+			electronWindow
+				.addListener("resize", () => this.restart())
 				.addListener("enter-full-screen", () => this.restart())
 				.addListener("leave-full-screen", () => this.restart());
 		}

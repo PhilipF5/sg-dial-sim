@@ -1,15 +1,13 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
-
 import { Actions, ofType } from "@ngrx/effects";
-import { Store, select } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
+import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
+import { ChevronBoxAnimationConfig, ChevronBoxAnimations } from "app/dialing-computer/animations";
+import { getGateStatus } from "app/dialing-computer/selectors";
+import { GateStatus, Glyph } from "app/shared/models";
 import { TimelineLite } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
 import { filter, take, takeUntil } from "rxjs/operators";
-
-import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
-import { ChevronBoxAnimations, ChevronBoxAnimationConfig } from "app/dialing-computer/animations";
-import { getGateStatus } from "app/dialing-computer/selectors";
-import { GateStatus, Glyph } from "app/shared/models";
 
 @Component({
 	selector: "chevron-box",

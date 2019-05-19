@@ -1,12 +1,10 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from "@angular/core";
-
-import { Store, select } from "@ngrx/store";
-import { TweenLite } from "gsap";
-
+import { select, Store } from "@ngrx/store";
 import { DialingComputerActions } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
+import { TweenLite } from "gsap";
 
 @Component({
 	selector: "keyboard",

@@ -1,17 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-
-import { Store, select } from "@ngrx/store";
-import { TweenMax } from "gsap";
-import { ElectronService } from "ngx-electron";
-import { BehaviorSubject, Subject } from "rxjs";
-import { take, takeUntil } from "rxjs/operators";
-
+import { select, Store } from "@ngrx/store";
 import { DialingComputerActions } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { getDestination, getGateStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
 import { GateStatus, Glyph } from "app/shared/models";
+import { TweenMax } from "gsap";
+import { ElectronService } from "ngx-electron";
+import { BehaviorSubject, Subject } from "rxjs";
+import { take, takeUntil } from "rxjs/operators";
 
 @Component({
 	selector: "gate-screen",

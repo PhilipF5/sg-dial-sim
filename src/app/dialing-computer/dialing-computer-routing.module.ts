@@ -1,13 +1,12 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-
+import { RouterModule, Routes } from "@angular/router";
 import { AddressBookPage, GateScreenPage } from "./pages";
 
 const routes: Routes = [
 	{
 		path: "dialing-computer",
 		redirectTo: "dialing-computer/gate-screen",
-		pathMatch: "full"
+		pathMatch: "full",
 	},
 	{
 		path: "dialing-computer/gate-screen",
@@ -21,6 +20,6 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
 export class DialingComputerRoutingModule {}

@@ -1,5 +1,4 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
-
 import { AlertComponent } from "app/shared/components/alert/alert.component";
 import { AlertConfig } from "app/shared/models";
 import { AlertService } from "app/shared/services";

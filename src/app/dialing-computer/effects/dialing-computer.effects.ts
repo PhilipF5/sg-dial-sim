@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
-import { Store, select } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
+import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
+import { getAddress, getNextChevron, getNextGlyph } from "app/dialing-computer/selectors";
+import { AlertService, GateNetworkService } from "app/shared/services";
 import { of } from "rxjs";
 import { delay, switchMap, tap, withLatestFrom } from "rxjs/operators";
-import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
-import { getAddress, getDestination, getNextChevron, getNextGlyph } from "app/dialing-computer/selectors";
-import { AlertService, GateNetworkService } from "app/shared/services";
 
 @Injectable()
 export class DialingComputerEffects {

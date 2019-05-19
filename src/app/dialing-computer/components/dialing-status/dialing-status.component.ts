@@ -1,12 +1,10 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
-
-import { Store, select } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
+import { getGateStatus } from "app/dialing-computer/selectors";
+import { GateStatus } from "app/shared/models";
 import { TweenMax } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-
-import { getGateStatus } from "app/dialing-computer/selectors";
-import { GateStatus } from "app/shared/models";
 
 @Component({
 	selector: "dialing-status",

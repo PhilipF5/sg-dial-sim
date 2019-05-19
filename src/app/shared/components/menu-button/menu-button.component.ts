@@ -1,9 +1,7 @@
 import { AfterContentChecked, Component, ContentChildren, Input, QueryList, ViewChild } from "@angular/core";
-
 import { TweenMax } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-
 import { MenuComponent } from "../menu/menu.component";
 import { SgButtonComponent } from "../sg-button/sg-button.component";
 

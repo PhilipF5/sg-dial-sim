@@ -1,15 +1,13 @@
 import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
-
-import { Store, select } from "@ngrx/store";
-import { TimelineLite, TweenMax } from "gsap";
-import { Subject } from "rxjs";
-import { filter, takeUntil } from "rxjs/operators";
-
+import { select, Store } from "@ngrx/store";
 import { DialingComputerActions } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { EventHorizonAnimations } from "app/shared/animations";
 import { GateStatus } from "app/shared/models";
 import { AudioService } from "app/shared/services";
+import { TimelineLite, TweenMax } from "gsap";
+import { Subject } from "rxjs";
+import { filter, takeUntil } from "rxjs/operators";
 
 @Component({
 	selector: "event-horizon",

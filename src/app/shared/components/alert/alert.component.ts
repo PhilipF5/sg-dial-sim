@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular/core";
-
 import { Power1, TweenMax } from "gsap";
 
 @Component({

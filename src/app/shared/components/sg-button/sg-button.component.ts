@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output, HostBinding } from "@angular/core";
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from "@angular/core";
 
 @Component({
 	selector: "sg-button",

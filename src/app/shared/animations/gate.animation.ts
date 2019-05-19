@@ -1,8 +1,6 @@
 import { ElementRef } from "@angular/core";
-
-import { Power1, Linear, TimelineLite, TweenLite } from "gsap";
-
 import { ChevronParts } from "app/shared/models";
+import { Linear, Power1, TimelineLite, TweenLite } from "gsap";
 
 export class GateAnimations {
 	public static activateChevron(parts: ChevronParts): TimelineLite {

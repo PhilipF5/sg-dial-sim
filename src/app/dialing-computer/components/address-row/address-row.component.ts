@@ -1,5 +1,4 @@
 import { Component, ElementRef, HostBinding, Input, OnInit } from "@angular/core";
-
 import { Destination } from "app/shared/models";
 
 @Component({

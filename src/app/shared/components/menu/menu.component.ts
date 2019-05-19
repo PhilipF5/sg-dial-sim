@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from "@angular/core";
+import { Component, ElementRef } from "@angular/core";
 
 @Component({
 	selector: "menu",

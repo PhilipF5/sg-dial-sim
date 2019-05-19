@@ -1,11 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { Router } from "@angular/router";
-
-import { TimelineLite, TweenLite } from "gsap";
-
 import { AddressRowComponent } from "app/dialing-computer/components";
 import { Destination } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
+import { TimelineLite, TweenLite } from "gsap";
 
 @Component({
 	selector: "address-book",

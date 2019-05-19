@@ -8,13 +8,8 @@ import {
 	ViewChild,
 	ViewChildren,
 } from "@angular/core";
-
 import { Actions, ofType } from "@ngrx/effects";
-import { Store, select } from "@ngrx/store";
-import { TimelineLite, TweenMax } from "gsap";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-
+import { select, Store } from "@ngrx/store";
 import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { ChevronActivation } from "app/dialing-computer/models";
 import { getGateStatus } from "app/dialing-computer/selectors";
@@ -22,6 +17,9 @@ import { GateAnimations } from "app/shared/animations";
 import { ChevronDirective } from "app/shared/directives";
 import { GateStatus, Sound } from "app/shared/models";
 import { AudioService } from "app/shared/services";
+import { TimelineLite, TweenMax } from "gsap";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
 	selector: "gate",

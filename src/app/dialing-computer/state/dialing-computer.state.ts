@@ -1,5 +1,5 @@
-import { TimelineLite } from "gsap";
 import { ChevronStatuses, Destination, GateStatus, Glyph } from "app/shared/models";
+import { TimelineLite } from "gsap";
 
 export interface DialingComputerState {
 	address: Glyph[];

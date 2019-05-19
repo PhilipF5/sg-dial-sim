@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-
 import { Glyph } from "app/shared/models";
 
 @Component({

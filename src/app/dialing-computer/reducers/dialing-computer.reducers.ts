@@ -1,8 +1,4 @@
-import {
-	DialingComputerAction,
-	DialingComputerActions,
-	DialingComputerActionTypes,
-} from "app/dialing-computer/actions";
+import { DialingComputerAction, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { DialingComputerState } from "app/dialing-computer/state";
 import { ChevronStatus, DefaultChevronStatuses, GateStatus, Glyphs } from "app/shared/models";
 

@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-
 import { Sound } from "app/shared/models";
 
 @Injectable()

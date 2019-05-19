@@ -1,10 +1,8 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnInit } from "@angular/core";
-
-import { TimelineLite } from "gsap";
-
 import { GateAnimations } from "app/shared/animations";
 import { ChevronParts, Sound } from "app/shared/models";
 import { AudioService } from "app/shared/services";
+import { TimelineLite } from "gsap";
 
 @Directive({ selector: "[chevron]" })
 export class ChevronDirective implements AfterViewInit, OnInit {

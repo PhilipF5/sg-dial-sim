@@ -1,6 +1,5 @@
-import { TimelineLite } from "gsap";
-
 import { Glyph } from "app/shared/models";
+import { TimelineLite } from "gsap";
 
 export interface ChevronActivation {
 	chevron: number;
