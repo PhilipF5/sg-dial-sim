@@ -3,11 +3,21 @@ import { DialingComputerState } from "app/dialing-computer/state";
 
 export const selectDialingComputerState = createFeatureSelector<DialingComputerState>("dialingComputer");
 
+export const getAddress = createSelector(
+	selectDialingComputerState,
+	state => state.address
+);
+
 export const getAddressGlyphAtIndex = (index: number) =>
 	createSelector(
 		selectDialingComputerState,
 		state => state.address[index]
 	);
+
+export const getDestination = createSelector(
+	selectDialingComputerState,
+	state => state.destination
+);
 
 export const getGateStatus = createSelector(
 	selectDialingComputerState,

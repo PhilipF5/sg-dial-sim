@@ -4,7 +4,7 @@ import {
 	DialingComputerActionTypes,
 } from "app/dialing-computer/actions";
 import { DialingComputerState } from "app/dialing-computer/state";
-import { GateStatus } from "app/shared/models";
+import { GateStatus, Glyphs } from "app/shared/models";
 
 export const initialState: DialingComputerState = {
 	address: null,
@@ -17,7 +17,7 @@ export const initialState: DialingComputerState = {
 export function dialingComputerReducer(state = initialState, action: DialingComputerAction) {
 	switch (action.type) {
 		case DialingComputerActionTypes.BeginDialing:
-			return { ...state, address: [...action.payload.address], nextSymbol: 0 };
+			return { ...state, address: [...action.payload.address, Glyphs.pointOfOrigin], nextSymbol: 0 };
 		case DialingComputerActionTypes.ChevronEngaged:
 			let nextSymbol = !!state.address[state.nextSymbol + 1] ? state.nextSymbol + 1 : null;
 			return { ...state, nextSymbol };
@@ -25,6 +25,10 @@ export function dialingComputerReducer(state = initialState, action: DialingComp
 			return { ...state, gateStatus: GateStatus.Dialing };
 		case DialingComputerActionTypes.EngageChevron:
 			return { ...state, gateStatus: GateStatus.Engaged };
+		case DialingComputerActionTypes.EstablishConnection:
+			return { ...state, destination: action.payload.destination };
+		case DialingComputerActionTypes.OpenGate:
+			return { ...state, gateStatus: GateStatus.Active };
 		default:
 			return state;
 	}

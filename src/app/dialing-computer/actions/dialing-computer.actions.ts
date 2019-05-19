@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Glyph } from "app/shared/models";
+import { Destination, Glyph } from "app/shared/models";
 
 export enum DialingComputerActionTypes {
 	AbortDialing = "[Dialing Computer] Abort Dialing",
@@ -7,8 +7,10 @@ export enum DialingComputerActionTypes {
 	ChevronEngaged = "[Dialing Computer] Chevron Engaged",
 	DialNextGlyph = "[Dialing Computer] Dial Next Glyph",
 	EngageChevron = "[Dialing Computer] Engage Chevron",
+	EstablishConnection = "[Dialing Computer] Establish Connection",
 	GlyphReady = "[Dialing Computer] Glyph Ready",
 	OpenGate = "[Dialing Computer] Open Gate",
+	SequenceComplete = "[Dialing Computer] Sequence Complete",
 	ShutdownGate = "[Dialing Computer] Shutdown Gate",
 	SpinRing = "[Dialing Computer] Spin Ring",
 	TryEngageChevron = "[Dialing Computer] Try Engage Chevron",
@@ -38,6 +40,11 @@ export namespace DialingComputerActions {
 		constructor(public payload: { chevron: number; glyph: Glyph }) {}
 	}
 
+	export class EstablishConnection implements Action {
+		readonly type = DialingComputerActionTypes.EstablishConnection;
+		constructor(public payload: { destination: Destination }) {}
+	}
+
 	export class GlyphReady implements Action {
 		readonly type = DialingComputerActionTypes.GlyphReady;
 		constructor(public payload: { chevron: number; glyph: Glyph }) {}
@@ -45,6 +52,10 @@ export namespace DialingComputerActions {
 
 	export class OpenGate implements Action {
 		readonly type = DialingComputerActionTypes.OpenGate;
+	}
+
+	export class SequenceComplete implements Action {
+		readonly type = DialingComputerActionTypes.SequenceComplete;
 	}
 
 	export class ShutdownGate implements Action {
@@ -68,8 +79,10 @@ export type DialingComputerAction =
 	| DialingComputerActions.ChevronEngaged
 	| DialingComputerActions.DialNextGlyph
 	| DialingComputerActions.EngageChevron
+	| DialingComputerActions.EstablishConnection
 	| DialingComputerActions.GlyphReady
 	| DialingComputerActions.OpenGate
+	| DialingComputerActions.SequenceComplete
 	| DialingComputerActions.ShutdownGate
 	| DialingComputerActions.SpinRing
 	| DialingComputerActions.TryEngageChevron;

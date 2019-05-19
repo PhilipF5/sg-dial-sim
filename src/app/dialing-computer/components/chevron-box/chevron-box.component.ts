@@ -87,6 +87,13 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 				this.glyph = glyph;
 				this.lockSymbolSuccess(await this.getLatestGatePosition());
 			});
+
+		this.actions$
+			.pipe(
+				ofType<DialingComputerActions.SequenceComplete>(DialingComputerActionTypes.SequenceComplete),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(() => ChevronBoxAnimations.flashOnActivate(this.chevronBox));
 	}
 
 	public clearSymbol(): void {

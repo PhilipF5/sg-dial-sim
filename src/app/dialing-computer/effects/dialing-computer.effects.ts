@@ -2,9 +2,10 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Store, select } from "@ngrx/store";
 import { of } from "rxjs";
-import { switchMap, withLatestFrom } from "rxjs/operators";
+import { delay, switchMap, withLatestFrom } from "rxjs/operators";
 import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
-import { getNextChevron, getNextGlyph } from "app/dialing-computer/selectors";
+import { getAddress, getDestination, getNextChevron, getNextGlyph } from "app/dialing-computer/selectors";
+import { GateNetworkService } from "app/shared/services";
 
 @Injectable()
 export class DialingComputerEffects {
@@ -15,9 +16,25 @@ export class DialingComputerEffects {
 	);
 
 	@Effect()
+	onChevronEngaged$ = this.actions$.pipe(
+		ofType<DialingComputerActions.ChevronEngaged>(DialingComputerActionTypes.ChevronEngaged),
+		withLatestFrom(this.store$.pipe(select(getNextGlyph))),
+		switchMap(([_, glyph]) =>
+			of(!!glyph ? new DialingComputerActions.DialNextGlyph() : new DialingComputerActions.SequenceComplete())
+		)
+	);
+
+	@Effect()
 	onGlyphReady$ = this.actions$.pipe(
 		ofType<DialingComputerActions.GlyphReady>(DialingComputerActionTypes.GlyphReady),
 		switchMap(({ payload }) => of(new DialingComputerActions.TryEngageChevron(payload)))
+	);
+
+	@Effect()
+	onSequenceComplete$ = this.actions$.pipe(
+		ofType<DialingComputerActions.SequenceComplete>(DialingComputerActionTypes.SequenceComplete),
+		switchMap(() => of(new DialingComputerActions.OpenGate())),
+		delay(2000)
 	);
 
 	@Effect()
@@ -30,10 +47,23 @@ export class DialingComputerEffects {
 	@Effect()
 	tryEngageChevron$ = this.actions$.pipe(
 		ofType<DialingComputerActions.TryEngageChevron>(DialingComputerActionTypes.TryEngageChevron),
-		switchMap(({ payload }) => of(new DialingComputerActions.EngageChevron(payload)))
+		withLatestFrom(this.store$.pipe(select(getAddress))),
+		switchMap(([{ payload }, address]) => {
+			if (payload.chevron === 7) {
+				let destination = this.gateNetwork.getActiveAddress(address);
+				if (!!destination) {
+					return [
+						new DialingComputerActions.EngageChevron(payload),
+						new DialingComputerActions.EstablishConnection({ destination }),
+					];
+				}
+			} else {
+				return of(new DialingComputerActions.EngageChevron(payload));
+			}
+		})
 	);
 
-	constructor(private actions$: Actions, private store$: Store<any>) {}
+	constructor(private actions$: Actions, private gateNetwork: GateNetworkService, private store$: Store<any>) {}
 }
 
 export const EFFECTS = [DialingComputerEffects];
