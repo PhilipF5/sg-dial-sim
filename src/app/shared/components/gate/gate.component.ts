@@ -34,6 +34,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	@ViewChildren(ChevronDirective) private chevrons: QueryList<ChevronDirective>;
 	@ViewChild("ring") private ring: ElementRef;
 
+	private animation: TimelineLite;
 	private killSubscriptions: Subject<{}> = new Subject();
 	private ringPosition: number = 1;
 	private statusUpdateCount: number = 0;
@@ -61,6 +62,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			.subscribe(status => {
 				switch (status) {
 					case GateStatus.Aborted:
+						this.killAnimations();
 						this.audio.failRing().onended = () => this.store$.dispatch(new DialingComputerActions.Reset());
 						break;
 					case GateStatus.Idle:
@@ -144,7 +146,14 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			timeline.add(() => this.ngZone.run(() => this.gateStatus.chevrons.failed(chevron)));
 		}
 
-		return timeline;
+		return (this.animation = timeline);
+	}
+
+	private killAnimations(): void {
+		if (!!this.animation) {
+			this.animation.kill();
+			this.animation = undefined;
+		}
 	}
 
 	private resetRing(): TweenMax {
@@ -183,8 +192,8 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		}
 
 		degreesToRotate = direction + degreesPerPosition * positionsToRotate;
-		return GateAnimations.spinRing(this.ring, positionsToRotate / 2.5, degreesToRotate)
+		return (this.animation = GateAnimations.spinRing(this.ring, positionsToRotate / 2.5, degreesToRotate)
 			.add(() => this.audio.startRing(), 0)
-			.add(() => this.audio.stopRing());
+			.add(() => this.audio.stopRing()));
 	}
 }

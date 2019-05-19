@@ -10,7 +10,7 @@ import { take, takeUntil } from "rxjs/operators";
 import { DialingComputerActions } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { GateControlService } from "app/dialing-computer/services";
-import { getDestination } from "app/dialing-computer/selectors";
+import { getDestination, getGateStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
 import { GateStatusService } from "app/shared/services";
@@ -74,12 +74,17 @@ export class GateScreenPage implements OnDestroy, OnInit {
 			.pipe(takeUntil(this.killSubscriptions))
 			.subscribe(res => (this.destination = res.destination && res.destination.name.toUpperCase()));
 
-		this.gateStatus.status$.pipe(takeUntil(this.killSubscriptions)).subscribe(status => {
-			this.status = status;
-			if (this.status === GateStatus.Idle) {
-				this.destination = undefined;
-			}
-		});
+		this.store$
+			.pipe(
+				select(getGateStatus),
+				takeUntil(this.killSubscriptions)
+			)
+			.subscribe(status => {
+				this.status = status;
+				if (this.status === GateStatus.Idle) {
+					this.destination = undefined;
+				}
+			});
 
 		this.route.paramMap.pipe(take(1)).subscribe(params => {
 			if (params.has("dest")) {
@@ -115,7 +120,11 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public shutdown(): void {
-		this.store$.dispatch(new DialingComputerActions.ShutdownGate());
+		this.store$.dispatch(
+			status === GateStatus.Active
+				? new DialingComputerActions.ShutdownGate()
+				: new DialingComputerActions.AbortDialing()
+		);
 	}
 
 	public toggleFullscreen(): void {

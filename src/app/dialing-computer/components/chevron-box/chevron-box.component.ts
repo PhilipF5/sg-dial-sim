@@ -26,7 +26,7 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	@ViewChild("symbol") private _symbol: ElementRef;
 
 	public glyph: Glyph;
-
+	private animation: TimelineLite;
 	private killSubscriptions: Subject<{}> = new Subject();
 	private position: DOMRect;
 
@@ -82,6 +82,9 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 			.subscribe(status => {
 				if (status === GateStatus.Idle) {
 					this.clearSymbol();
+					this.killAnimations();
+				} else if (status === GateStatus.Aborted) {
+					this.killAnimations();
 				}
 			});
 
@@ -120,11 +123,11 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	}
 
 	public lockSymbolFailed(gatePosition: DOMRect): TimelineLite {
-		return ChevronBoxAnimations.lockSymbolFailed(this.buildAnimationConfig(gatePosition));
+		return (this.animation = ChevronBoxAnimations.lockSymbolFailed(this.buildAnimationConfig(gatePosition)));
 	}
 
 	public lockSymbolSuccess(gatePosition: DOMRect): TimelineLite {
-		return ChevronBoxAnimations.lockSymbolSuccess(this.buildAnimationConfig(gatePosition));
+		return (this.animation = ChevronBoxAnimations.lockSymbolSuccess(this.buildAnimationConfig(gatePosition)));
 	}
 
 	private buildAnimationConfig(gatePosition: DOMRect): ChevronBoxAnimationConfig {
@@ -146,6 +149,13 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 				take(1)
 			)
 			.toPromise();
+	}
+
+	private killAnimations(): void {
+		if (!!this.animation) {
+			this.animation.kill();
+			this.animation = undefined;
+		}
 	}
 
 	private updateSymbolPosition(): void {
