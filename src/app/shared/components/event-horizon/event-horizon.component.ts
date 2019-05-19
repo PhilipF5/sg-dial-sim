@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 
 import { Store, select } from "@ngrx/store";
 import { TimelineLite, TweenMax } from "gsap";
@@ -9,7 +9,7 @@ import { DialingComputerActions } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { EventHorizonAnimations } from "app/shared/animations";
 import { GateStatus } from "app/shared/models";
-import { AudioService, GateStatusService } from "app/shared/services";
+import { AudioService } from "app/shared/services";
 
 @Component({
 	selector: "event-horizon",
@@ -24,13 +24,7 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 		return this._elem.nativeElement;
 	}
 
-	constructor(
-		private audio: AudioService,
-		private _elem: ElementRef,
-		private gateStatus: GateStatusService,
-		private ngZone: NgZone,
-		private store$: Store<any>
-	) {}
+	constructor(private audio: AudioService, private _elem: ElementRef, private store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();

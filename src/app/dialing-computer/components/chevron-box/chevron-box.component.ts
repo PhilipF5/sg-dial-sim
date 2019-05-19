@@ -4,14 +4,12 @@ import { Actions, ofType } from "@ngrx/effects";
 import { Store, select } from "@ngrx/store";
 import { TimelineLite } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
-import { filter, take, takeUntil, tap } from "rxjs/operators";
+import { filter, take, takeUntil } from "rxjs/operators";
 
 import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
 import { ChevronBoxAnimations, ChevronBoxAnimationConfig } from "app/dialing-computer/animations";
 import { getGateStatus } from "app/dialing-computer/selectors";
-import { GateControlService } from "app/dialing-computer/services";
 import { GateStatus, Glyph } from "app/shared/models";
-import { GateStatusService } from "app/shared/services";
 
 @Component({
 	selector: "chevron-box",
@@ -38,42 +36,13 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 		return this._symbol.nativeElement;
 	}
 
-	constructor(
-		private actions$: Actions,
-		private gateControl: GateControlService,
-		private gateStatus: GateStatusService,
-		private store$: Store<any>
-	) {}
+	constructor(private actions$: Actions, private store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
 	}
 
 	ngOnInit() {
-		this.gateControl.activations$
-			.pipe(
-				filter(a => a.chevron === this.number),
-				takeUntil(this.killSubscriptions)
-			)
-			.subscribe(a => {
-				this.glyph = a.glyph;
-				this.gatePosition$
-					.pipe(
-						filter(pos => !!pos),
-						take(1)
-					)
-					.subscribe(pos => {
-						a.symbolTimeline = a.fail ? this.lockSymbolFailed(pos) : this.lockSymbolSuccess(pos);
-						this.gateControl.symbolAnimReady$.next(this.number);
-					});
-			});
-
-		this.gateControl.result$.pipe(takeUntil(this.killSubscriptions)).subscribe(res => {
-			if (res.destination) {
-				ChevronBoxAnimations.flashOnActivate(this.chevronBox);
-			}
-		});
-
 		this.store$
 			.pipe(
 				select(getGateStatus),

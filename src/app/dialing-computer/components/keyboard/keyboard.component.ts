@@ -5,9 +5,8 @@ import { TweenLite } from "gsap";
 
 import { DialingComputerActions } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
-import { GateControlService } from "app/dialing-computer/services";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
-import { GateNetworkService, GateStatusService } from "app/shared/services";
+import { GateNetworkService } from "app/shared/services";
 
 @Component({
 	selector: "keyboard",
@@ -33,13 +32,7 @@ export class KeyboardComponent implements OnInit {
 		return this._elem.nativeElement;
 	}
 
-	constructor(
-		private _elem: ElementRef,
-		private gateControl: GateControlService,
-		private gateNetwork: GateNetworkService,
-		private gateStatus: GateStatusService,
-		private store$: Store<any>
-	) {}
+	constructor(private _elem: ElementRef, private gateNetwork: GateNetworkService, private store$: Store<any>) {}
 
 	ngOnInit() {
 		this.store$.pipe(select(getGateStatus)).subscribe(status => {

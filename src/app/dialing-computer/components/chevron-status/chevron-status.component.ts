@@ -6,7 +6,6 @@ import { takeUntil } from "rxjs/operators";
 
 import { getChevronStatus } from "app/dialing-computer/selectors";
 import { ChevronStatus, ChevronStatuses } from "app/shared/models";
-import { GateStatusService } from "app/shared/services";
 
 @Component({
 	selector: "chevron-status",
@@ -18,7 +17,7 @@ export class ChevronStatusComponent implements OnDestroy, OnInit {
 
 	private killSubscriptions: Subject<{}> = new Subject();
 
-	constructor(private gateStatus: GateStatusService, private store$: Store<any>) {}
+	constructor(private store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();

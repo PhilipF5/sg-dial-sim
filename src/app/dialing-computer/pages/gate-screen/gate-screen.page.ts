@@ -9,11 +9,9 @@ import { take, takeUntil } from "rxjs/operators";
 
 import { DialingComputerActions } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
-import { GateControlService } from "app/dialing-computer/services";
 import { getDestination, getGateStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
-import { GateStatus, Glyph, Glyphs } from "app/shared/models";
-import { GateStatusService } from "app/shared/services";
+import { GateStatus, Glyph } from "app/shared/models";
 
 @Component({
 	selector: "gate-screen",
@@ -58,8 +56,6 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	constructor(
 		private electron: ElectronService,
-		private gateControl: GateControlService,
-		private gateStatus: GateStatusService,
 		private route: ActivatedRoute,
 		private router: Router,
 		private store$: Store<any>
@@ -70,10 +66,6 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		this.gateControl.result$
-			.pipe(takeUntil(this.killSubscriptions))
-			.subscribe(res => (this.destination = res.destination && res.destination.name.toUpperCase()));
-
 		this.store$
 			.pipe(
 				select(getGateStatus),
@@ -129,12 +121,6 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	public toggleFullscreen(): void {
 		this.electronWindow.setFullScreen(!this.electronWindow.isFullScreen());
-	}
-
-	private runDialingSequence(): void {
-		this.updateGatePosition();
-		this.gateControl.loadAddress(this.glyphs);
-		this.gateControl.dial();
 	}
 
 	private updateGatePosition(): void {

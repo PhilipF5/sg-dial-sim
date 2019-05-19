@@ -7,7 +7,6 @@ import { takeUntil } from "rxjs/operators";
 
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus } from "app/shared/models";
-import { GateStatusService } from "app/shared/services";
 
 @Component({
 	selector: "dialing-status",
@@ -25,7 +24,7 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		return this._statusText.nativeElement;
 	}
 
-	constructor(private gateStatus: GateStatusService, private store$: Store<any>) {}
+	constructor(private store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
