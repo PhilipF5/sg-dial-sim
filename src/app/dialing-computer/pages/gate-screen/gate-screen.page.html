@@ -7,7 +7,12 @@
 		<sg-button text="Quit" *ngIf="isElectronApp" (sgClick)="quit()"></sg-button>
 	</menu-button>
 	<div class="destination">
-		<segment-display [align]="'right'" [border]="'top'" [size]="10" [text]="destination"></segment-display>
+		<segment-display
+			[align]="'right'"
+			[border]="'top'"
+			[size]="10"
+			[text]="(destination$ | async)?.name"
+		></segment-display>
 		<div class="label">Destination</div>
 	</div>
 </div>

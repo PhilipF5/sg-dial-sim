@@ -1,13 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import { Store, select } from "@ngrx/store";
 import { TweenMax } from "gsap";
 import { ElectronService } from "ngx-electron";
 import { BehaviorSubject, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
 
+import { DialingComputerActions } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { GateControlService } from "app/dialing-computer/services";
+import { getDestination } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
 import { GateStatusService } from "app/shared/services";
@@ -23,6 +26,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	public authCode: string = "10183523652-4354393";
 	public destination: string;
+	public destination$ = this.store$.pipe(select(getDestination));
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public glyphs: Glyph[] = [];
 	public status: GateStatus;
@@ -57,7 +61,8 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		private gateControl: GateControlService,
 		private gateStatus: GateStatusService,
 		private route: ActivatedRoute,
-		private router: Router
+		private router: Router,
+		private store$: Store<any>
 	) {}
 
 	ngOnDestroy() {
@@ -85,10 +90,8 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public beginDialing(address: Glyph[]): void {
-		address.push(Glyphs.pointOfOrigin);
-		this.glyphs = address;
-		this.gateStatus.dialing();
-		this.runDialingSequence();
+		this.updateGatePosition();
+		this.store$.dispatch(new DialingComputerActions.BeginDialing({ address }));
 	}
 
 	public closeKeyboard(): void {
