@@ -1,38 +1,39 @@
 variables:
-  - group: GitHub
+    - group: GitHub
 
 pool:
-  vmImage: 'macOS-10.13'
+    vmImage: "macOS-10.13"
 
 steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
+    - task: NodeTool@0
+      inputs:
+          versionSpec: "10.x"
+      displayName: "Install Node.js"
 
-  - task: Npm@1
-    inputs:
-      command: 'install'
+    - task: Npm@1
+      inputs:
+          command: "custom"
+          customCommand: "ci"
 
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'run build'
+    - task: Npm@1
+      inputs:
+          command: "custom"
+          customCommand: "run build"
 
-  - task: Npm@1
-    inputs:
-      command: 'custom'
-      customCommand: 'run package'
+    - task: Npm@1
+      inputs:
+          command: "custom"
+          customCommand: "run package"
 
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: 'electron-build'
-      Contents: |
-        *.exe
-        *.dmg
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: CopyFiles@2
+      inputs:
+          SourceFolder: "electron-build"
+          Contents: |
+              *.exe
+              *.dmg
+          TargetFolder: "$(Build.ArtifactStagingDirectory)"
 
-  - task: PublishPipelineArtifact@0
-    inputs:
-      artifactName: 'Electron executables'
-      targetPath: '$(Build.ArtifactStagingDirectory)'
+    - task: PublishPipelineArtifact@0
+      inputs:
+          artifactName: "Electron executables"
+          targetPath: "$(Build.ArtifactStagingDirectory)"
