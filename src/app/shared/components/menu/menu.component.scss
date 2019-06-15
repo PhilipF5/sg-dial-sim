@@ -1,9 +1,7 @@
-@import "variables";
-
 :host {
 	align-items: center;
-	background-color: $black;
-	border: 3px solid $primary;
+	background-color: var(--black-color);
+	border: 3px solid var(--primary-color);
 	border-radius: 5px;
 	cursor: default;
 	display: flex;

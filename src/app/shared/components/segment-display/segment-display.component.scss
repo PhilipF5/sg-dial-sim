@@ -1,10 +1,8 @@
-@import "variables";
-
 .char-box {
-	border-left: 1px solid $primary;
-	color: $white;
+	border-left: 1px solid var(--primary-color);
+	color: var(--white-color);
 	display: inline-block;
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	font-size: 1em;
 	height: 1.5em;
 	margin: 0;
@@ -13,19 +11,19 @@
 	width: 1.2em;
 
 	&:last-of-type {
-		border-right: 1px solid $primary;
+		border-right: 1px solid var(--primary-color);
 	}
 
 	&.top {
-		border-top: 1px solid $primary;
+		border-top: 1px solid var(--primary-color);
 	}
 
 	&.bottom {
-		border-bottom: 1px solid $primary;
+		border-bottom: 1px solid var(--primary-color);
 	}
 
 	&.both {
-		border-bottom: 1px solid $primary;
-		border-top: 1px solid $primary;
+		border-bottom: 1px solid var(--primary-color);
+		border-top: 1px solid var(--primary-color);
 	}
 }

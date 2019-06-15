@@ -1,12 +1,10 @@
-@import "variables";
-
 :host {
-	background-color: $secondary;
+	background-color: var(--secondary-color);
 	border-bottom-right-radius: 5px;
 	border-top-right-radius: 5px;
 	display: flex;
 	flex-direction: column;
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	font-size: 0.75rem;
 	padding: 10px;
 }
@@ -19,15 +17,15 @@
 }
 
 .light {
-	background-color: $black;
-	border: 2px inset $secondary;
+	background-color: var(--black-color);
+	border: 2px inset var(--secondary-color);
 	height: 1em;
 
 	&.fail {
 		width: 3em;
 
 		&.lit {
-			background: radial-gradient(at center, $red 0%, transparent 100%), $black;
+			background: radial-gradient(at center, var(--red-color) 0%, transparent 100%), var(--black-color);
 		}
 	}
 
@@ -35,7 +33,7 @@
 		width: 1.25em;
 
 		&.lit {
-			background: radial-gradient(at center, lightgreen 0%, transparent 100%), $black;
+			background: radial-gradient(at center, lightgreen 0%, transparent 100%), var(--black-color);
 		}
 	}
 
@@ -46,7 +44,7 @@
 }
 
 .number {
-	color: $white;
+	color: var(--white-color);
 }
 
 .ok {

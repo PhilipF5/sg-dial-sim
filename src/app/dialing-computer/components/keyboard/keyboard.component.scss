@@ -1,8 +1,6 @@
-@import "variables";
-
 :host {
-	background-color: $black;
-	border: 3px solid $primary;
+	background-color: var(--black-color);
+	border: 3px solid var(--primary-color);
 	bottom: 0;
 	box-sizing: border-box;
 	height: 350px;
@@ -27,10 +25,10 @@
 
 		.selected-glyph {
 			align-items: center;
-			border: 2px solid $gray;
-			color: $white;
+			border: 2px solid var(--gray-color);
+			color: var(--white-color);
 			display: flex;
-			font-family: $glyphs-font;
+			font-family: var(--glyphs-font);
 			font-size: 3rem;
 			height: 1.25em;
 			justify-content: space-between;
@@ -49,9 +47,9 @@
 
 			.glyph-number {
 				align-self: flex-end;
-				background-color: $gray;
-				color: $white;
-				font-family: $interface-font;
+				background-color: var(--gray-color);
+				color: var(--white-color);
+				font-family: var(--interface-font);
 				font-size: 1.25rem;
 				order: 1;
 				text-align: center;
@@ -59,20 +57,20 @@
 			}
 
 			&.selected {
-				border-color: $red;
+				border-color: var(--red-color);
 
 				.glyph-number {
-					background-color: $red;
+					background-color: var(--red-color);
 				}
 			}
 		}
 
 		&.valid {
 			.selected-glyph.selected {
-				border-color: $green;
+				border-color: var(--green-color);
 
 				.glyph-number {
-					background-color: $green;
+					background-color: var(--green-color);
 				}
 			}
 		}
@@ -99,10 +97,10 @@
 	}
 
 	.key {
-		color: $white;
+		color: var(--white-color);
 		cursor: pointer;
 		display: inline-block;
-		font-family: $interface-font;
+		font-family: var(--interface-font);
 		font-size: 1rem;
 		margin: 15px;
 
@@ -124,9 +122,9 @@
 		}
 
 		&.glyph {
-			font-family: $glyphs-font;
+			font-family: var(--glyphs-font);
 			font-size: 2.5rem;
-			transition:  text-shadow 1s ease-in-out, transform 1s ease-in-out;
+			transition: text-shadow 1s ease-in-out, transform 1s ease-in-out;
 			width: 1.5em;
 
 			&.selected {

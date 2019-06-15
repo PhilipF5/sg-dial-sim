@@ -1,12 +1,10 @@
-@import "variables";
-
 :host {
 	align-items: center;
-	background-color: $black;
-	border: 3px solid $primary;
+	background-color: var(--black-color);
+	border: 3px solid var(--primary-color);
 	border-radius: 5px;
 	display: flex;
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	font-variant: small-caps;
 	height: 300px;
 	justify-content: center;
@@ -16,7 +14,7 @@
 
 .container {
 	align-items: center;
-	border: 1px solid $secondary;
+	border: 1px solid var(--secondary-color);
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
@@ -26,17 +24,17 @@
 }
 
 .title {
-	color: $primary;
+	color: var(--primary-color);
 	font-size: 1rem;
 	text-align: center;
 }
 
 .text {
-	color: $white;
+	color: var(--white-color);
 	font-size: 2.125rem;
 	text-align: center;
 
 	&.critical {
-		color: $darkred;
+		color: var(--darkred-color);
 	}
 }

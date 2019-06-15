@@ -1,8 +1,6 @@
-@import "variables";
-
 :host {
-	border-color: $primary;
-	border-right: 2px solid $primary;
+	border-color: var(--primary-color);
+	border-right: 2px solid var(--primary-color);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -14,7 +12,7 @@
 	align-items: center;
 	display: flex;
 	flex-grow: 1;
-	font-family: $glyphs-font;
+	font-family: var(--glyphs-font);
 	font-size: 50px;
 	justify-content: center;
 	padding: 5px;

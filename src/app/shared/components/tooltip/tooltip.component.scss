@@ -1,12 +1,10 @@
-@import "variables";
-
 :host {
 	align-items: center;
 	background-color: rgba(125, 125, 125, 0.5);
 	border-radius: 10px;
-	color: $white;
+	color: var(--white-color);
 	display: flex;
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	font-size: 0.6875rem;
 	justify-content: center;
 	opacity: 0;

@@ -1,5 +1,3 @@
-@import "variables";
-
 :host {
 	max-height: 68vh;
 	max-width: 68vh;
@@ -16,22 +14,22 @@ sg-event-horizon {
 svg {
 	.base {
 		fill: transparent;
-		stroke: $primary;
+		stroke: var(--primary-color);
 	}
 
 	.ring {
 		fill: transparent;
-		stroke: $white;
+		stroke: var(--white-color);
 	}
 
 	.chevron-head {
-		fill: $black;
-		stroke: $white;
+		fill: var(--black-color);
+		stroke: var(--white-color);
 	}
 
 	.chevron-tail {
-		fill: $black;
-		stroke: $white;
+		fill: var(--black-color);
+		stroke: var(--white-color);
 	}
 
 	[ng-reflect-chevron="8"],

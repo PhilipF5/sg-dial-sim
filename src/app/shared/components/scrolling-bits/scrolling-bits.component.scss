@@ -1,9 +1,7 @@
-@import "variables";
-
 :host {
-	color: $white;
+	color: var(--white-color);
 	display: block;
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	font-size: 0.75rem;
 	height: 100%;
 	overflow-y: scroll;

@@ -1,24 +1,22 @@
-@import "variables";
-
 :host {
-	border-top: 2px solid $primary;
-	color: $white;
+	border-top: 2px solid var(--primary-color);
+	color: var(--white-color);
 	cursor: pointer;
 	display: flex;
 	margin-bottom: 10px;
 
 	&.selected {
-		border-color: $green;
+		border-color: var(--green-color);
 
 		.glyphs {
-			border-color: $green;
+			border-color: var(--green-color);
 		}
 
 		sg-address-glyph-display {
-			border-color: $green;
+			border-color: var(--green-color);
 
 			.name {
-				border-color: $green;
+				border-color: var(--green-color);
 			}
 		}
 	}
@@ -29,9 +27,9 @@
 }
 
 .glyphs {
-	border-bottom: 2px solid $primary;
-	border-left: 2px solid $primary;
-	border-top: 2px solid $primary;
+	border-bottom: 2px solid var(--primary-color);
+	border-left: 2px solid var(--primary-color);
+	border-top: 2px solid var(--primary-color);
 	display: flex;
 }
 

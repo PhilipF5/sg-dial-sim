@@ -1,5 +1,3 @@
-@import "variables";
-
 :host {
 	height: 14.2587%;
 	margin-bottom: 2px;
@@ -19,15 +17,15 @@
 
 	&.locked {
 		.chevron-symbol-box {
-			border-color: $red;
+			border-color: var(--red-color);
 		}
 	}
 }
 
 .chevron-number {
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	font-size: 1.5rem;
-	color: $white;
+	color: var(--white-color);
 	vertical-align: bottom;
 }
 
@@ -36,7 +34,7 @@
 	box-sizing: border-box;
 	width: 75%;
 	height: 100%;
-	border-color: $primary;
+	border-color: var(--primary-color);
 	border-width: 3px;
 	border-style: solid;
 	border-top-left-radius: 20px;
@@ -45,8 +43,8 @@
 	position: relative;
 
 	.sg1-symbol {
-		color: $white;
-		font-family: $glyphs-font;
+		color: var(--white-color);
+		font-family: var(--glyphs-font);
 		font-size: 3.125rem;
 		margin-top: 10px;
 		text-shadow: 1px 4px 0 gray;
@@ -58,7 +56,7 @@
 		}
 
 		&.failed {
-			color: $red;
+			color: var(--red-color);
 		}
 	}
 }

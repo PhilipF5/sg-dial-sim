@@ -1,12 +1,10 @@
-@import "variables";
-
 :host {
 	align-items: center;
-	border: 1px solid $primary;
-	color: $white;
+	border: 1px solid var(--primary-color);
+	color: var(--white-color);
 	cursor: pointer;
 	display: flex;
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	font-size: 0.875rem;
 	font-variant: small-caps;
 	justify-content: center;
@@ -21,6 +19,6 @@
 	}
 
 	&:hover {
-		background-color: $highlight;
+		background-color: var(--highlight-color);
 	}
 }

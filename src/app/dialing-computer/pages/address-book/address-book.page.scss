@@ -1,13 +1,11 @@
-@import "variables";
-
 :host {
-	border: 5px solid $primary;
+	border: 5px solid var(--primary-color);
 	border-bottom-right-radius: 25px;
 	border-top-left-radius: 25px;
 	box-sizing: border-box;
 	display: block;
 	flex-direction: column;
-	font-family: $interface-font;
+	font-family: var(--interface-font);
 	height: 100%;
 	min-height: 768px;
 	min-width: 1024px;
@@ -16,24 +14,25 @@
 }
 
 .top-row {
-	border-bottom: 3px solid $primary;
-	color: $primary;
+	border-bottom: 3px solid var(--primary-color);
+	color: var(--primary-color);
 	font-size: 18px;
 	margin-left: 10px;
 	margin-right: 10px;
 	text-transform: uppercase;
 
-	.title, .separator {
+	.title,
+	.separator {
 		font-size: 1.4em;
 	}
 
 	.subtitle {
-		color: $white;
+		color: var(--white-color);
 		font-size: 1.2em;
 	}
 
 	.status {
-		color: $white;
+		color: var(--white-color);
 	}
 
 	.separator {
@@ -43,7 +42,7 @@
 }
 
 .headings-row {
-	color: $primary;
+	color: var(--primary-color);
 	display: flex;
 	font-size: 20px;
 	margin-left: 10px;
@@ -76,8 +75,8 @@
 
 .scroll-button {
 	align-items: center;
-	border: 1px solid $primary;
-	color: $white;
+	border: 1px solid var(--primary-color);
+	color: var(--white-color);
 	cursor: pointer;
 	display: flex;
 	font-size: 24px;
@@ -100,7 +99,7 @@
 }
 
 .selector {
-	border: 3px solid $green;
+	border: 3px solid var(--green-color);
 	height: 110px;
 	opacity: 0;
 	pointer-events: none;

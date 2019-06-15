@@ -1,8 +1,6 @@
-@import "variables";
-
 :host {
 	align-items: center;
-	border: 5px solid $primary;
+	border: 5px solid var(--primary-color);
 	border-bottom-right-radius: 25px;
 	border-top-left-radius: 25px;
 	box-sizing: border-box;
@@ -48,7 +46,7 @@
 
 	&.left {
 		align-items: flex-start;
-		border: 3px solid $primary;
+		border: 3px solid var(--primary-color);
 		border-bottom-right-radius: 5px;
 		border-left: none;
 		border-top-right-radius: 5px;
@@ -58,7 +56,7 @@
 		padding: 5px;
 
 		.scrolling-bits-container {
-			border: 1px solid $secondary;
+			border: 1px solid var(--secondary-color);
 			border-top-right-radius: 5px;
 			height: 350px;
 			padding: 5px;
@@ -106,8 +104,8 @@ sg-dialing-status {
 }
 
 .label {
-	color: $white;
-	font-family: $interface-font;
+	color: var(--white-color);
+	font-family: var(--interface-font);
 	font-size: 0.75rem;
 	font-variant: small-caps;
 }
