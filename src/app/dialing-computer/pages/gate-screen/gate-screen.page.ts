@@ -86,7 +86,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	public beginDialing(address: Glyph[]): void {
 		this.updateGatePosition();
-		this.store$.dispatch(beginDialing({ address }));
+		this.store$.dispatch(beginDialing(address));
 	}
 
 	public closeKeyboard(): void {

@@ -67,7 +67,7 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 				if (type === engageChevron.type) {
 					this.lockSymbolSuccess(gatePos);
 				} else {
-					this.lockSymbolFailed(gatePos).add(() => this.store$.dispatch(chevronFailed({ chevron })));
+					this.lockSymbolFailed(gatePos).add(() => this.store$.dispatch(chevronFailed(chevron)));
 				}
 			});
 

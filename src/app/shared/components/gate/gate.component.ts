@@ -86,7 +86,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			.subscribe(({ chevron, type }) => {
 				let engage = type === engageChevron.type;
 				if (engage) {
-					this.engageChevron(chevron).add(() => this.store$.dispatch(chevronEngaged({ chevron })));
+					this.engageChevron(chevron).add(() => this.store$.dispatch(chevronEngaged(chevron)));
 				} else {
 					this.engageChevron(chevron, false);
 				}
@@ -98,7 +98,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 				takeUntil(this.killSubscriptions)
 			)
 			.subscribe(({ chevron, glyph }) =>
-				this.spinTo({ chevron, glyph }).add(() => this.store$.dispatch(glyphReady({ chevron, glyph })))
+				this.spinTo({ chevron, glyph }).add(() => this.store$.dispatch(glyphReady(chevron, glyph)))
 			);
 	}
 

@@ -48,7 +48,7 @@ export class DialingComputerEffects {
 	@Effect()
 	onGlyphReady$ = this.actions$.pipe(
 		ofType(glyphReady),
-		switchMap(payload => of(tryEngageChevron(payload)))
+		switchMap(({ chevron, glyph }) => of(tryEngageChevron(chevron, glyph)))
 	);
 
 	@Effect()
@@ -83,23 +83,23 @@ export class DialingComputerEffects {
 	startRingSpin$ = this.actions$.pipe(
 		ofType(dialNextGlyph),
 		withLatestFrom(this.store$.pipe(select(getNextGlyph)), this.store$.pipe(select(getNextChevron))),
-		switchMap(([_, glyph, chevron]) => of(spinRing({ chevron, glyph })))
+		switchMap(([_, glyph, chevron]) => of(spinRing(chevron, glyph)))
 	);
 
 	@Effect()
 	tryEngageChevron$ = this.actions$.pipe(
 		ofType(tryEngageChevron),
 		withLatestFrom(this.store$.pipe(select(getAddress))),
-		switchMap(([payload, address]) => {
-			if (payload.chevron === 7) {
+		switchMap(([{ chevron, glyph }, address]) => {
+			if (chevron === 7) {
 				let destination = this.gateNetwork.getActiveAddress(address);
 				if (!!destination) {
-					return [engageChevron(payload), establishConnection({ destination })];
+					return [engageChevron(chevron, glyph), establishConnection(destination)];
 				} else {
-					return of(failChevron(payload));
+					return of(failChevron(chevron, glyph));
 				}
 			} else {
-				return of(engageChevron(payload));
+				return of(engageChevron(chevron, glyph));
 			}
 		})
 	);
