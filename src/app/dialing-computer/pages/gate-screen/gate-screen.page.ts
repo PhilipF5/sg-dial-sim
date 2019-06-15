@@ -110,7 +110,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public shutdown(): void {
-		this.store$.dispatch(status === GateStatus.Active ? shutdownGate() : abortDialing());
+		this.store$.dispatch(this.status === GateStatus.Active ? shutdownGate() : abortDialing());
 	}
 
 	public toggleFullscreen(): void {
