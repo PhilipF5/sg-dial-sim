@@ -1,4 +1,4 @@
-import { createReducer, on } from "@ngrx/store";
+import { Action, createReducer, on } from "@ngrx/store";
 import {
 	abortDialing,
 	beginDialing,
@@ -23,7 +23,7 @@ export const initialState: DialingComputerState = {
 	nextSymbol: null,
 };
 
-export const dialingComputerReducer = createReducer(
+export const reducer = createReducer(
 	initialState,
 	on(abortDialing, state => ({ ...state, gateStatus: GateStatus.Aborted })),
 	on(beginDialing, (state, { address }) => ({
@@ -53,3 +53,7 @@ export const dialingComputerReducer = createReducer(
 	on(reset, () => ({ ...initialState })),
 	on(shutdownGate, state => ({ ...state, gateStatus: GateStatus.Shutdown }))
 );
+
+export function dialingComputerReducer(state: DialingComputerState | undefined, action: Action) {
+	return reducer(state, action);
+}
