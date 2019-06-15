@@ -12,7 +12,7 @@ import { BehaviorSubject, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
 
 @Component({
-	selector: "gate-screen",
+	selector: "sg-gate-screen",
 	templateUrl: "./gate-screen.page.html",
 	styleUrls: ["./gate-screen.page.scss"],
 })

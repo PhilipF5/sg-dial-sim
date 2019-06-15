@@ -7,7 +7,7 @@ import { GateNetworkService } from "app/shared/services";
 import { TweenLite } from "gsap";
 
 @Component({
-	selector: "keyboard",
+	selector: "sg-keyboard",
 	templateUrl: "./keyboard.component.html",
 	styleUrls: ["./keyboard.component.scss"],
 })

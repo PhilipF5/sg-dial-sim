@@ -1,7 +1,9 @@
 <div class="header">
 	<div class="top-row">
-		<span class="title">System Glyphs</span> <span class="separator">/</span>
-		<span class="subtitle">File Archive</span> <span class="separator">/</span>
+		<span class="title">System Glyphs</span>
+		<span class="separator">/</span>
+		<span class="subtitle">File Archive</span>
+		<span class="separator">/</span>
 		<span class="status">Display: Complete</span>
 	</div>
 	<div class="headings-row">
@@ -12,12 +14,12 @@
 <div class="scroll-pane">
 	<div class="addresses">
 		<div #selector class="selector"></div>
-		<address-row
+		<sg-address-row
 			*ngFor="let destination of (destinations | slice: topItem:bottomItem)"
 			[destination]="destination"
 			(mouseenter)="moveSelector($event.target)"
 			(click)="loadAddress(destination)"
-		></address-row>
+		></sg-address-row>
 	</div>
 	<div class="scroll-controls">
 		<div class="scroll-button up" (click)="scrollUp()">&#8227;</div>

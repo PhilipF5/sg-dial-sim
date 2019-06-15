@@ -6,7 +6,7 @@ import { GateNetworkService } from "app/shared/services";
 import { TimelineLite, TweenLite } from "gsap";
 
 @Component({
-	selector: "address-book",
+	selector: "sg-address-book",
 	templateUrl: "./address-book.page.html",
 	styleUrls: ["./address-book.page.scss"],
 })

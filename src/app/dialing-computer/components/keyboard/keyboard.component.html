@@ -18,9 +18,10 @@
 	[ngClass]="{ selected: isGlyphSelected(glyph), disabled: !isDialingAvailable }"
 >
 	{{ glyph.char }}
-	<tooltip>
-		<span class="glyph-name">{{ glyph.name }}</span> ({{ glyph.char }})
-	</tooltip>
+	<sg-tooltip>
+		<span class="glyph-name">{{ glyph.name }}</span>
+		({{ glyph.char }})
+	</sg-tooltip>
 </div>
 
 <div class="left corner">

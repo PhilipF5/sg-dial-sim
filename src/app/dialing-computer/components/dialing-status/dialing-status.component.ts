@@ -7,7 +7,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 @Component({
-	selector: "dialing-status",
+	selector: "sg-dialing-status",
 	templateUrl: "./dialing-status.component.html",
 	styleUrls: ["./dialing-status.component.scss"],
 })

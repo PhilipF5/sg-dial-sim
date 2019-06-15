@@ -4,7 +4,7 @@ import { AlertConfig } from "app/shared/models";
 import { AlertService } from "app/shared/services";
 
 @Component({
-	selector: "alert-factory",
+	selector: "sg-alert-factory",
 	templateUrl: "./alert-factory.component.html",
 	styleUrls: ["./alert-factory.component.scss"],
 	entryComponents: [AlertComponent],

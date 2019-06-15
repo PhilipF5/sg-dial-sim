@@ -6,7 +6,7 @@ import { MenuComponent } from "../menu/menu.component";
 import { SgButtonComponent } from "../sg-button/sg-button.component";
 
 @Component({
-	selector: "menu-button",
+	selector: "sg-menu-button",
 	templateUrl: "./menu-button.component.html",
 	styleUrls: ["./menu-button.component.scss"],
 })

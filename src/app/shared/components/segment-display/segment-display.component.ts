@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 
 @Component({
-	selector: "segment-display",
+	selector: "sg-segment-display",
 	templateUrl: "./segment-display.component.html",
 	styleUrls: ["./segment-display.component.scss"],
 })

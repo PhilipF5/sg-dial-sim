@@ -6,7 +6,7 @@ import { ElectronService } from "ngx-electron";
 const plugins = [ScrollToPlugin];
 
 @Component({
-	selector: "scrolling-bits",
+	selector: "sg-scrolling-bits",
 	templateUrl: "./scrolling-bits.component.html",
 	styleUrls: ["./scrolling-bits.component.scss"],
 })

@@ -10,7 +10,7 @@ import { Subject } from "rxjs";
 import { filter, takeUntil } from "rxjs/operators";
 
 @Component({
-	selector: "event-horizon",
+	selector: "sg-event-horizon",
 	templateUrl: "./event-horizon.component.html",
 	styleUrls: ["./event-horizon.component.scss"],
 })

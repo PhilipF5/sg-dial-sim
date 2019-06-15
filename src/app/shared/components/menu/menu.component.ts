@@ -1,7 +1,7 @@
 import { Component, ElementRef } from "@angular/core";
 
 @Component({
-	selector: "menu",
+	selector: "sg-menu",
 	templateUrl: "./menu.component.html",
 	styleUrls: ["./menu.component.scss"],
 })

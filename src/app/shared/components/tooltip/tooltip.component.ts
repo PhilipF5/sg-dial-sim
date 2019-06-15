@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 
 @Component({
-	selector: "tooltip",
+	selector: "sg-tooltip",
 	templateUrl: "./tooltip.component.html",
 	styleUrls: ["./tooltip.component.scss"],
 })

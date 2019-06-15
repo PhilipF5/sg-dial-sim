@@ -7,7 +7,7 @@
 	width: 100%;
 }
 
-event-horizon {
+sg-event-horizon {
 	left: 50%;
 	position: absolute;
 	top: 50%;
@@ -34,10 +34,11 @@ svg {
 		stroke: $white;
 	}
 
-	[ng-reflect-chevron="8"], [ng-reflect-chevron="9"] {
+	[ng-reflect-chevron="8"],
+	[ng-reflect-chevron="9"] {
 		.chevron-head,
 		.chevron-tail {
-			opacity: 0.25
+			opacity: 0.25;
 		}
 	}
 }

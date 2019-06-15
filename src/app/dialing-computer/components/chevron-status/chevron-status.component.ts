@@ -6,7 +6,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 @Component({
-	selector: "chevron-status",
+	selector: "sg-chevron-status",
 	templateUrl: "./chevron-status.component.html",
 	styleUrls: ["./chevron-status.component.scss"],
 })

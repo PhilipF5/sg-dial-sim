@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular
 import { Power1, TweenMax } from "gsap";
 
 @Component({
-	selector: "alert",
+	selector: "sg-alert",
 	templateUrl: "./alert.component.html",
 	styleUrls: ["./alert.component.scss"],
 })

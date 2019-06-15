@@ -22,7 +22,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 @Component({
-	selector: "gate",
+	selector: "sg-gate",
 	templateUrl: "./gate.component.html",
 	styleUrls: ["./gate.component.scss"],
 })

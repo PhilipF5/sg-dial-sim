@@ -10,7 +10,7 @@ import { BehaviorSubject, Subject } from "rxjs";
 import { filter, take, takeUntil } from "rxjs/operators";
 
 @Component({
-	selector: "chevron-box",
+	selector: "sg-chevron-box",
 	templateUrl: "./chevron-box.component.html",
 	styleUrls: ["./chevron-box.component.scss"],
 })
