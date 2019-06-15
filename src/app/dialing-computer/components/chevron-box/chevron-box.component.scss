@@ -1,7 +1,7 @@
 @import "variables";
 
 :host {
-	height: 20%;
+	height: 14.2587%;
 	margin-bottom: 2px;
 	width: 100%;
 }
@@ -32,6 +32,7 @@
 }
 
 .chevron-symbol-box {
+	align-items: center;
 	box-sizing: border-box;
 	width: 75%;
 	height: 100%;
@@ -39,6 +40,8 @@
 	border-width: 3px;
 	border-style: solid;
 	border-top-left-radius: 20px;
+	display: flex;
+	justify-content: center;
 	position: relative;
 
 	.sg1-symbol {
@@ -46,12 +49,9 @@
 		font-family: $glyphs-font;
 		font-size: 3.125rem;
 		margin-top: 10px;
-		position: absolute;
-		text-align: center;
 		text-shadow: 1px 4px 0 gray;
 		transform-origin: center;
 		visibility: hidden;
-		width: 100%;
 
 		&.active {
 			visibility: visible;
