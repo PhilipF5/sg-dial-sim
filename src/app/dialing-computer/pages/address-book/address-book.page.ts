@@ -12,7 +12,7 @@ import { TimelineLite, TweenLite } from "gsap";
 })
 export class AddressBookPage implements AfterViewInit, OnInit {
 	@ViewChildren(AddressRowComponent) addressRows: QueryList<AddressRowComponent>;
-	@ViewChild("selector") _selector: ElementRef;
+	@ViewChild("selector", { static: true }) _selector: ElementRef;
 
 	public destinations: Destination[];
 	public glyphHeadings = Array.from("123456");

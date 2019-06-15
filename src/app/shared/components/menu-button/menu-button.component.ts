@@ -16,7 +16,7 @@ export class MenuButtonComponent implements AfterContentChecked {
 	@Input() position: string;
 	@Input() text: string;
 
-	@ViewChild(MenuComponent) menu: MenuComponent;
+	@ViewChild(MenuComponent, { static: true }) menu: MenuComponent;
 
 	public isMenuOpen: boolean;
 

@@ -18,8 +18,8 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	@Input("gatePosition") gatePosition$: BehaviorSubject<DOMRect>;
 	@Input() number: number;
 
-	@ViewChild("chevronBox") private _chevronBox: ElementRef;
-	@ViewChild("symbol") private _symbol: ElementRef;
+	@ViewChild("chevronBox", { static: true }) private _chevronBox: ElementRef;
+	@ViewChild("symbol", { static: true }) private _symbol: ElementRef;
 
 	public glyph: Glyph;
 	private animation: TimelineLite;

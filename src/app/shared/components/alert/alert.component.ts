@@ -11,7 +11,7 @@ export class AlertComponent implements AfterViewInit {
 	@Input() message: string;
 	@Input() title: string;
 
-	@ViewChild("messageElement") private _messageElement: ElementRef;
+	@ViewChild("messageElement", { static: true }) private _messageElement: ElementRef;
 
 	private get elem(): HTMLElement {
 		return this._elem.nativeElement;

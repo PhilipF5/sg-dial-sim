@@ -12,7 +12,7 @@ import { takeUntil } from "rxjs/operators";
 	styleUrls: ["./dialing-status.component.scss"],
 })
 export class DialingStatusComponent implements OnDestroy, OnInit {
-	@ViewChild("statusText") private _statusText: ElementRef;
+	@ViewChild("statusText", { static: true }) private _statusText: ElementRef;
 
 	public status: GateStatus;
 

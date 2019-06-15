@@ -28,7 +28,7 @@ import { takeUntil } from "rxjs/operators";
 })
 export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	@ViewChildren(ChevronDirective) private chevrons: QueryList<ChevronDirective>;
-	@ViewChild("ring") private ring: ElementRef;
+	@ViewChild("ring", { static: true }) private ring: ElementRef;
 
 	private animation: TimelineLite;
 	private killSubscriptions: Subject<{}> = new Subject();

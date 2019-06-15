@@ -13,8 +13,8 @@ const plugins = [ScrollToPlugin];
 export class ScrollingBitsComponent implements OnInit {
 	@Input() length: number;
 
-	@ViewChild("first") private _firstGroup: ElementRef;
-	@ViewChild("second") private _secondGroup: ElementRef;
+	@ViewChild("first", { static: true }) private _firstGroup: ElementRef;
+	@ViewChild("second", { static: true }) private _secondGroup: ElementRef;
 
 	public bits: string = "";
 

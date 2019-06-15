@@ -17,8 +17,8 @@ import { take, takeUntil } from "rxjs/operators";
 	styleUrls: ["./gate-screen.page.scss"],
 })
 export class GateScreenPage implements OnDestroy, OnInit {
-	@ViewChild(GateComponent) private gate: GateComponent;
-	@ViewChild(KeyboardComponent) private keyboard: KeyboardComponent;
+	@ViewChild(GateComponent, { static: true }) private gate: GateComponent;
+	@ViewChild(KeyboardComponent, { static: true }) private keyboard: KeyboardComponent;
 
 	public authCode: string = "10183523652-4354393";
 	public destination: string;
