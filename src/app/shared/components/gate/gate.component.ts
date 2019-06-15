@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import { Actions, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
+import { chevronEngaged, engageChevron, failChevron, glyphReady, reset, spinRing } from "app/dialing-computer/actions";
 import { ChevronActivation } from "app/dialing-computer/models";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateAnimations } from "app/shared/animations";
@@ -56,7 +56,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 				switch (status) {
 					case GateStatus.Aborted:
 						this.killAnimations();
-						this.audio.failRing().onended = () => this.store$.dispatch(new DialingComputerActions.Reset());
+						this.audio.failRing().onended = () => this.store$.dispatch(reset());
 						break;
 					case GateStatus.Idle:
 						this.resetRing();
@@ -80,18 +80,13 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	ngOnInit() {
 		this.actions$
 			.pipe(
-				ofType<DialingComputerActions.EngageChevron | DialingComputerActions.FailChevron>(
-					DialingComputerActionTypes.EngageChevron,
-					DialingComputerActionTypes.FailChevron
-				),
+				ofType(engageChevron, failChevron),
 				takeUntil(this.killSubscriptions)
 			)
-			.subscribe(({ payload: { chevron }, type }) => {
-				let engage = type === DialingComputerActionTypes.EngageChevron;
+			.subscribe(({ chevron, type }) => {
+				let engage = type === engageChevron.type;
 				if (engage) {
-					this.engageChevron(chevron).add(() =>
-						this.store$.dispatch(new DialingComputerActions.ChevronEngaged({ chevron }))
-					);
+					this.engageChevron(chevron).add(() => this.store$.dispatch(chevronEngaged({ chevron })));
 				} else {
 					this.engageChevron(chevron, false);
 				}
@@ -99,13 +94,11 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 
 		this.actions$
 			.pipe(
-				ofType<DialingComputerActions.SpinRing>(DialingComputerActionTypes.SpinRing),
+				ofType(spinRing),
 				takeUntil(this.killSubscriptions)
 			)
-			.subscribe(({ payload: activation }) =>
-				this.spinTo(activation).add(() =>
-					this.store$.dispatch(new DialingComputerActions.GlyphReady(activation))
-				)
+			.subscribe(({ chevron, glyph }) =>
+				this.spinTo({ chevron, glyph }).add(() => this.store$.dispatch(glyphReady({ chevron, glyph })))
 			);
 	}
 

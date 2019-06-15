@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output } from "@angular/core";
 import { select, Store } from "@ngrx/store";
-import { DialingComputerActions } from "app/dialing-computer/actions";
+import { shutdownGate } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
@@ -86,7 +86,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public shutdown(): void {
-		this.store$.dispatch(new DialingComputerActions.ShutdownGate());
+		this.store$.dispatch(shutdownGate());
 		this.closeKeyboard();
 	}
 

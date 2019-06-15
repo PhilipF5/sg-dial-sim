@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
-import { DialingComputerActions } from "app/dialing-computer/actions";
+import { gateClosed } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { EventHorizonAnimations } from "app/shared/animations";
 import { GateStatus } from "app/shared/models";
@@ -49,7 +49,7 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 				return new TimelineLite()
 					.add(EventHorizonAnimations.shutdown(this.elem))
 					.add(() => this.audio.stopEventHorizon(), 0)
-					.add(() => this.store$.dispatch(new DialingComputerActions.GateClosed()), "+=1");
+					.add(() => this.store$.dispatch(gateClosed()), "+=1");
 		}
 	}
 }

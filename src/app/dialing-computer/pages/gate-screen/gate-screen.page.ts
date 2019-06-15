@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
-import { DialingComputerActions } from "app/dialing-computer/actions";
+import { abortDialing, beginDialing, shutdownGate } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { getDestination, getGateStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
@@ -86,7 +86,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	public beginDialing(address: Glyph[]): void {
 		this.updateGatePosition();
-		this.store$.dispatch(new DialingComputerActions.BeginDialing({ address }));
+		this.store$.dispatch(beginDialing({ address }));
 	}
 
 	public closeKeyboard(): void {
@@ -110,11 +110,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public shutdown(): void {
-		this.store$.dispatch(
-			status === GateStatus.Active
-				? new DialingComputerActions.ShutdownGate()
-				: new DialingComputerActions.AbortDialing()
-		);
+		this.store$.dispatch(status === GateStatus.Active ? shutdownGate() : abortDialing());
 	}
 
 	public toggleFullscreen(): void {

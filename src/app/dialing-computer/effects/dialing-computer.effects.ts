@@ -1,7 +1,24 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
+import {
+	abortDialing,
+	beginDialing,
+	chevronEngaged,
+	chevronFailed,
+	dialNextGlyph,
+	engageChevron,
+	establishConnection,
+	failChevron,
+	gateClosed,
+	glyphReady,
+	openGate,
+	reset,
+	sequenceComplete,
+	sequenceFailed,
+	spinRing,
+	tryEngageChevron,
+} from "app/dialing-computer/actions";
 import { getAddress, getNextChevron, getNextGlyph } from "app/dialing-computer/selectors";
 import { AlertService, GateNetworkService } from "app/shared/services";
 import { of } from "rxjs";
@@ -11,41 +28,39 @@ import { delay, switchMap, tap, withLatestFrom } from "rxjs/operators";
 export class DialingComputerEffects {
 	@Effect()
 	dialFirstGlyph$ = this.actions$.pipe(
-		ofType<DialingComputerActions.BeginDialing>(DialingComputerActionTypes.BeginDialing),
-		switchMap(() => of(new DialingComputerActions.DialNextGlyph()))
+		ofType(beginDialing),
+		switchMap(() => of(dialNextGlyph()))
 	);
 
 	@Effect()
 	onChevronEngaged$ = this.actions$.pipe(
-		ofType<DialingComputerActions.ChevronEngaged>(DialingComputerActionTypes.ChevronEngaged),
+		ofType(chevronEngaged),
 		withLatestFrom(this.store$.pipe(select(getNextGlyph))),
-		switchMap(([_, glyph]) =>
-			of(!!glyph ? new DialingComputerActions.DialNextGlyph() : new DialingComputerActions.SequenceComplete())
-		)
+		switchMap(([_, glyph]) => of(!!glyph ? dialNextGlyph() : sequenceComplete()))
 	);
 
 	@Effect()
 	onChevronFailed$ = this.actions$.pipe(
-		ofType<DialingComputerActions.ChevronFailed>(DialingComputerActionTypes.ChevronFailed),
-		switchMap(() => of(new DialingComputerActions.SequenceFailed()))
+		ofType(chevronFailed),
+		switchMap(() => of(sequenceFailed()))
 	);
 
 	@Effect()
 	onGlyphReady$ = this.actions$.pipe(
-		ofType<DialingComputerActions.GlyphReady>(DialingComputerActionTypes.GlyphReady),
-		switchMap(({ payload }) => of(new DialingComputerActions.TryEngageChevron(payload)))
+		ofType(glyphReady),
+		switchMap(payload => of(tryEngageChevron(payload)))
 	);
 
 	@Effect()
 	onSequenceComplete$ = this.actions$.pipe(
-		ofType<DialingComputerActions.SequenceComplete>(DialingComputerActionTypes.SequenceComplete),
-		switchMap(() => of(new DialingComputerActions.OpenGate())),
+		ofType(sequenceComplete),
+		switchMap(() => of(openGate())),
 		delay(2000)
 	);
 
 	@Effect()
 	onSequenceFailed$ = this.actions$.pipe(
-		ofType<DialingComputerActions.SequenceFailed>(DialingComputerActionTypes.SequenceFailed),
+		ofType(sequenceFailed),
 		tap(() =>
 			this.alert.alerts.next({
 				critical: true,
@@ -54,40 +69,37 @@ export class DialingComputerEffects {
 				title: "Cannot Establish Connection",
 			})
 		),
-		switchMap(() => of(new DialingComputerActions.AbortDialing())),
+		switchMap(() => of(abortDialing())),
 		delay(7000)
 	);
 
 	@Effect()
 	resetOnGateClose$ = this.actions$.pipe(
-		ofType<DialingComputerActions.GateClosed>(DialingComputerActionTypes.GateClosed),
-		switchMap(() => of(new DialingComputerActions.Reset()))
+		ofType(gateClosed),
+		switchMap(() => of(reset()))
 	);
 
 	@Effect()
 	startRingSpin$ = this.actions$.pipe(
-		ofType<DialingComputerActions.DialNextGlyph>(DialingComputerActionTypes.DialNextGlyph),
+		ofType(dialNextGlyph),
 		withLatestFrom(this.store$.pipe(select(getNextGlyph)), this.store$.pipe(select(getNextChevron))),
-		switchMap(([_, glyph, chevron]) => of(new DialingComputerActions.SpinRing({ chevron, glyph })))
+		switchMap(([_, glyph, chevron]) => of(spinRing({ chevron, glyph })))
 	);
 
 	@Effect()
 	tryEngageChevron$ = this.actions$.pipe(
-		ofType<DialingComputerActions.TryEngageChevron>(DialingComputerActionTypes.TryEngageChevron),
+		ofType(tryEngageChevron),
 		withLatestFrom(this.store$.pipe(select(getAddress))),
-		switchMap(([{ payload }, address]) => {
+		switchMap(([payload, address]) => {
 			if (payload.chevron === 7) {
 				let destination = this.gateNetwork.getActiveAddress(address);
 				if (!!destination) {
-					return [
-						new DialingComputerActions.EngageChevron(payload),
-						new DialingComputerActions.EstablishConnection({ destination }),
-					];
+					return [engageChevron(payload), establishConnection({ destination })];
 				} else {
-					return of(new DialingComputerActions.FailChevron(payload));
+					return of(failChevron(payload));
 				}
 			} else {
-				return of(new DialingComputerActions.EngageChevron(payload));
+				return of(engageChevron(payload));
 			}
 		})
 	);

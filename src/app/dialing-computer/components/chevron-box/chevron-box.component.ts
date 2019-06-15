@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Actions, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { DialingComputerActions, DialingComputerActionTypes } from "app/dialing-computer/actions";
+import { chevronFailed, engageChevron, failChevron, sequenceComplete } from "app/dialing-computer/actions";
 import { ChevronBoxAnimationConfig, ChevronBoxAnimations } from "app/dialing-computer/animations";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus, Glyph } from "app/shared/models";
@@ -57,28 +57,23 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 
 		this.actions$
 			.pipe(
-				ofType<DialingComputerActions.EngageChevron | DialingComputerActions.FailChevron>(
-					DialingComputerActionTypes.EngageChevron,
-					DialingComputerActionTypes.FailChevron
-				),
-				filter(({ payload: { chevron } }) => chevron === this.number),
+				ofType(engageChevron, failChevron),
+				filter(({ chevron }) => chevron === this.number),
 				takeUntil(this.killSubscriptions)
 			)
-			.subscribe(async ({ payload, type }) => {
-				this.glyph = payload.glyph;
+			.subscribe(async ({ chevron, glyph, type }) => {
+				this.glyph = glyph;
 				let gatePos = await this.getLatestGatePosition();
-				if (type === DialingComputerActionTypes.EngageChevron) {
+				if (type === engageChevron.type) {
 					this.lockSymbolSuccess(gatePos);
 				} else {
-					this.lockSymbolFailed(gatePos).add(() =>
-						this.store$.dispatch(new DialingComputerActions.ChevronFailed(payload))
-					);
+					this.lockSymbolFailed(gatePos).add(() => this.store$.dispatch(chevronFailed({ chevron })));
 				}
 			});
 
 		this.actions$
 			.pipe(
-				ofType<DialingComputerActions.SequenceComplete>(DialingComputerActionTypes.SequenceComplete),
+				ofType(sequenceComplete),
 				takeUntil(this.killSubscriptions)
 			)
 			.subscribe(() => ChevronBoxAnimations.flashOnActivate(this.chevronBox));

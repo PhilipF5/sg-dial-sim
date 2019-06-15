@@ -1,4 +1,16 @@
-import { DialingComputerAction, DialingComputerActionTypes } from "app/dialing-computer/actions";
+import { createReducer, on } from "@ngrx/store";
+import {
+	abortDialing,
+	beginDialing,
+	chevronEngaged,
+	chevronFailed,
+	dialNextGlyph,
+	engageChevron,
+	establishConnection,
+	openGate,
+	reset,
+	shutdownGate,
+} from "app/dialing-computer/actions";
 import { DialingComputerState } from "app/dialing-computer/state";
 import { ChevronStatus, DefaultChevronStatuses, GateStatus, Glyphs } from "app/shared/models";
 
@@ -11,34 +23,33 @@ export const initialState: DialingComputerState = {
 	nextSymbol: null,
 };
 
-export function dialingComputerReducer(state = initialState, action: DialingComputerAction) {
-	switch (action.type) {
-		case DialingComputerActionTypes.AbortDialing:
-			return { ...state, gateStatus: GateStatus.Aborted };
-		case DialingComputerActionTypes.BeginDialing:
-			return { ...state, address: [...action.payload.address, Glyphs.pointOfOrigin], nextSymbol: 0 };
-		case DialingComputerActionTypes.ChevronEngaged: {
-			let nextSymbol = !!state.address[state.nextSymbol + 1] ? state.nextSymbol + 1 : null;
-			let chevronStatus = { ...state.chevronStatus, [action.payload.chevron]: ChevronStatus.Engaged };
-			return { ...state, nextSymbol, chevronStatus };
-		}
-		case DialingComputerActionTypes.ChevronFailed: {
-			let chevronStatus = { ...state.chevronStatus, [action.payload.chevron]: ChevronStatus.Failed };
-			return { ...state, chevronStatus };
-		}
-		case DialingComputerActionTypes.DialNextGlyph:
-			return { ...state, gateStatus: GateStatus.Dialing };
-		case DialingComputerActionTypes.EngageChevron:
-			return { ...state, gateStatus: GateStatus.Engaged };
-		case DialingComputerActionTypes.EstablishConnection:
-			return { ...state, destination: action.payload.destination };
-		case DialingComputerActionTypes.OpenGate:
-			return { ...state, gateStatus: GateStatus.Active };
-		case DialingComputerActionTypes.Reset:
-			return { ...initialState };
-		case DialingComputerActionTypes.ShutdownGate:
-			return { ...state, gateStatus: GateStatus.Shutdown };
-		default:
-			return state;
-	}
-}
+export const dialingComputerReducer = createReducer(
+	initialState,
+	on(abortDialing, state => ({ ...state, gateStatus: GateStatus.Aborted })),
+	on(beginDialing, (state, { address }) => ({
+		...state,
+		address: [...address, Glyphs.pointOfOrigin],
+		nextSymbol: 0,
+	})),
+	on(chevronEngaged, (state, { chevron }) => {
+		let nextSymbol = !!state.address[state.nextSymbol + 1] ? state.nextSymbol + 1 : null;
+		let chevronStatus = {
+			...state.chevronStatus,
+			[chevron]: ChevronStatus.Engaged,
+		};
+		return { ...state, nextSymbol, chevronStatus };
+	}),
+	on(chevronFailed, (state, { chevron }) => {
+		let chevronStatus = {
+			...state.chevronStatus,
+			[chevron]: ChevronStatus.Failed,
+		};
+		return { ...state, chevronStatus };
+	}),
+	on(dialNextGlyph, state => ({ ...state, gateStatus: GateStatus.Dialing })),
+	on(engageChevron, state => ({ ...state, gateStatus: GateStatus.Engaged })),
+	on(establishConnection, (state, { destination }) => ({ ...state, destination })),
+	on(openGate, state => ({ ...state, gateStatus: GateStatus.Active })),
+	on(reset, () => ({ ...initialState })),
+	on(shutdownGate, state => ({ ...state, gateStatus: GateStatus.Shutdown }))
+);
