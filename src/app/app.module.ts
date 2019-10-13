@@ -11,13 +11,13 @@ import { SharedModule } from "./shared/shared.module";
 
 const MODULES = [
 	BrowserModule,
-	AppRoutingModule,
 	NgxElectronModule,
 	StoreModule.forRoot({}),
 	StoreDevtoolsModule.instrument(),
 	EffectsModule.forRoot([]),
 	DialingComputerModule,
 	SharedModule,
+	AppRoutingModule,
 ];
 
 @NgModule({
