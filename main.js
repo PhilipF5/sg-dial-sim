@@ -30,3 +30,7 @@ app.on("activate", function() {
 		createWindow();
 	}
 });
+
+try {
+	require("electron-reloader")(module, { debug: true, ignore: ["build", "electron-build", "src"] });
+} catch (_) {}
