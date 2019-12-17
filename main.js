@@ -10,6 +10,9 @@ function createWindow() {
 		useContentSize: true,
 		resizable: false,
 		fullscreen: true,
+		webPreferences: {
+			nodeIntegration: true,
+		},
 	});
 
 	win.loadFile(`dist/sgc/index.html`);
