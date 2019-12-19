@@ -1,9 +1,18 @@
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	NgZone,
+	OnInit,
+	QueryList,
+	ViewChild,
+	ViewChildren,
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { AddressRowComponent } from "app/dialing-computer/components";
 import { Destination } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
-import { TimelineLite, TweenLite } from "gsap";
+import { gsap } from "gsap";
 
 @Component({
 	selector: "sg-address-book",
@@ -19,7 +28,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	public scrollOffset: number = 0;
 
 	private selectedIndex: number;
-	private selectorTimeline: TimelineLite = new TimelineLite();
+	private selectorTimeline: gsap.core.Timeline = gsap.timeline();
 
 	public get bottomItem(): number {
 		return 5 + this.scrollOffset;
@@ -38,17 +47,17 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	private get addressRowElems(): HTMLElement[] {
-		return this.addressRows.map<HTMLElement>(ar => ar.elem);
+		return this.addressRows.map<HTMLElement>((ar) => ar.elem);
 	}
 
 	private get selector(): HTMLElement {
 		return this._selector.nativeElement;
 	}
 
-	constructor(private gateNetwork: GateNetworkService, private router: Router) {}
+	constructor(private gateNetwork: GateNetworkService, private ngZone: NgZone, private router: Router) {}
 
 	ngAfterViewInit() {
-		TweenLite.set(this.selector, { top: -250 });
+		gsap.set(this.selector, { top: -250 });
 		this.addressRows.changes.subscribe(() => {
 			if (this.selectedIndex !== undefined) {
 				this.moveSelector(this.addressRowElems[this.selectedIndex], true);
@@ -72,20 +81,18 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.goToGateScreen(dest.id);
 	}
 
-	public moveSelector(target: HTMLElement, instant?: boolean): TimelineLite {
+	public moveSelector(target: HTMLElement, instant?: boolean): gsap.core.Timeline {
 		this.selectorTimeline.kill();
-		this.selectedIndex = this.addressRowElems.findIndex(el => el === target);
 		let targetBox = target.getBoundingClientRect();
 		let borderAdjustment = 6; // 6 to adjust for 3px border due to box-sizing
-		return (this.selectorTimeline = new TimelineLite()
-			.add(this.removeSelector(this.addressRowElems.filter(el => el !== target)))
+		return (this.selectorTimeline = gsap
+			.timeline()
+			.add(() => this.ngZone.run(() => (this.selectedIndex = null)))
 			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - borderAdjustment })
 			.to(this.selector, instant ? 0 : 0.5, { top: targetBox.top })
-			.set(target, { className: "+=selected" }));
-	}
-
-	public removeSelector(targets: HTMLElement[]): TimelineLite {
-		return new TimelineLite().set(targets, { className: "-=selected" });
+			.add(() =>
+				this.ngZone.run(() => (this.selectedIndex = this.addressRowElems.findIndex((el) => el === target))),
+			));
 	}
 
 	public scrollDown(): void {

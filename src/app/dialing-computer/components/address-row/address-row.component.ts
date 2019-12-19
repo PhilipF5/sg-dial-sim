@@ -8,6 +8,7 @@ import { Destination } from "app/shared/models";
 })
 export class AddressRowComponent implements OnInit {
 	@HostBinding("attr.data-name") dataName: string;
+	@HostBinding("class.selected") @Input() selected: boolean;
 	@Input() destination: Destination;
 
 	public get elem(): HTMLElement {

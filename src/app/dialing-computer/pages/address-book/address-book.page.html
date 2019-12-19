@@ -15,8 +15,9 @@
 	<div class="addresses">
 		<div #selector class="selector"></div>
 		<sg-address-row
-			*ngFor="let destination of (destinations | slice: topItem:bottomItem)"
+			*ngFor="let destination of (destinations | slice: topItem:bottomItem); let i = index"
 			[destination]="destination"
+			[selected]="selectedIndex === i"
 			(mouseenter)="moveSelector($event.target)"
 			(click)="loadAddress(destination)"
 		></sg-address-row>
