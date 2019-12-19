@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/co
 import { select, Store } from "@ngrx/store";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus } from "app/shared/models";
-import { TweenMax } from "gsap";
+import { gsap } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
@@ -15,6 +15,7 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	@ViewChild("statusText", { static: true }) private _statusText: ElementRef;
 
 	public status: GateStatus;
+	public useRedStyle: boolean;
 
 	private killSubscriptions: Subject<{}> = new Subject();
 
@@ -29,45 +30,37 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		this.store$
-			.pipe(
-				select(getGateStatus),
-				takeUntil(this.killSubscriptions)
-			)
-			.subscribe(status => {
-				this.status = status;
-				this.updateAnimation(status);
-			});
+		this.store$.pipe(select(getGateStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
+			this.status = status;
+			this.updateAnimation(status);
+		});
 	}
 
-	private flashNormal(): TweenMax {
-		TweenMax.set(this.statusText, { css: { className: "-=red" } });
-		return TweenMax.fromTo(this.statusText, 0.5, { opacity: 0 }, { opacity: 0.8 })
-			.repeat(-1)
-			.yoyo(true);
+	private flashNormal(): gsap.core.Tween {
+		this.useRedStyle = false;
+		return gsap.fromTo(this.statusText, { opacity: 0 }, { duration: 0.5, opacity: 0.8, repeat: -1, yoyo: true });
 	}
 
-	private flashOnce(): TweenMax {
-		TweenMax.set(this.statusText, { css: { className: "-=red" } });
-		return TweenMax.fromTo(this.statusText, 1, { opacity: 0 }, { opacity: 0.8 })
-			.repeat(1)
-			.repeatDelay(2)
-			.yoyo(true);
+	private flashOnce(): gsap.core.Tween {
+		this.useRedStyle = false;
+		return gsap.fromTo(
+			this.statusText,
+			{ opacity: 0 },
+			{ duration: 1, opacity: 0.8, repeat: 1, repeatDelay: 2, yoyo: true },
+		);
 	}
 
-	private flashRed(): TweenMax {
-		TweenMax.set(this.statusText, { css: { className: "+=red" } });
-		return TweenMax.fromTo(this.statusText, 0.5, { opacity: 0 }, { opacity: 0.6 })
-			.repeat(-1)
-			.yoyo(true);
+	private flashRed(): gsap.core.Tween {
+		this.useRedStyle = true;
+		return gsap.fromTo(this.statusText, { opacity: 0 }, { duration: 0.5, opacity: 0.6, repeat: -1, yoyo: true });
 	}
 
 	private hide(): void {
-		TweenMax.set(this.statusText, { opacity: 0 });
+		gsap.set(this.statusText, { opacity: 0 });
 	}
 
 	private killAnimation(): void {
-		TweenMax.killTweensOf(this.statusText);
+		gsap.killTweensOf(this.statusText);
 	}
 
 	private updateAnimation(status: GateStatus): void {

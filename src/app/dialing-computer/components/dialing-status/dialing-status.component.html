@@ -1,3 +1,3 @@
 <div class="status-box">
-	<div #statusText class="status">{{ status }}</div>
+	<div #statusText [ngClass]="{ status: true, red: useRedStyle }">{{ status }}</div>
 </div>
