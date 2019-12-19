@@ -5,7 +5,6 @@ import { chevronFailed, engageChevron, failChevron, sequenceComplete } from "app
 import { ChevronBoxAnimationConfig, ChevronBoxAnimations } from "app/dialing-computer/animations";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus, Glyph } from "app/shared/models";
-import { TimelineLite } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
 import { filter, take, takeUntil } from "rxjs/operators";
 
@@ -22,7 +21,7 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	@ViewChild("symbol", { static: true }) private _symbol: ElementRef;
 
 	public glyph: Glyph;
-	private animation: TimelineLite;
+	private animation: gsap.core.Timeline;
 	private killSubscriptions: Subject<{}> = new Subject();
 	private position: DOMRect;
 
@@ -41,25 +40,20 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		this.store$
-			.pipe(
-				select(getGateStatus),
-				takeUntil(this.killSubscriptions)
-			)
-			.subscribe(status => {
-				if (status === GateStatus.Idle) {
-					this.clearSymbol();
-					this.killAnimations();
-				} else if (status === GateStatus.Aborted) {
-					this.killAnimations();
-				}
-			});
+		this.store$.pipe(select(getGateStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
+			if (status === GateStatus.Idle) {
+				this.clearSymbol();
+				this.killAnimations();
+			} else if (status === GateStatus.Aborted) {
+				this.killAnimations();
+			}
+		});
 
 		this.actions$
 			.pipe(
 				ofType(engageChevron, failChevron),
 				filter(({ chevron }) => chevron === this.number),
-				takeUntil(this.killSubscriptions)
+				takeUntil(this.killSubscriptions),
 			)
 			.subscribe(async ({ chevron, glyph, type }) => {
 				this.glyph = glyph;
@@ -72,10 +66,7 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 			});
 
 		this.actions$
-			.pipe(
-				ofType(sequenceComplete),
-				takeUntil(this.killSubscriptions)
-			)
+			.pipe(ofType(sequenceComplete), takeUntil(this.killSubscriptions))
 			.subscribe(() => ChevronBoxAnimations.flashOnActivate(this.chevronBox));
 	}
 
@@ -84,11 +75,11 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 		this.glyph = undefined;
 	}
 
-	public lockSymbolFailed(gatePosition: DOMRect): TimelineLite {
+	public lockSymbolFailed(gatePosition: DOMRect): gsap.core.Timeline {
 		return (this.animation = ChevronBoxAnimations.lockSymbolFailed(this.buildAnimationConfig(gatePosition)));
 	}
 
-	public lockSymbolSuccess(gatePosition: DOMRect): TimelineLite {
+	public lockSymbolSuccess(gatePosition: DOMRect): gsap.core.Timeline {
 		return (this.animation = ChevronBoxAnimations.lockSymbolSuccess(this.buildAnimationConfig(gatePosition)));
 	}
 
@@ -107,8 +98,8 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 	private async getLatestGatePosition(): Promise<DOMRect> {
 		return this.gatePosition$
 			.pipe(
-				filter(pos => !!pos),
-				take(1)
+				filter((pos) => !!pos),
+				take(1),
 			)
 			.toPromise();
 	}

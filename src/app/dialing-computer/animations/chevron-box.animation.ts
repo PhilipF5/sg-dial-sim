@@ -1,4 +1,4 @@
-import { Power1, TimelineLite, TweenMax } from "gsap";
+import { gsap } from "gsap";
 
 export interface ChevronBoxAnimationConfig {
 	chevronBox: HTMLElement;
@@ -9,54 +9,60 @@ export interface ChevronBoxAnimationConfig {
 }
 
 export class ChevronBoxAnimations {
-	public static clearSymbol(box: HTMLElement, symbol: HTMLElement): TimelineLite {
-		return new TimelineLite()
-			.set(symbol, { css: { className: "-=active" } })
-			.set(symbol, { css: { className: "-=failed" } })
-			.set(symbol, { x: 0, y: 0 })
-			.set(box, { css: { className: "-=locked" } });
+	public static clearSymbol(box: HTMLElement, symbol: HTMLElement): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.add([
+				gsap.set(symbol, { clearProps: "color,visibility" }),
+				gsap.set(box.querySelector(".chevron-symbol-box"), { clearProps: "borderColor" }),
+			])
+			.set(symbol, { x: 0, y: 0 });
 	}
 
-	public static flashOnActivate(box: HTMLElement): TimelineLite {
-		return new TimelineLite().add(
-			TweenMax.to(box.querySelector(".chevron-symbol-box"), 0.15, { backgroundColor: "#add8e6" })
-				.repeat(5)
-				.yoyo(true)
-		);
-	}
-
-	public static lockSymbolFailed(config: ChevronBoxAnimationConfig): TimelineLite {
-		return this.lockSymbolAttempt(config).add(
-			[
-				TweenMax.to(config.symbol, 2, {
-					x: config.startX,
-					y: config.centerY,
-					scale: 5,
-					ease: Power1.easeIn,
-				}),
-				TweenMax.to(config.symbol, 2, {
-					css: { className: "+=failed" },
-				}),
-			],
-			"+=0.5"
-		);
-	}
-
-	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): TimelineLite {
-		return this.lockSymbolAttempt(config).to(config.chevronBox, 0.5, {
-			css: { className: "+=locked" },
+	public static flashOnActivate(box: HTMLElement): gsap.core.Timeline {
+		return gsap.timeline().to(box.querySelector(".chevron-symbol-box"), {
+			backgroundColor: "#add8e6",
+			duration: 0.15,
+			repeat: 5,
+			yoyo: true,
 		});
 	}
 
-	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): TimelineLite {
-		return new TimelineLite()
+	public static lockSymbolFailed(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
+		return this.lockSymbolAttempt(config).add(
+			[
+				gsap.to(config.symbol, {
+					duration: 2,
+					x: config.startX,
+					y: config.centerY,
+					scale: 5,
+					ease: "power1.in",
+				}),
+				gsap.to(config.symbol, 2, {
+					color: "var(--red-color)",
+					duration: 2,
+				}),
+			],
+			"+=0.5",
+		);
+	}
+
+	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
+		return this.lockSymbolAttempt(config).to(config.chevronBox.querySelector(".chevron-symbol-box"), {
+			borderColor: "var(--red-color)",
+			duration: 0.5,
+		});
+	}
+
+	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
+		return gsap
+			.timeline()
 			.fromTo(
 				config.symbol,
-				2,
-				{ x: config.startX, y: config.startY, scale: 0, immediateRender: false },
-				{ y: config.centerY, scale: 5 }
+				{ x: config.startX, y: config.startY, scale: 0 },
+				{ duration: 2, y: config.centerY, scale: 5, immediateRender: false },
 			)
-			.set(config.symbol, { immediateRender: false, css: { className: "+=active" } }, 0)
-			.to(config.symbol, 2, { x: 0, y: 0, scale: 1 });
+			.set(config.symbol, { immediateRender: false, visibility: "visible" }, 0)
+			.to(config.symbol, { duration: 2, x: 0, y: 0, scale: 1 });
 	}
 }
