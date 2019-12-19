@@ -1,5 +1,5 @@
 import { AfterContentChecked, Component, ContentChildren, Input, QueryList, ViewChild } from "@angular/core";
-import { TweenMax } from "gsap";
+import { gsap } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { MenuComponent } from "../menu/menu.component";
@@ -24,13 +24,13 @@ export class MenuButtonComponent implements AfterContentChecked {
 
 	ngAfterContentChecked() {
 		this.killSubscriptions.next();
-		this.buttons.forEach(btn => {
+		this.buttons.forEach((btn) => {
 			btn.sgClick.pipe(takeUntil(this.killSubscriptions)).subscribe(() => this.toggleMenu());
 		});
 	}
 
 	public toggleMenu(): void {
 		this.isMenuOpen = !this.isMenuOpen;
-		TweenMax.to(this.menu.elem, 1, { scale: +this.isMenuOpen });
+		gsap.to(this.menu.elem, { duration: 1, scale: +this.isMenuOpen });
 	}
 }

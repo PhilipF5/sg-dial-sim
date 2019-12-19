@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular/core";
-import { Power1, TweenMax } from "gsap";
+import { gsap } from "gsap";
 
 @Component({
 	selector: "sg-alert",
@@ -24,9 +24,7 @@ export class AlertComponent implements AfterViewInit {
 	constructor(private _elem: ElementRef) {}
 
 	ngAfterViewInit() {
-		TweenMax.from(this.elem, 2, { scale: 0, transformOrigin: "center center", ease: Power1.easeOut });
-		TweenMax.to(this.messageElement, 0.5, { opacity: 0.5 })
-			.repeat(-1)
-			.yoyo(true);
+		gsap.from(this.elem, { duration: 2, scale: 0, transformOrigin: "center center", ease: "power1.out" });
+		gsap.to(this.messageElement, { duration: 0.5, opacity: 0.5, repeat: -1, yoyo: true });
 	}
 }
