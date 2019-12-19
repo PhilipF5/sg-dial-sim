@@ -5,7 +5,7 @@ import { getGateStatus } from "app/dialing-computer/selectors";
 import { EventHorizonAnimations } from "app/shared/animations";
 import { GateStatus } from "app/shared/models";
 import { AudioService } from "app/shared/services";
-import { TimelineLite, TweenMax } from "gsap";
+import { gsap } from "gsap";
 import { Subject } from "rxjs";
 import { filter, takeUntil } from "rxjs/operators";
 
@@ -32,21 +32,22 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 		this.store$
 			.pipe(
 				select(getGateStatus),
-				filter(s => !this.ignoredStatuses.includes(s)),
-				takeUntil(this.killSubscriptions)
+				filter((s) => !this.ignoredStatuses.includes(s)),
+				takeUntil(this.killSubscriptions),
 			)
-			.subscribe(status => this.setAnimation(status));
+			.subscribe((status) => this.setAnimation(status));
 	}
 
-	private setAnimation(status: GateStatus): TimelineLite {
-		TweenMax.killTweensOf(this.elem);
+	private setAnimation(status: GateStatus): gsap.core.Timeline {
+		gsap.killTweensOf(this.elem);
 		switch (status) {
 			case GateStatus.Idle:
 				return EventHorizonAnimations.inactiveFlasher(this.elem);
 			case GateStatus.Active:
 				return EventHorizonAnimations.gateOpen(this.elem).add(() => this.audio.startEventHorizon(), 0);
 			case GateStatus.Shutdown:
-				return new TimelineLite()
+				return gsap
+					.timeline()
 					.add(EventHorizonAnimations.shutdown(this.elem))
 					.add(() => this.audio.stopEventHorizon(), 0)
 					.add(() => this.store$.dispatch(gateClosed()), "+=1");

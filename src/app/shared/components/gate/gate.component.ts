@@ -17,7 +17,7 @@ import { GateAnimations } from "app/shared/animations";
 import { ChevronDirective } from "app/shared/directives";
 import { GateStatus, Sound } from "app/shared/models";
 import { AudioService } from "app/shared/services";
-import { TimelineLite, TweenMax } from "gsap";
+import { gsap } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
@@ -30,7 +30,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	@ViewChildren(ChevronDirective) private chevrons: QueryList<ChevronDirective>;
 	@ViewChild("ring", { static: true }) private ring: ElementRef;
 
-	private animation: TimelineLite;
+	private animation: gsap.core.Timeline;
 	private killSubscriptions: Subject<{}> = new Subject();
 	private ringPosition: number = 1;
 	private statusUpdateCount: number = 0;
@@ -43,34 +43,29 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		private actions$: Actions,
 		private audio: AudioService,
 		private _elem: ElementRef,
-		private store$: Store<any>
+		private store$: Store<any>,
 	) {}
 
 	ngAfterViewInit() {
-		this.store$
-			.pipe(
-				select(getGateStatus),
-				takeUntil(this.killSubscriptions)
-			)
-			.subscribe(status => {
-				switch (status) {
-					case GateStatus.Aborted:
-						this.killAnimations();
-						this.audio.failRing().onended = () => this.store$.dispatch(reset());
-						break;
-					case GateStatus.Idle:
-						this.resetRing();
-						if (this.statusUpdateCount > 0) {
-							this.audio.play(Sound.ChevronLock);
-						}
-						for (let chevron of this.chevrons.filter(c => c.enabled)) {
-							this.disengageChevron(chevron.chevron);
-						}
-						break;
-				}
+		this.store$.pipe(select(getGateStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
+			switch (status) {
+				case GateStatus.Aborted:
+					this.killAnimations();
+					this.audio.failRing().onended = () => this.store$.dispatch(reset());
+					break;
+				case GateStatus.Idle:
+					this.resetRing();
+					if (this.statusUpdateCount > 0) {
+						this.audio.play(Sound.ChevronLock);
+					}
+					for (let chevron of this.chevrons.filter((c) => c.enabled)) {
+						this.disengageChevron(chevron.chevron);
+					}
+					break;
+			}
 
-				this.statusUpdateCount++;
-			});
+			this.statusUpdateCount++;
+		});
 	}
 
 	ngOnDestroy() {
@@ -79,10 +74,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 
 	ngOnInit() {
 		this.actions$
-			.pipe(
-				ofType(engageChevron, failChevron),
-				takeUntil(this.killSubscriptions)
-			)
+			.pipe(ofType(engageChevron, failChevron), takeUntil(this.killSubscriptions))
 			.subscribe(({ chevron, type }) => {
 				let engage = type === engageChevron.type;
 				if (engage) {
@@ -93,25 +85,22 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			});
 
 		this.actions$
-			.pipe(
-				ofType(spinRing),
-				takeUntil(this.killSubscriptions)
-			)
+			.pipe(ofType(spinRing), takeUntil(this.killSubscriptions))
 			.subscribe(({ chevron, glyph }) =>
-				this.spinTo({ chevron, glyph }).add(() => this.store$.dispatch(glyphReady(chevron, glyph)))
+				this.spinTo({ chevron, glyph }).add(() => this.store$.dispatch(glyphReady(chevron, glyph))),
 			);
 	}
 
 	public chevron(index: number): ChevronDirective {
-		return this.chevrons.find(c => c.chevron === index);
+		return this.chevrons.find((c) => c.chevron === index);
 	}
 
-	private disengageChevron(chevron: number): TimelineLite {
+	private disengageChevron(chevron: number): gsap.core.Timeline {
 		return this.chevron(chevron).inactivate();
 	}
 
-	private engageChevron(chevron: number, succeed: boolean = true): TimelineLite {
-		let timeline = new TimelineLite().add(this.chevron(7).lock(succeed, chevron === 7), "+=1");
+	private engageChevron(chevron: number, succeed: boolean = true): gsap.core.Timeline {
+		let timeline = gsap.timeline().add(this.chevron(7).lock(succeed, chevron === 7), "+=1");
 
 		if (succeed) {
 			timeline.add(this.chevron(chevron).activate(), "-=1");
@@ -127,12 +116,12 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		}
 	}
 
-	private resetRing(): TweenMax {
+	private resetRing(): gsap.core.Tween {
 		this.ringPosition = 1;
-		return TweenMax.set(this.ring.nativeElement, { rotation: 0 });
+		return gsap.set(this.ring.nativeElement, { rotation: 0 });
 	}
 
-	private spinTo(activation: ChevronActivation): TimelineLite {
+	private spinTo(activation: ChevronActivation): gsap.core.Timeline {
 		let startPosition = this.ringPosition;
 		this.ringPosition = activation.glyph.position;
 		let degreesPerPosition = 9.2307;

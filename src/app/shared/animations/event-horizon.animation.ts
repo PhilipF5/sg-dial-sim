@@ -1,40 +1,53 @@
-import { Elastic, Power1, Power4, TimelineLite, TweenMax } from "gsap";
+import { gsap } from "gsap";
 
 export class EventHorizonAnimations {
-	public static activeGlow(elem: HTMLElement): TimelineLite {
-		return new TimelineLite().add(
-			TweenMax.fromTo(elem, 1, { scale: 3, ease: Power1.easeInOut }, { scale: 2.75, ease: Power1.easeInOut })
-				.repeat(-1)
-				.yoyo(true)
-		);
+	private static activatingGradient = {
+		background:
+			"radial-gradient(circle at center, rgb(255, 255, 255) 0%, rgb(128, 158, 255, 0.5) 40%, rgba(0, 0, 0, 0) 60%",
+	};
+
+	private static activeGradient = {
+		background:
+			"radial-gradient(circle at center, rgba(0, 119, 255, 0.8) 0%, rgba(0, 60, 255, 0.5) 40%, rgba(0, 0, 0, 0) 60%",
+	};
+
+	public static activeGlow(elem: HTMLElement): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.fromTo(elem, { scale: 3 }, { duration: 1, scale: 2.75, ease: "power1.inOut", repeat: -1, yoyo: true });
 	}
 
-	public static inactiveFlasher(elem: HTMLElement): TimelineLite {
-		return new TimelineLite().add([
-			TweenMax.fromTo(elem, 0.5, { scale: 0, ease: Power4.easeIn }, { scale: 1, ease: Power4.easeIn })
-				.repeat(-1)
-				.yoyo(true),
-			TweenMax.set(elem, { opacity: 1 }),
-		]);
+	public static inactiveFlasher(elem: HTMLElement): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.add([
+				gsap.fromTo(elem, { scale: 0 }, { duration: 0.5, scale: 1, ease: "power4.in", repeat: -1, yoyo: true }),
+				gsap.set(elem, { opacity: 1 }),
+			]);
 	}
 
-	public static gateOpen(elem: HTMLElement): TimelineLite {
-		return new TimelineLite().add(this.kawoosh(elem)).add(this.activeGlow(elem));
+	public static gateOpen(elem: HTMLElement): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.add(this.kawoosh(elem))
+			.add(this.activeGlow(elem));
 	}
 
-	public static kawoosh(elem: HTMLElement): TimelineLite {
-		return new TimelineLite()
-			.to(elem, 0.5, { scale: 0, ease: Power4.easeOut })
-			.set(elem, { immediateRender: false, className: "activating" })
-			.to(elem, 1, { scale: 4, ease: Power1.easeInOut })
-			.to(elem, 2.5, { scale: 3, ease: Elastic.easeInOut, className: "active" });
+	public static kawoosh(elem: HTMLElement): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.to(elem, 0.5, { scale: 0, ease: "power4.out" })
+			.set(elem, { immediateRender: false, ...this.activatingGradient })
+			.to(elem, 1, { scale: 4, ease: "power1.inOut" })
+			.to(elem, 2.5, { scale: 3, ease: "elastic.inOut", ...this.activeGradient });
 	}
 
-	public static shutdown(elem: HTMLElement): TimelineLite {
-		return new TimelineLite()
-			.to(elem, 1.5, { scale: 4, ease: Power1.easeInOut, className: "activating" })
-			.to(elem, 0.5, { scale: 0, ease: Power4.easeIn })
+	public static shutdown(elem: HTMLElement): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.to(elem, 1.5, { scale: 4, ease: "power1.inOut", ...this.activatingGradient })
+			.to(elem, 0.5, { scale: 0, ease: "power4.in" })
 			.to(elem, 1, { scale: 5, opacity: 0 })
-			.set(elem, { immediateRender: false, className: "-=activating" });
+			.set(elem, { immediateRender: false, clearProps: "background" });
 	}
 }
