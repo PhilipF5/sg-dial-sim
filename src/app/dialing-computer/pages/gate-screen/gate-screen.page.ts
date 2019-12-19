@@ -6,7 +6,7 @@ import { KeyboardComponent } from "app/dialing-computer/components";
 import { getDestination, getGateStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
 import { GateStatus, Glyph } from "app/shared/models";
-import { TweenMax } from "gsap";
+import { gsap } from "gsap";
 import { ElectronService } from "ngx-electron";
 import { BehaviorSubject, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
@@ -56,7 +56,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		private electron: ElectronService,
 		private route: ActivatedRoute,
 		private router: Router,
-		private store$: Store<any>
+		private store$: Store<any>,
 	) {}
 
 	ngOnDestroy() {
@@ -64,19 +64,14 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	ngOnInit() {
-		this.store$
-			.pipe(
-				select(getGateStatus),
-				takeUntil(this.killSubscriptions)
-			)
-			.subscribe(status => {
-				this.status = status;
-				if (this.status === GateStatus.Idle) {
-					this.destination = undefined;
-				}
-			});
+		this.store$.pipe(select(getGateStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
+			this.status = status;
+			if (this.status === GateStatus.Idle) {
+				this.destination = undefined;
+			}
+		});
 
-		this.route.paramMap.pipe(take(1)).subscribe(params => {
+		this.route.paramMap.pipe(take(1)).subscribe((params) => {
 			if (params.has("dest")) {
 				this.keyboard.loadAddressById(+params.get("dest"));
 				this.openKeyboard();
@@ -90,7 +85,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public closeKeyboard(): void {
-		TweenMax.to(this.keyboard, 1, { css: { className: "+=minimized" } });
+		gsap.to(this.keyboard, { duration: 1, scale: 0 });
 	}
 
 	public goToAddressBook(): void {
@@ -102,7 +97,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public openKeyboard(): void {
-		TweenMax.to(this.keyboard.elem, 1, { css: { className: "-=minimized" } });
+		gsap.to(this.keyboard.elem, { duration: 1, scale: 1 });
 	}
 
 	public quit(): void {

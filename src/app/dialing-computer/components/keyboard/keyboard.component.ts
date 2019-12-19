@@ -4,7 +4,7 @@ import { shutdownGate } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus, Glyph, Glyphs } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
-import { TweenLite } from "gsap";
+import { gsap } from "gsap";
 
 @Component({
 	selector: "sg-keyboard",
@@ -33,7 +33,7 @@ export class KeyboardComponent implements OnInit {
 	constructor(private _elem: ElementRef, private gateNetwork: GateNetworkService, private store$: Store<any>) {}
 
 	ngOnInit() {
-		this.store$.pipe(select(getGateStatus)).subscribe(status => {
+		this.store$.pipe(select(getGateStatus)).subscribe((status) => {
 			switch (status) {
 				case GateStatus.Idle:
 					this.isDialingAvailable = true;
@@ -56,7 +56,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public closeKeyboard(): void {
-		TweenLite.to(this.elem, 1, { css: { className: "+=minimized" } });
+		gsap.to(this.elem, { duration: 1, scale: 0 });
 	}
 
 	public isAddressValid(): boolean {
@@ -72,7 +72,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public isGlyphSelected(glyph: Glyph): boolean {
-		return !!this.address.find(item => item === glyph);
+		return !!this.address.find((item) => item === glyph);
 	}
 
 	public loadAddressById(id: number): void {
