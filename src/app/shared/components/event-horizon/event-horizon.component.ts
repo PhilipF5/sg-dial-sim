@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { gateClosed } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
@@ -22,7 +22,12 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 		return this._elem.nativeElement;
 	}
 
-	constructor(private audio: AudioService, private _elem: ElementRef, private store$: Store<any>) {}
+	constructor(
+		private audio: AudioService,
+		private _elem: ElementRef,
+		private ngZone: NgZone,
+		private store$: Store<any>,
+	) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
@@ -50,7 +55,7 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 					.timeline()
 					.add(EventHorizonAnimations.shutdown(this.elem))
 					.add(() => this.audio.stopEventHorizon(), 0)
-					.add(() => this.store$.dispatch(gateClosed()), "+=1");
+					.add(() => this.ngZone.run(() => this.store$.dispatch(gateClosed())), "+=1");
 		}
 	}
 }

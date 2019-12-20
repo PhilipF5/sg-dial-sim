@@ -2,6 +2,7 @@ import {
 	AfterViewInit,
 	Component,
 	ElementRef,
+	NgZone,
 	OnDestroy,
 	OnInit,
 	QueryList,
@@ -43,6 +44,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		private actions$: Actions,
 		private audio: AudioService,
 		private _elem: ElementRef,
+		private ngZone: NgZone,
 		private store$: Store<any>,
 	) {}
 
@@ -78,7 +80,9 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			.subscribe(({ chevron, type }) => {
 				let engage = type === engageChevron.type;
 				if (engage) {
-					this.engageChevron(chevron).add(() => this.store$.dispatch(chevronEngaged(chevron)));
+					this.engageChevron(chevron).add(() =>
+						this.ngZone.run(() => this.store$.dispatch(chevronEngaged(chevron))),
+					);
 				} else {
 					this.engageChevron(chevron, false);
 				}
@@ -87,7 +91,9 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		this.actions$
 			.pipe(ofType(spinRing), takeUntil(this.killSubscriptions))
 			.subscribe(({ chevron, glyph }) =>
-				this.spinTo({ chevron, glyph }).add(() => this.store$.dispatch(glyphReady(chevron, glyph))),
+				this.spinTo({ chevron, glyph }).add(() =>
+					this.ngZone.run(() => this.store$.dispatch(glyphReady(chevron, glyph))),
+				),
 			);
 	}
 

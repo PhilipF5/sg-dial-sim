@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Actions, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
 import { chevronFailed, engageChevron, failChevron, sequenceComplete } from "app/dialing-computer/actions";
@@ -33,7 +33,7 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 		return this._symbol.nativeElement;
 	}
 
-	constructor(private actions$: Actions, private store$: Store<any>) {}
+	constructor(private actions$: Actions, private ngZone: NgZone, private store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
@@ -61,7 +61,9 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 				if (type === engageChevron.type) {
 					this.lockSymbolSuccess(gatePos);
 				} else {
-					this.lockSymbolFailed(gatePos).add(() => this.store$.dispatch(chevronFailed(chevron)));
+					this.lockSymbolFailed(gatePos).add(() =>
+						this.ngZone.run(() => this.store$.dispatch(chevronFailed(chevron))),
+					);
 				}
 			});
 
