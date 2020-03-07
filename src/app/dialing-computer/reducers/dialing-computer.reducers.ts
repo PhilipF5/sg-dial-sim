@@ -17,7 +17,6 @@ import { ChevronStatus, DefaultChevronStatuses, GateStatus, Glyphs } from "app/s
 export const initialState: DialingComputerState = {
 	address: null,
 	chevronStatus: DefaultChevronStatuses[7],
-	currentAnimation: null,
 	destination: null,
 	gateStatus: GateStatus.Idle,
 	nextSymbol: null,
@@ -25,7 +24,7 @@ export const initialState: DialingComputerState = {
 
 export const reducer = createReducer(
 	initialState,
-	on(abortDialing, state => ({ ...state, gateStatus: GateStatus.Aborted })),
+	on(abortDialing, (state) => ({ ...state, gateStatus: GateStatus.Aborted })),
 	on(beginDialing, (state, { address }) => ({
 		...state,
 		address: [...address, Glyphs.pointOfOrigin],
@@ -46,12 +45,12 @@ export const reducer = createReducer(
 		};
 		return { ...state, chevronStatus };
 	}),
-	on(dialNextGlyph, state => ({ ...state, gateStatus: GateStatus.Dialing })),
-	on(engageChevron, state => ({ ...state, gateStatus: GateStatus.Engaged })),
+	on(dialNextGlyph, (state) => ({ ...state, gateStatus: GateStatus.Dialing })),
+	on(engageChevron, (state) => ({ ...state, gateStatus: GateStatus.Engaged })),
 	on(establishConnection, (state, { destination }) => ({ ...state, destination })),
-	on(openGate, state => ({ ...state, gateStatus: GateStatus.Active })),
+	on(openGate, (state) => ({ ...state, gateStatus: GateStatus.Active })),
 	on(reset, () => ({ ...initialState })),
-	on(shutdownGate, state => ({ ...state, gateStatus: GateStatus.Shutdown }))
+	on(shutdownGate, (state) => ({ ...state, gateStatus: GateStatus.Shutdown })),
 );
 
 export function dialingComputerReducer(state: DialingComputerState | undefined, action: Action) {
