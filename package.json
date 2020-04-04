@@ -24,6 +24,7 @@
 		"appId": "com.philipf5.sg-dial-sim",
 		"productName": "SG Dial Sim",
 		"artifactName": "${productName} ${version}-${os}.${ext}",
+		"afterSign": "notarize.js",
 		"directories": {
 			"output": "electron-build"
 		},
@@ -34,10 +35,17 @@
 		],
 		"mac": {
 			"category": "public.app-category.games",
+			"entitlements": "build/entitlements.mac.plist",
+			"entitlementsInherit": "build/entitlements.mac.plist",
+			"gatekeeperAssess": false,
+			"hardenedRuntime": true,
 			"target": "dmg"
 		},
 		"win": {
 			"target": "portable"
+		},
+		"dmg": {
+			"sign": false
 		}
 	},
 	"dependencies": {
@@ -67,8 +75,10 @@
 		"@angular/language-service": "8.2.10",
 		"@types/node": "12.12.18",
 		"codelyzer": "4.5.0",
+		"dotenv": "8.2.0",
 		"electron": "7.1.5",
 		"electron-builder": "21.2.0",
+		"electron-notarize": "0.2.1",
 		"husky": "3.1.0",
 		"prettier": "1.19.1",
 		"pretty-quick": "2.0.1",
