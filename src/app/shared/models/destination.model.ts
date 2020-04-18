@@ -350,5 +350,5 @@ const addresses = [
 ];
 
 export const DefaultAddressSet: Destination[] = addresses.map((a, i) => {
-	return { address: a.address.map(n => Glyphs.standard.find(g => g.position === n)), id: i + 1, name: a.name };
+	return { address: a.address.map((n) => Glyphs.standard.find((g) => g.position === n)), id: i + 1, name: a.name };
 });
