@@ -1,21 +1,14 @@
 import { Injectable } from "@angular/core";
 import { AddressSet, DefaultAddressSet, Destination, Glyph } from "app/shared/models";
-import Store from "electron-store";
 import { isEqual, uniqWith } from "lodash";
+import { ElectronService } from "ngx-electron";
 
 @Injectable()
 export class GateNetworkService {
 	private addressSets: AddressSet[];
-	private electronStore: Store = new Store();
 
-	constructor() {
-		const setsFromStorage = this.electronStore.get("addressSets");
-		if (!setsFromStorage) {
-			this.addressSets = [{ destinations: DefaultAddressSet, enabled: true, name: "Default" }];
-			this.saveAddressSets();
-		} else {
-			this.addressSets = setsFromStorage;
-		}
+	constructor(private electron: ElectronService) {
+		this.initAddressSets();
 	}
 
 	public getActiveAddress(address: Glyph[]): Destination {
@@ -47,7 +40,17 @@ export class GateNetworkService {
 		return DefaultAddressSet.find((d) => d.id === id);
 	}
 
+	private async initAddressSets(): Promise<void> {
+		const setsFromStorage = await this.electron.ipcRenderer.invoke("getStoreValue", "addressSets");
+		if (!setsFromStorage) {
+			this.addressSets = [{ destinations: DefaultAddressSet, enabled: true, name: "Default" }];
+			this.saveAddressSets();
+		} else {
+			this.addressSets = setsFromStorage;
+		}
+	}
+
 	private saveAddressSets(): void {
-		this.electronStore.set("addressSets", this.addressSets);
+		this.electron.ipcRenderer.invoke("setStoreValue", "addressSets", this.addressSets);
 	}
 }

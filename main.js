@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
+const Store = require("electron-store");
 
 let win;
 
@@ -33,6 +34,10 @@ app.on("activate", function() {
 		createWindow();
 	}
 });
+
+const store = new Store();
+ipcMain.handle("getStoreValue", (_, key) => store.get(key));
+ipcMain.handle("setStoreValue", (_, key, value) => store.set(key, value));
 
 try {
 	require("electron-reloader")(module, { debug: true, ignore: ["build", "electron-build", "src"] });
