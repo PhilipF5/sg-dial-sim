@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AddressSet, DefaultAddressSet, Destination, Glyph } from "app/shared/models";
-import { isEqual, uniqWith } from "lodash";
+import { isEqual, orderBy, uniqWith } from "lodash";
 import { ElectronStoreService } from "./electron-store.service";
 
 @Injectable()
@@ -36,7 +36,16 @@ export class GateNetworkService {
 					addresses.concat(set.destinations.map((d) => ({ ...d, set: set.name }))),
 				[],
 			);
-		return uniqWith(addresses, (value, other) => isEqual(value.address, other.address));
+		return orderBy(
+			uniqWith(addresses, (value, other) => isEqual(value.address, other.address)),
+			[
+				(d: Destination) => d.name === "Unknown",
+				(d: Destination) => !!d.name.match(/^[\d\w]{3}-[\d\w]{3,4}$/),
+				(d: Destination) => d.address.length,
+				(d: Destination) => d.name,
+				(d: Destination) => d.desc,
+			],
+		);
 	}
 
 	public getDestinationById(id: number): Destination {
