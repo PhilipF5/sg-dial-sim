@@ -29,10 +29,13 @@ export class GateNetworkService {
 	}
 
 	public getAllAddresses(): Destination[] {
-		const addresses = this.addressSets.reduce(
-			(addresses: Destination[], set: AddressSet) => addresses.concat(set.destinations),
-			[],
-		);
+		const addresses = this.addressSets
+			.filter((set: AddressSet) => set.enabled)
+			.reduce(
+				(addresses: Destination[], set: AddressSet) =>
+					addresses.concat(set.destinations.map((d) => ({ ...d, set: set.name }))),
+				[],
+			);
 		return uniqWith(addresses, (value, other) => isEqual(value.address, other.address));
 	}
 

@@ -2,8 +2,10 @@ import { Glyph, Glyphs } from "./glyph.model";
 
 export interface Destination {
 	address: Glyph[];
+	desc?: string;
 	id: number;
 	name: string;
+	set?: string;
 }
 
 const addresses = [
@@ -37,7 +39,8 @@ const addresses = [
 	},
 	{
 		address: [4, 9, 3, 12, 21, 16],
-		name: "Unknown", // Anubis's Stargate destroyer
+		desc: "Anubis's Stargate destroyer",
+		name: "Unknown",
 	},
 	{
 		address: [30, 27, 39, 35, 21, 16],
@@ -101,7 +104,8 @@ const addresses = [
 	},
 	{
 		address: [37, 27, 31, 4, 38, 39],
-		name: "Unknown", // Jaffa Encampment from "Bounty"
+		desc: 'Jaffa encampment ("Bounty")',
+		name: "Unknown",
 	},
 	{
 		address: [29, 8, 18, 22, 4, 25],
@@ -121,7 +125,8 @@ const addresses = [
 	},
 	{
 		address: [3, 39, 16, 8, 10, 12],
-		name: "Unknown", // Klorel's Hatak planet
+		desc: "Klorel's Ha'tak",
+		name: "Unknown",
 	},
 	{
 		address: [25, 3, 11, 12, 21, 16],
@@ -145,7 +150,8 @@ const addresses = [
 	},
 	{
 		address: [34, 33, 35, 37, 27, 38],
-		name: "Unknown", // Ori-enslaved world from "Counterstrike"
+		desc: 'Ori-enslaved world ("Counterstrike")',
+		name: "Unknown",
 	},
 	{
 		address: [30, 19, 34, 9, 33, 18],
@@ -350,5 +356,5 @@ const addresses = [
 ];
 
 export const DefaultAddressSet: Destination[] = addresses.map((a, i) => {
-	return { address: a.address.map((n) => Glyphs.standard.find((g) => g.position === n)), id: i + 1, name: a.name };
+	return { ...a, address: a.address.map((n) => Glyphs.standard.find((g) => g.position === n)), id: i + 1 };
 });
