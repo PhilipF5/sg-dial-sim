@@ -11,6 +11,19 @@ export class GateNetworkService {
 		this.initAddressSets();
 	}
 
+	public createAddressSet(name: string): void {
+		if (this.addressSets.find((set) => set.name === name)) {
+			throw new Error("Address set with this name already exists");
+		}
+		this.addressSets.push({ destinations: [], enabled: true, name });
+		this.saveAddressSets();
+	}
+
+	public deleteAddressSet(name: string): void {
+		this.addressSets = this.addressSets.filter((set) => set.name !== name);
+		this.saveAddressSets();
+	}
+
 	public getActiveAddress(address: Glyph[]): Destination {
 		if (address.length < 7) {
 			return null;
@@ -50,6 +63,12 @@ export class GateNetworkService {
 
 	public getDestinationById(id: number): Destination {
 		return DefaultAddressSet.find((d) => d.id === id);
+	}
+
+	public toggleAddressSet(name: string): void {
+		const set = this.addressSets.find((set) => set.name === name);
+		set.enabled = !set.enabled;
+		this.saveAddressSets();
 	}
 
 	private async initAddressSets(): Promise<void> {
