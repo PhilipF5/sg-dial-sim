@@ -24,7 +24,6 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	@ViewChild("selector", { static: true }) _selector: ElementRef;
 
 	public destinations: Destination[];
-	public glyphHeadings = Array.from("123456");
 	public scrollOffset: number = 0;
 
 	private selectedIndex: number;
@@ -40,6 +39,10 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	public get canScrollUp(): boolean {
 		return this.topItem > 0;
+	}
+
+	public get glyphHeadings(): string[] {
+		return Array.from(Array(this.destinations[this.topItem].address.length)).map((_, i) => (i + 1).toString());
 	}
 
 	public get topItem(): number {
