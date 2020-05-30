@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { AddressSet, DefaultAddressSet, Destination, Glyph } from "app/shared/models";
+import { DefaultAddressSet, Destination, Glyph } from "app/shared/models";
+import { AddressSet } from "app/shared/models/address-set.model";
 import { isEqual, orderBy, uniqWith } from "lodash";
 import { ElectronStoreService } from "./electron-store.service";
 
@@ -15,7 +16,7 @@ export class GateNetworkService {
 		if (this.addressSets.find((set) => set.name === name)) {
 			throw new Error("Address set with this name already exists");
 		}
-		this.addressSets.push({ destinations: [], enabled: true, name });
+		this.addressSets.push(new AddressSet({ destinations: [], enabled: true, name }));
 		this.saveAddressSets();
 	}
 
@@ -39,6 +40,10 @@ export class GateNetworkService {
 		} else if (address.length === 7) {
 			return sixSymbolMatches.filter((m) => m.address.length === 6)[0];
 		}
+	}
+
+	public getAddressSets(): Readonly<AddressSet>[] {
+		return [...this.addressSets];
 	}
 
 	public getAllAddresses(): Destination[] {
@@ -72,12 +77,12 @@ export class GateNetworkService {
 	}
 
 	private async initAddressSets(): Promise<void> {
-		const setsFromStorage = await this.electronStore.get("addressSets");
+		const setsFromStorage: Partial<AddressSet>[] = await this.electronStore.get("addressSets");
 		if (!setsFromStorage) {
-			this.addressSets = [{ destinations: DefaultAddressSet, enabled: true, name: "Default" }];
+			this.addressSets = [new AddressSet({ destinations: DefaultAddressSet, enabled: true, name: "Default" })];
 			this.saveAddressSets();
 		} else {
-			this.addressSets = setsFromStorage;
+			this.addressSets = setsFromStorage.map((set) => new AddressSet(set));
 		}
 	}
 
