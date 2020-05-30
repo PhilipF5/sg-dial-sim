@@ -27,4 +27,11 @@
 		<div class="scroll-button down" [ngClass]="{ disabled: !canScrollDown }" (click)="scrollDown()">&#8227;</div>
 	</div>
 </div>
-<div class="footer"><sg-button text="RETURN" (click)="goToGateScreen()"></sg-button></div>
+<div class="footer">
+	<sg-button text="RETURN" (click)="goToGateScreen()"></sg-button>
+	<sg-button text="ADD"></sg-button>
+	<sg-menu-button position="upper-left" text="SOURCES">
+		<sg-address-sets-list></sg-address-sets-list>
+	</sg-menu-button>
+	<sg-button text="MODE: {{ mode }}" (click)="cycleMode()"></sg-button>
+</div>

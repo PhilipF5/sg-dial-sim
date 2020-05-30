@@ -1,0 +1,12 @@
+<div *ngFor="let set of addressSets" class="set">
+	<div class="details">
+		<div class="name">{{ set.name }}</div>
+		<div class="count">{{ set.enabled ? "Active" : "Disabled" }}: {{ set.destinations.length }}</div>
+	</div>
+	<div class="controls">
+		<sg-button text="UP"></sg-button>
+		<sg-button text="DN"></sg-button>
+		<sg-button text="TGL"></sg-button>
+		<sg-button text="DEL"></sg-button>
+	</div>
+</div>

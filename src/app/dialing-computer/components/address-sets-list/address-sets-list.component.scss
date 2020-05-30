@@ -1,0 +1,22 @@
+.set {
+	align-items: center;
+	color: var(--white-color);
+	display: flex;
+}
+
+.details {
+	line-height: 1;
+}
+
+.name {
+	text-transform: uppercase;
+}
+
+.count {
+	font-size: smaller;
+	font-variant: small-caps;
+}
+
+.controls {
+	display: flex;
+}

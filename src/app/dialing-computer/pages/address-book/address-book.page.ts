@@ -26,6 +26,8 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	public destinations: Destination[];
 	public scrollOffset: number = 0;
 
+	private modeIndex: number = 0;
+	private modes: string[] = ["DIAL", "EDIT", "DELETE"];
 	private selectedIndex: number;
 	private selectorTimeline: gsap.core.Timeline = gsap.timeline();
 
@@ -43,6 +45,10 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	public get glyphHeadings(): string[] {
 		return Array.from(Array(this.destinations[this.topItem].address.length)).map((_, i) => (i + 1).toString());
+	}
+
+	public get mode(): string {
+		return this.modes[this.modeIndex];
 	}
 
 	public get topItem(): number {
@@ -70,6 +76,11 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	ngOnInit() {
 		this.destinations = this.gateNetwork.getAllAddresses();
+	}
+
+	public cycleMode(): void {
+		const nextIndex = this.modeIndex + 1;
+		this.modeIndex = this.modes[nextIndex] ? nextIndex : 0;
 	}
 
 	public goToGateScreen(dest?: number): void {
