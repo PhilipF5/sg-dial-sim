@@ -92,6 +92,10 @@
 	&.up {
 		transform: rotateZ(-90deg);
 	}
+
+	&.disabled {
+		visibility: hidden;
+	}
 }
 
 .addresses {

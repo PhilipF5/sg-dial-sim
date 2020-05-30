@@ -23,8 +23,8 @@
 		></sg-address-row>
 	</div>
 	<div class="scroll-controls">
-		<div class="scroll-button up" (click)="scrollUp()">&#8227;</div>
-		<div class="scroll-button down" (click)="scrollDown()">&#8227;</div>
+		<div class="scroll-button up" [ngClass]="{ disabled: !canScrollUp }" (click)="scrollUp()">&#8227;</div>
+		<div class="scroll-button down" [ngClass]="{ disabled: !canScrollDown }" (click)="scrollDown()">&#8227;</div>
 	</div>
 </div>
 <div class="footer"><sg-button text="RETURN" (click)="goToGateScreen()"></sg-button></div>
