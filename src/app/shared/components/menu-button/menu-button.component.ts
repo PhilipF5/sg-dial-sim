@@ -13,6 +13,7 @@ import { SgButtonComponent } from "../sg-button/sg-button.component";
 export class MenuButtonComponent implements AfterContentChecked {
 	@ContentChildren(SgButtonComponent, { descendants: true }) buttons: QueryList<SgButtonComponent>;
 
+	@Input() menuWidth: number;
 	@Input() position: string;
 	@Input() text: string;
 

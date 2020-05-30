@@ -1,5 +1,5 @@
 <div class="header">
-	<sg-menu-button class="action-menu" position="lower-right" text="MENU">
+	<sg-menu-button class="action-menu" position="lower-right" text="MENU" [menuWidth]="150">
 		<sg-button text="Address Book" [disabled]="!canOpenAddressBook" (sgClick)="goToAddressBook()"></sg-button>
 		<sg-button text="Keyboard" (sgClick)="openKeyboard()"></sg-button>
 		<sg-button text="Shutdown" [disabled]="!canShutdown" (sgClick)="shutdown()"></sg-button>
