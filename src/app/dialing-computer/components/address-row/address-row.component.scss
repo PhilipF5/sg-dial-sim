@@ -4,19 +4,28 @@
 	cursor: pointer;
 	display: flex;
 	margin-bottom: 10px;
+	--address-selected-color: var(--green-color);
+
+	&.edit {
+		--address-selected-color: var(--white-color);
+	}
+
+	&.delete {
+		--address-selected-color: var(--red-color);
+	}
 
 	&.selected {
-		border-color: var(--green-color);
+		border-color: var(--address-selected-color);
 
 		.glyphs {
-			border-color: var(--green-color);
+			border-color: var(--address-selected-color);
 		}
 
 		sg-address-glyph-display {
-			border-color: var(--green-color);
+			border-color: var(--address-selected-color);
 
 			.name {
-				border-color: var(--green-color);
+				border-color: var(--address-selected-color);
 			}
 		}
 	}

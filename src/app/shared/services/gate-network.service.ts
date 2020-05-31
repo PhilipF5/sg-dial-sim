@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { DefaultAddressSet, Destination, Glyph } from "app/shared/models";
+import { DefaultAddressSet, Destination, Glyph, Glyphs } from "app/shared/models";
 import { AddressSet } from "app/shared/models/address-set.model";
 import { isEqual, orderBy, uniqWith } from "lodash";
 import { ElectronStoreService } from "./electron-store.service";
@@ -20,26 +20,23 @@ export class GateNetworkService {
 		this.saveAddressSets();
 	}
 
+	public createDestination(model: Destination): void {
+		this.addressSets.find((set) => set.name === model.name).destinations.push(model);
+	}
+
 	public deleteAddressSet(name: string): void {
 		this.addressSets = this.addressSets.filter((set) => set.name !== name);
 		this.saveAddressSets();
 	}
 
+	public deleteDestination(dest: Destination): void {
+		const set = this.addressSets.find((set) => set.name === dest.set);
+		const destIndex = set.destinations.findIndex((d) => d.id === dest.id);
+		set.destinations.splice(destIndex, 1);
+	}
+
 	public getActiveAddress(address: Glyph[]): Destination {
-		if (address.length < 7) {
-			return null;
-		}
-
-		let sixSymbolMatches = this.getAllAddresses();
-		for (let i = 0; i < 6; i++) {
-			sixSymbolMatches = sixSymbolMatches.filter((d) => d.address[i].position === address[i].position);
-		}
-
-		if (sixSymbolMatches.length === 0) {
-			return null;
-		} else if (address.length === 7) {
-			return sixSymbolMatches.filter((m) => m.address.length === 6)[0];
-		}
+		return address.length < 7 ? null : this.getDestinationByAddress(address);
 	}
 
 	public getAddressSets(): Readonly<AddressSet>[] {
@@ -64,6 +61,14 @@ export class GateNetworkService {
 				(d: Destination) => d.desc,
 			],
 		);
+	}
+
+	public getDestinationByAddress(address: Glyph[], set?: string): Destination {
+		const stringAddress = this.stringifyAddress(
+			address.filter(({ position }) => position !== Glyphs.pointOfOrigin.position),
+		);
+		const destinations = set ? this.getAllAddresses().filter((d) => d.set === set) : this.getAllAddresses();
+		return destinations.find(({ address }) => this.stringifyAddress(address) === stringAddress);
 	}
 
 	public getDestinationById(id: number): Destination {
@@ -110,5 +115,9 @@ export class GateNetworkService {
 
 	private saveAddressSets(): void {
 		this.electronStore.set("addressSets", this.addressSets);
+	}
+
+	private stringifyAddress(address: Glyph[]): string {
+		return address.map((glyph) => glyph.position).join("-");
 	}
 }

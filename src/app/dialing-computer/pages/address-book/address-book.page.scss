@@ -108,6 +108,14 @@
 	opacity: 0;
 	pointer-events: none;
 	position: absolute;
+
+	&.edit {
+		border-color: var(--white-color);
+	}
+
+	&.delete {
+		border-color: var(--red-color);
+	}
 }
 
 .footer {

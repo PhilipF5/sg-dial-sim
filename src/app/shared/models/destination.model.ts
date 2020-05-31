@@ -3,7 +3,7 @@ import { Glyph, Glyphs } from "./glyph.model";
 export interface Destination {
 	address: Glyph[];
 	desc?: string;
-	id: number;
+	id?: number;
 	name: string;
 	set?: string;
 }

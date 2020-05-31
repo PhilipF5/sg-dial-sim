@@ -11,7 +11,7 @@ import {
 import { Router } from "@angular/router";
 import { AddressRowComponent } from "app/dialing-computer/components";
 import { Destination } from "app/shared/models";
-import { GateNetworkService } from "app/shared/services";
+import { AlertService, GateNetworkService } from "app/shared/services";
 import { gsap } from "gsap";
 
 @Component({
@@ -63,7 +63,12 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		return this._selector.nativeElement;
 	}
 
-	constructor(private gateNetwork: GateNetworkService, private ngZone: NgZone, private router: Router) {}
+	constructor(
+		private alert: AlertService,
+		private gateNetwork: GateNetworkService,
+		private ngZone: NgZone,
+		private router: Router,
+	) {}
 
 	ngAfterViewInit() {
 		gsap.set(this.selector, { top: -250 });
@@ -79,8 +84,23 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public cycleMode(): void {
-		const nextIndex = this.modeIndex + 1;
-		this.modeIndex = this.modes[nextIndex] ? nextIndex : 0;
+		const nextIndex = this.modes[this.modeIndex + 1] ? this.modeIndex + 1 : 0;
+		switch (nextIndex) {
+			case 1: {
+				this.destinations.unshift({
+					address: Array.from(Array(6)),
+					desc: "",
+					name: "",
+					set: "",
+				});
+				break;
+			}
+			case 2: {
+				this.destinations.shift();
+				break;
+			}
+		}
+		this.modeIndex = nextIndex;
 	}
 
 	public goToGateScreen(dest?: number): void {
@@ -107,6 +127,30 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 			.add(() =>
 				this.ngZone.run(() => (this.selectedIndex = this.addressRowElems.findIndex((el) => el === target))),
 			));
+	}
+
+	public onDestinationClick(dest: Destination): void {
+		switch (this.mode) {
+			case "DIAL": {
+				this.loadAddress(dest);
+				break;
+			}
+			case "EDIT": {
+				break;
+			}
+			case "DELETE": {
+				if (dest.set === "Default") {
+					this.alert.alerts.next({
+						critical: true,
+						duration: 4000,
+						message: "Invalid Operation",
+						title: "Destinations cannot be deleted from Default set",
+					});
+				} else {
+					this.gateNetwork.deleteDestination(dest);
+				}
+			}
+		}
 	}
 
 	public scrollDown(): void {

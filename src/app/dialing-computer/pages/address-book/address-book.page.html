@@ -13,13 +13,14 @@
 </div>
 <div class="scroll-pane">
 	<div class="addresses">
-		<div #selector class="selector"></div>
+		<div #selector class="selector {{ mode.toLowerCase() }}"></div>
 		<sg-address-row
 			*ngFor="let destination of (destinations | slice: topItem:bottomItem); let i = index"
+			class="{{ mode.toLowerCase() }}"
 			[destination]="destination"
 			[selected]="selectedIndex === i"
 			(mouseenter)="moveSelector($event.target)"
-			(click)="loadAddress(destination)"
+			(click)="onDestinationClick(destination)"
 		></sg-address-row>
 	</div>
 	<div class="scroll-controls">
