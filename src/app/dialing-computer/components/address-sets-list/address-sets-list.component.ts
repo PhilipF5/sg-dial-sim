@@ -24,6 +24,10 @@ export class AddressSetsListComponent implements OnInit {
 		this.deleteAddressSet(name);
 	}
 
+	public onDownClick(name: string): void {
+		this.moveAddressSetDown(name);
+	}
+
 	public onNewClick(): void {
 		this.createAddressSet();
 	}
@@ -36,6 +40,14 @@ export class AddressSetsListComponent implements OnInit {
 		} else if (event.key === "Enter") {
 			this.createAddressSet();
 		}
+	}
+
+	public onToggleClick(name: string): void {
+		this.toggleAddressSet(name);
+	}
+
+	public onUpClick(name: string): void {
+		this.moveAddressSetUp(name);
 	}
 
 	private createAddressSet(): void {
@@ -59,6 +71,21 @@ export class AddressSetsListComponent implements OnInit {
 			this.gateNetwork.deleteAddressSet(name);
 			this.updateAddressSets();
 		}
+	}
+
+	private moveAddressSetDown(name: string): void {
+		this.gateNetwork.moveAddressSetDown(name);
+		this.updateAddressSets();
+	}
+
+	private moveAddressSetUp(name: string): void {
+		this.gateNetwork.moveAddressSetUp(name);
+		this.updateAddressSets();
+	}
+
+	private toggleAddressSet(name: string): void {
+		this.gateNetwork.toggleAddressSet(name);
+		this.updateAddressSets();
 	}
 
 	private updateAddressSets(): void {

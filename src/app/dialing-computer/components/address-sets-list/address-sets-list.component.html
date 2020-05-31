@@ -4,9 +4,9 @@
 		<div class="count">{{ set.enabled ? "Active" : "Disabled" }}: {{ set.destinations.length }}</div>
 	</div>
 	<div class="controls">
-		<sg-button text="UP"></sg-button>
-		<sg-button text="DN"></sg-button>
-		<sg-button text="TGL"></sg-button>
+		<sg-button text="UP" (click)="onUpClick(set.name)"></sg-button>
+		<sg-button text="DN" (click)="onDownClick(set.name)"></sg-button>
+		<sg-button text="TGL" (click)="onToggleClick(set.name)"></sg-button>
 		<sg-button text="DEL" (click)="onDeleteClick(set.name)"></sg-button>
 	</div>
 </div>

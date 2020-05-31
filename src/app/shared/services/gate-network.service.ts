@@ -70,6 +70,28 @@ export class GateNetworkService {
 		return DefaultAddressSet.find((d) => d.id === id);
 	}
 
+	public moveAddressSetDown(name: string): void {
+		const index = this.addressSets.findIndex((set) => set.name === name);
+		if (index !== this.addressSets.length - 1) {
+			[this.addressSets[index + 1], this.addressSets[index]] = [
+				this.addressSets[index],
+				this.addressSets[index + 1],
+			];
+		}
+		this.saveAddressSets();
+	}
+
+	public moveAddressSetUp(name: string): void {
+		const index = this.addressSets.findIndex((set) => set.name === name);
+		if (index !== 0) {
+			[this.addressSets[index - 1], this.addressSets[index]] = [
+				this.addressSets[index],
+				this.addressSets[index - 1],
+			];
+		}
+		this.saveAddressSets();
+	}
+
 	public toggleAddressSet(name: string): void {
 		const set = this.addressSets.find((set) => set.name === name);
 		set.enabled = !set.enabled;
