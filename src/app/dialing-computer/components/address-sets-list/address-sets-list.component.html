@@ -10,3 +10,7 @@
 		<sg-button text="DEL"></sg-button>
 	</div>
 </div>
+<div class="add-field">
+	<sg-segment-display [size]="10" [text]="newSet" tabindex="0" (keydown)="onNewKeydown($event)"></sg-segment-display>
+	<sg-button text="NEW"></sg-button>
+</div>

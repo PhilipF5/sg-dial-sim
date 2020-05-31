@@ -1,1 +1,7 @@
-<div class="char-box" *ngFor="let char of chars" [ngClass]="border">{{ char }}</div>
+<div
+	class="char-box {{ border }}"
+	*ngFor="let char of chars; let i = index"
+	[ngClass]="{ cursor: (text || '').length === i }"
+>
+	{{ char }}
+</div>

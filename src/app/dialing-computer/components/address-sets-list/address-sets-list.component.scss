@@ -20,3 +20,12 @@
 .controls {
 	display: flex;
 }
+
+.add-field {
+	align-items: center;
+	display: flex;
+
+	sg-button {
+		width: auto;
+	}
+}
