@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, ElementRef, Input } from "@angular/core";
 
 @Component({
 	selector: "sg-segment-display",
@@ -22,4 +22,10 @@ export class SegmentDisplayComponent {
 		}
 		return text.split("");
 	}
+
+	public get elem(): HTMLElement {
+		return this._elem.nativeElement;
+	}
+
+	public constructor(private _elem: ElementRef) {}
 }
