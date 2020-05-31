@@ -7,10 +7,10 @@
 		<sg-button text="UP"></sg-button>
 		<sg-button text="DN"></sg-button>
 		<sg-button text="TGL"></sg-button>
-		<sg-button text="DEL"></sg-button>
+		<sg-button text="DEL" (click)="onDeleteClick(set.name)"></sg-button>
 	</div>
 </div>
 <div class="add-field">
 	<sg-segment-display [size]="10" [text]="newSet" tabindex="0" (keydown)="onNewKeydown($event)"></sg-segment-display>
-	<sg-button text="NEW"></sg-button>
+	<sg-button text="NEW" (click)="onNewClick()"></sg-button>
 </div>
