@@ -50,3 +50,9 @@ html {
 		zoom: 1.5;
 	}
 }
+
+@keyframes cursorflash {
+	50% {
+		background-color: var(--white-color);
+	}
+}

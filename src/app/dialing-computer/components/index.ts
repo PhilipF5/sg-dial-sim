@@ -1,3 +1,4 @@
+import { AddressFieldComponent } from "./address-field/address-field.component";
 import { AddressGlyphDisplayComponent } from "./address-glyph-display/address-glyph-display.component";
 import { AddressRowComponent } from "./address-row/address-row.component";
 import { AddressSetsListComponent } from "./address-sets-list/address-sets-list.component";
@@ -6,6 +7,7 @@ import { ChevronStatusComponent } from "./chevron-status/chevron-status.componen
 import { DialingStatusComponent } from "./dialing-status/dialing-status.component";
 import { KeyboardComponent } from "./keyboard/keyboard.component";
 
+export { AddressFieldComponent } from "./address-field/address-field.component";
 export { AddressGlyphDisplayComponent } from "./address-glyph-display/address-glyph-display.component";
 export { AddressRowComponent } from "./address-row/address-row.component";
 export { AddressSetsListComponent } from "./address-sets-list/address-sets-list.component";
@@ -15,6 +17,7 @@ export { DialingStatusComponent } from "./dialing-status/dialing-status.componen
 export { KeyboardComponent } from "./keyboard/keyboard.component";
 
 export const COMPONENTS = [
+	AddressFieldComponent,
 	AddressGlyphDisplayComponent,
 	AddressRowComponent,
 	AddressSetsListComponent,

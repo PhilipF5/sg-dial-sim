@@ -8,6 +8,7 @@
 
 	&.edit {
 		--address-selected-color: var(--white-color);
+		cursor: default;
 	}
 
 	&.delete {
@@ -29,10 +30,6 @@
 			}
 		}
 	}
-
-	* {
-		pointer-events: none;
-	}
 }
 
 .glyphs {
@@ -43,6 +40,9 @@
 }
 
 .details {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	padding: 5px;
 
 	.name {
@@ -50,5 +50,10 @@
 		letter-spacing: 5px;
 		line-height: 1em;
 		text-transform: uppercase;
+	}
+
+	.field {
+		font-size: smaller;
+		line-height: 1em;
 	}
 }

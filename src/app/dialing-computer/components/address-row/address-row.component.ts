@@ -10,6 +10,7 @@ export class AddressRowComponent implements OnInit {
 	@HostBinding("attr.data-name") dataName: string;
 	@HostBinding("class.selected") @Input() selected: boolean;
 	@Input() destination: Destination;
+	@Input() editable: boolean = false;
 
 	public get elem(): HTMLElement {
 		return this._elem.nativeElement;

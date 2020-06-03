@@ -2,11 +2,26 @@
 	<sg-address-glyph-display *ngFor="let glyph of destination.address" [glyph]="glyph"></sg-address-glyph-display>
 </div>
 <div class="details">
-	<div class="name">{{ destination.name }}</div>
-	<div class="details">
-		<div class="description">Desc: {{ destination.desc || "N/A" }}</div>
-		<div class="fields">
-			<div class="field">Set: {{ destination.set }}</div>
-		</div>
+	<sg-address-field
+		class="name"
+		[editable]="editable"
+		tabindex="{{ editable ? 0 : -1 }}"
+		[value]="destination.name"
+	></sg-address-field>
+	<div class="fields">
+		<sg-address-field
+			class="set field"
+			[editable]="editable"
+			label="Set"
+			tabindex="{{ editable ? 1 : -1 }}"
+			[value]="destination.set"
+		></sg-address-field>
+		<sg-address-field
+			class="desc field"
+			[editable]="editable"
+			label="Desc"
+			tabindex="{{ editable ? 2 : -1 }}"
+			[value]="destination.desc"
+		></sg-address-field>
 	</div>
 </div>

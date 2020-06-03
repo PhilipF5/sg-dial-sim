@@ -13,12 +13,6 @@
 	}
 }
 
-@keyframes cursorflash {
-	50% {
-		background-color: var(--white-color);
-	}
-}
-
 .char-box {
 	border-left: 1px solid var(--primary-color);
 	color: var(--white-color);

@@ -1,0 +1,27 @@
+:host {
+	display: block;
+}
+
+:host:focus {
+	outline: none;
+
+	&::after {
+		animation-duration: 0.5s;
+		animation-iteration-count: infinite;
+		animation-name: cursorflash;
+		animation-timing-function: step-start;
+		content: "";
+		display: inline-block;
+		height: 1em;
+		position: absolute;
+		width: 0.6em;
+	}
+}
+
+:host-context(.editable) {
+	cursor: text;
+}
+
+.label {
+	font-variant: small-caps;
+}
