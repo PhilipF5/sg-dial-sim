@@ -30,6 +30,14 @@
 			}
 		}
 	}
+
+	&.has-changes {
+		.edit-controls {
+			align-self: flex-end;
+			display: block;
+			margin-left: auto;
+		}
+	}
 }
 
 .glyphs {
@@ -56,4 +64,8 @@
 		font-size: smaller;
 		line-height: 1em;
 	}
+}
+
+.edit-controls {
+	display: none;
 }

@@ -22,6 +22,8 @@
 			[selected]="selectedIndex === i"
 			(mouseenter)="moveSelector($event.target)"
 			(click)="onDestinationClick(destination)"
+			(save)="onSave($event)"
+			(cancelEdit)="onCancelEdit()"
 		></sg-address-row>
 	</div>
 	<div class="scroll-controls">

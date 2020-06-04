@@ -80,19 +80,14 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	ngOnInit() {
-		this.destinations = this.gateNetwork.getAllAddresses();
+		this.loadAddresses();
 	}
 
 	public cycleMode(): void {
 		const nextIndex = this.modes[this.modeIndex + 1] ? this.modeIndex + 1 : 0;
 		switch (nextIndex) {
 			case 1: {
-				this.destinations.unshift({
-					address: Array.from(Array(6)),
-					desc: "",
-					name: "",
-					set: "",
-				});
+				this.addEmptyRow();
 				break;
 			}
 			case 2: {
@@ -129,6 +124,10 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 			));
 	}
 
+	public onCancelEdit(): void {
+		this.loadAddresses();
+	}
+
 	public onDestinationClick(dest: Destination): void {
 		switch (this.mode) {
 			case "DIAL": {
@@ -153,6 +152,11 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		}
 	}
 
+	public onSave(dest: Destination): void {
+		this.gateNetwork.saveDestination(dest);
+		this.loadAddresses();
+	}
+
 	public scrollDown(): void {
 		if (this.canScrollDown) {
 			this.scrollOffset++;
@@ -162,6 +166,22 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	public scrollUp(): void {
 		if (this.canScrollUp) {
 			this.scrollOffset--;
+		}
+	}
+
+	private addEmptyRow(): void {
+		this.destinations.unshift({
+			address: Array.from(Array(6)),
+			desc: "",
+			name: "",
+			set: "",
+		});
+	}
+
+	private loadAddresses(): void {
+		this.destinations = this.gateNetwork.getAllAddresses();
+		if (this.mode === "EDIT") {
+			this.addEmptyRow();
 		}
 	}
 }

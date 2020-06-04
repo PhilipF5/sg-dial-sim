@@ -5,6 +5,7 @@
 	<sg-address-field
 		class="name"
 		[editable]="editable"
+		(saveValue)="onUpdateField('name', $event)"
 		tabindex="{{ editable ? 0 : -1 }}"
 		validation="^[A-Z].*$"
 		[value]="destination.name"
@@ -14,6 +15,7 @@
 			class="set field"
 			[editable]="editable"
 			label="Set"
+			(saveValue)="onUpdateField('set', $event)"
 			tabindex="{{ editable ? 1 : -1 }}"
 			[validation]="setsRegex"
 			[value]="destination.set"
@@ -22,8 +24,13 @@
 			class="desc field"
 			[editable]="editable"
 			label="Desc"
+			(saveValue)="onUpdateField('desc', $event)"
 			tabindex="{{ editable ? 2 : -1 }}"
 			[value]="destination.desc"
 		></sg-address-field>
 	</div>
+</div>
+<div *ngIf="editable" class="edit-controls">
+	<sg-button text="CANCEL" (click)="onCancelEdit()"></sg-button>
+	<sg-button text="CONFIRM" (click)="onConfirmEdit()"></sg-button>
 </div>

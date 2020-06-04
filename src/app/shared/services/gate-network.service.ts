@@ -97,6 +97,17 @@ export class GateNetworkService {
 		this.saveAddressSets();
 	}
 
+	public saveDestination(dest: Destination): void {
+		const set = this.addressSets.find((set) => set.name === dest.set);
+		if (dest.id) {
+			const index = set.destinations.findIndex((d) => d.id === dest.id);
+			set.destinations.splice(index, 1, dest);
+		} else {
+			set.destinations.push(dest);
+		}
+		this.saveAddressSets();
+	}
+
 	public toggleAddressSet(name: string): void {
 		const set = this.addressSets.find((set) => set.name === name);
 		set.enabled = !set.enabled;
