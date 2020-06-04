@@ -8,12 +8,10 @@ import { AlertService } from "app/shared/services";
 })
 export class AddressFieldComponent {
 	@HostBinding("class.editable") @Input() editable: boolean = false;
+	@HostBinding("class.edit-mode") editMode: boolean = false;
 	@Input() label: string;
 	@Input() validation: string = ".*";
 	@Output() saveValue: EventEmitter<string> = new EventEmitter<string>();
-
-	public editMode: boolean = false;
-
 	private lastInputValue: string;
 	private workingValue: string;
 

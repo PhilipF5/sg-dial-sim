@@ -25,3 +25,7 @@
 .label {
 	font-variant: small-caps;
 }
+
+:host-context(.edit-mode) {
+	text-transform: none !important;
+}
