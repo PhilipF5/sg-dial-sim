@@ -6,6 +6,7 @@
 		class="name"
 		[editable]="editable"
 		tabindex="{{ editable ? 0 : -1 }}"
+		validation="^[A-Z].*$"
 		[value]="destination.name"
 	></sg-address-field>
 	<div class="fields">
@@ -14,6 +15,7 @@
 			[editable]="editable"
 			label="Set"
 			tabindex="{{ editable ? 1 : -1 }}"
+			[validation]="setsRegex"
 			[value]="destination.set"
 		></sg-address-field>
 		<sg-address-field

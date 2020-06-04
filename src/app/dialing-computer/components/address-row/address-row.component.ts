@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input, OnInit } from "@angular/core";
 import { Destination } from "app/shared/models";
+import { GateNetworkService } from "app/shared/services";
 
 @Component({
 	selector: "sg-address-row",
@@ -16,7 +17,14 @@ export class AddressRowComponent implements OnInit {
 		return this._elem.nativeElement;
 	}
 
-	constructor(private _elem: ElementRef) {}
+	public get setsRegex(): string {
+		return `^(${this.gateNetwork
+			.getAddressSets()
+			.map((set) => set.name)
+			.join("|")})$`;
+	}
+
+	constructor(private _elem: ElementRef, private gateNetwork: GateNetworkService) {}
 
 	ngOnInit() {
 		this.dataName = this.destination.name;
