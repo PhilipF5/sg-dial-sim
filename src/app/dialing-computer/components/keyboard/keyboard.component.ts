@@ -72,7 +72,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public isGlyphSelected(glyph: Glyph): boolean {
-		return !!this.address.find((item) => item === glyph);
+		return !!this.address.find(({ position }) => position === glyph.position);
 	}
 
 	public loadAddressById(id: number): void {

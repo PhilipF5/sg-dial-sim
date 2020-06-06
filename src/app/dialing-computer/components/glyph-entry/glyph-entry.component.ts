@@ -14,7 +14,7 @@ export class GlyphEntryComponent extends KeyboardComponent {
 	}
 
 	public isAddressValid(): boolean {
-		return this.address.length > 6;
+		return this.address.length >= 6;
 	}
 
 	public shutdown(): void {
