@@ -1,4 +1,4 @@
-<div class="glyphs">
+<div class="glyphs" (click)="onEditGlyphs()">
 	<sg-address-glyph-display *ngFor="let glyph of destination.address" [glyph]="glyph"></sg-address-glyph-display>
 </div>
 <div class="details">
@@ -34,3 +34,4 @@
 	<sg-button text="CANCEL" (click)="onCancelEdit()"></sg-button>
 	<sg-button text="CONFIRM" (click)="onConfirmEdit()"></sg-button>
 </div>
+<sg-glyph-entry class="minimized" (dialAddress)="onUpdateField('address', $event)"></sg-glyph-entry>

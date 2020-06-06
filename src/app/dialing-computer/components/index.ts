@@ -5,6 +5,7 @@ import { AddressSetsListComponent } from "./address-sets-list/address-sets-list.
 import { ChevronBoxComponent } from "./chevron-box/chevron-box.component";
 import { ChevronStatusComponent } from "./chevron-status/chevron-status.component";
 import { DialingStatusComponent } from "./dialing-status/dialing-status.component";
+import { GlyphEntryComponent } from "./glyph-entry/glyph-entry.component";
 import { KeyboardComponent } from "./keyboard/keyboard.component";
 
 export { AddressFieldComponent } from "./address-field/address-field.component";
@@ -14,6 +15,7 @@ export { AddressSetsListComponent } from "./address-sets-list/address-sets-list.
 export { ChevronBoxComponent } from "./chevron-box/chevron-box.component";
 export { ChevronStatusComponent } from "./chevron-status/chevron-status.component";
 export { DialingStatusComponent } from "./dialing-status/dialing-status.component";
+export { GlyphEntryComponent } from "./glyph-entry/glyph-entry.component";
 export { KeyboardComponent } from "./keyboard/keyboard.component";
 
 export const COMPONENTS = [
@@ -24,5 +26,6 @@ export const COMPONENTS = [
 	ChevronBoxComponent,
 	ChevronStatusComponent,
 	DialingStatusComponent,
+	GlyphEntryComponent,
 	KeyboardComponent,
 ];

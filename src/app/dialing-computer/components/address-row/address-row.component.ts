@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from "@angular/core";
+import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { Destination } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
+import { GlyphEntryComponent } from "../glyph-entry/glyph-entry.component";
 
 @Component({
 	selector: "sg-address-row",
@@ -10,11 +11,16 @@ import { GateNetworkService } from "app/shared/services";
 export class AddressRowComponent implements OnInit {
 	@HostBinding("attr.data-name") dataName: string;
 	@HostBinding("class.selected") @Input() selected: boolean;
-	@Input() destination: Destination;
 	@Input() editable: boolean = false;
+	@Input() savedDestination: Destination;
 	@Output() cancelEdit: EventEmitter<void> = new EventEmitter<void>();
 	@Output() save: EventEmitter<Destination> = new EventEmitter<Destination>();
+	@ViewChild(GlyphEntryComponent, { static: true }) private glyphEntry: GlyphEntryComponent;
 	private updatedDestination: Destination;
+
+	public get destination(): Destination {
+		return this.updatedDestination || this.savedDestination;
+	}
 
 	public get elem(): HTMLElement {
 		return this._elem.nativeElement;
@@ -35,7 +41,7 @@ export class AddressRowComponent implements OnInit {
 	constructor(private _elem: ElementRef, private gateNetwork: GateNetworkService) {}
 
 	ngOnInit() {
-		this.dataName = this.destination.name;
+		this.dataName = this.savedDestination.name;
 	}
 
 	public onCancelEdit(): void {
@@ -47,9 +53,13 @@ export class AddressRowComponent implements OnInit {
 		this.save.emit(this.updatedDestination);
 	}
 
-	public onUpdateField(key: string, value: string) {
+	public onEditGlyphs(): void {
+		this.glyphEntry.open([...this.destination.address]);
+	}
+
+	public onUpdateField(key: string, value: string): void {
 		if (!this.updatedDestination) {
-			this.updatedDestination = { ...this.destination };
+			this.updatedDestination = { ...this.savedDestination };
 		}
 		this.updatedDestination[key] = value;
 	}

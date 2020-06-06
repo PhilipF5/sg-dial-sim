@@ -17,7 +17,7 @@
 		<sg-address-row
 			*ngFor="let destination of (destinations | slice: topItem:bottomItem); let i = index"
 			class="{{ mode.toLowerCase() }}"
-			[destination]="destination"
+			[savedDestination]="destination"
 			[editable]="mode === 'EDIT'"
 			[selected]="selectedIndex === i"
 			(mouseenter)="moveSelector($event.target)"

@@ -79,6 +79,11 @@ export class KeyboardComponent implements OnInit {
 		this.address = this.gateNetwork.getDestinationById(id).address.slice();
 	}
 
+	public open(glyphs?: Glyph[]): void {
+		gsap.to(this.elem, { duration: 1, scale: 1 });
+		this.address = glyphs || [];
+	}
+
 	public selectGlyph(glyph: Glyph): void {
 		if (this.address.length < 6 && !this.isGlyphSelected(glyph)) {
 			this.address.push(glyph);
