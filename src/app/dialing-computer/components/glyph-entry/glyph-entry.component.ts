@@ -9,6 +9,9 @@ import { KeyboardComponent } from "../keyboard/keyboard.component";
 	styleUrls: ["../keyboard/keyboard.component.scss"],
 })
 export class GlyphEntryComponent extends KeyboardComponent {
+	public displayShutdownButton: boolean = false;
+	public submitText: string = "Save";
+
 	public constructor(_elem: ElementRef, gateNetwork: GateNetworkService, store$: Store<any>) {
 		super(_elem, gateNetwork, store$);
 	}

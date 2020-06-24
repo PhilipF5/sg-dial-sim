@@ -29,6 +29,15 @@
 </div>
 
 <div class="right corner">
-	<div class="dial key" (click)="validateAndDial()" [ngClass]="{ disabled: !isDialingAvailable }">Dial</div>
-	<div class="shutdown key" (click)="shutdown()" [ngClass]="{ disabled: isDialingAvailable }">Shutdown</div>
+	<div class="dial key" (click)="validateAndDial()" [ngClass]="{ disabled: !isDialingAvailable }">
+		{{ submitText }}
+	</div>
+	<div
+		*ngIf="displayShutdownButton"
+		class="shutdown key"
+		(click)="shutdown()"
+		[ngClass]="{ disabled: isDialingAvailable }"
+	>
+		Shutdown
+	</div>
 </div>

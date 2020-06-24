@@ -15,8 +15,10 @@ export class KeyboardComponent implements OnInit {
 	@Output() dialAddress: EventEmitter<Glyph[]> = new EventEmitter();
 
 	public address: Glyph[] = [];
+	public displayShutdownButton: boolean = true;
 	public isDialingAvailable: boolean;
 	public keys: Glyph[] = Glyphs.standard;
+	public submitText: string = "Dial";
 
 	public get addressWithOrigin(): Glyph[] {
 		let address = this.address.slice();

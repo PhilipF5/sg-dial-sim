@@ -9,6 +9,10 @@
 	&.edit {
 		--address-selected-color: var(--white-color);
 		cursor: default;
+
+		.glyphs {
+			cursor: cell;
+		}
 	}
 
 	&.delete {

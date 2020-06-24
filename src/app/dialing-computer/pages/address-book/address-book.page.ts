@@ -26,6 +26,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	public destinations: Destination[];
 	public scrollOffset: number = 0;
 
+	private editingDestination?: Destination;
 	private modeIndex: number = 0;
 	private modes: string[] = ["DIAL", "EDIT", "DELETE"];
 	private selectedIndex: number;
@@ -153,6 +154,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public onSave(dest: Destination): void {
+		this.editingDestination = null;
 		this.gateNetwork.saveDestination(dest);
 		this.loadAddresses();
 	}
