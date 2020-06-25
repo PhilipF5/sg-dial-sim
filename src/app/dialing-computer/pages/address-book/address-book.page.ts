@@ -24,9 +24,9 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	@ViewChild("selector", { static: true }) _selector: ElementRef;
 
 	public destinations: Destination[];
+	public editingDestination?: Destination;
 	public scrollOffset: number = 0;
 
-	private editingDestination?: Destination;
 	private modeIndex: number = 0;
 	private modes: string[] = ["DIAL", "EDIT", "DELETE"];
 	private selectedIndex: number;
@@ -127,6 +127,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	public onCancelEdit(): void {
 		this.loadAddresses();
+		this.editingDestination = null;
 	}
 
 	public onDestinationClick(dest: Destination): void {
@@ -153,6 +154,10 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		}
 	}
 
+	public onRegisterUpdate(dest: Destination): void {
+		this.editingDestination = dest;
+	}
+
 	public onSave(dest: Destination): void {
 		this.editingDestination = null;
 		this.gateNetwork.saveDestination(dest);
@@ -175,6 +180,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.destinations.unshift({
 			address: Array.from(Array(6)),
 			desc: "",
+			id: -1,
 			name: "",
 			set: "",
 		});

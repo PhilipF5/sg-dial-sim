@@ -14,6 +14,7 @@ export class AddressRowComponent implements OnInit {
 	@Input() editable: boolean = false;
 	@Input() savedDestination: Destination;
 	@Output() cancelEdit: EventEmitter<void> = new EventEmitter<void>();
+	@Output() registerUpdate: EventEmitter<Destination> = new EventEmitter<Destination>();
 	@Output() save: EventEmitter<Destination> = new EventEmitter<Destination>();
 	@ViewChild(GlyphEntryComponent, { static: true }) private glyphEntry: GlyphEntryComponent;
 	private updatedDestination: Destination;
@@ -62,5 +63,6 @@ export class AddressRowComponent implements OnInit {
 			this.updatedDestination = { ...this.savedDestination };
 		}
 		this.updatedDestination[key] = value;
+		this.registerUpdate.emit(this.updatedDestination);
 	}
 }

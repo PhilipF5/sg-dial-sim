@@ -1,5 +1,6 @@
 :host {
 	display: block;
+	pointer-events: none;
 }
 
 :host:focus {
@@ -20,6 +21,7 @@
 
 :host-context(.editable) {
 	cursor: text;
+	pointer-events: all;
 }
 
 .label {

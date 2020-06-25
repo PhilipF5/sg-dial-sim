@@ -18,12 +18,13 @@
 			*ngFor="let destination of (destinations | slice: topItem:bottomItem); let i = index"
 			class="{{ mode.toLowerCase() }}"
 			[savedDestination]="destination"
-			[editable]="mode === 'EDIT'"
+			[editable]="mode === 'EDIT' && (!editingDestination || destination.id === editingDestination.id)"
 			[selected]="selectedIndex === i"
 			(mouseenter)="moveSelector($event.target)"
 			(click)="onDestinationClick(destination)"
 			(save)="onSave($event)"
 			(cancelEdit)="onCancelEdit()"
+			(registerUpdate)="onRegisterUpdate($event)"
 		></sg-address-row>
 	</div>
 	<div class="scroll-controls">
