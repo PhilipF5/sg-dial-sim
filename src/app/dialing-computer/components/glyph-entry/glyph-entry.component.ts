@@ -1,5 +1,6 @@
-import { Component, ElementRef } from "@angular/core";
+import { Component, ElementRef, Input } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { Glyph } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
 import { KeyboardComponent } from "../keyboard/keyboard.component";
 
@@ -9,6 +10,7 @@ import { KeyboardComponent } from "../keyboard/keyboard.component";
 	styleUrls: ["../keyboard/keyboard.component.scss"],
 })
 export class GlyphEntryComponent extends KeyboardComponent {
+	@Input() validatorFn = (address: Glyph[]) => address.length >= 6;
 	public displayShutdownButton: boolean = false;
 	public submitText: string = "Save";
 
@@ -17,7 +19,7 @@ export class GlyphEntryComponent extends KeyboardComponent {
 	}
 
 	public isAddressValid(): boolean {
-		return this.address.length >= 6;
+		return this.validatorFn(this.address);
 	}
 
 	public shutdown(): void {

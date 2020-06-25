@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from "@angular/core";
-import { Destination } from "app/shared/models";
+import { Destination, Glyph } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
 import { GlyphEntryComponent } from "../glyph-entry/glyph-entry.component";
 
@@ -18,6 +18,10 @@ export class AddressRowComponent implements OnInit {
 	@Output() save: EventEmitter<Destination> = new EventEmitter<Destination>();
 	@ViewChild(GlyphEntryComponent, { static: true }) private glyphEntry: GlyphEntryComponent;
 	private updatedDestination: Destination;
+
+	public get addressValidatorFn() {
+		return (address: Glyph[]) => address.length >= 6 && !this.gateNetwork.getDestinationByAddress(address);
+	}
 
 	public get destination(): Destination {
 		return this.updatedDestination || this.savedDestination;
@@ -55,7 +59,7 @@ export class AddressRowComponent implements OnInit {
 	}
 
 	public onEditGlyphs(): void {
-		this.glyphEntry.open([...this.destination.address]);
+		this.glyphEntry.open(this.destination.address.filter((g) => !!g));
 	}
 
 	public onUpdateField(key: string, value: string): void {

@@ -34,4 +34,8 @@
 	<sg-button text="CANCEL" (click)="onCancelEdit()"></sg-button>
 	<sg-button text="CONFIRM" (click)="onConfirmEdit()"></sg-button>
 </div>
-<sg-glyph-entry class="minimized" (dialAddress)="onUpdateField('address', $event)"></sg-glyph-entry>
+<sg-glyph-entry
+	class="minimized"
+	[validatorFn]="addressValidatorFn"
+	(dialAddress)="onUpdateField('address', $event)"
+></sg-glyph-entry>
