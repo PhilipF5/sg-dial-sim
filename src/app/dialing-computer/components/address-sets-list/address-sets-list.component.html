@@ -1,6 +1,13 @@
-<div *ngFor="let set of addressSets" class="set">
+<div *ngFor="let set of addressSets; let i = index" class="set">
 	<div class="details">
-		<div class="name">{{ set.name }}</div>
+		<sg-text-field
+			class="name"
+			[editable]="set.name !== 'Default'"
+			(saveValue)="onRenameSet(set.name, $event)"
+			tabindex="{{ set.name === 'Default' ? -1 : i }}"
+			[validation]="existingSetsRegex"
+			[value]="set.name"
+		></sg-text-field>
 		<div class="count">{{ set.enabled ? "Active" : "Disabled" }}: {{ set.destinations.length }}</div>
 	</div>
 	<div class="controls">

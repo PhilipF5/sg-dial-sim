@@ -97,6 +97,11 @@ export class GateNetworkService {
 		this.saveAddressSets();
 	}
 
+	public renameAddressSet(oldName: string, newName: string): void {
+		this.addressSets.find((set) => set.name === oldName).name = newName;
+		this.saveAddressSets();
+	}
+
 	public saveDestination(dest: Destination): void {
 		const set = this.addressSets.find((set) => set.name === dest.set);
 		if (dest.id) {

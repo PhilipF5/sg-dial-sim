@@ -14,6 +14,10 @@ export class AddressSetsListComponent implements OnInit {
 
 	@ViewChild(SegmentDisplayComponent, { static: true }) newField: SegmentDisplayComponent;
 
+	public get existingSetsRegex(): string {
+		return `^((?!${this.addressSets.map((set) => set.name).join("|")}).*)$`;
+	}
+
 	public constructor(private alert: AlertService, private gateNetwork: GateNetworkService) {}
 
 	ngOnInit() {
@@ -40,6 +44,11 @@ export class AddressSetsListComponent implements OnInit {
 		} else if (event.key === "Enter") {
 			this.createAddressSet();
 		}
+	}
+
+	public onRenameSet(oldName: string, newName: string): void {
+		this.gateNetwork.renameAddressSet(oldName, newName);
+		this.updateAddressSets();
 	}
 
 	public onToggleClick(name: string): void {
