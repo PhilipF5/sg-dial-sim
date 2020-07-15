@@ -40,6 +40,7 @@ export class AddressRowComponent implements OnInit {
 		return `^(${this.gateNetwork
 			.getAddressSets()
 			.map((set) => set.name)
+			.filter((set) => set !== "Default")
 			.join("|")})$`;
 	}
 
