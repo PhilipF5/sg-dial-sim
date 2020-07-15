@@ -18,7 +18,7 @@
 			*ngFor="let destination of (destinations | slice: topItem:bottomItem); let i = index"
 			class="{{ mode.toLowerCase() }}"
 			[savedDestination]="destination"
-			[editable]="mode === 'EDIT' && (!editingDestination || destination.id === editingDestination.id)"
+			[editable]="mode === 'EDIT' && destination.set !== 'Default' && (!editingDestination || destination.id === editingDestination.id)"
 			[selected]="selectedIndex === i"
 			(mouseenter)="moveSelector($event.target)"
 			(click)="onDestinationClick(destination)"

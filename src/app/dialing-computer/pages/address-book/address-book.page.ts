@@ -144,6 +144,14 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 				break;
 			}
 			case "EDIT": {
+				if (dest.set === "Default") {
+					this.alert.alerts.next({
+						critical: true,
+						duration: 4000,
+						message: "Invalid Operation",
+						title: "Destinations in Default set cannot be edited",
+					});
+				}
 				break;
 			}
 			case "DELETE": {
