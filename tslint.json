@@ -1,7 +1,9 @@
 {
 	"rules": {
-		"no-duplicate-variable": true,
-		"no-unused-variable": [true]
+		"deprecation": {
+			"severity": "warning"
+		},
+		"no-duplicate-variable": true
 	},
 	"rulesDirectory": ["node_modules/tslint-eslint-rules/dist/rules"]
 }
