@@ -49,14 +49,14 @@
 		}
 	},
 	"dependencies": {
-		"@angular/animations": "8.2.10",
-		"@angular/common": "8.2.10",
-		"@angular/compiler": "8.2.10",
-		"@angular/core": "8.2.10",
-		"@angular/forms": "8.2.10",
-		"@angular/platform-browser": "8.2.10",
-		"@angular/platform-browser-dynamic": "8.2.10",
-		"@angular/router": "8.2.10",
+		"@angular/animations": "9.1.12",
+		"@angular/common": "9.1.12",
+		"@angular/compiler": "9.1.12",
+		"@angular/core": "9.1.12",
+		"@angular/forms": "9.1.12",
+		"@angular/platform-browser": "9.1.12",
+		"@angular/platform-browser-dynamic": "9.1.12",
+		"@angular/router": "9.1.12",
 		"@ngrx/effects": "8.5.2",
 		"@ngrx/store": "8.5.2",
 		"@ngrx/store-devtools": "8.5.2",
@@ -68,15 +68,16 @@
 		"ngx-electron": "2.2.0",
 		"rxjs": "6.5.3",
 		"sass": "1.23.7",
-		"zone.js": "0.9.1"
+		"tslib": "^1.10.0",
+		"zone.js": "~0.10.2"
 	},
 	"devDependencies": {
-		"@angular-devkit/build-angular": "0.803.9",
-		"@angular/cli": "8.3.9",
-		"@angular/compiler-cli": "8.2.10",
-		"@angular/language-service": "8.2.10",
+		"@angular-devkit/build-angular": "~0.901.11",
+		"@angular/cli": "9.1.11",
+		"@angular/compiler-cli": "9.1.12",
+		"@angular/language-service": "9.1.12",
 		"@types/lodash": "4.14.149",
-		"@types/node": "12.12.18",
+		"@types/node": "^12.11.1",
 		"dotenv": "8.2.0",
 		"electron": "7.1.5",
 		"electron-builder": "21.2.0",
@@ -85,8 +86,7 @@
 		"prettier": "1.19.1",
 		"pretty-quick": "2.0.1",
 		"ts-node": "7.0.1",
-		"tslib": "1.13.0",
 		"tslint": "5.20.1",
-		"typescript": "3.5.3"
+		"typescript": "3.8.3"
 	}
 }
