@@ -111,6 +111,13 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.goToGateScreen(dest.id);
 	}
 
+	public loadAddresses(): void {
+		this.destinations = this.gateNetwork.getAllAddresses();
+		if (this.mode === "EDIT") {
+			this.addEmptyRow();
+		}
+	}
+
 	public moveSelector(target: HTMLElement, instant?: boolean): gsap.core.Timeline {
 		this.selectorTimeline.kill();
 		let targetBox = target.getBoundingClientRect();
@@ -184,12 +191,5 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 			name: "",
 			set: "",
 		});
-	}
-
-	private loadAddresses(): void {
-		this.destinations = this.gateNetwork.getAllAddresses();
-		if (this.mode === "EDIT") {
-			this.addEmptyRow();
-		}
 	}
 }

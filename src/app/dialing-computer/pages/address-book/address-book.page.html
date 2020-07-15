@@ -35,7 +35,7 @@
 <div class="footer">
 	<sg-button text="RETURN" (click)="goToGateScreen()"></sg-button>
 	<sg-menu-button position="upper-left" text="SOURCES">
-		<sg-address-sets-list></sg-address-sets-list>
+		<sg-address-sets-list (update)="loadAddresses()"></sg-address-sets-list>
 	</sg-menu-button>
 	<sg-button text="MODE: {{ mode }}" (click)="cycleMode()"></sg-button>
 </div>

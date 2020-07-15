@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import { SegmentDisplayComponent } from "app/shared/components";
 import { AddressSet } from "app/shared/models/address-set.model";
 import { AlertService, GateNetworkService } from "app/shared/services";
@@ -9,6 +9,7 @@ import { AlertService, GateNetworkService } from "app/shared/services";
 	styleUrls: ["./address-sets-list.component.scss"],
 })
 export class AddressSetsListComponent implements OnInit {
+	@Output() update: EventEmitter<void> = new EventEmitter<void>();
 	public addressSets: Readonly<AddressSet>[];
 	public newSet: string = "";
 
@@ -99,5 +100,6 @@ export class AddressSetsListComponent implements OnInit {
 
 	private updateAddressSets(): void {
 		this.addressSets = this.gateNetwork.getAddressSets();
+		this.update.emit();
 	}
 }
