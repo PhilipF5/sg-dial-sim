@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { DefaultAddressSet, Destination, Glyph, Glyphs } from "app/shared/models";
 import { AddressSet } from "app/shared/models/address-set.model";
-import { isEqual, orderBy, uniqWith } from "lodash";
+import { isEqual, orderBy, uniqWith } from "lodash-es";
 import { ElectronStoreService } from "./electron-store.service";
 
 @Injectable()
