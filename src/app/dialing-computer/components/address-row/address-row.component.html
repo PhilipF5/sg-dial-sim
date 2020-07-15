@@ -2,16 +2,16 @@
 	<sg-address-glyph-display *ngFor="let glyph of destination.address" [glyph]="glyph"></sg-address-glyph-display>
 </div>
 <div class="details">
-	<sg-address-field
+	<sg-text-field
 		class="name"
 		[editable]="editable"
 		(saveValue)="onUpdateField('name', $event)"
 		tabindex="{{ editable ? 0 : -1 }}"
 		validation="^[A-Z].*$"
 		[value]="destination.name"
-	></sg-address-field>
+	></sg-text-field>
 	<div class="fields">
-		<sg-address-field
+		<sg-text-field
 			class="set field"
 			[editable]="editable"
 			label="Set"
@@ -19,15 +19,15 @@
 			tabindex="{{ editable ? 1 : -1 }}"
 			[validation]="setsRegex"
 			[value]="destination.set"
-		></sg-address-field>
-		<sg-address-field
+		></sg-text-field>
+		<sg-text-field
 			class="desc field"
 			[editable]="editable"
 			label="Desc"
 			(saveValue)="onUpdateField('desc', $event)"
 			tabindex="{{ editable ? 2 : -1 }}"
 			[value]="destination.desc"
-		></sg-address-field>
+		></sg-text-field>
 	</div>
 </div>
 <div *ngIf="editable" class="edit-controls">

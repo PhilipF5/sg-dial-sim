@@ -2,11 +2,11 @@ import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, 
 import { AlertService } from "app/shared/services";
 
 @Component({
-	selector: "sg-address-field",
-	templateUrl: "./address-field.component.html",
-	styleUrls: ["./address-field.component.scss"],
+	selector: "sg-text-field",
+	templateUrl: "./text-field.component.html",
+	styleUrls: ["./text-field.component.scss"],
 })
-export class AddressFieldComponent {
+export class TextFieldComponent {
 	@HostBinding("class.editable") @Input() editable: boolean = false;
 	@HostBinding("class.edit-mode") editMode: boolean = false;
 	@Input() label: string;
