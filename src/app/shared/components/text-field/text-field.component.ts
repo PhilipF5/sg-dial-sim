@@ -12,8 +12,8 @@ export class TextFieldComponent {
 	@Input() label: string;
 	@Input() validation: string = ".*";
 	@Output() saveValue: EventEmitter<string> = new EventEmitter<string>();
+	public workingValue: string;
 	private lastInputValue: string;
-	private workingValue: string;
 
 	public get elem(): HTMLElement {
 		return this._elem.nativeElement;
