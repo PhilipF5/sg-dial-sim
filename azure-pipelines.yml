@@ -29,6 +29,9 @@ steps:
       inputs:
           command: "custom"
           customCommand: "run package"
+      env:
+          APPLEID: $(AppleID)
+          APPLEIDPASS: $(AppleIDPass)
 
     - task: CopyFiles@2
       inputs:
