@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { ElectronService } from "app/shared/services";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { ElectronService } from "ngx-electron";
-
 @Component({
 	selector: "sg-scrolling-bits",
 	templateUrl: "./scrolling-bits.component.html",
@@ -50,14 +49,7 @@ export class ScrollingBitsComponent implements OnInit {
 
 	ngOnInit() {
 		gsap.registerPlugin(ScrollToPlugin);
-		if (this.electron.isElectronApp) {
-			console.log(this.electron);
-			let electronWindow = this.electron.remote.BrowserWindow.getFocusedWindow();
-			electronWindow
-				.addListener("resize", () => this.restart())
-				.addListener("enter-full-screen", () => this.restart())
-				.addListener("leave-full-screen", () => this.restart());
-		}
+		this.electron.windowSizeChanges$.subscribe(() => this.restart());
 	}
 
 	public disable(): void {

@@ -12,24 +12,25 @@ function createWindow() {
 		resizable: false,
 		fullscreen: true,
 		webPreferences: {
+			enableRemoteModule: true,
 			nodeIntegration: true,
 		},
 	});
 
 	win.loadFile(`dist/sgc/index.html`);
 
-	win.on("closed", function() {
+	win.on("closed", function () {
 		win = null;
 	});
 }
 
 app.on("ready", createWindow);
 
-app.on("window-all-closed", function() {
+app.on("window-all-closed", function () {
 	app.quit();
 });
 
-app.on("activate", function() {
+app.on("activate", function () {
 	if (win === null) {
 		createWindow();
 	}

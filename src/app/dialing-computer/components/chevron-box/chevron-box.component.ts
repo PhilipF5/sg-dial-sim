@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from "@angular/core";
 import { Actions, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
 import { chevronFailed, engageChevron, failChevron, sequenceComplete } from "app/dialing-computer/actions";
@@ -13,7 +13,7 @@ import { filter, take, takeUntil } from "rxjs/operators";
 	templateUrl: "./chevron-box.component.html",
 	styleUrls: ["./chevron-box.component.scss"],
 })
-export class ChevronBoxComponent implements OnDestroy, OnInit {
+export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 	@Input("gatePosition") gatePosition$: BehaviorSubject<DOMRect>;
 	@Input() number: number;
 
@@ -39,7 +39,7 @@ export class ChevronBoxComponent implements OnDestroy, OnInit {
 		this.killSubscriptions.next();
 	}
 
-	ngOnInit() {
+	ngAfterViewInit() {
 		this.store$.pipe(select(getGateStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
 			if (status === GateStatus.Idle) {
 				this.clearSymbol();

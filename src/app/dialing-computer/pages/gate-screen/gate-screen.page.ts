@@ -6,8 +6,8 @@ import { KeyboardComponent } from "app/dialing-computer/components";
 import { getDestination, getGateStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
 import { GateStatus, Glyph } from "app/shared/models";
+import { ElectronService } from "app/shared/services";
 import { gsap } from "gsap";
-import { ElectronService } from "ngx-electron";
 import { BehaviorSubject, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
 
@@ -45,11 +45,11 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public get electronWindow(): import("electron").BrowserWindow {
-		return this.electron.remote.BrowserWindow.getFocusedWindow();
+		return this.electron.ngxElectron.remote.BrowserWindow.getFocusedWindow();
 	}
 
 	public get isElectronApp(): boolean {
-		return this.electron.isElectronApp;
+		return this.electron.ngxElectron.isElectronApp;
 	}
 
 	constructor(
@@ -101,7 +101,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public quit(): void {
-		this.electron.remote.app.quit();
+		this.electron.ngxElectron.remote.app.quit();
 	}
 
 	public shutdown(): void {
