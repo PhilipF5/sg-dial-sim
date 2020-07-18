@@ -2,12 +2,13 @@
 
 **IMPORTANT: This project is in an early stage of development. Functionality is very limited, and there may be a lot of bugs.**
 
-SGDS aims to be a realistic recreation of the dialing computer depicted in the television show "Stargate SG-1."
+SGDS aims to be a realistic recreation of the dialing computer depicted in the television show _Stargate SG-1_.
 
 ## How to Run
+
 ### Users
 
-The latest release of SGDS is available for Windows and Mac on the Releases page linked above.
+The latest release of SGDS is available for Windows and Mac on the [Releases page](https://github.com/PhilipF5/sg-dial-sim/releases).
 
 ### Developers
 
@@ -15,7 +16,7 @@ You can download and build the source code to run in your browser or compile as 
 
 ## Technical
 
-Most of the classic simulators from Stargate's Internet heyday in the 2000s were built in Flash, much like many of that era's interactive websites. But as the web has moved on, so too can the simulator. SGDS is built using [Angular](https://angular.io), [GreenSock](https://greensock.com), and [Electron](https://electronjs.org). This means that the sim's visuals are written in HTML and CSS, and the logic and animations are written in TypeScript, a superset of JavaScript.
+Most of the classic simulators from Stargate's internet heyday in the 2000s were built in Flash, much like many of that era's interactive websites. But as the web has moved on, so too can the simulator. SGDS is built using [Angular](https://angular.io), [GreenSock](https://greensock.com), and [Electron](https://electronjs.org). This means that the sim's visuals are written in HTML and CSS, and the logic and animations are written in TypeScript, a superset of JavaScript.
 
 ## Legal
 
@@ -25,4 +26,4 @@ Stargate and related marks are trademarks of Metro-Goldwyn-Mayer Studios® Incor
 
 Sounds are copyright Metro-Goldwyn-Mayer Studios® Incorporated, and obtained from various Internet sources under fair use.
 
-The Stargate SG-1 address glyphs font was created by Joy Anne Baker and published at http://www.thescifiworld.net/fonts.htm with no stated conditions or limitations on use.
+The _Stargate SG-1_ address glyphs font was created by Joy Anne Baker and published at http://www.thescifiworld.net/fonts.htm with no stated conditions or limitations on use.
