@@ -1,13 +1,15 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ElectronService } from "app/shared/services";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 @Component({
 	selector: "sg-scrolling-bits",
 	templateUrl: "./scrolling-bits.component.html",
 	styleUrls: ["./scrolling-bits.component.scss"],
 })
-export class ScrollingBitsComponent implements OnInit {
+export class ScrollingBitsComponent implements OnDestroy, OnInit {
 	@Input() length: number;
 
 	@ViewChild("first", { static: true }) private _firstGroup: ElementRef;
@@ -15,7 +17,8 @@ export class ScrollingBitsComponent implements OnInit {
 
 	public bits: string = "";
 
-	private _enabled: boolean;
+	private _enabled: boolean = null;
+	private killSubscriptions: Subject<{}> = new Subject();
 	private timeline: gsap.core.Timeline;
 
 	public get enabled(): boolean {
@@ -26,7 +29,7 @@ export class ScrollingBitsComponent implements OnInit {
 	public set enabled(value: boolean) {
 		if (value === this._enabled) {
 			return;
-		} else if (value) {
+		} else if (value && this._enabled !== null) {
 			this.enable();
 		}
 
@@ -47,9 +50,14 @@ export class ScrollingBitsComponent implements OnInit {
 
 	constructor(private cdRef: ChangeDetectorRef, private electron: ElectronService, private _elem: ElementRef) {}
 
+	ngOnDestroy() {
+		this.killSubscriptions.next();
+	}
+
 	ngOnInit() {
 		gsap.registerPlugin(ScrollToPlugin);
-		this.electron.windowSizeChanges$.subscribe(() => this.restart());
+		this.electron.windowSizeChanges$.pipe(takeUntil(this.killSubscriptions)).subscribe(() => this.restart());
+		this.enabled && this.enable();
 	}
 
 	public disable(): void {
@@ -81,13 +89,11 @@ export class ScrollingBitsComponent implements OnInit {
 	}
 
 	private loadBits(): void {
+		let bits = "";
 		for (let i = 0; i < this.length; i++) {
-			if (Math.random() > 0.5) {
-				this.bits += "1";
-			} else {
-				this.bits += "0";
-			}
-			this.cdRef.detectChanges();
+			bits += Math.random() > 0.5 ? "1" : "0";
 		}
+		this.bits = bits;
+		this.cdRef.detectChanges();
 	}
 }
