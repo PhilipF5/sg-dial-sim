@@ -70,4 +70,12 @@ export class AddressRowComponent implements OnInit {
 		this.updatedDestination[key] = value;
 		this.registerUpdate.emit(this.updatedDestination);
 	}
+
+	public onUpdateGlyphs(glyphs: Glyph[]): void {
+		if (!this.updatedDestination) {
+			this.updatedDestination = new Destination({ ...this.savedDestination });
+		}
+		this.updatedDestination.coordinates = glyphs.map((g) => g.position);
+		this.registerUpdate.emit(this.updatedDestination);
+	}
 }
