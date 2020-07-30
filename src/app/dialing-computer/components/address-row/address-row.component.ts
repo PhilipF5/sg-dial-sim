@@ -65,7 +65,7 @@ export class AddressRowComponent implements OnInit {
 
 	public onUpdateField(key: string, value: string): void {
 		if (!this.updatedDestination) {
-			this.updatedDestination = { ...this.savedDestination };
+			this.updatedDestination = new Destination({ ...this.savedDestination });
 		}
 		this.updatedDestination[key] = value;
 		this.registerUpdate.emit(this.updatedDestination);

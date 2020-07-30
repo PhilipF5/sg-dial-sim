@@ -192,12 +192,14 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	private addEmptyRow(): void {
-		this.destinations.unshift({
-			address: Array.from(Array(6)),
-			desc: "",
-			id: -1,
-			name: "",
-			set: "",
-		});
+		this.destinations.unshift(
+			new Destination({
+				coordinates: Array.from(Array(6)),
+				desc: "",
+				id: -1,
+				name: "",
+				set: "",
+			}),
+		);
 	}
 }

@@ -48,7 +48,7 @@ export class GateNetworkService {
 			.filter((set: AddressSet) => set.enabled)
 			.reduce(
 				(addresses: Destination[], set: AddressSet) =>
-					addresses.concat(set.destinations.map((d) => ({ ...d, set: set.name }))),
+					addresses.concat(set.destinations.map((d) => d.clone({ set: set.name }))),
 				[],
 			);
 		return orderBy(
@@ -56,7 +56,7 @@ export class GateNetworkService {
 			[
 				(d: Destination) => d.name === "Unknown",
 				(d: Destination) => !!d.name.match(/^[\d\w]{3}-[\d\w]{3,4}$/),
-				(d: Destination) => d.address.length,
+				(d: Destination) => d.coordinates.length,
 				(d: Destination) => d.name,
 				(d: Destination) => d.desc,
 			],
@@ -71,8 +71,8 @@ export class GateNetworkService {
 		return destinations.find(({ address }) => this.stringifyAddress(address) === stringAddress);
 	}
 
-	public getDestinationById(id: number): Destination {
-		return DefaultAddressSet.find((d) => d.id === id);
+	public getDestinationById(id: number): Partial<Destination> {
+		return this.addressSets.flatMap((set) => set.destinations).find((dest) => dest.id === id);
 	}
 
 	public moveAddressSetDown(name: string): void {
@@ -122,10 +122,21 @@ export class GateNetworkService {
 	private async initAddressSets(): Promise<void> {
 		const setsFromStorage: Partial<AddressSet>[] = await this.electron.get("addressSets");
 		if (!setsFromStorage) {
-			this.addressSets = [new AddressSet({ destinations: DefaultAddressSet, enabled: true, name: "Default" })];
+			this.addressSets = [
+				new AddressSet({
+					destinations: DefaultAddressSet.map((dest) => new Destination(dest)),
+					enabled: true,
+					name: "Default",
+				}),
+			];
 			this.saveAddressSets();
 		} else {
-			this.addressSets = setsFromStorage.map((set) => new AddressSet(set));
+			this.addressSets = setsFromStorage.map((set) => {
+				set.destinations = set.destinations.map(({ coordinates, desc, id, name, set }) => {
+					return new Destination({ coordinates, desc, id, name, set });
+				});
+				return new AddressSet(set);
+			});
 		}
 	}
 
