@@ -21,7 +21,9 @@ export class GateNetworkService {
 	}
 
 	public createDestination(model: Destination): void {
-		this.addressSets.find((set) => set.name === model.name).destinations.push(model);
+		model.id = this.getNextId();
+		this.addressSets.find((set) => set.name === model.set).destinations.push(model);
+		this.saveAddressSets();
 	}
 
 	public deleteAddressSet(name: string): void {
@@ -138,6 +140,12 @@ export class GateNetworkService {
 				return new AddressSet(set);
 			});
 		}
+	}
+
+	private getNextId(addressSets?: Partial<AddressSet>[]): number {
+		return (
+			1 + Math.max(...(addressSets ?? this.addressSets).flatMap((set) => set.destinations).map((dest) => dest.id))
+		);
 	}
 
 	private saveAddressSets(): void {
