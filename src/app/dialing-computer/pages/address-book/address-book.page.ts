@@ -164,6 +164,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 					});
 				} else {
 					this.gateNetwork.deleteDestination(dest);
+					this.loadAddresses();
 				}
 			}
 		}
@@ -175,7 +176,11 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	public onSave(dest: Destination): void {
 		this.editingDestination = null;
-		this.gateNetwork.saveDestination(dest);
+		if (dest.id === -1) {
+			this.gateNetwork.createDestination(dest);
+		} else {
+			this.gateNetwork.saveDestination(dest);
+		}
 		this.loadAddresses();
 	}
 

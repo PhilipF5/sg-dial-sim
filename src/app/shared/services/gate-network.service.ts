@@ -35,6 +35,7 @@ export class GateNetworkService {
 		const set = this.addressSets.find((set) => set.name === dest.set);
 		const destIndex = set.destinations.findIndex((d) => d.id === dest.id);
 		set.destinations.splice(destIndex, 1);
+		this.saveAddressSets();
 	}
 
 	public getActiveAddress(address: Glyph[]): Destination {
