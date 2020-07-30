@@ -122,6 +122,7 @@ export class GateNetworkService {
 	}
 
 	private async initAddressSets(): Promise<void> {
+		await this.upgradeConfig();
 		const setsFromStorage: Partial<AddressSet>[] = await this.electron.get("addressSets");
 		if (!setsFromStorage) {
 			this.addressSets = [
@@ -154,5 +155,27 @@ export class GateNetworkService {
 
 	private stringifyAddress(address: Glyph[]): string {
 		return address.map((glyph) => glyph.position).join("-");
+	}
+
+	private async upgradeConfig(): Promise<void> {
+		const configVersion = (await this.electron.get("version")) ?? null;
+		switch (configVersion) {
+			case null: {
+				const setsFromStorage: any[] = await this.electron.get("addressSets");
+				let nextId = this.getNextId(setsFromStorage);
+				setsFromStorage?.forEach((set) => {
+					set.destinations?.forEach((dest) => {
+						dest.coordinates = dest.address.map((glyph) => glyph.position);
+						delete dest.address;
+						if (dest.id === -1) {
+							dest.id = nextId++;
+						}
+					});
+				});
+				this.electron.set("addressSets", setsFromStorage);
+				break;
+			}
+		}
+		await this.electron.set("version", 1);
 	}
 }
