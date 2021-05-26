@@ -163,6 +163,7 @@ export class GateNetworkService {
 		switch (configVersion) {
 			case null: {
 				const setsFromStorage: any[] = await this.electron.get("addressSets");
+				if (!setsFromStorage) break;
 				let nextId = this.getNextId(setsFromStorage);
 				setsFromStorage?.forEach((set) => {
 					set.destinations?.forEach((dest) => {
