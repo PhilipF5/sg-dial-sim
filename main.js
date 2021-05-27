@@ -12,6 +12,7 @@ function createWindow() {
 		resizable: false,
 		fullscreen: true,
 		webPreferences: {
+			contextIsolation: false,
 			enableRemoteModule: true,
 			nodeIntegration: true,
 		},
