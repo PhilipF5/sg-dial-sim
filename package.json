@@ -11,7 +11,7 @@
 		"start": "ng build --watch",
 		"serve": "ng serve",
 		"build": "ng build --prod --base-href ./",
-		"package": "electron-builder build --config electron-builder.js --mac --universal && electron-builder build --config electron-builder.js --win",
+		"package": "electron-builder build --publish never --config electron-builder.js --mac --universal && electron-builder build --config electron-builder.js --win",
 		"lint": "ng lint",
 		"electron": "electron ."
 	},
