@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Actions, Effect, ofType } from "@ngrx/effects";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
 import {
 	abortDialing,
@@ -26,89 +26,98 @@ import { delay, switchMap, tap, withLatestFrom } from "rxjs/operators";
 
 @Injectable()
 export class DialingComputerEffects {
-	@Effect()
-	dialFirstGlyph$ = this.actions$.pipe(
-		ofType(beginDialing),
-		switchMap(() => of(dialNextGlyph()))
-	);
-
-	@Effect()
-	onChevronEngaged$ = this.actions$.pipe(
-		ofType(chevronEngaged),
-		withLatestFrom(this.store$.pipe(select(getNextGlyph))),
-		switchMap(([_, glyph]) => of(!!glyph ? dialNextGlyph() : sequenceComplete()))
-	);
-
-	@Effect()
-	onChevronFailed$ = this.actions$.pipe(
-		ofType(chevronFailed),
-		switchMap(() => of(sequenceFailed()))
-	);
-
-	@Effect()
-	onGlyphReady$ = this.actions$.pipe(
-		ofType(glyphReady),
-		switchMap(({ chevron, glyph }) => of(tryEngageChevron(chevron, glyph)))
-	);
-
-	@Effect()
-	onSequenceComplete$ = this.actions$.pipe(
-		ofType(sequenceComplete),
-		switchMap(() => of(openGate())),
-		delay(2000)
-	);
-
-	@Effect()
-	onSequenceFailed$ = this.actions$.pipe(
-		ofType(sequenceFailed),
-		tap(() =>
-			this.alert.alerts.next({
-				critical: true,
-				duration: 7000,
-				message: "404 Not Found",
-				title: "Cannot Establish Connection",
-			})
+	dialFirstGlyph$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(beginDialing),
+			switchMap(() => of(dialNextGlyph())),
 		),
-		switchMap(() => of(abortDialing())),
-		delay(7000)
 	);
 
-	@Effect()
-	resetOnGateClose$ = this.actions$.pipe(
-		ofType(gateClosed),
-		switchMap(() => of(reset()))
+	onChevronEngaged$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(chevronEngaged),
+			withLatestFrom(this.store$.pipe(select(getNextGlyph))),
+			switchMap(([_, glyph]) => of(!!glyph ? dialNextGlyph() : sequenceComplete())),
+		),
 	);
 
-	@Effect()
-	startRingSpin$ = this.actions$.pipe(
-		ofType(dialNextGlyph),
-		withLatestFrom(this.store$.pipe(select(getNextGlyph)), this.store$.pipe(select(getNextChevron))),
-		switchMap(([_, glyph, chevron]) => of(spinRing(chevron, glyph)))
+	onChevronFailed$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(chevronFailed),
+			switchMap(() => of(sequenceFailed())),
+		),
 	);
 
-	@Effect()
-	tryEngageChevron$ = this.actions$.pipe(
-		ofType(tryEngageChevron),
-		withLatestFrom(this.store$.pipe(select(getAddress))),
-		switchMap(([{ chevron, glyph }, address]) => {
-			if (chevron === 7) {
-				let destination = this.gateNetwork.getActiveAddress(address);
-				if (!!destination) {
-					return [engageChevron(chevron, glyph), establishConnection(destination)];
+	onGlyphReady$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(glyphReady),
+			switchMap(({ chevron, glyph }) => of(tryEngageChevron(chevron, glyph))),
+		),
+	);
+
+	onSequenceComplete$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(sequenceComplete),
+			switchMap(() => of(openGate())),
+			delay(2000),
+		),
+	);
+
+	onSequenceFailed$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(sequenceFailed),
+			tap(() =>
+				this.alert.alerts.next({
+					critical: true,
+					duration: 7000,
+					message: "404 Not Found",
+					title: "Cannot Establish Connection",
+				}),
+			),
+			switchMap(() => of(abortDialing())),
+			delay(7000),
+		),
+	);
+
+	resetOnGateClose$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(gateClosed),
+			switchMap(() => of(reset())),
+		),
+	);
+
+	startRingSpin$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(dialNextGlyph),
+			withLatestFrom(this.store$.pipe(select(getNextGlyph)), this.store$.pipe(select(getNextChevron))),
+			switchMap(([_, glyph, chevron]) => of(spinRing(chevron, glyph))),
+		),
+	);
+
+	tryEngageChevron$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(tryEngageChevron),
+			withLatestFrom(this.store$.pipe(select(getAddress))),
+			switchMap(([{ chevron, glyph }, address]) => {
+				if (chevron === 7) {
+					let destination = this.gateNetwork.getActiveAddress(address);
+					if (!!destination) {
+						return [engageChevron(chevron, glyph), establishConnection(destination)];
+					} else {
+						return of(failChevron(chevron, glyph));
+					}
 				} else {
-					return of(failChevron(chevron, glyph));
+					return of(engageChevron(chevron, glyph));
 				}
-			} else {
-				return of(engageChevron(chevron, glyph));
-			}
-		})
+			}),
+		),
 	);
 
 	constructor(
 		private actions$: Actions,
 		private alert: AlertService,
 		private gateNetwork: GateNetworkService,
-		private store$: Store<any>
+		private store$: Store<any>,
 	) {}
 }
 
