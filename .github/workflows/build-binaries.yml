@@ -38,16 +38,18 @@ jobs:
           # import certificate to keychain
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
-      - name: Build and sign
+      - name: Build and sign for macOS
         env:
           APPLEID: ${{ secrets.APPLEID }}
           APPLEIDPASS: ${{ secrets.APPLEIDPASS}}
-        run: npm run package
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Windows
-          path: electron-build/*.exe
+        run: npm run package-mac
       - uses: actions/upload-artifact@v2
         with:
           name: macOS
           path: electron-build/*.dmg
+      - name: Build for Windows
+        run: npm run package-win
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Windows
+          path: electron-build/*.exe
