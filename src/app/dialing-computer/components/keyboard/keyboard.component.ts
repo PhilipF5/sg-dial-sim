@@ -77,7 +77,7 @@ export class KeyboardComponent implements OnInit {
 		return !!this.address.find(({ position }) => position === glyph.position);
 	}
 
-	public loadAddressById(id: number): void {
+	public loadAddressById(id: string): void {
 		this.address = this.gateNetwork.getDestinationById(id).address.slice();
 	}
 

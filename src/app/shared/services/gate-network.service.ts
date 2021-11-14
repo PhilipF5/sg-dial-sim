@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { DefaultAddressSet, Destination, Glyph, Glyphs } from "app/shared/models";
 import { AddressSet } from "app/shared/models/address-set.model";
 import { isEqual, orderBy, uniqWith } from "lodash-es";
+import { v4 as uuidv4 } from "uuid";
 import { ElectronService } from "./electron.service";
 
 @Injectable()
@@ -21,7 +22,7 @@ export class GateNetworkService {
 	}
 
 	public createDestination(model: Destination): void {
-		model.id = this.getNextId();
+		model.id = uuidv4();
 		this.addressSets.find((set) => set.name === model.set).destinations.push(model);
 		this.saveAddressSets();
 	}
@@ -74,7 +75,7 @@ export class GateNetworkService {
 		return destinations.find(({ address }) => this.stringifyAddress(address) === stringAddress);
 	}
 
-	public getDestinationById(id: number): Partial<Destination> {
+	public getDestinationById(id: string): Partial<Destination> {
 		return this.addressSets.flatMap((set) => set.destinations).find((dest) => dest.id === id);
 	}
 
@@ -123,7 +124,6 @@ export class GateNetworkService {
 	}
 
 	private async initAddressSets(): Promise<void> {
-		await this.upgradeConfig();
 		const setsFromStorage: Partial<AddressSet>[] = await this.electron.get("addressSets");
 		if (!setsFromStorage) {
 			this.addressSets = [
@@ -144,40 +144,11 @@ export class GateNetworkService {
 		}
 	}
 
-	private getNextId(addressSets?: Partial<AddressSet>[]): number {
-		return (
-			1 + Math.max(...(addressSets ?? this.addressSets).flatMap((set) => set.destinations).map((dest) => dest.id))
-		);
-	}
-
 	private saveAddressSets(): void {
 		this.electron.set("addressSets", this.addressSets);
 	}
 
 	private stringifyAddress(address: Glyph[]): string {
 		return address.map((glyph) => glyph.position).join("-");
-	}
-
-	private async upgradeConfig(): Promise<void> {
-		const configVersion = (await this.electron.get("version")) ?? null;
-		switch (configVersion) {
-			case null: {
-				const setsFromStorage: any[] = await this.electron.get("addressSets");
-				if (!setsFromStorage) break;
-				let nextId = this.getNextId(setsFromStorage);
-				setsFromStorage?.forEach((set) => {
-					set.destinations?.forEach((dest) => {
-						dest.coordinates = dest.address.map((glyph) => glyph.position);
-						delete dest.address;
-						if (dest.id === -1) {
-							dest.id = nextId++;
-						}
-					});
-				});
-				this.electron.set("addressSets", setsFromStorage);
-				break;
-			}
-		}
-		await this.electron.set("version", 1);
 	}
 }

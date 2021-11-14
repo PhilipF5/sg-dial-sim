@@ -73,7 +73,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 		this.route.paramMap.pipe(take(1)).subscribe((params) => {
 			if (params.has("dest")) {
-				this.keyboard.loadAddressById(+params.get("dest"));
+				this.keyboard.loadAddressById(params.get("dest"));
 				this.openKeyboard();
 			}
 		});

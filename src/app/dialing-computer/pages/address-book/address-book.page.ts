@@ -99,7 +99,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.modeIndex = nextIndex;
 	}
 
-	public goToGateScreen(dest?: number): void {
+	public goToGateScreen(dest?: string): void {
 		if (dest) {
 			this.router.navigate(["/dialing-computer/gate-screen", { dest }], { skipLocationChange: true });
 		} else {
@@ -176,7 +176,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 
 	public onSave(dest: Destination): void {
 		this.editingDestination = null;
-		if (dest.id === -1) {
+		if (dest.id === "") {
 			this.gateNetwork.createDestination(dest);
 		} else {
 			this.gateNetwork.saveDestination(dest);
@@ -201,7 +201,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 			new Destination({
 				coordinates: Array.from(Array(6)),
 				desc: "",
-				id: -1,
+				id: "",
 				name: "",
 				set: "",
 			}),

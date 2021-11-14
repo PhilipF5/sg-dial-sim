@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { Glyph, Glyphs } from "./glyph.model";
 
 export class Destination {
@@ -6,7 +7,7 @@ export class Destination {
 	}
 	public coordinates: number[];
 	public desc?: string;
-	public id?: number;
+	public id?: string;
 	public name: string;
 	public set?: string;
 
@@ -374,6 +375,6 @@ const addresses = [
 	},
 ];
 
-export const DefaultAddressSet: Partial<Destination>[] = addresses.map((a, i) => {
-	return { ...a, id: i + 1 };
+export const DefaultAddressSet: Partial<Destination>[] = addresses.map((a) => {
+	return { ...a, id: uuidv4() };
 });
