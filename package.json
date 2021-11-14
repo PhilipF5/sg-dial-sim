@@ -1,6 +1,6 @@
 {
 	"name": "sg-dial-sim",
-	"version": "0.2.2",
+	"version": "0.3.0-pre",
 	"author": "Philip Fulgham (https://philipf5.dev)",
 	"license": "MIT",
 	"private": true,
