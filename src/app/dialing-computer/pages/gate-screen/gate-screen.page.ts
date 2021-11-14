@@ -44,10 +44,6 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		}
 	}
 
-	public get electronWindow(): import("electron").BrowserWindow {
-		return this.electron.focusedWindow;
-	}
-
 	public get isElectronApp(): boolean {
 		return this.electron.isElectronApp;
 	}
@@ -109,7 +105,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public toggleFullscreen(): void {
-		this.electronWindow.setFullScreen(!this.electronWindow.isFullScreen());
+		this.electron.toggleFullScreen();
 	}
 
 	private updateGatePosition(): void {

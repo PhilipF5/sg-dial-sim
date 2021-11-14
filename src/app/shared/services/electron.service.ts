@@ -6,23 +6,17 @@ export class ElectronService {
 	private electron: any;
 	public windowSizeChanges$: Subject<void> = new Subject();
 
-	public get focusedWindow(): Electron.BrowserWindow {
-		return this.electron.getFocusedWindow();
-	}
-
 	public get isElectronApp(): boolean {
-		return !!(<any>window)?.process?.type;
+		return !!this.electron;
 	}
 
 	constructor() {
 		const registerSizeChange = () => this.windowSizeChanges$.next();
+		this.electron = (<any>window).electron;
 		if (this.isElectronApp) {
-			this.electron = (<any>window).electron;
-			const electronWindow = this.electron.getAllWindows()[0];
-			electronWindow
-				.addListener("resize", registerSizeChange)
-				.addListener("enter-full-screen", registerSizeChange)
-				.addListener("leave-full-screen", registerSizeChange);
+			this.electron.addEventListener("resize", registerSizeChange);
+			this.electron.addEventListener("enter-full-screen", registerSizeChange);
+			this.electron.addEventListener("leave-full-screen", registerSizeChange);
 		}
 	}
 
@@ -32,6 +26,10 @@ export class ElectronService {
 
 	public async set(key: string, value: any): Promise<void> {
 		return this.electron.invoke("setStoreValue", key, value);
+	}
+
+	public toggleFullScreen(): void {
+		this.electron.toggleFullScreen();
 	}
 
 	public quit(): void {
