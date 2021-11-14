@@ -45,11 +45,11 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public get electronWindow(): import("electron").BrowserWindow {
-		return this.electron.ngxElectron.remote.BrowserWindow.getFocusedWindow();
+		return this.electron.focusedWindow;
 	}
 
 	public get isElectronApp(): boolean {
-		return this.electron.ngxElectron.isElectronApp;
+		return this.electron.isElectronApp;
 	}
 
 	constructor(
@@ -101,7 +101,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	}
 
 	public quit(): void {
-		this.electron.ngxElectron.remote.app.quit();
+		this.electron.quit();
 	}
 
 	public shutdown(): void {

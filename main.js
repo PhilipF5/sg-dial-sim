@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const Store = require("electron-store");
+require("@electron/remote/main").initialize();
+const path = require("path");
 
 let win;
 
@@ -12,9 +14,10 @@ function createWindow() {
 		resizable: false,
 		fullscreen: true,
 		webPreferences: {
-			contextIsolation: false,
+			contextIsolation: true,
 			enableRemoteModule: true,
 			nodeIntegration: true,
+			preload: path.join(__dirname, "preload.js"),
 		},
 	});
 

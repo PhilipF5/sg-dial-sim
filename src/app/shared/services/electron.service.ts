@@ -1,15 +1,22 @@
 import { Injectable } from "@angular/core";
-import { ElectronService as NgxElectronService } from "ngx-electron";
 import { Subject } from "rxjs";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class ElectronService {
 	public windowSizeChanges$: Subject<void> = new Subject();
 
-	constructor(public ngxElectron: NgxElectronService) {
+	public get focusedWindow(): Electron.BrowserWindow {
+		return (<any>window).electron.getFocusedWindow();
+	}
+
+	public get isElectronApp(): boolean {
+		return !!(<any>window)?.process?.type;
+	}
+
+	constructor() {
 		const registerSizeChange = () => this.windowSizeChanges$.next();
-		if (this.ngxElectron.isElectronApp) {
-			const electronWindow = this.ngxElectron.remote.BrowserWindow.getAllWindows()[0];
+		if (this.isElectronApp) {
+			const electronWindow = (<any>window).electron.getAllWindows()[0];
 			electronWindow
 				.addListener("resize", registerSizeChange)
 				.addListener("enter-full-screen", registerSizeChange)
@@ -18,10 +25,14 @@ export class ElectronService {
 	}
 
 	public async get(key: string): Promise<any> {
-		return this.ngxElectron.ipcRenderer.invoke("getStoreValue", key);
+		return (<any>window).electron.invoke("getStoreValue", key);
 	}
 
 	public async set(key: string, value: any): Promise<void> {
-		return this.ngxElectron.ipcRenderer.invoke("setStoreValue", key, value);
+		return (<any>window).electron.invoke("setStoreValue", key, value);
+	}
+
+	public quit(): void {
+		(<any>window).electron.quit();
 	}
 }
