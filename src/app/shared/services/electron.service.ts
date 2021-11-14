@@ -3,10 +3,11 @@ import { Subject } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class ElectronService {
+	private electron: any;
 	public windowSizeChanges$: Subject<void> = new Subject();
 
 	public get focusedWindow(): Electron.BrowserWindow {
-		return (<any>window).electron.getFocusedWindow();
+		return this.electron.getFocusedWindow();
 	}
 
 	public get isElectronApp(): boolean {
@@ -16,7 +17,8 @@ export class ElectronService {
 	constructor() {
 		const registerSizeChange = () => this.windowSizeChanges$.next();
 		if (this.isElectronApp) {
-			const electronWindow = (<any>window).electron.getAllWindows()[0];
+			this.electron = (<any>window).electron;
+			const electronWindow = this.electron.getAllWindows()[0];
 			electronWindow
 				.addListener("resize", registerSizeChange)
 				.addListener("enter-full-screen", registerSizeChange)
@@ -25,14 +27,14 @@ export class ElectronService {
 	}
 
 	public async get(key: string): Promise<any> {
-		return (<any>window).electron.invoke("getStoreValue", key);
+		return this.electron.invoke("getStoreValue", key);
 	}
 
 	public async set(key: string, value: any): Promise<void> {
-		return (<any>window).electron.invoke("setStoreValue", key, value);
+		return this.electron.invoke("setStoreValue", key, value);
 	}
 
 	public quit(): void {
-		(<any>window).electron.quit();
+		this.electron.quit();
 	}
 }
