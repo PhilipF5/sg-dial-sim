@@ -80,12 +80,6 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	private updateAnimation(status: GateStatus): void {
 		this.killAnimation();
 		switch (status) {
-			case GateStatus.Idle:
-				this.flashRed();
-				break;
-			case GateStatus.Active:
-				this.flashNormal();
-				break;
 			case GateStatus.Engaged:
 			case GateStatus.Shutdown:
 			case GateStatus.Aborted:

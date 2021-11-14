@@ -1,15 +1,15 @@
 :host {
 	align-items: center;
+	aspect-ratio: 4 / 3;
 	border: 5px solid var(--primary-color);
 	border-bottom-right-radius: 25px;
 	border-top-left-radius: 25px;
 	box-sizing: border-box;
 	flex-direction: column;
 	display: flex;
-	height: 100%;
 	justify-content: space-between;
-	min-height: 768px;
-	min-width: 1024px;
+	margin: 0 auto;
+	max-height: 100%;
 	padding: 10px;
 }
 
@@ -127,4 +127,9 @@ sg-dialing-status {
 .info {
 	display: flex;
 	flex-direction: column;
+}
+
+sg-gate {
+	height: 68vh;
+	width: 68vh;
 }

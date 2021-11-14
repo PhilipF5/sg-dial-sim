@@ -1,3 +1,12 @@
+@keyframes flash-normal {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 0.8;
+	}
+}
+
 .status-box {
 	align-items: center;
 	border: 3px solid var(--primary-color);
@@ -7,6 +16,7 @@
 	justify-content: center;
 
 	.status {
+		animation: 0.5s linear 0s infinite alternate flash-normal;
 		color: var(--white-color);
 		font-family: var(--interface-font);
 		font-size: 3.75rem;
