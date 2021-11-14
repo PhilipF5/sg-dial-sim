@@ -1,16 +1,16 @@
 :host {
 	align-items: center;
 	aspect-ratio: 4 / 3;
-	border: 5px solid var(--primary-color);
-	border-bottom-right-radius: 25px;
-	border-top-left-radius: 25px;
+	border: 0.6vh solid var(--primary-color);
+	border-bottom-right-radius: 3vh;
+	border-top-left-radius: 3vh;
 	box-sizing: border-box;
 	flex-direction: column;
 	display: flex;
 	justify-content: space-between;
 	margin: 0 auto;
 	max-height: 100%;
-	padding: 10px;
+	padding: 1.18vh;
 }
 
 .header {
@@ -52,20 +52,20 @@
 
 	&.left {
 		align-items: flex-start;
-		border: 3px solid var(--primary-color);
-		border-bottom-right-radius: 5px;
+		border: 0.35vh solid var(--primary-color);
+		border-bottom-right-radius: 0.6vh;
 		border-left: none;
-		border-top-right-radius: 5px;
+		border-top-right-radius: 0.6vh;
 		flex-grow: 1;
 		max-width: 10%;
-		min-width: 150px;
-		padding: 5px;
+		min-width: 17.77vh;
+		padding: 0.6vh;
 
 		.scrolling-bits-container {
-			border: 1px solid var(--secondary-color);
-			border-top-right-radius: 5px;
-			height: 350px;
-			padding: 5px;
+			border: 0.1vh solid var(--secondary-color);
+			border-top-right-radius: 0.6vh;
+			height: 41.4vh;
+			padding: 0.6vh;
 			width: 90%;
 		}
 
@@ -78,8 +78,6 @@
 		align-items: center;
 		flex-grow: 1;
 		justify-content: flex-start;
-		max-width: 40%;
-		min-width: 450px;
 		position: relative;
 
 		@media (aspect-ratio: 4/3) {
@@ -89,7 +87,7 @@
 
 	&.right {
 		align-items: flex-end;
-		width: 150px;
+		width: 30vh;
 	}
 }
 
@@ -97,16 +95,15 @@
 	align-items: flex-end;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	margin: 6vh 6vh 0 0;
 	position: relative;
-	width: 100%;
 }
 
 sg-dialing-status {
 	bottom: 0;
-	left: 0;
+	left: 10vh;
 	position: absolute;
-	width: 100%;
+	right: 10vh;
 }
 
 .label {
@@ -130,6 +127,7 @@ sg-dialing-status {
 }
 
 sg-gate {
-	height: 68vh;
-	width: 68vh;
+	height: 60vh;
+	top: 4vh;
+	width: 60vh;
 }

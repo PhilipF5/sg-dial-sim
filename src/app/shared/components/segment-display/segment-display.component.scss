@@ -14,7 +14,7 @@
 }
 
 .char-box {
-	border-left: 1px solid var(--primary-color);
+	border-left: 0.12vh solid var(--primary-color);
 	color: var(--white-color);
 	display: inline-block;
 	font-family: var(--interface-font);
@@ -26,19 +26,19 @@
 	width: 1.2em;
 
 	&:last-of-type {
-		border-right: 1px solid var(--primary-color);
+		border-right: 0.12vh solid var(--primary-color);
 	}
 
 	&.top {
-		border-top: 1px solid var(--primary-color);
+		border-top: 0.12vh solid var(--primary-color);
 	}
 
 	&.bottom {
-		border-bottom: 1px solid var(--primary-color);
+		border-bottom: 0.12vh solid var(--primary-color);
 	}
 
 	&.both {
-		border-bottom: 1px solid var(--primary-color);
-		border-top: 1px solid var(--primary-color);
+		border-bottom: 0.12vh solid var(--primary-color);
+		border-top: 0.12vh solid var(--primary-color);
 	}
 }

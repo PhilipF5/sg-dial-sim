@@ -1,12 +1,12 @@
 :host {
 	background-color: var(--secondary-color);
-	border-bottom-right-radius: 5px;
-	border-top-right-radius: 5px;
+	border-bottom-right-radius: 0.6vh;
+	border-top-right-radius: 0.6vh;
 	display: flex;
 	flex-direction: column;
 	font-family: var(--interface-font);
 	font-size: 0.75rem;
-	padding: 10px;
+	padding: 1.2vh;
 }
 
 .row {
@@ -18,7 +18,7 @@
 
 .light {
 	background-color: var(--black-color);
-	border: 2px inset var(--secondary-color);
+	border: 0.24vh inset var(--secondary-color);
 	height: 1em;
 
 	&.fail {

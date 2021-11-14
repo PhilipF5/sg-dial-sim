@@ -18,10 +18,10 @@
 
 :host {
 	background: radial-gradient(circle at center, red 0%, maroon 20%, black 40%, rgba(0, 0, 0, 0) 60%);
-	height: 150px;
+	height: 17.77vh;
 	transform: translate(-50%, -50%) scale(0);
 	transform-origin: center;
-	width: 150px;
+	width: 17.77vh;
 
 	&.anim-idle {
 		animation: 0.5s ease-in 0s infinite alternate eh-idle;

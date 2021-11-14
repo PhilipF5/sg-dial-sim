@@ -1,15 +1,13 @@
 :host {
-	height: 14.2587%;
-	margin-bottom: 2px;
-	width: 100%;
+	margin-bottom: 0.94vh;
 }
 
 .chevron-box {
-	align-items: flex-end;
+	align-items: flex-start;
 	display: flex;
-	height: 100%;
+	height: 10vh;
 	justify-content: right;
-	width: 100%;
+	width: 21vh;
 
 	&.chevron-8 {
 		opacity: 0;
@@ -24,9 +22,11 @@
 
 .chevron-number {
 	font-family: var(--interface-font);
-	font-size: 1.5rem;
+	font-size: 2rem;
 	color: var(--white-color);
-	vertical-align: bottom;
+	line-height: 0.75em;
+	margin-right: 0.47vh;
+	opacity: 0;
 }
 
 .chevron-symbol-box {
@@ -35,9 +35,8 @@
 	width: 75%;
 	height: 100%;
 	border-color: var(--primary-color);
-	border-width: 3px;
+	border-width: 0.35vh;
 	border-style: solid;
-	border-top-left-radius: 20px;
 	display: flex;
 	justify-content: center;
 	position: relative;
@@ -46,8 +45,7 @@
 		color: var(--white-color);
 		font-family: var(--glyphs-font);
 		font-size: 3.125rem;
-		margin-top: 10px;
-		text-shadow: 1px 4px 0 gray;
+		margin-top: 1.2vh;
 		transform-origin: center;
 		visibility: hidden;
 

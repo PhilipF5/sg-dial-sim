@@ -15,6 +15,7 @@ export class ChevronBoxAnimations {
 			.add([
 				gsap.set(symbol, { clearProps: "color,visibility" }),
 				gsap.set(box.querySelector(".chevron-symbol-box"), { clearProps: "borderColor" }),
+				gsap.set(box.querySelector(".chevron-number"), { clearProps: "opacity" }),
 			])
 			.set(symbol, { x: 0, y: 0 });
 	}
@@ -48,10 +49,12 @@ export class ChevronBoxAnimations {
 	}
 
 	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
-		return this.lockSymbolAttempt(config).to(config.chevronBox.querySelector(".chevron-symbol-box"), {
-			borderColor: "var(--red-color)",
-			duration: 0.5,
-		});
+		return this.lockSymbolAttempt(config).add([
+			gsap.set(config.chevronBox.querySelector(".chevron-symbol-box"), {
+				borderColor: "var(--red-color)",
+			}),
+			gsap.set(config.chevronBox.querySelector(".chevron-number"), { opacity: 1 }),
+		]);
 	}
 
 	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
