@@ -17,6 +17,10 @@ export class EventHorizonAnimations {
 			.fromTo(elem, { scale: 3 }, { duration: 1, scale: 2.75, ease: "power1.inOut", repeat: -1, yoyo: true });
 	}
 
+	public static clear(elem: HTMLElement): gsap.core.Timeline {
+		return gsap.timeline().set(elem, { clearProps: "all" });
+	}
+
 	public static inactiveFlasher(elem: HTMLElement): gsap.core.Timeline {
 		return gsap
 			.timeline()
@@ -27,10 +31,7 @@ export class EventHorizonAnimations {
 	}
 
 	public static gateOpen(elem: HTMLElement): gsap.core.Timeline {
-		return gsap
-			.timeline()
-			.add(this.kawoosh(elem))
-			.add(this.activeGlow(elem));
+		return gsap.timeline().add(this.kawoosh(elem));
 	}
 
 	public static kawoosh(elem: HTMLElement): gsap.core.Timeline {
@@ -45,6 +46,7 @@ export class EventHorizonAnimations {
 	public static shutdown(elem: HTMLElement): gsap.core.Timeline {
 		return gsap
 			.timeline()
+			.set(elem, { immediateRender: false, ...this.activeGradient })
 			.to(elem, 1.5, { scale: 4, ease: "power1.inOut", ...this.activatingGradient })
 			.to(elem, 0.5, { scale: 0, ease: "power4.in" })
 			.to(elem, 1, { scale: 5, opacity: 0 })

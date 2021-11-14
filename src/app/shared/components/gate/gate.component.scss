@@ -9,6 +9,9 @@ sg-event-horizon {
 }
 
 svg {
+	--chevron-stroke-color: #d1d59e;
+	--chevron-fill-color: #000000;
+
 	.base {
 		fill: transparent;
 		stroke: var(--primary-color);
@@ -16,24 +19,24 @@ svg {
 
 	.ring {
 		fill: transparent;
-		stroke: var(--white-color);
+		stroke: var(--secondary-color);
 	}
 
 	.chevron-head {
-		fill: var(--black-color);
-		stroke: var(--white-color);
+		fill: var(--chevron-fill-color);
+		stroke: var(--chevron-stroke-color);
 	}
 
 	.chevron-tail {
 		fill: var(--black-color);
-		stroke: var(--white-color);
+		stroke: var(--chevron-stroke-color);
 	}
 
 	[ng-reflect-chevron="8"],
 	[ng-reflect-chevron="9"] {
 		.chevron-head,
 		.chevron-tail {
-			opacity: 0.25;
+			stroke: var(--primary-color);
 		}
 	}
 }

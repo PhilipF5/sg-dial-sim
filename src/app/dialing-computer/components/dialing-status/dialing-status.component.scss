@@ -1,4 +1,19 @@
-@keyframes flash-normal {
+@keyframes flash-once {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 0.8;
+	}
+	75% {
+		opacity: 0.8;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes flash-repeat {
 	from {
 		opacity: 0;
 	}
@@ -16,7 +31,6 @@
 	justify-content: center;
 
 	.status {
-		animation: 0.5s linear 0s infinite alternate flash-normal;
 		color: var(--white-color);
 		font-family: var(--interface-font);
 		font-size: 3.75rem;
@@ -24,6 +38,14 @@
 
 		&.red {
 			color: var(--red-color);
+		}
+
+		&.flashOnce {
+			animation: 4s linear 0s flash-once;
+		}
+
+		&.flashRepeat {
+			animation: 0.5s linear 0s infinite alternate flash-repeat;
 		}
 	}
 }

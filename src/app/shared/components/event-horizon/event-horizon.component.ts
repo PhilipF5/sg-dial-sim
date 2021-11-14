@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, HostBinding, NgZone, OnDestroy, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { gateClosed } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
@@ -17,6 +17,15 @@ import { filter, takeUntil } from "rxjs/operators";
 export class EventHorizonComponent implements OnDestroy, OnInit {
 	private readonly ignoredStatuses = [GateStatus.Dialing, GateStatus.Engaged];
 	private killSubscriptions: Subject<{}> = new Subject();
+
+	@HostBinding("class.active")
+	public active: boolean;
+
+	@HostBinding("class.anim-idle")
+	public animationIdle: boolean;
+
+	@HostBinding("class.anim-active")
+	public animationActive: boolean;
 
 	private get elem(): HTMLElement {
 		return this._elem.nativeElement;
@@ -47,13 +56,22 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 		gsap.killTweensOf(this.elem);
 		switch (status) {
 			case GateStatus.Idle:
-				return EventHorizonAnimations.inactiveFlasher(this.elem);
+				EventHorizonAnimations.clear(this.elem);
+				this.animationIdle = true;
+				break;
 			case GateStatus.Active:
-				return EventHorizonAnimations.gateOpen(this.elem).add(() => this.audio.startEventHorizon(), 0);
+				this.animationIdle = false;
+				return EventHorizonAnimations.gateOpen(this.elem)
+					.add(() => this.ngZone.run(() => (this.active = true)))
+					.add(() => this.ngZone.run(() => (this.animationActive = true)))
+					.add(EventHorizonAnimations.clear(this.elem))
+					.add(() => this.audio.startEventHorizon(), 0);
 			case GateStatus.Shutdown:
 				return gsap
 					.timeline()
 					.add(EventHorizonAnimations.shutdown(this.elem))
+					.add(() => this.ngZone.run(() => (this.active = false)))
+					.add(() => this.ngZone.run(() => (this.animationActive = false)), 0)
 					.add(() => this.audio.stopEventHorizon(), 0)
 					.add(() => this.ngZone.run(() => this.store$.dispatch(gateClosed())), "+=1");
 		}

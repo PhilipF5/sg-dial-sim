@@ -21,6 +21,20 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		this.ngZone.run(() => (this._status = newStatus));
 	}
 
+	public get useFlashOnce(): boolean {
+		return this._useFlashOnce;
+	}
+	public set useFlashOnce(use: boolean) {
+		this.ngZone.run(() => (this._useFlashOnce = use));
+	}
+
+	public get useFlashRepeat(): boolean {
+		return this._useFlashRepeat;
+	}
+	public set useFlashRepeat(use: boolean) {
+		this.ngZone.run(() => (this._useFlashRepeat = use));
+	}
+
 	public get useRedStyle(): boolean {
 		return this._useRedStyle;
 	}
@@ -29,6 +43,8 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	}
 
 	private _status: GateStatus;
+	private _useFlashOnce: boolean;
+	private _useFlashRepeat: boolean;
 	private _useRedStyle: boolean;
 
 	private killSubscriptions: Subject<{}> = new Subject();
@@ -50,29 +66,6 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		});
 	}
 
-	private flashNormal(): gsap.core.Tween {
-		this.useRedStyle = false;
-		return gsap.fromTo(this.statusText, { opacity: 0 }, { duration: 0.5, opacity: 0.8, repeat: -1, yoyo: true });
-	}
-
-	private flashOnce(): gsap.core.Tween {
-		this.useRedStyle = false;
-		return gsap.fromTo(
-			this.statusText,
-			{ opacity: 0 },
-			{ duration: 1, opacity: 0.8, repeat: 1, repeatDelay: 2, yoyo: true },
-		);
-	}
-
-	private flashRed(): gsap.core.Tween {
-		this.useRedStyle = true;
-		return gsap.fromTo(this.statusText, { opacity: 0 }, { duration: 0.5, opacity: 0.6, repeat: -1, yoyo: true });
-	}
-
-	private hide(): void {
-		gsap.set(this.statusText, { opacity: 0 });
-	}
-
 	private killAnimation(): void {
 		gsap.killTweensOf(this.statusText);
 	}
@@ -80,13 +73,23 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	private updateAnimation(status: GateStatus): void {
 		this.killAnimation();
 		switch (status) {
+			case GateStatus.Idle:
+				this.useRedStyle = true;
+				this.useFlashRepeat = true;
+				this.useFlashOnce = false;
+				break;
 			case GateStatus.Engaged:
 			case GateStatus.Shutdown:
 			case GateStatus.Aborted:
-				this.flashOnce();
+				this.useRedStyle = false;
+				this.useFlashRepeat = false;
+				this.useFlashOnce = true;
 				break;
 			case GateStatus.Dialing:
-				this.hide();
+				this.useFlashOnce = this.useFlashRepeat = false;
+				break;
+			case GateStatus.Active:
+				this.useFlashRepeat = true;
 				break;
 		}
 	}

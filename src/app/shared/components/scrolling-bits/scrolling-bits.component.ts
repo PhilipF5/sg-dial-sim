@@ -69,7 +69,7 @@ export class ScrollingBitsComponent implements OnDestroy, OnInit {
 
 	public enable(): void {
 		this.loadBits();
-		setTimeout(() => this.animate(), 100);
+		setInterval(() => this.loadBits(), 500);
 	}
 
 	public restart(): void {
@@ -77,15 +77,6 @@ export class ScrollingBitsComponent implements OnDestroy, OnInit {
 		if (this.enabled) {
 			this.enable();
 		}
-	}
-
-	private animate(): void {
-		this.cdRef.detectChanges();
-		this.timeline = gsap
-			.timeline({ repeat: -1 })
-			.to(this.elem, 10, { scrollTo: this.secondGroup.offsetTop, ease: "none" })
-			.add(() => gsap.set(this.firstGroup, { opacity: 1 }))
-			.set(this.elem, { scrollTo: 0 });
 	}
 
 	private loadBits(): void {

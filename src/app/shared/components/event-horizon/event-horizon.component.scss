@@ -1,9 +1,35 @@
+@keyframes eh-idle {
+	from {
+		transform: translate(-50%, -50%) scale(0);
+	}
+	to {
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
+
+@keyframes eh-active {
+	from {
+		transform: translate(-50%, -50%) scale(3);
+	}
+	to {
+		transform: translate(-50%, -50%) scale(2.75);
+	}
+}
+
 :host {
 	background: radial-gradient(circle at center, red 0%, maroon 20%, black 40%, rgba(0, 0, 0, 0) 60%);
 	height: 150px;
 	transform: translate(-50%, -50%) scale(0);
 	transform-origin: center;
 	width: 150px;
+
+	&.anim-idle {
+		animation: 0.5s ease-in 0s infinite alternate eh-idle;
+	}
+
+	&.anim-active {
+		animation: 1s ease-in-out 0s infinite alternate eh-active;
+	}
 
 	&.active {
 		background: radial-gradient(
