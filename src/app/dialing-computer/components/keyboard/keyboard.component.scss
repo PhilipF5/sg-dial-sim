@@ -1,15 +1,15 @@
 :host {
 	background-color: var(--black-color);
-	border: 3px solid var(--primary-color);
+	border: 0.35vh solid var(--primary-color);
 	bottom: 0;
 	box-sizing: border-box;
-	height: 350px;
+	height: 41.47vh;
 	left: 50%;
 	position: absolute;
 	text-align: center;
 	transform: translateX(-50%);
 	transform-origin: bottom center;
-	width: 1024px;
+	width: 120vh;
 
 	&.minimized {
 		transform: translateX(-50%) scale(0);
@@ -18,22 +18,22 @@
 	.address {
 		align-items: center;
 		display: flex;
-		height: 75px;
+		height: 8.89vh;
 		justify-content: center;
 		text-align: center;
 		width: 100%;
 
 		.selected-glyph {
 			align-items: center;
-			border: 2px solid var(--gray-color);
+			border: 0.24vh solid var(--gray-color);
 			color: var(--white-color);
 			display: flex;
 			font-family: var(--glyphs-font);
 			font-size: 3rem;
 			height: 1.25em;
 			justify-content: space-between;
-			margin: 5px;
-			padding-right: 5px;
+			margin: 0.6vh;
+			padding-right: 0.6vh;
 			position: relative;
 			width: 1.75em;
 
@@ -92,7 +92,7 @@
 
 		.key {
 			font-variant: small-caps;
-			padding: 5px;
+			padding: 0.6vh;
 		}
 	}
 
@@ -102,7 +102,7 @@
 		display: inline-block;
 		font-family: var(--interface-font);
 		font-size: 1rem;
-		margin: 15px;
+		margin: 1.78vh;
 
 		&.disabled {
 			cursor: default;
@@ -117,8 +117,8 @@
 		&.close {
 			display: block;
 			position: absolute;
-			right: -10px;
-			top: -10px;
+			right: -1.2vh;
+			top: -1.2vh;
 		}
 
 		&.glyph {

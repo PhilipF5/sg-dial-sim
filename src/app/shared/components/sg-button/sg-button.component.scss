@@ -1,6 +1,6 @@
 :host {
 	align-items: center;
-	border: 1px solid var(--primary-color);
+	border: 0.12vh solid var(--primary-color);
 	color: var(--white-color);
 	cursor: pointer;
 	display: flex;
@@ -8,8 +8,8 @@
 	font-size: 0.875rem;
 	font-variant: small-caps;
 	justify-content: center;
-	margin: 5px;
-	padding: 5px;
+	margin: 0.6vh;
+	padding: 0.6vh;
 	text-align: center;
 
 	&.disabled {

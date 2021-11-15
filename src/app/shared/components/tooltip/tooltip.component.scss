@@ -1,14 +1,14 @@
 :host {
 	align-items: center;
 	background-color: rgba(125, 125, 125, 0.5);
-	border-radius: 10px;
+	border-radius: 1.2vh;
 	color: var(--white-color);
 	display: flex;
 	font-family: var(--interface-font);
 	font-size: 0.6875rem;
 	justify-content: center;
 	opacity: 0;
-	padding: 5px;
+	padding: 0.6vh;
 	pointer-events: none;
 	position: absolute;
 }

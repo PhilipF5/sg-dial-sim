@@ -1,21 +1,21 @@
 :host {
 	align-items: center;
 	background-color: var(--black-color);
-	border: 3px solid var(--primary-color);
-	border-radius: 5px;
+	border: 0.35vh solid var(--primary-color);
+	border-radius: 0.6vh;
 	display: flex;
 	font-family: var(--interface-font);
 	font-variant: small-caps;
-	height: 300px;
+	height: 35.5vh;
 	justify-content: center;
 	text-transform: uppercase;
-	width: 650px;
+	width: 77vh;
 }
 
 .container {
 	align-items: center;
-	border: 1px solid var(--secondary-color);
-	border-radius: 5px;
+	border: 0.12vh solid var(--secondary-color);
+	border-radius: 0.6vh;
 	display: flex;
 	flex-direction: column;
 	height: 95%;

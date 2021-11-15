@@ -1,13 +1,13 @@
 :host {
 	align-items: center;
 	background-color: var(--black-color);
-	border: 3px solid var(--primary-color);
-	border-radius: 5px;
+	border: 0.35vh solid var(--primary-color);
+	border-radius: 0.6vh;
 	cursor: default;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	padding: 20px;
+	padding: 2.37vh;
 	z-index: 10;
 
 	&.lower-left {
