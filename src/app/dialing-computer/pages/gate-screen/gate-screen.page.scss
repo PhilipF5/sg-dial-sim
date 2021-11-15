@@ -56,7 +56,7 @@
 		flex-grow: 1;
 		justify-content: flex-end;
 		padding: 0.6vh;
-		width: 10.66vh;
+		width: 16vh;
 
 		& > * {
 			margin-top: 1.18vh;
@@ -103,7 +103,7 @@
 	align-items: flex-end;
 	display: flex;
 	flex-direction: column;
-	margin: 6vh 6vh 0 0;
+	margin: 6vh 5vh 0 0;
 	position: relative;
 }
 
@@ -135,7 +135,7 @@ sg-dialing-status {
 }
 
 sg-gate {
-	height: 62vh;
+	height: 69vh;
 	top: 4vh;
-	width: 60vh;
+	width: 67vh;
 }
