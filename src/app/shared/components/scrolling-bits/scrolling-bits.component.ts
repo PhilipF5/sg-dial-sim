@@ -34,11 +34,11 @@ export class ScrollingBitsComponent implements OnInit {
 	}
 
 	public disable(): void {
+		this.bits = "";
 		clearInterval(this._interval);
 	}
 
 	public enable(): void {
-		this.loadBits();
 		this._interval = setInterval(() => this.loadBits(), 500);
 	}
 
