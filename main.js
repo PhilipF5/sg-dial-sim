@@ -45,27 +45,21 @@ app.on("activate", function () {
 const store = new Store({
 	migrations: {
 		"~0.2.1": (store) => {
-			if (!store.get("version")) {
-				const setsFromStorage = store.get("addressSets");
-				let id = 1;
-				setsFromStorage?.forEach((set) => {
-					set.destinations?.forEach((dest) => {
-						dest.id = id++;
-					});
+			const setsFromStorage = store.get("addressSets");
+			let id = 1;
+			setsFromStorage?.forEach((set) => {
+				set.destinations?.forEach((dest) => {
+					dest.id = id++;
 				});
-			}
-			store.set("version", 1);
+			});
 		},
 		">=0.3.0-pre": (store) => {
-			if (store.get("version") === 1) {
-				const setsFromStorage = store.get("addressSets");
-				setsFromStorage?.forEach((set) => {
-					set.destinations?.forEach((dest) => {
-						dest.id = uuidv4();
-					});
+			const setsFromStorage = store.get("addressSets");
+			setsFromStorage?.forEach((set) => {
+				set.destinations?.forEach((dest) => {
+					dest.id = uuidv4();
 				});
-			}
-			store.set("version", package.version);
+			});
 		},
 	},
 });
