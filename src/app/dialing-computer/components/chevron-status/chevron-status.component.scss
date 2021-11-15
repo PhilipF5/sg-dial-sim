@@ -1,11 +1,9 @@
 :host {
-	background-color: var(--secondary-color);
-	border-bottom-right-radius: 0.6vh;
-	border-top-right-radius: 0.6vh;
+	border: 0.1vh solid var(--primary-color);
 	display: flex;
 	flex-direction: column;
 	font-family: var(--interface-font);
-	font-size: 0.75rem;
+	font-size: 1.25rem;
 	padding: 1.2vh;
 }
 
@@ -18,22 +16,22 @@
 
 .light {
 	background-color: var(--black-color);
-	border: 0.24vh inset var(--secondary-color);
-	height: 1em;
+	border: 0.12vh solid var(--secondary-color);
+	height: 0.5em;
 
 	&.fail {
-		width: 3em;
+		width: 2em;
 
 		&.lit {
-			background: radial-gradient(at center, var(--red-color) 0%, transparent 100%), var(--black-color);
+			background-color: var(--red-color);
 		}
 	}
 
 	&.success {
-		width: 1.25em;
+		width: 2em;
 
 		&.lit {
-			background: radial-gradient(at center, lightgreen 0%, transparent 100%), var(--black-color);
+			background-color: lightgreen;
 		}
 	}
 

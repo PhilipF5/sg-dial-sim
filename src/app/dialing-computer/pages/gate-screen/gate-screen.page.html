@@ -19,7 +19,10 @@
 <div class="column-layout">
 	<div class="left column">
 		<div class="scrolling-bits-container">
-			<sg-scrolling-bits [enabled]="true" [length]="518"></sg-scrolling-bits>
+			<sg-scrolling-bits [enabled]="this.status !== 'IDLE'" [length]="518"></sg-scrolling-bits>
+		</div>
+		<div class="scrolling-bits-container">
+			<sg-scrolling-bits [enabled]="this.status !== 'IDLE'" [length]="518"></sg-scrolling-bits>
 		</div>
 		<div class="chevron-status-container"><sg-chevron-status></sg-chevron-status></div>
 	</div>

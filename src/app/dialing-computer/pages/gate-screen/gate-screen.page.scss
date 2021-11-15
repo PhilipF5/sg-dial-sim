@@ -41,6 +41,7 @@
 	display: flex;
 	flex-grow: 10;
 	justify-content: space-between;
+	position: relative;
 	width: 100%;
 }
 
@@ -52,21 +53,27 @@
 
 	&.left {
 		align-items: flex-start;
-		border: 0.35vh solid var(--primary-color);
-		border-bottom-right-radius: 0.6vh;
-		border-left: none;
-		border-top-right-radius: 0.6vh;
 		flex-grow: 1;
-		max-width: 10%;
-		min-width: 17.77vh;
+		justify-content: flex-end;
 		padding: 0.6vh;
+		width: 10.66vh;
+
+		& > * {
+			margin-top: 1.18vh;
+		}
 
 		.scrolling-bits-container {
-			border: 0.1vh solid var(--secondary-color);
-			border-top-right-radius: 0.6vh;
-			height: 41.4vh;
+			border: 0.1vh solid var(--primary-color);
 			padding: 0.6vh;
-			width: 90%;
+			width: 75%;
+
+			&:nth-of-type(1) {
+				height: 21vh;
+			}
+
+			&:nth-of-type(2) {
+				height: 15vh;
+			}
 		}
 
 		.chevron-status-container {
@@ -79,6 +86,7 @@
 		flex-grow: 1;
 		justify-content: flex-start;
 		position: relative;
+		left: -2vh;
 
 		@media (aspect-ratio: 4/3) {
 			padding-top: 5vh;
@@ -101,9 +109,9 @@
 
 sg-dialing-status {
 	bottom: 0;
-	left: 10vh;
+	left: 5vh;
 	position: absolute;
-	right: 10vh;
+	right: 5vh;
 }
 
 .label {

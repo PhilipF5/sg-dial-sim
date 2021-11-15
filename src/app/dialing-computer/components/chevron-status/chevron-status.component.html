@@ -1,7 +1,6 @@
 <div class="row" *ngFor="let chevron of [1, 2, 3, 4, 5, 6, 7]">
-	<div class="bullet light"></div>
-	<div class="fail light" [ngClass]="{ lit: isFailed(chevron) }"></div>
-	<div class="number">{{ chevron }}</div>
+	<div class="fail light" [ngClass]="{ lit: !isEngaged(chevron) }"></div>
 	<div class="success light" [ngClass]="{ lit: isEngaged(chevron) }"></div>
+	<div class="number">{{ chevron }}</div>
 	<div class="ok" [ngClass]="{ visible: isEngaged(chevron) }">OK</div>
 </div>
