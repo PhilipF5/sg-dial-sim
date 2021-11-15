@@ -11,7 +11,16 @@ import {
 } from "@angular/core";
 import { Actions, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { chevronEngaged, engageChevron, failChevron, glyphReady, reset, spinRing } from "app/dialing-computer/actions";
+import {
+	chevronEngaged,
+	engageChevron,
+	failChevron,
+	gateClosed,
+	glyphReady,
+	openGate,
+	reset,
+	spinRing,
+} from "app/dialing-computer/actions";
 import { ChevronActivation } from "app/dialing-computer/models";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateAnimations } from "app/shared/animations";
@@ -95,6 +104,12 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 					this.ngZone.run(() => this.store$.dispatch(glyphReady(chevron, glyph))),
 				),
 			);
+
+		this.actions$.pipe(ofType(openGate), takeUntil(this.killSubscriptions)).subscribe(() => this.openAllChevrons());
+
+		this.actions$
+			.pipe(ofType(gateClosed), takeUntil(this.killSubscriptions))
+			.subscribe(() => this.closeAllChevrons());
 	}
 
 	public chevron(index: number): ChevronDirective {
@@ -120,6 +135,14 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			this.animation.kill();
 			this.animation = undefined;
 		}
+	}
+
+	private openAllChevrons(): gsap.core.Timeline {
+		return gsap.timeline().add([1, 2, 3, 4, 5, 6, 7, 8, 9].map((c) => this.chevron(c).open()));
+	}
+
+	private closeAllChevrons(): gsap.core.Timeline {
+		return gsap.timeline().add([1, 2, 3, 4, 5, 6, 7, 8, 9].map((c) => this.chevron(c).close()));
 	}
 
 	private resetRing(): gsap.core.Tween {
@@ -152,7 +175,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		}
 
 		degreesToRotate = direction + degreesPerPosition * positionsToRotate;
-		return (this.animation = GateAnimations.spinRing(this.ring, positionsToRotate / 2.5, degreesToRotate)
+		return (this.animation = GateAnimations.spinRing(this.ring, positionsToRotate / 5, degreesToRotate)
 			.add(() => this.audio.startRing(), 0)
 			.add(() => this.audio.stopRing()));
 	}

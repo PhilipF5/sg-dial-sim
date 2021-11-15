@@ -52,4 +52,12 @@ export class ChevronDirective implements AfterViewInit, OnInit {
 		}
 		return timeline;
 	}
+
+	public open(): gsap.core.Timeline {
+		return gsap.timeline().add(GateAnimations.openChevron(this.parts));
+	}
+
+	public close(): gsap.core.Timeline {
+		return gsap.timeline().add(GateAnimations.closeChevron(this.parts));
+	}
 }

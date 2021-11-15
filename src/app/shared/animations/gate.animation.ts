@@ -8,7 +8,6 @@ export class GateAnimations {
 			gsap.to([parts.tail, parts.head], {
 				duration: 0.5,
 				"--chevron-stroke-color": "red",
-				"--chevron-fill-color": "red",
 			}),
 		]);
 	}
@@ -18,15 +17,20 @@ export class GateAnimations {
 			gsap.to([parts.tail, parts.head], {
 				duration: 0.5,
 				"--chevron-stroke-color": "#d1d59e",
-				"--chevron-fill-color": "black",
 			}),
 		]);
+	}
+
+	public static openChevron(parts: ChevronParts): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.add([gsap.to(parts.tail, { duration: 0.5, y: 10 }), gsap.to(parts.head, { duration: 0.5, y: -10 })]);
 	}
 
 	public static lockTopChevronAttempt(parts: ChevronParts): gsap.core.Timeline {
 		return gsap
 			.timeline()
-			.add(gsap.to(parts.tail, { duration: 0.5, y: 20 }), "tailOpen")
+			.add(gsap.to(parts.tail, { duration: 0.5, y: 10 }), "tailOpen")
 			.to(parts.head, { duration: 0.5, y: -10 }, "headOpen");
 	}
 
@@ -38,7 +42,6 @@ export class GateAnimations {
 					gsap.to([parts.tail, parts.head], {
 						duration: 0.5,
 						"--chevron-stroke-color": "red",
-						"--chevron-fill-color": "red",
 					}),
 				],
 				"light",
@@ -68,5 +71,11 @@ export class GateAnimations {
 				transformOrigin: "center center",
 				ease: "power1.out",
 			});
+	}
+
+	public static closeChevron(parts: ChevronParts): gsap.core.Timeline {
+		return gsap
+			.timeline()
+			.add([gsap.to(parts.tail, { duration: 0.5, y: 0 }), gsap.to(parts.head, { duration: 0.5, y: 0 })]);
 	}
 }
