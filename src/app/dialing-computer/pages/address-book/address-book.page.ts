@@ -33,7 +33,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	private selectorTimeline: gsap.core.Timeline = gsap.timeline();
 
 	public get bottomItem(): number {
-		return 5 + this.scrollOffset;
+		return 7 + this.scrollOffset;
 	}
 
 	public get canScrollDown(): boolean {
@@ -45,7 +45,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public get glyphHeadings(): string[] {
-		return Array.from(Array(this.destinations[this.topItem].address.length)).map((_, i) => (i + 1).toString());
+		return Array.from(Array(this.destinations[this.topItem].address.length + 1)).map((_, i) => (i + 1).toString());
 	}
 
 	public get mode(): string {

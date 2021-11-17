@@ -1,9 +1,9 @@
 :host {
-	border-top: 2px solid var(--primary-color);
-	color: var(--white-color);
+	border-top: 0.24vh solid var(--primary-color);
+	color: var(--secondary-color);
 	cursor: pointer;
 	display: flex;
-	margin-bottom: 10px;
+	margin-bottom: 1.18vh;
 	--address-selected-color: var(--green-color);
 
 	&.edit {
@@ -45,9 +45,9 @@
 }
 
 .glyphs {
-	border-bottom: 2px solid var(--primary-color);
-	border-left: 2px solid var(--primary-color);
-	border-top: 2px solid var(--primary-color);
+	border-bottom: 0.24vh solid var(--primary-color);
+	border-left: 0.24vh solid var(--primary-color);
+	border-top: 0.24vh solid var(--primary-color);
 	display: flex;
 }
 
@@ -55,11 +55,11 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: 5px;
+	padding: 0.59vh;
 
 	.name {
-		font-size: 24px;
-		letter-spacing: 5px;
+		font-size: 2.15vh;
+		letter-spacing: 0.59vh;
 		line-height: 1em;
 		text-transform: uppercase;
 	}

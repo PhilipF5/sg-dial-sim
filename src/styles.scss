@@ -40,18 +40,6 @@ html {
 	overflow: hidden;
 }
 
-@media (min-height: 960px) {
-	body {
-		zoom: 1.25;
-	}
-}
-
-@media (min-height: 1160px) {
-	body {
-		zoom: 1.5;
-	}
-}
-
 @keyframes cursorflash {
 	50% {
 		background-color: var(--white-color);

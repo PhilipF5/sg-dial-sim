@@ -1,11 +1,11 @@
 :host {
 	border-color: var(--primary-color);
-	border-right: 2px solid var(--primary-color);
+	border-right: 0.24vh solid var(--primary-color);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: 110px;
-	width: 100px;
+	height: 10vh;
+	width: 10vh;
 }
 
 .glyph {
@@ -13,17 +13,18 @@
 	display: flex;
 	flex-grow: 1;
 	font-family: var(--glyphs-font);
-	font-size: 50px;
+	font-size: 5.9vh;
 	justify-content: center;
-	padding: 5px;
+	padding: 0.59vh;
 }
 
 .name {
 	border-color: inherit;
 	border-top-style: solid;
-	border-top-width: 2px;
+	border-top-width: 0.24vh;
 	display: flex;
 	height: 1.5em;
+	font-size: 0.75em;
 	justify-content: center;
-	padding: 2px;
+	padding: 0.24vh;
 }

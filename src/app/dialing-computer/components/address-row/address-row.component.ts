@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild } from "@angular/core";
-import { Destination, Glyph } from "app/shared/models";
+import { Destination, Glyph, Glyphs } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
 import { GlyphEntryComponent } from "../glyph-entry/glyph-entry.component";
 
@@ -34,6 +34,10 @@ export class AddressRowComponent implements OnInit {
 	@HostBinding("class.has-changes")
 	public get hasChanges(): boolean {
 		return !!this.updatedDestination;
+	}
+
+	public get pointOfOrigin(): Glyph {
+		return Glyphs.pointOfOrigin;
 	}
 
 	public get setsRegex(): string {
