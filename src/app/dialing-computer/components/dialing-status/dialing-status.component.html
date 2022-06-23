@@ -1,4 +1,33 @@
 <div class="status-box">
+	<svg
+		class="background"
+		width="547"
+		height="108"
+		viewBox="0 0 547 108"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+	>
+		<line x1="0" y1="0" x2="0" y2="26" />
+		<line x1="0" y1="82" x2="0" y2="108" />
+		<line x1="547" y1="0" x2="547" y2="26" />
+		<line x1="547" y1="82" x2="547" y2="108" />
+		<line x1="0" y1="0" x2="547" y2="0" />
+		<line x1="0" y1="108" x2="547" y2="108" />
+		<line
+			*ngFor="let notch of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]"
+			[attr.x1]="36.5 * notch"
+			y1="0"
+			[attr.x2]="36.5 * notch"
+			y2="9"
+		/>
+		<line
+			*ngFor="let notch of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]"
+			[attr.x1]="36.5 * notch"
+			y1="99"
+			[attr.x2]="36.5 * notch"
+			y2="108"
+		/>
+	</svg>
 	<div
 		#statusText
 		[ngClass]="{ status: true, red: useRedStyle, flashOnce: useFlashOnce, flashRepeat: useFlashRepeat }"

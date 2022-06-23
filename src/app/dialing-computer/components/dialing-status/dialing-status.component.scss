@@ -24,11 +24,20 @@
 
 .status-box {
 	align-items: center;
-	border: 0.35vh solid var(--primary-color);
-	border-radius: 0.6vh;
 	display: flex;
 	height: 11.84vh;
 	justify-content: center;
+	position: relative;
+
+	.background {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		stroke: var(--primary-color);
+		stroke-width: 0.3vh;
+		right: 0;
+		top: 0;
+	}
 
 	.status {
 		color: var(--white-color);
