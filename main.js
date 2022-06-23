@@ -1,11 +1,12 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const Store = require("electron-store");
-require("@electron/remote/main").initialize();
+const remote = require("@electron/remote/main");
 const package = require("./package.json");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 
 let win;
+remote.initialize();
 
 function createWindow() {
 	win = new BrowserWindow({
@@ -22,6 +23,8 @@ function createWindow() {
 			preload: path.join(__dirname, "preload.js"),
 		},
 	});
+
+	remote.enable(win.webContents);
 
 	win.loadFile(`dist/sgc/index.html`);
 
