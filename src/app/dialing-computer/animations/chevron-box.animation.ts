@@ -2,6 +2,7 @@ import { gsap } from "gsap";
 
 export interface ChevronBoxAnimationConfig {
 	chevronBox: HTMLElement;
+	chevronPath: HTMLElement;
 	centerY: number;
 	startX: number;
 	startY: number;
@@ -9,13 +10,14 @@ export interface ChevronBoxAnimationConfig {
 }
 
 export class ChevronBoxAnimations {
-	public static clearSymbol(box: HTMLElement, symbol: HTMLElement): gsap.core.Timeline {
+	public static clearSymbol(box: HTMLElement, symbol: HTMLElement, path: HTMLElement): gsap.core.Timeline {
 		return gsap
 			.timeline()
 			.add([
 				gsap.set(symbol, { clearProps: "color,visibility" }),
 				gsap.set(box.querySelector(".chevron-symbol-box"), { clearProps: "borderColor" }),
 				gsap.set(box.querySelector(".chevron-number"), { clearProps: "opacity" }),
+				gsap.set(path, { clearProps: "stroke" }),
 			])
 			.set(symbol, { x: 0, y: 0 });
 	}
@@ -53,6 +55,7 @@ export class ChevronBoxAnimations {
 			gsap.set(config.chevronBox.querySelector(".chevron-symbol-box"), {
 				borderColor: "var(--red-color)",
 			}),
+			gsap.set(config.chevronPath, { stroke: "var(--red-color)" }),
 			gsap.set(config.chevronBox.querySelector(".chevron-number"), { opacity: 1 }),
 		]);
 	}

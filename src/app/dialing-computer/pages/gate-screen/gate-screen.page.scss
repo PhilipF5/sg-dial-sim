@@ -11,6 +11,18 @@
 	margin: 0 auto;
 	max-height: 100%;
 	padding: 0.509vh;
+	position: relative;
+}
+
+.chevron-paths {
+	fill: transparent;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	stroke: var(--primary-color);
+	stroke-width: 2px;
+	top: 0;
+	width: 100%;
 }
 
 .header {
@@ -107,7 +119,7 @@
 	align-items: flex-end;
 	display: flex;
 	flex-direction: column;
-	margin: 6vh 5vh 0 0;
+	margin: 6vh 7vh 0 0;
 	position: relative;
 }
 

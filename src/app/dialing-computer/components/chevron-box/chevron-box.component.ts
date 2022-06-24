@@ -73,7 +73,7 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 	}
 
 	public clearSymbol(): void {
-		ChevronBoxAnimations.clearSymbol(this.chevronBox, this.symbol);
+		ChevronBoxAnimations.clearSymbol(this.chevronBox, this.symbol, this.getChevronPath());
 		this.glyph = undefined;
 	}
 
@@ -90,11 +90,16 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 
 		return {
 			chevronBox: this.chevronBox,
+			chevronPath: this.getChevronPath(),
 			centerY: gatePosition.y + gatePosition.height / 2 - this.position.y - this.position.height / 2,
 			startX: gatePosition.x + gatePosition.width / 2 - this.position.x - this.position.width / 2,
 			startY: gatePosition.y - this.position.y + 50,
 			symbol: this.symbol,
 		};
+	}
+
+	private getChevronPath(): HTMLElement {
+		return document.querySelector(`.chevron-paths .chevron-${this.number}`);
 	}
 
 	private async getLatestGatePosition(): Promise<DOMRect> {
