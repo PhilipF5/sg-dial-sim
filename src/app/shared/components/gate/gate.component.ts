@@ -121,7 +121,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	}
 
 	private engageChevron(chevron: number, succeed: boolean = true): gsap.core.Timeline {
-		let timeline = gsap.timeline().add(this.chevron(7).lock(succeed, chevron === 7), "+=1");
+		let timeline = gsap.timeline().add(this.chevron(7).lock(succeed, chevron >= 7), "+=1");
 
 		if (succeed) {
 			timeline.add(this.chevron(chevron).activate(), "-=1");

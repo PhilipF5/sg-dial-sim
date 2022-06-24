@@ -112,6 +112,7 @@
 
 	&.right {
 		align-items: flex-end;
+		position: relative;
 		width: 30vh;
 	}
 }
@@ -173,5 +174,18 @@ sg-gate {
 		font-variant: small-caps;
 		line-height: 0.625;
 		text-transform: uppercase;
+	}
+}
+
+sg-floating-chevron-box {
+	position: absolute;
+	right: 0;
+
+	&.chevron-8 {
+		top: 43vh;
+	}
+
+	&.chevron-9 {
+		top: 65vh;
 	}
 }

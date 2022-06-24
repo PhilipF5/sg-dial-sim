@@ -98,7 +98,7 @@ export class KeyboardComponent implements OnInit {
 	}
 
 	public validateAndDial(): void {
-		if (this.address.length === 6) {
+		if (this.address.length >= 6) {
 			this.dialAddress.emit(this.address);
 			this.closeKeyboard();
 		}

@@ -99,7 +99,7 @@ export class DialingComputerEffects {
 			ofType(tryEngageChevron),
 			withLatestFrom(this.store$.pipe(select(getAddress))),
 			switchMap(([{ chevron, glyph }, address]) => {
-				if (chevron === 7) {
+				if (chevron === address.length) {
 					let destination = this.gateNetwork.getActiveAddress(address);
 					if (!!destination) {
 						return [engageChevron(chevron, glyph), establishConnection(destination)];

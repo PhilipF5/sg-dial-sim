@@ -1,0 +1,61 @@
+:host {
+	.chevron-box {
+		align-items: flex-start;
+		display: flex;
+		height: 20vh;
+		justify-content: right;
+		opacity: 0;
+		position: relative;
+		width: 42vh;
+
+		&.locked {
+			.chevron-symbol-box {
+				border-color: var(--red-color);
+			}
+		}
+	}
+
+	.chevron-number {
+		font-family: var(--interface-font);
+		font-size: 2rem;
+		color: var(--secondary-color);
+		left: 1vh;
+		line-height: 0.75em;
+		margin-right: 0.47vh;
+		opacity: 0;
+		position: absolute;
+		top: 1vh;
+	}
+
+	.chevron-symbol-box {
+		align-items: center;
+		box-sizing: border-box;
+		width: 75%;
+		height: 100%;
+		border-color: var(--primary-color);
+		border-width: 0.35vh;
+		border-top-width: 1.5vh;
+		border-style: solid;
+		display: flex;
+		justify-content: center;
+		position: relative;
+		background-color: #000c;
+
+		.sg1-symbol {
+			color: var(--white-color);
+			font-family: var(--glyphs-font);
+			font-size: 7.125rem;
+			margin-top: 1.2vh;
+			transform-origin: center;
+			visibility: hidden;
+
+			&.active {
+				visibility: visible;
+			}
+
+			&.failed {
+				color: var(--red-color);
+			}
+		}
+	}
+}

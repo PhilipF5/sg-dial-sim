@@ -4,22 +4,34 @@ export interface ChevronBoxAnimationConfig {
 	chevronBox: HTMLElement;
 	chevronPath: HTMLElement;
 	centerY: number;
+	number: number;
 	startX: number;
 	startY: number;
 	symbol: HTMLElement;
 }
 
 export class ChevronBoxAnimations {
-	public static clearSymbol(box: HTMLElement, symbol: HTMLElement, path: HTMLElement): gsap.core.Timeline {
-		return gsap
-			.timeline()
-			.add([
-				gsap.set(symbol, { clearProps: "color,visibility" }),
+	public static clearSymbol(
+		number: number,
+		box: HTMLElement,
+		symbol: HTMLElement,
+		path: HTMLElement,
+	): gsap.core.Timeline {
+		const animations = [
+			gsap.set(symbol, { clearProps: "color,visibility" }),
+			gsap.set(box.querySelector(".chevron-number"), { clearProps: "opacity" }),
+		];
+
+		if (number < 8) {
+			animations.push(
 				gsap.set(box.querySelector(".chevron-symbol-box"), { clearProps: "borderColor" }),
-				gsap.set(box.querySelector(".chevron-number"), { clearProps: "opacity" }),
 				gsap.set(path, { clearProps: "stroke" }),
-			])
-			.set(symbol, { x: 0, y: 0 });
+			);
+		} else {
+			animations.push(gsap.set(box, { clearProps: "opacity" }));
+		}
+
+		return gsap.timeline().add(animations).set(symbol, { x: 0, y: 0 });
 	}
 
 	public static flashOnActivate(box: HTMLElement): gsap.core.Timeline {
@@ -41,7 +53,7 @@ export class ChevronBoxAnimations {
 					scale: 5,
 					ease: "power1.in",
 				}),
-				gsap.to(config.symbol, 2, {
+				gsap.to(config.symbol, {
 					color: "var(--red-color)",
 					duration: 2,
 				}),
@@ -51,24 +63,34 @@ export class ChevronBoxAnimations {
 	}
 
 	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
-		return this.lockSymbolAttempt(config).add([
-			gsap.set(config.chevronBox.querySelector(".chevron-symbol-box"), {
-				borderColor: "var(--red-color)",
-			}),
-			gsap.set(config.chevronPath, { stroke: "var(--red-color)" }),
-			gsap.set(config.chevronBox.querySelector(".chevron-number"), { opacity: 1 }),
-		]);
+		const animations = [gsap.set(config.chevronBox.querySelector(".chevron-number"), { opacity: 1 })];
+
+		if (config.number < 8) {
+			animations.push(
+				gsap.set(config.chevronBox.querySelector(".chevron-symbol-box"), {
+					borderColor: "var(--red-color)",
+				}),
+				gsap.set(config.chevronPath, { stroke: "var(--red-color)" }),
+			);
+		}
+
+		return this.lockSymbolAttempt(config).add(animations);
 	}
 
 	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
-		return gsap
-			.timeline()
+		const timeline = gsap.timeline();
+
+		if (config.number >= 8) {
+			timeline.set(config.chevronBox, { opacity: 1 });
+		}
+
+		return timeline
 			.fromTo(
 				config.symbol,
 				{ x: config.startX, y: config.startY, scale: 0 },
 				{ duration: 2, y: config.centerY, scale: 5, immediateRender: false },
 			)
 			.set(config.symbol, { immediateRender: false, visibility: "visible" }, 0)
-			.to(config.symbol, { duration: 2, x: 0, y: 0, scale: 1 });
+			.to(config.symbol, { duration: 2, x: 0, y: 0, scale: config.number >= 8 ? 1.5 : 1 });
 	}
 }

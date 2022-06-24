@@ -21,19 +21,19 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 	@ViewChild("symbol", { static: true }) private _symbol: ElementRef;
 
 	public glyph: Glyph;
-	private animation: gsap.core.Timeline;
-	private killSubscriptions: Subject<{}> = new Subject();
-	private position: DOMRect;
+	protected animation: gsap.core.Timeline;
+	protected killSubscriptions: Subject<{}> = new Subject();
+	protected position: DOMRect;
 
-	private get chevronBox(): HTMLElement {
+	protected get chevronBox(): HTMLElement {
 		return this._chevronBox.nativeElement;
 	}
 
-	private get symbol(): HTMLElement {
+	protected get symbol(): HTMLElement {
 		return this._symbol.nativeElement;
 	}
 
-	constructor(private actions$: Actions, private ngZone: NgZone, private store$: Store<any>) {}
+	constructor(protected actions$: Actions, protected ngZone: NgZone, protected store$: Store<any>) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
@@ -73,7 +73,7 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 	}
 
 	public clearSymbol(): void {
-		ChevronBoxAnimations.clearSymbol(this.chevronBox, this.symbol, this.getChevronPath());
+		ChevronBoxAnimations.clearSymbol(this.number, this.chevronBox, this.symbol, this.getChevronPath());
 		this.glyph = undefined;
 	}
 
@@ -85,24 +85,25 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 		return (this.animation = ChevronBoxAnimations.lockSymbolSuccess(this.buildAnimationConfig(gatePosition)));
 	}
 
-	private buildAnimationConfig(gatePosition: DOMRect): ChevronBoxAnimationConfig {
+	protected buildAnimationConfig(gatePosition: DOMRect): ChevronBoxAnimationConfig {
 		this.updateSymbolPosition();
 
 		return {
 			chevronBox: this.chevronBox,
 			chevronPath: this.getChevronPath(),
 			centerY: gatePosition.y + gatePosition.height / 2 - this.position.y - this.position.height / 2,
+			number: this.number,
 			startX: gatePosition.x + gatePosition.width / 2 - this.position.x - this.position.width / 2,
 			startY: gatePosition.y - this.position.y + 50,
 			symbol: this.symbol,
 		};
 	}
 
-	private getChevronPath(): HTMLElement {
+	protected getChevronPath(): HTMLElement {
 		return document.querySelector(`.chevron-paths .chevron-${this.number}`);
 	}
 
-	private async getLatestGatePosition(): Promise<DOMRect> {
+	protected async getLatestGatePosition(): Promise<DOMRect> {
 		return this.gatePosition$
 			.pipe(
 				filter((pos) => !!pos),
@@ -111,14 +112,14 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 			.toPromise();
 	}
 
-	private killAnimations(): void {
+	protected killAnimations(): void {
 		if (!!this.animation) {
 			this.animation.kill();
 			this.animation = undefined;
 		}
 	}
 
-	private updateSymbolPosition(): void {
+	protected updateSymbolPosition(): void {
 		this.position = this.symbol.getBoundingClientRect() as DOMRect;
 	}
 }
