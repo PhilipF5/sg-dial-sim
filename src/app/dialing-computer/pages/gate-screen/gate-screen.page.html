@@ -46,8 +46,18 @@
 		<sg-segment-display [text]="authCode" [border]="'bottom'"></sg-segment-display>
 	</div>
 	<div class="info">
-		<div class="label">User: {{ user }}</div>
-		<div class="label">Sys: Nominal</div>
+		<div class="field">
+			<span class="label">User:</span>
+			{{ user }}
+		</div>
+		<div class="field">
+			<span class="label">Status:</span>
+			Active
+		</div>
+		<div class="field">
+			<span class="label">Sys:</span>
+			Nominal
+		</div>
 	</div>
 </div>
 <sg-keyboard class="minimized" (dialAddress)="keyboardStartDialingHandler($event)"></sg-keyboard>

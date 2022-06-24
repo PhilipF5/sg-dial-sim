@@ -26,7 +26,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public glyphs: Glyph[] = [];
 	public status: GateStatus;
-	public user: string = "W. Harriman";
+	public user: string = "Sgt. W. Harriman";
 
 	private killSubscriptions: Subject<{}> = new Subject();
 

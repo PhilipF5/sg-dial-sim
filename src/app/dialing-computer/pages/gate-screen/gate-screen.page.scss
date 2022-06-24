@@ -10,7 +10,7 @@
 	justify-content: space-between;
 	margin: 0 auto;
 	max-height: 100%;
-	padding: 1.18vh;
+	padding: 0.509vh;
 }
 
 .header {
@@ -24,7 +24,10 @@
 		display: flex;
 		flex-direction: column;
 
-		sg-segment-display {
+		.label {
+			color: var(--secondary-color);
+			font-family: var(--interface-font);
+			letter-spacing: 4px;
 			text-transform: uppercase;
 		}
 	}
@@ -41,6 +44,7 @@
 	display: flex;
 	flex-grow: 10;
 	justify-content: space-between;
+	margin: 0 1.18vh;
 	position: relative;
 	width: 100%;
 }
@@ -114,28 +118,47 @@ sg-dialing-status {
 	right: 5vh;
 }
 
-.label {
-	color: var(--white-color);
-	font-family: var(--interface-font);
-	font-size: 0.75rem;
-	font-variant: small-caps;
-}
-
 .footer {
 	align-items: flex-end;
 	display: flex;
 	flex-grow: 1;
-	justify-content: space-evenly;
+	gap: 2vh;
+	letter-spacing: 4px;
 	width: 100%;
 }
 
 .info {
+	color: var(--white-color);
 	display: flex;
 	flex-direction: column;
+	font-family: var(--interface-font);
+	line-height: 85%;
+	text-transform: uppercase;
+
+	.label {
+		color: var(--secondary-color);
+	}
 }
 
 sg-gate {
 	height: 69vh;
 	top: 4vh;
 	width: 67vh;
+}
+
+.auth-code {
+	font-style: italic;
+
+	sg-segment-display {
+		font-size: 1.25em;
+	}
+
+	.label {
+		color: var(--secondary-color);
+		font-family: var(--interface-font);
+		font-size: 1rem;
+		font-variant: small-caps;
+		line-height: 0.625;
+		text-transform: uppercase;
+	}
 }

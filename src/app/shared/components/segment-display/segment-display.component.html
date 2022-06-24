@@ -3,5 +3,5 @@
 	*ngFor="let char of chars; let i = index"
 	[ngClass]="{ cursor: (text || '').length === i }"
 >
-	{{ char }}
+	<span class="char">{{ char }}</span>
 </div>
