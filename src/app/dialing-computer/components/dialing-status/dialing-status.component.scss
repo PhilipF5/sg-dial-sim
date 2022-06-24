@@ -22,6 +22,21 @@
 	}
 }
 
+.lst-code {
+	color: var(--secondary-color);
+	display: flex;
+	font-family: var(--interface-font);
+	justify-content: space-between;
+	letter-spacing: 0.1em;
+	margin-bottom: 2.5vh;
+	text-transform: uppercase;
+	width: 100%;
+
+	div:first-of-type {
+		margin-left: 3vh;
+	}
+}
+
 .status-box {
 	align-items: center;
 	display: flex;
