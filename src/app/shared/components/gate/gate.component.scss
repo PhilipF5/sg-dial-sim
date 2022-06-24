@@ -39,4 +39,9 @@ svg {
 			stroke: var(--primary-color);
 		}
 	}
+
+	.bars {
+		stroke: var(--secondary-color);
+		stroke-width: 0.8vh;
+	}
 }
