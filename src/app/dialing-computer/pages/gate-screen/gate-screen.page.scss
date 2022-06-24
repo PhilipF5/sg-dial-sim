@@ -79,7 +79,7 @@
 		}
 
 		.scrolling-bits-container {
-			border: 0.1vh solid var(--primary-color);
+			border: 0.3vh solid var(--primary-color);
 			padding: 0.6vh;
 			width: 75%;
 
@@ -93,6 +93,7 @@
 		}
 
 		.chevron-status-container {
+			border: 0.3vh solid var(--primary-color);
 			width: 100%;
 		}
 	}
