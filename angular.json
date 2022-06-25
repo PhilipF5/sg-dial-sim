@@ -121,5 +121,7 @@
 			}
 		}
 	},
-	"defaultProject": "sgc"
+	"cli": {
+		"analytics": false
+	}
 }
