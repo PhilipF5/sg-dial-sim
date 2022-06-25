@@ -7,7 +7,6 @@ import { AlertService } from "app/shared/services";
 	selector: "sg-alert-factory",
 	templateUrl: "./alert-factory.component.html",
 	styleUrls: ["./alert-factory.component.scss"],
-	entryComponents: [AlertComponent],
 })
 export class AlertFactoryComponent implements OnInit {
 	@ViewChild("container", { read: ViewContainerRef, static: true }) private container: ViewContainerRef;
@@ -17,7 +16,7 @@ export class AlertFactoryComponent implements OnInit {
 	constructor(private alertService: AlertService, private resolver: ComponentFactoryResolver) {}
 
 	ngOnInit() {
-		this.alertService.alerts.subscribe(a => this.createAlert(a));
+		this.alertService.alerts.subscribe((a) => this.createAlert(a));
 	}
 
 	private createAlert(config: AlertConfig) {
