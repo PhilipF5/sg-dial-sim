@@ -105,8 +105,11 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		this.electron.quit();
 	}
 
+	@HostListener("window:keydown.arrowdown")
 	public shutdown(): void {
-		this.store$.dispatch(this.status === GateStatus.Active ? shutdownGate() : abortDialing());
+		if (this.canShutdown) {
+			this.store$.dispatch(this.status === GateStatus.Active ? shutdownGate() : abortDialing());
+		}
 	}
 
 	public toggleFullscreen(): void {
