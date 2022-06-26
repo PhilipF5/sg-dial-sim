@@ -8,9 +8,16 @@ sg-event-horizon {
 	top: 50%;
 }
 
-svg {
+.background {
+	stroke: black;
+	stroke-width: 74px;
+}
+
+.stargate {
 	--chevron-stroke-color: #d1d59e;
 	--chevron-fill-color: #000000;
+	position: absolute;
+	pointer-events: none;
 
 	.base {
 		fill: transparent;

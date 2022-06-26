@@ -6,5 +6,6 @@ export { ChevronStatus } from "./chevron-status.model";
 export { ChevronStatuses, DefaultChevronStatuses, PartialChevronStatuses } from "./chevron-statuses.model";
 export { DefaultAddressSet, Destination } from "./destination.model";
 export { GateStatus } from "./gate-status.model";
+export { IrisStatus } from "./iris-status.model";
 export { Glyph, Glyphs } from "./glyph.model";
 export { Sound } from "./sound.model";
