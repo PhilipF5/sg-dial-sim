@@ -1,7 +1,7 @@
 import { Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { select, Store } from "@ngrx/store";
-import { getGateStatus } from "app/dialing-computer/selectors";
-import { GateStatus } from "app/shared/models";
+import { getGateStatus, getIrisStatus } from "app/dialing-computer/selectors";
+import { GateStatus, IrisStatus } from "app/shared/models";
 import { gsap } from "gsap";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
@@ -14,10 +14,17 @@ import { takeUntil } from "rxjs/operators";
 export class DialingStatusComponent implements OnDestroy, OnInit {
 	@ViewChild("statusText", { static: true }) private _statusText: ElementRef;
 
-	public get status(): GateStatus {
+	public get fontSize(): string {
+		if (this.status.length > 7) {
+			return `${(5 * 9) / this.status.length}rem`;
+		}
+		return `5rem`;
+	}
+
+	public get status(): string {
 		return this._status;
 	}
-	public set status(newStatus: GateStatus) {
+	public set status(newStatus: string) {
 		this.ngZone.run(() => (this._status = newStatus));
 	}
 
@@ -42,12 +49,14 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		this.ngZone.run(() => (this._useRedStyle = use));
 	}
 
-	private _status: GateStatus;
+	private _status: string;
 	private _useFlashOnce: boolean;
 	private _useFlashRepeat: boolean;
 	private _useRedStyle: boolean;
 
 	private killSubscriptions: Subject<{}> = new Subject();
+	private gateStatus: GateStatus;
+	private irisStatus: IrisStatus;
 
 	private get statusText(): HTMLElement {
 		return this._statusText.nativeElement;
@@ -61,7 +70,20 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 
 	ngOnInit() {
 		this.store$.pipe(select(getGateStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
-			this.status = status;
+			this.status = this.gateStatus = status;
+			this.updateAnimation(status);
+		});
+
+		this.store$.pipe(select(getIrisStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
+			this.irisStatus = status;
+			switch (status) {
+				case IrisStatus.Open:
+					this.status = this.gateStatus;
+					break;
+				case IrisStatus.Closed:
+					this.status = "IRIS CLOSED";
+					break;
+			}
 			this.updateAnimation(status);
 		});
 	}
@@ -70,10 +92,11 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		gsap.killTweensOf(this.statusText);
 	}
 
-	private updateAnimation(status: GateStatus): void {
+	private updateAnimation(status: string): void {
 		this.killAnimation();
 		switch (status) {
 			case GateStatus.Idle:
+			case IrisStatus.Closed:
 				this.useRedStyle = true;
 				this.useFlashRepeat = true;
 				this.useFlashOnce = false;

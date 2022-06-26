@@ -33,6 +33,7 @@
 	<div
 		#statusText
 		[ngClass]="{ status: true, red: useRedStyle, flashOnce: useFlashOnce, flashRepeat: useFlashRepeat }"
+		[ngStyle]="{ 'font-size': fontSize }"
 	>
 		{{ status }}
 	</div>
