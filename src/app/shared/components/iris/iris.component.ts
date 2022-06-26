@@ -2,6 +2,7 @@ import { AfterViewInit, Component, NgZone, OnDestroy, OnInit } from "@angular/co
 import { Actions, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { closeIris, irisClosed, irisOpened, openIris } from "app/dialing-computer/actions";
+import { Sound } from "app/shared/models";
 import { AudioService } from "app/shared/services";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
@@ -38,27 +39,43 @@ export class IrisComponent implements AfterViewInit, OnDestroy, OnInit {
 	}
 
 	public close(): gsap.core.Timeline {
-		return this.createTimeline()
-			.reverse()
-			.add(() => this.ngZone.run(() => this.store$.dispatch(irisClosed())));
+		return gsap
+			.timeline()
+			.fromTo(
+				this,
+				{ rotation: 0 },
+				{
+					rotation: -62,
+					duration: 3,
+					ease: "iris",
+				},
+			)
+			.add(() => this.ngZone.run(() => this.store$.dispatch(irisClosed())))
+			.add(() => this.audio.play(Sound.IrisClose), 0);
 	}
 
 	public open(): gsap.core.Timeline {
-		return this.createTimeline().add(() => this.ngZone.run(() => this.store$.dispatch(irisOpened())));
-	}
+		function invertEase(ease) {
+			if (typeof ease === "string") {
+				ease = CustomEase.get(ease);
+			}
+			return function (p) {
+				return 1 - ease(1 - p);
+			};
+		}
 
-	private createTimeline(): gsap.core.Timeline {
-		return gsap.timeline().fromTo(
-			this,
-			{ rotation: 0 },
-			{
-				rotation: -62,
-				duration: 4,
-				ease: CustomEase.create(
-					"custom",
-					"M0,0,C0,0,0.066,0.114,0.132,0.124,0.69,0.206,0.332,0.866,0.9,0.936,0.965,0.944,1,1,1,1",
-				),
-			},
-		);
+		return gsap
+			.timeline()
+			.fromTo(
+				this,
+				{ rotation: -62 },
+				{
+					rotation: 0,
+					duration: 3,
+					ease: invertEase("iris"),
+				},
+			)
+			.add(() => this.ngZone.run(() => this.store$.dispatch(irisOpened())))
+			.add(() => this.audio.play(Sound.IrisOpen), 0);
 	}
 }

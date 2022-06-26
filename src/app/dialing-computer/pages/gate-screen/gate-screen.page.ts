@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
-import { abortDialing, beginDialing, shutdownGate } from "app/dialing-computer/actions";
+import { abortDialing, beginDialing, closeIris, openIris, shutdownGate } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
-import { getDestination, getGateStatus } from "app/dialing-computer/selectors";
+import { getDestination, getGateStatus, getIrisStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
-import { GateStatus, Glyph } from "app/shared/models";
+import { GateStatus, Glyph, IrisStatus } from "app/shared/models";
 import { ElectronService } from "app/shared/services";
 import { gsap } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
@@ -25,6 +25,7 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	public destination$ = this.store$.pipe(select(getDestination));
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public glyphs: Glyph[] = [];
+	public irisStatus: IrisStatus;
 	public status: GateStatus;
 	public user: string = "Sgt. W. Harriman";
 
@@ -67,6 +68,10 @@ export class GateScreenPage implements OnDestroy, OnInit {
 			}
 		});
 
+		this.store$.pipe(select(getIrisStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
+			this.irisStatus = status;
+		});
+
 		this.route.paramMap.pipe(take(1)).subscribe((params) => {
 			if (params.has("dest")) {
 				this.keyboard.loadAddressById(params.get("dest"));
@@ -106,6 +111,15 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	public toggleFullscreen(): void {
 		this.electron.toggleFullScreen();
+	}
+
+	@HostListener("window:keydown.arrowright")
+	public toggleIris(): void {
+		if (this.irisStatus === IrisStatus.Open) {
+			this.store$.dispatch(closeIris());
+		} else if (this.irisStatus === IrisStatus.Closed) {
+			this.store$.dispatch(openIris());
+		}
 	}
 
 	private updateGatePosition(): void {
