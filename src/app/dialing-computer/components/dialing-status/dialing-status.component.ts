@@ -15,7 +15,7 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	@ViewChild("statusText", { static: true }) private _statusText: ElementRef;
 
 	public get fontSize(): string {
-		if (this.status.length > 7) {
+		if (this.status.length > 8) {
 			return `${(5 * 9) / this.status.length}rem`;
 		}
 		return `5rem`;
@@ -96,8 +96,12 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		this.killAnimation();
 		switch (status) {
 			case GateStatus.Idle:
-			case IrisStatus.Closed:
 				this.useRedStyle = true;
+				this.useFlashRepeat = true;
+				this.useFlashOnce = false;
+				break;
+			case IrisStatus.Closed:
+				this.useRedStyle = false;
 				this.useFlashRepeat = true;
 				this.useFlashOnce = false;
 				break;
