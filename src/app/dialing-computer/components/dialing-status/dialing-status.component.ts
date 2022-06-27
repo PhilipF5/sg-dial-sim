@@ -71,7 +71,7 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	ngOnInit() {
 		this.store$.pipe(select(getGateStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
 			this.status = this.gateStatus = status;
-			this.updateAnimation(status);
+			this.updateAnimation(this.status);
 		});
 
 		this.store$.pipe(select(getIrisStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
@@ -84,7 +84,7 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 					this.status = "IRIS CLOSED";
 					break;
 			}
-			this.updateAnimation(status);
+			this.updateAnimation(this.status);
 		});
 	}
 
@@ -96,12 +96,8 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		this.killAnimation();
 		switch (status) {
 			case GateStatus.Idle:
-				this.useRedStyle = true;
-				this.useFlashRepeat = true;
-				this.useFlashOnce = false;
-				break;
 			case IrisStatus.Closed:
-				this.useRedStyle = false;
+				this.useRedStyle = true;
 				this.useFlashRepeat = true;
 				this.useFlashOnce = false;
 				break;
@@ -116,7 +112,9 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 				this.useFlashOnce = this.useFlashRepeat = false;
 				break;
 			case GateStatus.Active:
+				this.useRedStyle = false;
 				this.useFlashRepeat = true;
+				this.useFlashOnce = false;
 				break;
 		}
 	}
