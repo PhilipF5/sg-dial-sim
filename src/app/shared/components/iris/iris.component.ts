@@ -45,7 +45,7 @@ export class IrisComponent implements AfterViewInit, OnDestroy, OnInit {
 				this,
 				{ rotation: 0 },
 				{
-					rotation: -62,
+					rotation: -65,
 					duration: 3,
 					ease: "iris",
 				},
@@ -68,7 +68,7 @@ export class IrisComponent implements AfterViewInit, OnDestroy, OnInit {
 			.timeline()
 			.fromTo(
 				this,
-				{ rotation: -62 },
+				{ rotation: -65 },
 				{
 					rotation: 0,
 					duration: 3,
