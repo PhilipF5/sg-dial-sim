@@ -80,8 +80,14 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 				case IrisStatus.Open:
 					this.status = this.gateStatus;
 					break;
+				case IrisStatus.Opening:
+					this.status = "OPENING IRIS";
+					break;
 				case IrisStatus.Closed:
 					this.status = "IRIS CLOSED";
+					break;
+				case IrisStatus.Closing:
+					this.status = "CLOSING IRIS";
 					break;
 			}
 			this.updateAnimation(this.status);
@@ -97,6 +103,8 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		switch (status) {
 			case GateStatus.Idle:
 			case IrisStatus.Closed:
+			case IrisStatus.Opening:
+			case IrisStatus.Closing:
 				this.useRedStyle = true;
 				this.useFlashRepeat = true;
 				this.useFlashOnce = false;
