@@ -72,6 +72,7 @@ export class ChevronBoxAnimations {
 					borderColor: "var(--red-color)",
 				}),
 				gsap.set(config.chevronPath, { stroke: "var(--red-color)" }),
+				gsap.set(config.chevronBox, { clearProps: "zIndex" }),
 			);
 		}
 
@@ -86,6 +87,7 @@ export class ChevronBoxAnimations {
 		}
 
 		return timeline
+			.set(config.chevronBox, { zIndex: 10 })
 			.fromTo(
 				config.symbol,
 				{ x: config.startX, y: config.startY, scale: 0 },
