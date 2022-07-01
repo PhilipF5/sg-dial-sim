@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { select, Store } from "@ngrx/store";
+import { getUser } from "app/dialing-computer/selectors";
 import { Destination, Glyph, Glyphs } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
 import { sortBy } from "lodash-es";
 import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
 	selector: "sg-glyph-selection",
@@ -11,20 +14,24 @@ import { Subject } from "rxjs";
 	styleUrls: ["./glyph-selection.page.scss"],
 })
 export class GlyphSelectionPage implements OnDestroy, OnInit {
-	public authCode: string = "10183523652-4354393";
+	public authCode: string;
 	public currentDestination: Destination;
 	public glyphs: Glyph[] = [...sortBy(Glyphs.standard, (g) => g.name), { ...Glyphs.pointOfOrigin, name: "[DIAL]" }];
 	public selection: Glyph[] = [];
 
 	private killSubscriptions: Subject<{}> = new Subject();
 
-	constructor(private gateNetwork: GateNetworkService, private router: Router) {}
+	constructor(private gateNetwork: GateNetworkService, private router: Router, private store$: Store) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.store$.pipe(select(getUser), takeUntil(this.killSubscriptions)).subscribe(({ authCode }) => {
+			this.authCode = authCode;
+		});
+	}
 
 	public goToGateScreen(dest?: string) {
 		const params: any = {};

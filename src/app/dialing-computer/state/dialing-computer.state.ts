@@ -1,4 +1,4 @@
-import { ChevronStatuses, Destination, GateStatus, Glyph, IrisStatus } from "app/shared/models";
+import { ChevronStatuses, Destination, GateStatus, Glyph, IrisStatus, User } from "app/shared/models";
 
 export interface DialingComputerState {
 	address: Glyph[];
@@ -7,4 +7,5 @@ export interface DialingComputerState {
 	gateStatus: GateStatus;
 	irisStatus: IrisStatus;
 	nextSymbol: number;
+	user: User;
 }

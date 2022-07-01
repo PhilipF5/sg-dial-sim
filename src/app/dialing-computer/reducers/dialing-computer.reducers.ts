@@ -16,7 +16,7 @@ import {
 	shutdownGate,
 } from "app/dialing-computer/actions";
 import { DialingComputerState } from "app/dialing-computer/state";
-import { ChevronStatus, DefaultChevronStatuses, GateStatus, Glyphs, IrisStatus } from "app/shared/models";
+import { ChevronStatus, DefaultChevronStatuses, GateStatus, Glyphs, IrisStatus, User } from "app/shared/models";
 
 export const initialState: DialingComputerState = {
 	address: null,
@@ -25,6 +25,7 @@ export const initialState: DialingComputerState = {
 	gateStatus: GateStatus.Idle,
 	irisStatus: IrisStatus.Open,
 	nextSymbol: null,
+	user: User.Default(),
 };
 
 export const reducer = createReducer(

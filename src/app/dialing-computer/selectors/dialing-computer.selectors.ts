@@ -22,3 +22,5 @@ export const getNextGlyph = createSelector(
 	selectDialingComputerState,
 	(state) => state && state.address && state.address[state.nextSymbol],
 );
+
+export const getUser = createSelector(selectDialingComputerState, (state) => state.user);

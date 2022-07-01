@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { abortDialing, beginDialing, closeIris, openIris, shutdownGate } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
-import { getDestination, getGateStatus, getIrisStatus } from "app/dialing-computer/selectors";
+import { getDestination, getGateStatus, getIrisStatus, getUser } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
 import { GateStatus, Glyph, Glyphs, IrisStatus } from "app/shared/models";
 import { ElectronService } from "app/shared/services";
@@ -20,13 +20,13 @@ export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 	@ViewChild(GateComponent, { static: true }) private gate: GateComponent;
 	@ViewChild(KeyboardComponent, { static: true }) private keyboard: KeyboardComponent;
 
-	public authCode: string = "10183523652-4354393";
+	public authCode: string;
 	public destination: string;
 	public destination$ = this.store$.pipe(select(getDestination));
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
 	public irisStatus: IrisStatus;
 	public status: GateStatus;
-	public user: string = "Sgt. W. Harriman";
+	public user: string;
 
 	private killSubscriptions: Subject<{}> = new Subject();
 
@@ -80,6 +80,11 @@ export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 
 		this.store$.pipe(select(getIrisStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
 			this.irisStatus = status;
+		});
+
+		this.store$.pipe(select(getUser), takeUntil(this.killSubscriptions)).subscribe(({ authCode, fullName }) => {
+			this.authCode = authCode;
+			this.user = fullName;
 		});
 	}
 

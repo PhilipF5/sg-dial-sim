@@ -9,3 +9,5 @@ export { GateStatus } from "./gate-status.model";
 export { IrisStatus } from "./iris-status.model";
 export { Glyph, Glyphs } from "./glyph.model";
 export { Sound } from "./sound.model";
+export { User } from "./user.model";
+export { UserRank } from "./user-rank.model";
