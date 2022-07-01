@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AddressBookPage, GateScreenPage } from "./pages";
+import { AddressBookPage, GateScreenPage, GlyphSelectionPage } from "./pages";
 
 const routes: Routes = [
 	{
@@ -15,6 +15,10 @@ const routes: Routes = [
 	{
 		path: "dialing-computer/address-book",
 		component: AddressBookPage,
+	},
+	{
+		path: "dialing-computer/glyph-selection",
+		component: GlyphSelectionPage,
 	},
 ];
 

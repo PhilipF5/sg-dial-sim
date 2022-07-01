@@ -10,7 +10,7 @@
 <div class="header">
 	<sg-menu-button class="action-menu" position="lower-right" text="MENU" [menuWidth]="17.77">
 		<sg-button text="Address Book" [disabled]="!canOpenAddressBook" (sgClick)="goToAddressBook()"></sg-button>
-		<sg-button text="Keyboard" (sgClick)="openKeyboard()"></sg-button>
+		<sg-button text="Glyph Selection" (sgClick)="goToGlyphSelection()"></sg-button>
 		<sg-button text="Shutdown" [disabled]="!canShutdown" (sgClick)="shutdown()"></sg-button>
 		<sg-button text="Fullscreen On/Off" *ngIf="isElectronApp" (sgClick)="toggleFullscreen()"></sg-button>
 		<sg-button text="Quit" *ngIf="isElectronApp" (sgClick)="quit()"></sg-button>

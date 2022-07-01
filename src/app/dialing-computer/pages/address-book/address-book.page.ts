@@ -108,7 +108,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public loadAddress(dest: Destination): void {
-		this.goToGateScreen(dest.id);
+		this.goToGateScreen(dest.address.map((glyph) => glyph.char).join(""));
 	}
 
 	public loadAddresses(): void {

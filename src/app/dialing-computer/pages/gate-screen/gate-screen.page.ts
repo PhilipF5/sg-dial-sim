@@ -1,11 +1,11 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { abortDialing, beginDialing, closeIris, openIris, shutdownGate } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { getDestination, getGateStatus, getIrisStatus } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
-import { GateStatus, Glyph, IrisStatus } from "app/shared/models";
+import { GateStatus, Glyph, Glyphs, IrisStatus } from "app/shared/models";
 import { ElectronService } from "app/shared/services";
 import { gsap } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
@@ -16,7 +16,7 @@ import { take, takeUntil } from "rxjs/operators";
 	templateUrl: "./gate-screen.page.html",
 	styleUrls: ["./gate-screen.page.scss"],
 })
-export class GateScreenPage implements OnDestroy, OnInit {
+export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 	@ViewChild(GateComponent, { static: true }) private gate: GateComponent;
 	@ViewChild(KeyboardComponent, { static: true }) private keyboard: KeyboardComponent;
 
@@ -24,7 +24,6 @@ export class GateScreenPage implements OnDestroy, OnInit {
 	public destination: string;
 	public destination$ = this.store$.pipe(select(getDestination));
 	public gatePosition$: BehaviorSubject<DOMRect> = new BehaviorSubject(null);
-	public glyphs: Glyph[] = [];
 	public irisStatus: IrisStatus;
 	public status: GateStatus;
 	public user: string = "Sgt. W. Harriman";
@@ -56,6 +55,17 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		private store$: Store<any>,
 	) {}
 
+	ngAfterViewInit() {
+		this.route.paramMap.pipe(take(1)).subscribe((params) => {
+			if (params.has("dest")) {
+				const address = Array.from(params.get("dest")).map((char) =>
+					Glyphs.standard.find((g) => g.char === char),
+				);
+				this.beginDialing(address);
+			}
+		});
+	}
+
 	ngOnDestroy() {
 		this.killSubscriptions.next();
 	}
@@ -71,13 +81,6 @@ export class GateScreenPage implements OnDestroy, OnInit {
 		this.store$.pipe(select(getIrisStatus), takeUntil(this.killSubscriptions)).subscribe((status) => {
 			this.irisStatus = status;
 		});
-
-		this.route.paramMap.pipe(take(1)).subscribe((params) => {
-			if (params.has("dest")) {
-				this.keyboard.loadAddressById(params.get("dest"));
-				this.openKeyboard();
-			}
-		});
 	}
 
 	public beginDialing(address: Glyph[]): void {
@@ -91,6 +94,10 @@ export class GateScreenPage implements OnDestroy, OnInit {
 
 	public goToAddressBook(): void {
 		this.router.navigate(["/dialing-computer/address-book"], { skipLocationChange: true });
+	}
+
+	public goToGlyphSelection(): void {
+		this.router.navigate(["/dialing-computer/glyph-selection"], { skipLocationChange: true });
 	}
 
 	public keyboardStartDialingHandler(event: Glyph[]): void {

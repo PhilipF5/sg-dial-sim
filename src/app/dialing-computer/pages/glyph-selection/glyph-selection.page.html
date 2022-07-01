@@ -1,0 +1,15 @@
+<div class="header">
+	<div class="title">Encoding Module</div>
+</div>
+<div class="glyphs-grid">
+	<div
+		*ngFor="let glyph of glyphs"
+		class="tile"
+		[ngClass]="{ selected: isGlyphSelected(glyph) }"
+		(click)="selectGlyph(glyph)"
+	>
+		<div class="glyph">{{ glyph.char }}</div>
+		<div class="name">{{ glyph.name | abbreviate:"Aus" }}</div>
+	</div>
+</div>
+<div class="footer"></div>
