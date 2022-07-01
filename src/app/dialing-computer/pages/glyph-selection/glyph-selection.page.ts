@@ -26,6 +26,17 @@ export class GlyphSelectionPage implements OnDestroy, OnInit {
 
 	ngOnInit() {}
 
+	public goToGateScreen(dest?: string) {
+		const params: any = {};
+		if (dest) {
+			params.dest = dest;
+		}
+
+		this.router.navigate(["/dialing-computer/gate-screen", params], {
+			skipLocationChange: true,
+		});
+	}
+
 	public isGlyphSelected(glyph: Glyph): boolean {
 		return this.selection.includes(glyph);
 	}
@@ -37,12 +48,9 @@ export class GlyphSelectionPage implements OnDestroy, OnInit {
 			do {
 				this.selection.pop();
 			} while (this.selection.includes(glyph));
-		} else if (glyph === Glyphs.pointOfOrigin) {
+		} else if (glyph.char === Glyphs.pointOfOrigin.char) {
 			if (this.selection.length >= 6) {
-				this.router.navigate(
-					["/dialing-computer/gate-screen", { dest: this.selection.map((g) => g.char).join("") }],
-					{ skipLocationChange: true },
-				);
+				this.goToGateScreen(this.selection.map((g) => g.char).join(""));
 			}
 		} else if (this.selection.length <= 6) {
 			this.selection.push(glyph);
