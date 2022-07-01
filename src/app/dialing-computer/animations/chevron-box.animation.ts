@@ -24,7 +24,7 @@ export class ChevronBoxAnimations {
 
 		if (number < 8) {
 			animations.push(
-				gsap.set(box.querySelector(".chevron-symbol-box"), { clearProps: "borderColor" }),
+				gsap.set(box.querySelector(".chevron-symbol-box"), { clearProps: "borderColor,backgroundColor" }),
 				gsap.set(path, { clearProps: "stroke" }),
 			);
 		} else {
@@ -68,6 +68,7 @@ export class ChevronBoxAnimations {
 		if (config.number < 8) {
 			animations.push(
 				gsap.set(config.chevronBox.querySelector(".chevron-symbol-box"), {
+					backgroundColor: "rgb(255 0 0 / 10%)",
 					borderColor: "var(--red-color)",
 				}),
 				gsap.set(config.chevronPath, { stroke: "var(--red-color)" }),
