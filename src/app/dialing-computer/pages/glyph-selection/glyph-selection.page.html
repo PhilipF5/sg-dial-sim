@@ -1,5 +1,16 @@
 <div class="header">
+	<svg class="back-button" viewBox="0 0 25 25">
+		<path d="M 0 0 H 25 L 0 25 V 0" />
+	</svg>
 	<div class="title">Encoding Module</div>
+	<div class="line"></div>
+	<div class="light"></div>
+	<sg-segment-display
+		[align]="'right'"
+		[border]="'top'"
+		[size]="10"
+		[text]="currentDestination?.name"
+	></sg-segment-display>
 </div>
 <div class="glyphs-grid">
 	<div
@@ -12,4 +23,15 @@
 		<div class="name">{{ glyph.name | abbreviate:"Aus" }}</div>
 	</div>
 </div>
-<div class="footer"></div>
+<div class="footer">
+	<div class="auth-code">
+		<div class="label">Auth Code</div>
+		<sg-segment-display [text]="authCode" [border]="'bottom'"></sg-segment-display>
+	</div>
+	<div class="info">
+		<div class="field">
+			<span class="label">Sys:</span>
+			Nominal
+		</div>
+	</div>
+</div>

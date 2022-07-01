@@ -5,7 +5,7 @@
 	}
 
 	50% {
-		background-color: red;
+		background-color: var(--red-color);
 		color: var(--white-color);
 	}
 
@@ -20,7 +20,7 @@
 	}
 
 	80% {
-		background-color: red;
+		background-color: var(--red-color);
 		color: var(--white-color);
 	}
 
@@ -31,9 +31,10 @@
 }
 
 :host {
+	--border: 0.6vh solid var(--primary-color);
 	aspect-ratio: 4 / 3;
-	border: 0.6vh solid var(--primary-color);
-	border-bottom-right-radius: 3vh;
+	border-left: var(--border);
+	border-top: var(--border);
 	border-top-left-radius: 3vh;
 	box-sizing: border-box;
 	display: flex;
@@ -45,15 +46,35 @@
 }
 
 .header {
+	align-items: center;
 	display: flex;
+	gap: 3vh;
+	margin-left: 3vh;
 	width: 100%;
+
+	.back-button {
+		fill: var(--white-color);
+		width: 2vh;
+	}
 
 	.title {
 		color: var(--secondary-color);
 		font-family: var(--interface-font);
-		font-size: 1rem;
+		font-size: 1.5rem;
 		font-variant: small-caps;
-		letter-spacing: 4px;
+		letter-spacing: 2px;
+	}
+
+	.line {
+		border-top: 5px solid var(--primary-color);
+		width: 40%;
+	}
+
+	.light {
+		background: radial-gradient(circle at center, red 0%, black 80%);
+		height: 2vh;
+		margin-right: 4vh;
+		width: 2vh;
 	}
 }
 
@@ -63,6 +84,7 @@
 	border-top: 3px solid var(--white-color);
 	display: flex;
 	flex-wrap: wrap;
+	margin-bottom: 2vh;
 	width: 67rem;
 
 	.tile {
@@ -70,15 +92,24 @@
 		border: 3px solid var(--white-color);
 		border-radius: 3px;
 		color: var(--secondary-color);
+		cursor: pointer;
 		display: flex;
 		flex-direction: column;
-		height: 9rem;
+		height: 8.8rem;
 		justify-content: center;
 		width: 8rem;
 
 		&.selected {
 			animation: selection-flash 0.5s;
 			background-color: #732013;
+
+			&:hover {
+				border-color: var(--red-color);
+			}
+		}
+
+		&:hover {
+			border-color: var(--green-color);
 		}
 	}
 
@@ -95,5 +126,38 @@
 }
 
 .footer {
+	display: flex;
+	flex-grow: 1;
+	gap: 2vh;
+	letter-spacing: 4px;
 	width: 100%;
+}
+
+.info {
+	color: var(--white-color);
+	display: flex;
+	flex-direction: column;
+	font-family: var(--interface-font);
+	line-height: 85%;
+	text-transform: uppercase;
+
+	.label {
+		color: var(--secondary-color);
+	}
+}
+
+.auth-code {
+	sg-segment-display {
+		font-size: 1.25em;
+		font-style: italic;
+	}
+
+	.label {
+		color: var(--secondary-color);
+		font-family: var(--interface-font);
+		font-size: 1rem;
+		font-variant: small-caps;
+		line-height: 0.625;
+		text-transform: uppercase;
+	}
 }

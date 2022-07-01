@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Store } from "@ngrx/store";
-import { Glyph, Glyphs } from "app/shared/models";
+import { Router } from "@angular/router";
+import { Destination, Glyph, Glyphs } from "app/shared/models";
+import { GateNetworkService } from "app/shared/services";
 import { Subject } from "rxjs";
 
 @Component({
@@ -10,12 +10,14 @@ import { Subject } from "rxjs";
 	styleUrls: ["./glyph-selection.page.scss"],
 })
 export class GlyphSelectionPage implements OnDestroy, OnInit {
-	public glyphs: Glyph[] = [...Glyphs.standard, Glyphs.pointOfOrigin];
+	public authCode: string = "10183523652-4354393";
+	public currentDestination: Destination;
+	public glyphs: Glyph[] = [...Glyphs.standard, { ...Glyphs.pointOfOrigin, name: "[DIAL]" }];
 	public selection: Glyph[] = [];
 
 	private killSubscriptions: Subject<{}> = new Subject();
 
-	constructor(private route: ActivatedRoute, private router: Router, private store$: Store<any>) {}
+	constructor(private gateNetwork: GateNetworkService, private router: Router) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next();
@@ -44,5 +46,7 @@ export class GlyphSelectionPage implements OnDestroy, OnInit {
 		} else if (this.selection.length <= 6) {
 			this.selection.push(glyph);
 		}
+
+		this.currentDestination = this.gateNetwork.getDestinationByAddress(this.selection);
 	}
 }
