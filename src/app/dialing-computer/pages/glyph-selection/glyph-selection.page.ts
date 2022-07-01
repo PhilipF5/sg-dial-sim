@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Destination, Glyph, Glyphs } from "app/shared/models";
 import { GateNetworkService } from "app/shared/services";
+import { sortBy } from "lodash-es";
 import { Subject } from "rxjs";
 
 @Component({
@@ -12,7 +13,7 @@ import { Subject } from "rxjs";
 export class GlyphSelectionPage implements OnDestroy, OnInit {
 	public authCode: string = "10183523652-4354393";
 	public currentDestination: Destination;
-	public glyphs: Glyph[] = [...Glyphs.standard, { ...Glyphs.pointOfOrigin, name: "[DIAL]" }];
+	public glyphs: Glyph[] = [...sortBy(Glyphs.standard, (g) => g.name), { ...Glyphs.pointOfOrigin, name: "[DIAL]" }];
 	public selection: Glyph[] = [];
 
 	private killSubscriptions: Subject<{}> = new Subject();
