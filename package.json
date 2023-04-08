@@ -50,6 +50,7 @@
 		"@angular/compiler-cli": "15.2.6",
 		"@angular/language-service": "15.2.6",
 		"@electron/notarize": "1.2.3",
+		"@types/lodash": "4.14.192",
 		"@types/lodash-es": "4.17.7",
 		"@types/node": "18.15.11",
 		"dotenv": "8.2.0",
