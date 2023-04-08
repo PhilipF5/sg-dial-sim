@@ -39,7 +39,7 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 	) {}
 
 	ngOnDestroy() {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 	}
 
 	ngOnInit() {

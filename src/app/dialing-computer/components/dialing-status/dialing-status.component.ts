@@ -65,7 +65,7 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 	constructor(private ngZone: NgZone, private store$: Store<any>) {}
 
 	ngOnDestroy() {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 	}
 
 	ngOnInit() {

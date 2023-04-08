@@ -24,7 +24,7 @@ export class MenuButtonComponent implements AfterContentChecked {
 	private killSubscriptions = new Subject();
 
 	ngAfterContentChecked() {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 		this.buttons.forEach((btn) => {
 			btn.sgClick.pipe(takeUntil(this.killSubscriptions)).subscribe(() => this.toggleMenu());
 		});

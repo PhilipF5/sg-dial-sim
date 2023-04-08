@@ -18,18 +18,13 @@ export class ChevronStatusComponent implements OnDestroy, OnInit {
 	constructor(private store$: Store<any>) {}
 
 	ngOnDestroy() {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 	}
 
 	ngOnInit() {
-		this.store$
-			.pipe(
-				select(getChevronStatus),
-				takeUntil(this.killSubscriptions)
-			)
-			.subscribe(statuses => {
-				this.statuses = statuses;
-			});
+		this.store$.pipe(select(getChevronStatus), takeUntil(this.killSubscriptions)).subscribe((statuses) => {
+			this.statuses = statuses;
+		});
 	}
 
 	public isEngaged(chevron: number): boolean {

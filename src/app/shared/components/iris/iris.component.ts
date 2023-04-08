@@ -29,7 +29,7 @@ export class IrisComponent implements AfterViewInit, OnDestroy, OnInit {
 	ngAfterViewInit(): void {}
 
 	ngOnDestroy(): void {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 	}
 
 	ngOnInit(): void {

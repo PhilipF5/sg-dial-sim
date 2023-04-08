@@ -24,7 +24,7 @@ export class GlyphSelectionPage implements OnDestroy, OnInit {
 	constructor(private gateNetwork: GateNetworkService, private router: Router, private store$: Store) {}
 
 	ngOnDestroy() {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 	}
 
 	ngOnInit() {

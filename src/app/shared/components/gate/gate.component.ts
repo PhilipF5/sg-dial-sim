@@ -80,7 +80,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 	}
 
 	ngOnDestroy() {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 	}
 
 	ngOnInit() {

@@ -36,7 +36,7 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 	constructor(protected actions$: Actions, protected ngZone: NgZone, protected store$: Store<any>) {}
 
 	ngOnDestroy() {
-		this.killSubscriptions.next();
+		this.killSubscriptions.next({});
 	}
 
 	ngAfterViewInit() {
