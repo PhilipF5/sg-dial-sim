@@ -1,11 +1,15 @@
 :host {
 	margin-bottom: 1.2vh;
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
 }
 
 .chevron-box {
 	align-items: flex-start;
 	display: flex;
-	height: 10vh;
+	height: 10.3vh;
 	justify-content: right;
 	position: relative;
 	width: 21vh;
