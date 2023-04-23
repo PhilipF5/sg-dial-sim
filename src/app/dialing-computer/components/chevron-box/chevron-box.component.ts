@@ -1,7 +1,13 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from "@angular/core";
 import { Actions, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { chevronFailed, engageChevron, failChevron, sequenceComplete } from "app/dialing-computer/actions";
+import {
+	chevronEngaged,
+	chevronFailed,
+	engageChevron,
+	failChevron,
+	sequenceComplete,
+} from "app/dialing-computer/actions";
 import { ChevronBoxAnimationConfig, ChevronBoxAnimations } from "app/dialing-computer/animations";
 import { getGateStatus } from "app/dialing-computer/selectors";
 import { GateStatus, Glyph } from "app/shared/models";
@@ -59,7 +65,9 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 				this.glyph = glyph;
 				let gatePos = await this.getLatestGatePosition();
 				if (type === engageChevron.type) {
-					this.lockSymbolSuccess(gatePos);
+					this.lockSymbolSuccess(gatePos).add(() =>
+						this.ngZone.run(() => this.store$.dispatch(chevronEngaged(chevron))),
+					);
 				} else {
 					this.lockSymbolFailed(gatePos).add(() =>
 						this.ngZone.run(() => this.store$.dispatch(chevronFailed(chevron))),

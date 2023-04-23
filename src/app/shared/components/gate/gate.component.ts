@@ -89,9 +89,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 			.subscribe(({ chevron, type }) => {
 				let engage = type === engageChevron.type;
 				if (engage) {
-					this.engageChevron(chevron).add(() =>
-						this.ngZone.run(() => this.store$.dispatch(chevronEngaged(chevron))),
-					);
+					this.engageChevron(chevron);
 				} else {
 					this.engageChevron(chevron, false);
 				}
