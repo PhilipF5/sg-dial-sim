@@ -13,6 +13,7 @@ import {
 	openGate,
 	openIris,
 	reset,
+	setDestination,
 	shutdownGate,
 } from "app/dialing-computer/actions";
 import { DialingComputerState } from "app/dialing-computer/state";
@@ -60,6 +61,7 @@ export const reducer = createReducer(
 	on(openGate, (state) => ({ ...state, gateStatus: GateStatus.Active })),
 	on(openIris, (state) => ({ ...state, irisStatus: IrisStatus.Opening })),
 	on(reset, () => ({ ...initialState })),
+	on(setDestination, (state, { destination }) => ({ ...state, destination })),
 	on(shutdownGate, (state) => ({ ...state, gateStatus: GateStatus.Shutdown })),
 );
 

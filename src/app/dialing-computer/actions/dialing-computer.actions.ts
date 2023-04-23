@@ -22,6 +22,7 @@ export const irisOpened = createAction("[Dialing Computer] Iris Opened");
 export const openGate = createAction("[Dialing Computer] Open Gate");
 export const openIris = createAction("[Dialing Computer] Open Iris");
 export const reset = createAction("[Dialing Computer] Reset");
+export const setDestination = createAction("[Dialing Computer] Set Destination", destinationProp);
 export const sequenceComplete = createAction("[Dialing Computer] Sequence Complete");
 export const sequenceFailed = createAction("[Dialing Computer] Sequence Failed");
 export const shutdownGate = createAction("[Dialing Computer] Shutdown Gate");

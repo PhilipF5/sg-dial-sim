@@ -9,6 +9,8 @@ import {
 	ViewChildren,
 } from "@angular/core";
 import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { setDestination } from "app/dialing-computer/actions";
 import { AddressRowComponent } from "app/dialing-computer/components";
 import { Destination } from "app/shared/models";
 import { AlertService, GateNetworkService } from "app/shared/services";
@@ -69,6 +71,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		private gateNetwork: GateNetworkService,
 		private ngZone: NgZone,
 		private router: Router,
+		private store$: Store<any>,
 	) {}
 
 	ngAfterViewInit() {
@@ -108,6 +111,7 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 	}
 
 	public loadAddress(dest: Destination): void {
+		this.store$.dispatch(setDestination(dest));
 		this.goToGateScreen(dest.address.map((glyph) => glyph.char).join(""));
 	}
 

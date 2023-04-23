@@ -35,10 +35,12 @@
 		align-items: flex-end;
 		display: flex;
 		flex-direction: column;
+		font-style: italic;
 
 		.label {
 			color: var(--secondary-color);
 			font-family: var(--interface-font);
+			font-style: normal;
 			letter-spacing: 4px;
 			text-transform: uppercase;
 		}
