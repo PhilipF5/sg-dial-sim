@@ -71,13 +71,13 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 				this.glyph = glyph;
 				let gatePos = await this.getLatestGatePosition();
 				if (type === engageChevron.type) {
-					this.lockSymbolSuccess(gatePos).add(() =>
-						this.ngZone.run(() => this.store$.dispatch(chevronEngaged(chevron))),
-					);
+					this.lockSymbolSuccess(gatePos)
+						.add(() => this.ngZone.run(() => this.store$.dispatch(chevronEngaged(chevron))))
+						.add(() => this.audio.play(Sound.SymbolEngaging), 0);
 				} else {
-					this.lockSymbolFailed(gatePos).add(() =>
-						this.ngZone.run(() => this.store$.dispatch(chevronFailed(chevron))),
-					);
+					this.lockSymbolFailed(gatePos)
+						.add(() => this.ngZone.run(() => this.store$.dispatch(chevronFailed(chevron))))
+						.add(() => this.audio.play(Sound.SymbolEngaging), 0);
 				}
 			});
 

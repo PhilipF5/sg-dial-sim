@@ -12,4 +12,5 @@ export enum Sound {
 	RingStop = "assets/sounds/ring_stop.mp3",
 	SequenceComplete = "assets/sounds/sequence_complete.mp3",
 	SymbolEngaged = "assets/sounds/symbol_beep.mp3",
+	SymbolEngaging = "assets/sounds/symbol_engaging.mp3",
 }
