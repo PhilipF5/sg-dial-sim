@@ -6,13 +6,13 @@ import {
 	chevronFailed,
 	closeIris,
 	dialNextGlyph,
-	engageChevron,
 	establishConnection,
 	irisClosed,
 	irisOpened,
 	openGate,
 	openIris,
 	reset,
+	sequenceComplete,
 	setDestination,
 	shutdownGate,
 } from "app/dialing-computer/actions";
@@ -61,6 +61,7 @@ export const reducer = createReducer(
 	on(openIris, (state) => ({ ...state, irisStatus: IrisStatus.Opening })),
 	on(reset, () => ({ ...initialState })),
 	on(setDestination, (state, { destination }) => ({ ...state, destination })),
+	on(sequenceComplete, (state) => ({ ...state, gateStatus: GateStatus.Locked })),
 	on(shutdownGate, (state) => ({ ...state, gateStatus: GateStatus.Shutdown })),
 );
 

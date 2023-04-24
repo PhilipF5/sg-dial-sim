@@ -124,6 +124,11 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 				this.useFlashRepeat = true;
 				this.useFlashOnce = false;
 				break;
+			case GateStatus.Locked:
+				this.useRedStyle = true;
+				this.useFlashRepeat = true;
+				this.useFlashOnce = false;
+				break;
 		}
 	}
 }
