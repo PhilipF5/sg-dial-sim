@@ -10,7 +10,8 @@ import {
 } from "app/dialing-computer/actions";
 import { ChevronBoxAnimationConfig, ChevronBoxAnimations } from "app/dialing-computer/animations";
 import { getGateStatus } from "app/dialing-computer/selectors";
-import { GateStatus, Glyph } from "app/shared/models";
+import { GateStatus, Glyph, Sound } from "app/shared/models";
+import { AudioService } from "app/shared/services";
 import { BehaviorSubject, Subject } from "rxjs";
 import { filter, take, takeUntil } from "rxjs/operators";
 
@@ -39,7 +40,12 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 		return this._symbol.nativeElement;
 	}
 
-	constructor(protected actions$: Actions, protected ngZone: NgZone, protected store$: Store<any>) {}
+	constructor(
+		protected actions$: Actions,
+		protected audio: AudioService,
+		protected ngZone: NgZone,
+		protected store$: Store<any>,
+	) {}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next({});
@@ -75,9 +81,14 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 				}
 			});
 
-		this.actions$
-			.pipe(ofType(sequenceComplete), takeUntil(this.killSubscriptions))
-			.subscribe(() => ChevronBoxAnimations.flashOnActivate(this.chevronBox));
+		this.actions$.pipe(ofType(sequenceComplete), takeUntil(this.killSubscriptions)).subscribe(() => {
+			const flashTimeline = ChevronBoxAnimations.flashOnActivate(this.chevronBox);
+			if (this.number === 7) {
+				for (let i = 0; i < 4; i++) {
+					flashTimeline.add(() => this.audio.play(Sound.SequenceComplete), 0.15 + i * 0.3);
+				}
+			}
+		});
 	}
 
 	public clearSymbol(): void {

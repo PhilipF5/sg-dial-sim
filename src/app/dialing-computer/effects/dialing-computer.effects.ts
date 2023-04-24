@@ -20,7 +20,8 @@ import {
 	tryEngageChevron,
 } from "app/dialing-computer/actions";
 import { getAddress, getNextChevron, getNextGlyph } from "app/dialing-computer/selectors";
-import { AlertService, GateNetworkService } from "app/shared/services";
+import { Sound } from "app/shared/models";
+import { AlertService, AudioService, GateNetworkService } from "app/shared/services";
 import { of } from "rxjs";
 import { delay, switchMap, tap, withLatestFrom } from "rxjs/operators";
 
@@ -36,6 +37,7 @@ export class DialingComputerEffects {
 	onChevronEngaged$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(chevronEngaged),
+			tap(() => this.audio.play(Sound.SymbolEngaged)),
 			delay(1000),
 			withLatestFrom(this.store$.pipe(select(getNextGlyph))),
 			switchMap(([_, glyph]) => of(!!glyph ? dialNextGlyph() : sequenceComplete())),
@@ -117,6 +119,7 @@ export class DialingComputerEffects {
 	constructor(
 		private actions$: Actions,
 		private alert: AlertService,
+		private audio: AudioService,
 		private gateNetwork: GateNetworkService,
 		private store$: Store<any>,
 	) {}
