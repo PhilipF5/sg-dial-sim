@@ -36,6 +36,7 @@ export class DialingComputerEffects {
 	onChevronEngaged$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(chevronEngaged),
+			delay(1000),
 			withLatestFrom(this.store$.pipe(select(getNextGlyph))),
 			switchMap(([_, glyph]) => of(!!glyph ? dialNextGlyph() : sequenceComplete())),
 		),

@@ -38,7 +38,7 @@ export class ChevronBoxAnimations {
 		return gsap.timeline().to(box.querySelector(".chevron-symbol-box"), {
 			backgroundColor: "#add8e6",
 			duration: 0.15,
-			repeat: 5,
+			repeat: 7,
 			yoyo: true,
 		});
 	}
@@ -47,15 +47,14 @@ export class ChevronBoxAnimations {
 		return this.lockSymbolAttempt(config).add(
 			[
 				gsap.to(config.symbol, {
-					duration: 2,
+					duration: 0.75,
 					x: config.startX,
 					y: config.centerY,
 					scale: 5,
-					ease: "power1.in",
+					ease: "none",
 				}),
-				gsap.to(config.symbol, {
+				gsap.set(config.symbol, {
 					color: "var(--red-color)",
-					duration: 2,
 				}),
 			],
 			"+=0.5",
@@ -88,12 +87,16 @@ export class ChevronBoxAnimations {
 
 		return timeline
 			.set(config.chevronBox, { zIndex: 10 })
+			.set(config.symbol, { immediateRender: false, visibility: "visible" }, 0)
 			.fromTo(
 				config.symbol,
 				{ x: config.startX, y: config.startY, scale: 0 },
-				{ duration: 2, y: config.centerY, scale: 5, immediateRender: false },
+				{ duration: 0.75, ease: "none", y: config.centerY, scale: 5, immediateRender: false },
 			)
-			.set(config.symbol, { immediateRender: false, visibility: "visible" }, 0)
-			.to(config.symbol, { duration: 2, x: 0, y: 0, scale: config.number >= 8 ? 1.5 : 1 });
+			.to(
+				config.symbol,
+				{ duration: 0.75, ease: "none", x: 0, y: 0, scale: config.number >= 8 ? 1.5 : 1 },
+				"+=2",
+			);
 	}
 }

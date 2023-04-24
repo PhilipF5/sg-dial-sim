@@ -2,10 +2,10 @@
 	0% {
 		opacity: 0;
 	}
-	25% {
+	15% {
 		opacity: 0.8;
 	}
-	75% {
+	85% {
 		opacity: 0.8;
 	}
 	100% {
@@ -68,7 +68,7 @@
 		}
 
 		&.flashOnce {
-			animation: 4s linear 0s flash-once;
+			animation: 2s linear 0s flash-once;
 		}
 
 		&.flashRepeat {

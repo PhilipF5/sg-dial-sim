@@ -43,7 +43,7 @@ export const reducer = createReducer(
 			...state.chevronStatus,
 			[chevron]: ChevronStatus.Engaged,
 		};
-		return { ...state, nextSymbol, chevronStatus };
+		return { ...state, nextSymbol, chevronStatus, gateStatus: GateStatus.Engaged };
 	}),
 	on(chevronFailed, (state, { chevron }) => {
 		let chevronStatus = {
@@ -54,7 +54,6 @@ export const reducer = createReducer(
 	}),
 	on(closeIris, (state) => ({ ...state, irisStatus: IrisStatus.Closing })),
 	on(dialNextGlyph, (state) => ({ ...state, gateStatus: GateStatus.Dialing })),
-	on(engageChevron, (state) => ({ ...state, gateStatus: GateStatus.Engaged })),
 	on(establishConnection, (state, { destination }) => ({ ...state, destination })),
 	on(irisClosed, (state) => ({ ...state, irisStatus: IrisStatus.Closed })),
 	on(irisOpened, (state) => ({ ...state, irisStatus: IrisStatus.Open })),
