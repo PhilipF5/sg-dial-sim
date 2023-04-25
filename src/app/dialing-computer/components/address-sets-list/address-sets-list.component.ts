@@ -72,10 +72,9 @@ export class AddressSetsListComponent implements OnInit {
 	private deleteAddressSet(name: string): void {
 		if (name === "Default") {
 			this.alert.alerts.next({
-				critical: true,
 				duration: 4000,
-				message: "Invalid Operation",
-				title: "Cannot delete default source",
+				title: "Invalid Operation",
+				text1: "Cannot delete default source",
 			});
 		} else {
 			this.gateNetwork.deleteAddressSet(name);

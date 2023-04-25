@@ -1,6 +1,7 @@
 export interface AlertConfig {
-	critical?: boolean;
 	duration?: number;
-	message: string;
-	title?: string;
+	title: string;
+	text1?: string;
+	text2?: string;
+	footer?: string;
 }

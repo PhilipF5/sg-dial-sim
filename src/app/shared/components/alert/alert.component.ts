@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Input } from "@angular/core";
 import { gsap } from "gsap";
 
 @Component({
@@ -7,24 +7,18 @@ import { gsap } from "gsap";
 	styleUrls: ["./alert.component.scss"],
 })
 export class AlertComponent implements AfterViewInit {
-	@Input() critical: boolean;
-	@Input() message: string;
 	@Input() title: string;
-
-	@ViewChild("messageElement", { static: true }) private _messageElement: ElementRef;
+	@Input() text1: string;
+	@Input() text2: string;
+	@Input() footer: string;
 
 	private get elem(): HTMLElement {
 		return this._elem.nativeElement;
 	}
 
-	private get messageElement(): HTMLElement {
-		return this._messageElement.nativeElement;
-	}
-
 	constructor(private _elem: ElementRef) {}
 
 	ngAfterViewInit() {
-		gsap.from(this.elem, { duration: 2, scale: 0, transformOrigin: "center center", ease: "power1.out" });
-		gsap.to(this.messageElement, { duration: 0.5, opacity: 0.5, repeat: -1, yoyo: true });
+		gsap.from(this.elem, { duration: 0.75, scale: 0, transformOrigin: "center center", ease: "none" });
 	}
 }

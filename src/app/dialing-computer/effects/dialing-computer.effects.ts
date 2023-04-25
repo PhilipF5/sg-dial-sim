@@ -71,10 +71,9 @@ export class DialingComputerEffects {
 			ofType(sequenceFailed),
 			tap(() =>
 				this.alert.alerts.next({
-					critical: true,
 					duration: 7000,
-					message: "404 Not Found",
-					title: "Cannot Establish Connection",
+					title: "404 Not Found",
+					text1: "Cannot Establish Connection",
 				}),
 			),
 			switchMap(() => of(abortDialing())),

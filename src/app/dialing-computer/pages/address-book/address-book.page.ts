@@ -150,10 +150,9 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 			case "EDIT": {
 				if (dest.set === "Default") {
 					this.alert.alerts.next({
-						critical: true,
 						duration: 4000,
-						message: "Invalid Operation",
-						title: "Destinations in Default set cannot be edited",
+						title: "Invalid Operation",
+						text1: "Destinations in Default set cannot be edited",
 					});
 				}
 				break;
@@ -161,10 +160,9 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 			case "DELETE": {
 				if (dest.set === "Default") {
 					this.alert.alerts.next({
-						critical: true,
 						duration: 4000,
-						message: "Invalid Operation",
-						title: "Destinations cannot be deleted from Default set",
+						title: "Invalid Operation",
+						text1: "Destinations cannot be deleted from Default set",
 					});
 				} else {
 					this.gateNetwork.deleteDestination(dest);

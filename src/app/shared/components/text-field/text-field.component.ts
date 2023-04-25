@@ -36,9 +36,8 @@ export class TextFieldComponent {
 			this.saveValue.emit(this.workingValue);
 		} else {
 			this.alert.alerts.next({
-				critical: true,
 				duration: 4000,
-				message: "Field value is invalid",
+				text1: "Field value is invalid",
 				title: "Input Error",
 			});
 			this.elem.focus();

@@ -1,4 +1,13 @@
-<div class="container">
-	<div class="title">{{ title }}</div>
-	<div class="text" [ngClass]="{ 'critical': critical }" #messageElement>{{ message }}</div>
+<div class="horizontal-line header-line"></div>
+<div class="container-outer">
+	<div class="horizontal-line top-line"></div>
+	<div class="horizontal-line mid-line"></div>
+	<div class="horizontal-line bottom-line"></div>
+	<div class="container-inner">
+		<div class="title">{{ title }}</div>
+		<div class="text-line">{{ text1 }}</div>
+		<div class="text-line">{{ text2 }}</div>
+	</div>
 </div>
+<div class="horizontal-line footer-line"></div>
+<div class="footer-text">{{ footer }}</div>

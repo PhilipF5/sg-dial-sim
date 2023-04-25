@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
+import { Component, ComponentRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { AlertComponent } from "app/shared/components/alert/alert.component";
 import { AlertConfig } from "app/shared/models";
 import { AlertService } from "app/shared/services";
@@ -13,7 +13,7 @@ export class AlertFactoryComponent implements OnInit {
 
 	private alert: ComponentRef<AlertComponent>;
 
-	constructor(private alertService: AlertService, private resolver: ComponentFactoryResolver) {}
+	constructor(private alertService: AlertService) {}
 
 	ngOnInit() {
 		this.alertService.alerts.subscribe((a) => this.createAlert(a));
@@ -21,12 +21,12 @@ export class AlertFactoryComponent implements OnInit {
 
 	private createAlert(config: AlertConfig) {
 		this.container.clear();
-		let factory = this.resolver.resolveComponentFactory(AlertComponent);
-		this.alert = this.container.createComponent(factory);
+		this.alert = this.container.createComponent(AlertComponent);
 
-		this.alert.instance.critical = config.critical;
-		this.alert.instance.message = config.message;
 		this.alert.instance.title = config.title;
+		this.alert.instance.text1 = config.text1;
+		this.alert.instance.text2 = config.text2;
+		this.alert.instance.footer = config.footer;
 
 		if (config.duration) {
 			setTimeout(() => {

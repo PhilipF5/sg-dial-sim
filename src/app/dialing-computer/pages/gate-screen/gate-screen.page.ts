@@ -6,7 +6,7 @@ import { KeyboardComponent } from "app/dialing-computer/components";
 import { getDestination, getGateStatus, getIrisStatus, getUser } from "app/dialing-computer/selectors";
 import { GateComponent } from "app/shared/components";
 import { GateStatus, Glyph, Glyphs, IrisStatus } from "app/shared/models";
-import { ElectronService } from "app/shared/services";
+import { AlertService, ElectronService } from "app/shared/services";
 import { gsap } from "gsap";
 import { BehaviorSubject, Subject } from "rxjs";
 import { take, takeUntil } from "rxjs/operators";
@@ -49,6 +49,7 @@ export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 	}
 
 	constructor(
+		private alert: AlertService,
 		private electron: ElectronService,
 		private route: ActivatedRoute,
 		private router: Router,
@@ -135,6 +136,17 @@ export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 		} else if (this.irisStatus === IrisStatus.Closed) {
 			this.store$.dispatch(openIris());
 		}
+	}
+
+	@HostListener("window:keydown.h")
+	public triggerAlert(): void {
+		this.alert.alerts.next({
+			duration: 4000,
+			title: "Unknown Error",
+			text1: "Encoding Error - 9910127",
+			text2: "Error Unknown",
+			footer: "Initialization Error - 84710",
+		});
 	}
 
 	private updateGatePosition(): void {
