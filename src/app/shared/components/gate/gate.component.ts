@@ -106,7 +106,7 @@ export class GateComponent implements AfterViewInit, OnDestroy, OnInit {
 		this.actions$.pipe(ofType(openGate), takeUntil(this.killSubscriptions)).subscribe(() => this.openAllChevrons());
 
 		this.actions$
-			.pipe(ofType(gateClosed), takeUntil(this.killSubscriptions))
+			.pipe(ofType(gateClosed, reset), takeUntil(this.killSubscriptions))
 			.subscribe(() => this.closeAllChevrons());
 	}
 
