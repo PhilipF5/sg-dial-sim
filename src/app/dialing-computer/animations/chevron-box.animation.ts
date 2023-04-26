@@ -70,12 +70,14 @@ export class ChevronBoxAnimations {
 					backgroundColor: "rgb(255 0 0 / 10%)",
 					borderColor: "var(--red-color)",
 				}),
-				gsap.set(config.chevronPath, { stroke: "var(--red-color)" }),
 				gsap.set(config.chevronBox, { clearProps: "zIndex" }),
 			);
 		}
 
-		return this.lockSymbolAttempt(config).add(animations);
+		return this.lockSymbolAttempt(config)
+			.set(config.chevronPath, { stroke: "var(--red-color)", drawSVG: "0%" })
+			.to(config.chevronPath, { duration: 0.2, drawSVG: "100%" })
+			.add(animations);
 	}
 
 	private static lockSymbolAttempt(config: ChevronBoxAnimationConfig): gsap.core.Timeline {

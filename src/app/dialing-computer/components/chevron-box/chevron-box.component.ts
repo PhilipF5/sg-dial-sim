@@ -119,7 +119,7 @@ export class ChevronBoxComponent implements AfterViewInit, OnDestroy {
 	}
 
 	protected getChevronPath(): HTMLElement {
-		return document.querySelector(`.chevron-paths .chevron-${this.number}`);
+		return document.querySelector(`.chevron-paths .chevron-${this.number}.lit`);
 	}
 
 	protected async getLatestGatePosition(): Promise<DOMRect> {

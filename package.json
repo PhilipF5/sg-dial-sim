@@ -36,7 +36,7 @@
 		"@ngrx/store-devtools": "15.4.0",
 		"electron-reloader": "1.2.3",
 		"electron-store": "8.1.0",
-		"gsap": "3.11.5",
+		"gsap": "npm:@gsap/shockingly@3.11.5",
 		"lodash-es": "4.17.21",
 		"rxjs": "7.8.0",
 		"sass": "1.61.0",
