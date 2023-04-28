@@ -83,10 +83,12 @@ export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 			this.irisStatus = status;
 		});
 
-		this.store$.pipe(select(getUser), takeUntil(this.killSubscriptions)).subscribe(({ authCode, fullName }) => {
-			this.authCode = authCode;
-			this.user = fullName;
-		});
+		this.store$
+			.pipe(select(getUser), takeUntil(this.killSubscriptions))
+			.subscribe(({ authCode, fullName, userId }) => {
+				this.authCode = authCode;
+				this.user = `${fullName} ${userId}`;
+			});
 	}
 
 	public beginDialing(address: Glyph[]): void {

@@ -5,6 +5,7 @@ export class User {
 	public firstName: string;
 	public lastName: string;
 	public rank: UserRank;
+	public userId: string;
 
 	public get fullName(): string {
 		return `${this.rank} ${this.firstName[0]}. ${this.lastName}`.trim();
@@ -20,6 +21,7 @@ export class User {
 			firstName: "Walter",
 			lastName: "Harriman",
 			rank: UserRank.ChiefMasterSergeant,
+			userId: "102951-2",
 		});
 	}
 }
