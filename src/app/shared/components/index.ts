@@ -3,8 +3,10 @@ import { AlertComponent } from "./alert/alert.component";
 import { EventHorizonComponent } from "./event-horizon/event-horizon.component";
 import { GateComponent } from "./gate/gate.component";
 import { IrisComponent } from "./iris/iris.component";
+import { MainMenuComponent } from "./main-menu/main-menu.component";
 import { MenuButtonComponent } from "./menu-button/menu-button.component";
 import { MenuComponent } from "./menu/menu.component";
+import { ScrollBarComponent } from "./scroll-bar/scroll-bar.component";
 import { ScrollingBitsComponent } from "./scrolling-bits/scrolling-bits.component";
 import { SegmentDisplayComponent } from "./segment-display/segment-display.component";
 import { SgButtonComponent } from "./sg-button/sg-button.component";
@@ -16,8 +18,10 @@ export { AlertComponent } from "./alert/alert.component";
 export { EventHorizonComponent } from "./event-horizon/event-horizon.component";
 export { GateComponent } from "./gate/gate.component";
 export { IrisComponent } from "./iris/iris.component";
+export { MainMenuComponent } from "./main-menu/main-menu.component";
 export { MenuButtonComponent } from "./menu-button/menu-button.component";
 export { MenuComponent } from "./menu/menu.component";
+export { ScrollBarComponent } from "./scroll-bar/scroll-bar.component";
 export { ScrollingBitsComponent } from "./scrolling-bits/scrolling-bits.component";
 export { SegmentDisplayComponent } from "./segment-display/segment-display.component";
 export { SgButtonComponent } from "./sg-button/sg-button.component";
@@ -30,8 +34,10 @@ export const COMPONENTS = [
 	EventHorizonComponent,
 	GateComponent,
 	IrisComponent,
+	MainMenuComponent,
 	MenuComponent,
 	MenuButtonComponent,
+	ScrollBarComponent,
 	ScrollingBitsComponent,
 	SegmentDisplayComponent,
 	SgButtonComponent,

@@ -1,0 +1,77 @@
+:host {
+	align-items: center;
+	display: flex;
+	font-family: var(--interface-font);
+	font-size: 1.5em;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.menu-dialog {
+	background-color: var(--black-color);
+	border: 0.3vh solid var(--primary-color);
+	height: 35vh;
+	pointer-events: all;
+	transform: scale(0);
+	transform-origin: center center;
+	width: 60vh;
+}
+
+.window-frame {
+	background-color: var(--primary-color);
+	box-sizing: border-box;
+	color: var(--black-color);
+	height: 1.2em;
+	width: 100%;
+
+	span {
+		display: inline-block;
+		line-height: 3vh;
+		vertical-align: top;
+	}
+}
+
+.title {
+	border-bottom: 0.15vh solid var(--primary-color);
+	box-sizing: border-box;
+	color: var(--primary-color);
+	height: 1.2em;
+	padding-left: 1vh;
+	text-transform: uppercase;
+	width: 100%;
+
+	span {
+		display: inline-block;
+		line-height: 3vh;
+		vertical-align: top;
+	}
+}
+
+.contents {
+	align-items: stretch;
+	box-sizing: border-box;
+	display: flex;
+	height: calc(100% - 1.2em - 1.2em);
+}
+
+.items {
+	border: 0.15vh solid var(--primary-color);
+	box-sizing: border-box;
+	color: var(--secondary-color);
+	margin: 0.5vh;
+	width: 65%;
+}
+
+.item {
+	text-transform: uppercase;
+
+	&.selected {
+		background-color: var(--secondary-color);
+		color: var(--black-color);
+	}
+}

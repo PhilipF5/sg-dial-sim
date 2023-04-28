@@ -1,0 +1,50 @@
+:host {
+	border-left: 0.15vh solid var(--primary-color);
+	border-right: 0.15vh solid var(--primary-color);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-between;
+	width: 1.2em;
+}
+
+.scroll-bar-container {
+	flex-grow: 1;
+	margin: 0.5vh auto;
+	width: 80%;
+}
+
+.scroll-bar {
+	background-color: var(--primary-color);
+	box-sizing: border-box;
+	height: 20%;
+	width: 100%;
+}
+
+.scroll-button {
+	align-items: center;
+	box-sizing: border-box;
+	color: var(--primary-color);
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	user-select: none;
+	width: 100%;
+
+	&.down {
+		border-top: 0.15vh solid var(--primary-color);
+	}
+
+	&.up {
+		border-bottom: 0.15vh solid var(--primary-color);
+	}
+
+	&.disabled {
+		visibility: hidden;
+	}
+
+	svg {
+		fill: var(--primary-color);
+	}
+}
