@@ -13,24 +13,19 @@
 </div>
 <div class="scroll-pane">
 	<div class="addresses">
-		<div #selector class="selector {{ mode.toLowerCase() }}"></div>
 		<sg-address-row
 			*ngFor="let destination of (destinations | slice: topItem:bottomItem); let i = index"
 			class="{{ mode.toLowerCase() }}"
 			[savedDestination]="destination"
 			[editable]="mode === 'EDIT' && destination.set !== 'Default' && (!editingDestination || destination.id === editingDestination.id)"
-			[selected]="selectedIndex === i"
-			(mouseenter)="moveSelector($event.target)"
+			[selected]="i === 0"
 			(click)="onDestinationClick(destination)"
 			(save)="onSave($event)"
 			(cancelEdit)="onCancelEdit()"
 			(registerUpdate)="onRegisterUpdate($event)"
 		></sg-address-row>
 	</div>
-	<div class="scroll-controls">
-		<div class="scroll-button up" [ngClass]="{ disabled: !canScrollUp }" (click)="scrollUp()">&#8227;</div>
-		<div class="scroll-button down" [ngClass]="{ disabled: !canScrollDown }" (click)="scrollDown()">&#8227;</div>
-	</div>
+	<sg-scroll-bar [size]="destinations.length" (changeSelection)="onSelectionChange($event)"></sg-scroll-bar>
 </div>
 <div class="footer">
 	<sg-button text="RETURN" (click)="goToGateScreen()"></sg-button>

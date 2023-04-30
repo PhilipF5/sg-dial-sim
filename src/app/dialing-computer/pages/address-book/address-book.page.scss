@@ -61,6 +61,7 @@
 
 .scroll-pane {
 	display: flex;
+	flex-grow: 1;
 	justify-content: space-between;
 	padding: 0 1.18vh;
 }

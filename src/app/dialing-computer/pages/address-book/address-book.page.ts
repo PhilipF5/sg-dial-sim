@@ -2,6 +2,7 @@ import {
 	AfterViewInit,
 	Component,
 	ElementRef,
+	HostListener,
 	NgZone,
 	OnInit,
 	QueryList,
@@ -21,21 +22,19 @@ import { gsap } from "gsap";
 	templateUrl: "./address-book.page.html",
 	styleUrls: ["./address-book.page.scss"],
 })
-export class AddressBookPage implements AfterViewInit, OnInit {
+export class AddressBookPage implements OnInit {
 	@ViewChildren(AddressRowComponent) addressRows: QueryList<AddressRowComponent>;
-	@ViewChild("selector", { static: true }) _selector: ElementRef;
 
 	public destinations: Destination[];
 	public editingDestination?: Destination;
 	public scrollOffset: number = 0;
+	public topItem: number = 0;
 
 	private modeIndex: number = 0;
 	private modes: string[] = ["DIAL", "EDIT", "DELETE"];
-	private selectedIndex: number;
-	private selectorTimeline: gsap.core.Timeline = gsap.timeline();
 
 	public get bottomItem(): number {
-		return 7 + this.scrollOffset;
+		return 7 + this.topItem;
 	}
 
 	public get canScrollDown(): boolean {
@@ -54,34 +53,12 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		return this.modes[this.modeIndex];
 	}
 
-	public get topItem(): number {
-		return 0 + this.scrollOffset;
-	}
-
-	private get addressRowElems(): HTMLElement[] {
-		return this.addressRows.map<HTMLElement>((ar) => ar.elem);
-	}
-
-	private get selector(): HTMLElement {
-		return this._selector.nativeElement;
-	}
-
 	constructor(
 		private alert: AlertService,
 		private gateNetwork: GateNetworkService,
-		private ngZone: NgZone,
 		private router: Router,
 		private store$: Store<any>,
 	) {}
-
-	ngAfterViewInit() {
-		gsap.set(this.selector, { top: -250 });
-		this.addressRows.changes.subscribe(() => {
-			if (this.selectedIndex !== undefined) {
-				this.moveSelector(this.addressRowElems[this.selectedIndex], true);
-			}
-		});
-	}
 
 	ngOnInit() {
 		this.loadAddresses();
@@ -122,26 +99,14 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		}
 	}
 
-	public moveSelector(target: HTMLElement, instant?: boolean): gsap.core.Timeline {
-		this.selectorTimeline.kill();
-		let targetBox = target.getBoundingClientRect();
-		let borderAdjustment = 6; // 6 to adjust for 3px border due to box-sizing
-		return (this.selectorTimeline = gsap
-			.timeline()
-			.add(() => this.ngZone.run(() => (this.selectedIndex = null)))
-			.set(this.selector, { opacity: 1, width: targetBox.right - targetBox.left - borderAdjustment })
-			.to(this.selector, instant ? 0 : 0.5, { top: targetBox.top })
-			.add(() =>
-				this.ngZone.run(() => (this.selectedIndex = this.addressRowElems.findIndex((el) => el === target))),
-			));
-	}
-
 	public onCancelEdit(): void {
 		this.loadAddresses();
 		this.editingDestination = null;
 	}
 
-	public onDestinationClick(dest: Destination): void {
+	@HostListener("window:keydown.enter")
+	public onDestinationClick(dest?: Destination): void {
+		dest ??= this.destinations[this.topItem];
 		switch (this.mode) {
 			case "DIAL": {
 				this.loadAddress(dest);
@@ -186,16 +151,8 @@ export class AddressBookPage implements AfterViewInit, OnInit {
 		this.loadAddresses();
 	}
 
-	public scrollDown(): void {
-		if (this.canScrollDown) {
-			this.scrollOffset++;
-		}
-	}
-
-	public scrollUp(): void {
-		if (this.canScrollUp) {
-			this.scrollOffset--;
-		}
+	public onSelectionChange(newSelection: number): void {
+		this.topItem = newSelection;
 	}
 
 	private addEmptyRow(): void {

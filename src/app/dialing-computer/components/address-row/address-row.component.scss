@@ -20,7 +20,8 @@
 	}
 
 	&.selected {
-		border-color: var(--address-selected-color);
+		border: 0.24vh solid var(--address-selected-color);
+		border-left-width: 0;
 
 		.glyphs {
 			border-color: var(--address-selected-color);
