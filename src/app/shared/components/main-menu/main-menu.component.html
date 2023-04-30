@@ -1,4 +1,4 @@
-<div #dialog class="menu-dialog">
+<div class="menu-dialog" *ngIf="isOpen">
 	<div class="window-frame"><span>F:/system/functions/general</span></div>
 	<div class="title"><span>Select Function:</span></div>
 	<div class="contents">
@@ -12,6 +12,6 @@
 				{{ item.name }}
 			</div>
 		</div>
-		<sg-scroll-bar></sg-scroll-bar>
+		<sg-scroll-bar [size]="items.length" (changeSelection)="onSelectionChange($event)"></sg-scroll-bar>
 	</div>
 </div>

@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, HostListener, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { gsap } from "gsap";
 
 @Component({
@@ -7,15 +8,11 @@ import { gsap } from "gsap";
 	styleUrls: ["./main-menu.component.scss"],
 })
 export class MainMenuComponent {
-	@ViewChild("dialog", { static: true }) private _dialog: ElementRef;
-
-	public get dialog(): HTMLElement {
-		return this._dialog.nativeElement;
-	}
-
 	public get elem(): HTMLElement {
 		return this._elem.nativeElement;
 	}
+
+	public isOpen: boolean = false;
 
 	public items: FunctionItem[] = [
 		{ name: "Gate Status", path: "/dialing-computer/gate-screen" },
@@ -25,14 +22,24 @@ export class MainMenuComponent {
 
 	public selectedItem: number = 0;
 
-	constructor(private _elem: ElementRef) {}
+	constructor(private _elem: ElementRef, private router: Router) {}
 
 	public close(): void {
-		gsap.to(this.dialog, { duration: 0.75, scale: 0, ease: "none" });
+		gsap.to(this.elem, { duration: 0.75, scale: 0, ease: "none" }).then(() => (this.isOpen = false));
 	}
 
 	public open(): void {
-		gsap.to(this.dialog, { duration: 0.75, scale: 1, ease: "none" });
+		this.isOpen = true;
+		gsap.to(this.elem, { duration: 0.75, scale: 1, ease: "none" });
+	}
+
+	public onSelectionChange(selection: number) {
+		this.selectedItem = selection;
+	}
+
+	@HostListener("window:keydown.enter")
+	public navigate(): void {
+		this.router.navigate([this.items[this.selectedItem].path], { skipLocationChange: true });
 	}
 }
 
