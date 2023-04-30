@@ -80,7 +80,9 @@ export class ChevronBoxAnimations {
 				config.symbol,
 				{ x: config.startX, y: config.startY, scale: 0 },
 				{ duration: 0.75, ease: "none", y: config.centerY, scale: 5, immediateRender: false },
+				"toCenterPoint",
 			)
+			.addLabel("toEndPoint", "+=2")
 			.to(
 				config.symbol,
 				{ duration: 0.75, ease: "none", x: 0, y: 0, scale: config.number >= 8 ? 1.5 : 1 },
