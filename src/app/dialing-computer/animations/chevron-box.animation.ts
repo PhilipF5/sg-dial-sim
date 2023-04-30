@@ -44,21 +44,7 @@ export class ChevronBoxAnimations {
 	}
 
 	public static lockSymbolFailed(config: ChevronBoxAnimationConfig): gsap.core.Timeline {
-		return this.lockSymbolAttempt(config).add(
-			[
-				gsap.to(config.symbol, {
-					duration: 0.75,
-					x: config.startX,
-					y: config.centerY,
-					scale: 5,
-					ease: "none",
-				}),
-				gsap.set(config.symbol, {
-					color: "var(--red-color)",
-				}),
-			],
-			"+=0.5",
-		);
+		return this.lockSymbolAttempt(config);
 	}
 
 	public static lockSymbolSuccess(config: ChevronBoxAnimationConfig): gsap.core.Timeline {

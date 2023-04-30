@@ -13,6 +13,7 @@ import {
 	openIris,
 	reset,
 	sequenceComplete,
+	sequenceFailed,
 	setDestination,
 	shutdownGate,
 } from "app/dialing-computer/actions";
@@ -62,6 +63,7 @@ export const reducer = createReducer(
 	on(reset, () => ({ ...initialState })),
 	on(setDestination, (state, { destination }) => ({ ...state, destination })),
 	on(sequenceComplete, (state) => ({ ...state, gateStatus: GateStatus.Locked })),
+	on(sequenceFailed, (state) => ({ ...state, gateStatus: GateStatus.NoLock })),
 	on(shutdownGate, (state) => ({ ...state, gateStatus: GateStatus.Shutdown })),
 );
 

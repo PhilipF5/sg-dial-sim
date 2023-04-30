@@ -102,6 +102,8 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 		this.killAnimation();
 		switch (status) {
 			case GateStatus.Idle:
+			case GateStatus.Locked:
+			case GateStatus.NoLock:
 			case IrisStatus.Closed:
 			case IrisStatus.Opening:
 			case IrisStatus.Closing:
@@ -121,11 +123,6 @@ export class DialingStatusComponent implements OnDestroy, OnInit {
 				break;
 			case GateStatus.Active:
 				this.useRedStyle = false;
-				this.useFlashRepeat = true;
-				this.useFlashOnce = false;
-				break;
-			case GateStatus.Locked:
-				this.useRedStyle = true;
 				this.useFlashRepeat = true;
 				this.useFlashOnce = false;
 				break;

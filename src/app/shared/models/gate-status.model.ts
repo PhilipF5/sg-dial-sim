@@ -7,4 +7,5 @@ export enum GateStatus {
 	Incoming = "INCOMING",
 	Aborted = "ABORTED",
 	Locked = "LOCKED",
+	NoLock = "NO LOCK",
 }
