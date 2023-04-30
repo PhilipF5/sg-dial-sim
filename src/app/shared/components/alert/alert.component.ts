@@ -19,6 +19,6 @@ export class AlertComponent implements AfterViewInit {
 	constructor(private _elem: ElementRef) {}
 
 	ngAfterViewInit() {
-		gsap.from(this.elem, { duration: 0.75, scale: 0, transformOrigin: "center center", ease: "none" });
+		gsap.from(this.elem, { duration: 0.3, scale: 0, transformOrigin: "center center", ease: "none" });
 	}
 }
