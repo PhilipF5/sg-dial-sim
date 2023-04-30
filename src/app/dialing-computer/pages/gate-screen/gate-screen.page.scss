@@ -2,8 +2,8 @@
 	align-items: center;
 	aspect-ratio: 4 / 3;
 	border: 0.6vh solid var(--primary-color);
-	border-bottom-right-radius: 3vh;
-	border-top-left-radius: 3vh;
+	border-bottom-right-radius: 6vh;
+	border-top-left-radius: 6vh;
 	box-sizing: border-box;
 	flex-direction: column;
 	display: flex;
@@ -12,6 +12,14 @@
 	max-height: 100%;
 	padding: 0.509vh;
 	position: relative;
+}
+
+.spinning-logo {
+	left: 1vh;
+	position: absolute;
+	top: 2vh;
+	width: 15vh;
+	z-index: -1;
 }
 
 .chevron-paths {
@@ -28,7 +36,7 @@
 .header {
 	display: flex;
 	flex-grow: 1;
-	justify-content: space-between;
+	justify-content: flex-end;
 	width: 100%;
 
 	.destination {

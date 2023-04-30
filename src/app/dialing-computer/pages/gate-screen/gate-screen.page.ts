@@ -4,7 +4,7 @@ import { select, Store } from "@ngrx/store";
 import { abortDialing, beginDialing, closeIris, openIris, shutdownGate } from "app/dialing-computer/actions";
 import { KeyboardComponent } from "app/dialing-computer/components";
 import { getDestination, getGateStatus, getIrisStatus, getUser } from "app/dialing-computer/selectors";
-import { GateComponent } from "app/shared/components";
+import { GateComponent, MainMenuComponent } from "app/shared/components";
 import { GateStatus, Glyph, Glyphs, IrisStatus } from "app/shared/models";
 import { AlertService, ElectronService } from "app/shared/services";
 import { gsap } from "gsap";
@@ -19,6 +19,7 @@ import { take, takeUntil } from "rxjs/operators";
 export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 	@ViewChild(GateComponent, { static: true }) private gate: GateComponent;
 	@ViewChild(KeyboardComponent, { static: true }) private keyboard: KeyboardComponent;
+	@ViewChild(MainMenuComponent, { static: true }) private mainMenu: MainMenuComponent;
 
 	public authCode: string;
 	public destination: string;
@@ -100,20 +101,17 @@ export class GateScreenPage implements AfterViewInit, OnDestroy, OnInit {
 		gsap.to(this.keyboard, { duration: 1, scale: 0 });
 	}
 
-	public goToAddressBook(): void {
-		this.router.navigate(["/dialing-computer/address-book"], { skipLocationChange: true });
-	}
-
-	public goToGlyphSelection(): void {
-		this.router.navigate(["/dialing-computer/glyph-selection"], { skipLocationChange: true });
-	}
-
 	public keyboardStartDialingHandler(event: Glyph[]): void {
 		this.beginDialing(event);
 	}
 
 	public openKeyboard(): void {
 		gsap.to(this.keyboard.elem, { duration: 1, scale: 1 });
+	}
+
+	@HostListener("window:keydown.space")
+	public openMainMenu(): void {
+		this.mainMenu.open();
 	}
 
 	public quit(): void {

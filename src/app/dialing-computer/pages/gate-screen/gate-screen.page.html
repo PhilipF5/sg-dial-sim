@@ -1,3 +1,4 @@
+<img src="assets/images/sgc-logo.gif" class="spinning-logo" />
 <svg class="chevron-paths" viewBox="0 0 1125 844">
 	<path class="chevron-7" d="M 527 125 V 75 H 870 L 900 95 H 1060 L 1075 110 V 743 H 1062" />
 	<path class="chevron-6" d="M 354 175 L 329 145 V 100 L 370 65 H 875 L 905 85 H 1065 L 1085 105 V 645 H 1062" />
@@ -15,13 +16,6 @@
 	<path class="chevron-3 lit" d="M 764 517 H 789 L 880 351 H 930" />
 </svg>
 <div class="header">
-	<sg-menu-button class="action-menu" position="lower-right" text="MENU" [menuWidth]="17.77">
-		<sg-button text="Address Book" [disabled]="!canOpenAddressBook" (sgClick)="goToAddressBook()"></sg-button>
-		<sg-button text="Glyph Selection" (sgClick)="goToGlyphSelection()"></sg-button>
-		<sg-button text="Shutdown" [disabled]="!canShutdown" (sgClick)="shutdown()"></sg-button>
-		<sg-button text="Fullscreen On/Off" *ngIf="isElectronApp" (sgClick)="toggleFullscreen()"></sg-button>
-		<sg-button text="Quit" *ngIf="isElectronApp" (sgClick)="quit()"></sg-button>
-	</sg-menu-button>
 	<div class="destination">
 		<sg-segment-display
 			[align]="'right'"
@@ -88,3 +82,4 @@
 	</div>
 </div>
 <sg-keyboard class="minimized" (dialAddress)="keyboardStartDialingHandler($event)"></sg-keyboard>
+<sg-main-menu #mainMenu></sg-main-menu>

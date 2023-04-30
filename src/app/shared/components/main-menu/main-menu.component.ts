@@ -24,6 +24,7 @@ export class MainMenuComponent {
 
 	constructor(private _elem: ElementRef, private router: Router) {}
 
+	@HostListener("window:keydown.esc")
 	public close(): void {
 		gsap.to(this.elem, { duration: 0.75, scale: 0, ease: "none" }).then(() => (this.isOpen = false));
 	}
