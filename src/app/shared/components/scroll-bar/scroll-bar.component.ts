@@ -12,11 +12,11 @@ export class ScrollBarComponent {
 	@ViewChild("downButton", { static: true }) private _downButton: ElementRef;
 	@ViewChild("upButton", { static: true }) private _upButton: ElementRef;
 
+	public selectedItem: number = 0;
+
 	public get elem(): HTMLElement {
 		return this._elem.nativeElement;
 	}
-
-	private selectedItem: number = 0;
 
 	constructor(private _elem: ElementRef) {}
 

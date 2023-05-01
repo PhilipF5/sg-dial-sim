@@ -4,7 +4,7 @@
 	</svg>
 </div>
 <div class="scroll-bar-container">
-	<div class="scroll-bar"></div>
+	<div class="scroll-bar" [ngStyle]="{ 'top.%': (selectedItem / (size - 1)) * 80 }"></div>
 </div>
 <div #downButton class="scroll-button down">
 	<svg viewBox="0 0 100 100">
