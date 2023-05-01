@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { getUser } from "app/dialing-computer/selectors";
@@ -17,6 +17,7 @@ export class GlyphSelectionPage implements OnDestroy, OnInit {
 	public authCode: string;
 	public currentDestination: Destination;
 	public glyphs: Glyph[] = [...sortBy(Glyphs.standard, (g) => g.name), { ...Glyphs.pointOfOrigin, name: "[DIAL]" }];
+	public keys: string = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890,.";
 	public selection: Glyph[] = [];
 
 	private killSubscriptions: Subject<{}> = new Subject();
@@ -33,6 +34,7 @@ export class GlyphSelectionPage implements OnDestroy, OnInit {
 		});
 	}
 
+	@HostListener("window:keydown.esc")
 	public goToGateScreen(dest?: string) {
 		const params: any = {};
 		if (dest) {
@@ -64,5 +66,17 @@ export class GlyphSelectionPage implements OnDestroy, OnInit {
 		}
 
 		this.currentDestination = this.gateNetwork.getDestinationByAddress(this.selection);
+	}
+
+	@HostListener("window:keydown", ["$event"])
+	public selectGlyphByKey(event): void {
+		const keyIndex = this.keys.indexOf(event.key.toUpperCase());
+		if (keyIndex >= 0) {
+			this.selectGlyph(this.glyphs[keyIndex]);
+		} else if (event.key === "Backspace" && this.selection.length) {
+			this.selectGlyph(this.selection[this.selection.length - 1]);
+		} else if (event.key === "Enter") {
+			this.selectGlyph(Glyphs.pointOfOrigin);
+		}
 	}
 }

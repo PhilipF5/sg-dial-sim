@@ -14,13 +14,14 @@
 </div>
 <div class="glyphs-grid">
 	<div
-		*ngFor="let glyph of glyphs"
+		*ngFor="let glyph of glyphs; let i = index"
 		class="tile"
 		[ngClass]="{ selected: isGlyphSelected(glyph) }"
 		(click)="selectGlyph(glyph)"
 	>
 		<div class="glyph">{{ glyph.char }}</div>
 		<div class="name">{{ glyph.name | abbreviate:"Aus" }}</div>
+		<div class="key">{{ glyph.position === 1 ? "Enter" : keys[i] }}</div>
 	</div>
 </div>
 <div class="footer">

@@ -35,7 +35,7 @@
 	aspect-ratio: 4 / 3;
 	border-left: var(--border);
 	border-top: var(--border);
-	border-top-left-radius: 3vh;
+	border-top-left-radius: 6vh;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
@@ -110,7 +110,7 @@
 		}
 
 		&:hover {
-			border-color: var(--green-color);
+			border-color: var(--primary-color);
 		}
 	}
 
@@ -119,7 +119,8 @@
 		font-size: 6rem;
 	}
 
-	.name {
+	.name,
+	.key {
 		font-family: var(--interface-font);
 		font-size: 1rem;
 		font-variant: small-caps;
