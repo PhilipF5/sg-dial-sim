@@ -1,0 +1,27 @@
+@keyframes animation1 {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+:host {
+	column-gap: 0.25vh;
+	display: flex;
+	flex-wrap: wrap;
+	height: 1vh;
+	width: 1.25vh;
+}
+
+.light {
+	animation-direction: alternate;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-name: animation1;
+	animation-timing-function: ease-in-out;
+	height: 0.5vh;
+	opacity: 0;
+	width: 0.5vh;
+}

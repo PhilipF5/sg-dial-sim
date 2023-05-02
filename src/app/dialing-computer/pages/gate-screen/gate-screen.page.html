@@ -1,4 +1,8 @@
-<img src="assets/images/sgc-logo.gif" class="spinning-logo" />
+<div class="spinning-logo">
+	<img src="assets/images/sgc-logo.gif" />
+	<sg-light-bar size="9" vertical="true" />
+	<sg-light-bar size="9" vertical="true" />
+</div>
 <svg class="chevron-paths" viewBox="0 0 1125 844">
 	<path class="chevron-7" d="M 527 125 V 75 H 870 L 900 95 H 1060 L 1075 110 V 743 H 1062" />
 	<path class="chevron-6" d="M 354 175 L 329 145 V 100 L 370 65 H 875 L 905 85 H 1065 L 1085 105 V 645 H 1062" />
@@ -16,6 +20,7 @@
 	<path class="chevron-3 lit" d="M 764 517 H 789 L 880 351 H 930" />
 </svg>
 <div class="header">
+	<sg-light-bar size="35" />
 	<div class="destination">
 		<sg-segment-display
 			[align]="'right'"
@@ -28,17 +33,32 @@
 </div>
 <div class="column-layout">
 	<div class="left column">
-		<div class="scrolling-bits-container">
-			<sg-scrolling-bits [enabled]="this.status !== 'IDLE'" [length]="518"></sg-scrolling-bits>
+		<div class="row">
+			<div class="scrolling-bits-container">
+				<sg-scrolling-bits [enabled]="this.status !== 'IDLE'" [length]="518"></sg-scrolling-bits>
+			</div>
+			<sg-light-bar size="8" vertical="true" />
 		</div>
-		<div class="scrolling-bits-container">
-			<sg-scrolling-bits [enabled]="this.status !== 'IDLE'" [length]="518"></sg-scrolling-bits>
+		<div class="row">
+			<div class="scrolling-bits-container">
+				<sg-scrolling-bits [enabled]="this.status !== 'IDLE'" [length]="518"></sg-scrolling-bits>
+			</div>
+			<sg-light-bar size="8" vertical="true" />
 		</div>
-		<div class="chevron-status-container"><sg-chevron-status></sg-chevron-status></div>
+		<div class="chevron-status-container">
+			<sg-chevron-status />
+			<div class="lights">
+				<sg-light-bar size="8" vertical="true" />
+			</div>
+		</div>
 	</div>
 	<div class="center column">
 		<sg-gate></sg-gate>
 		<sg-dialing-status></sg-dialing-status>
+		<div class="lights">
+			<sg-light-bar size="7" vertical="true" />
+			<sg-light-bar size="7" vertical="true" />
+		</div>
 		<sg-alert-factory></sg-alert-factory>
 	</div>
 	<div class="right column">
@@ -80,6 +100,9 @@
 			Nominal
 		</div>
 	</div>
+</div>
+<div class="corner-lights">
+	<sg-light-bar size="4" vertical="true" reversed="true" />
 </div>
 <sg-keyboard class="minimized" (dialAddress)="keyboardStartDialingHandler($event)"></sg-keyboard>
 <sg-main-menu #mainMenu></sg-main-menu>

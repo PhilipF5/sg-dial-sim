@@ -15,11 +15,16 @@
 }
 
 .spinning-logo {
+	column-gap: 0.5vh;
+	display: flex;
 	left: 1vh;
 	position: absolute;
 	top: 2vh;
-	width: 15vh;
 	z-index: -1;
+
+	img {
+		width: 15vh;
+	}
 }
 
 .chevron-paths {
@@ -36,6 +41,7 @@
 .header {
 	display: flex;
 	flex-grow: 1;
+	gap: 10vh;
 	justify-content: flex-end;
 	width: 100%;
 
@@ -88,23 +94,41 @@
 			margin-top: 1.18vh;
 		}
 
+		.row {
+			align-items: center;
+			column-gap: 1vh;
+			display: flex;
+			width: 100%;
+
+			&:nth-of-type(1) {
+				.scrolling-bits-container {
+					height: 22vh;
+				}
+			}
+
+			&:nth-of-type(2) {
+				.scrolling-bits-container {
+					height: 17vh;
+				}
+			}
+		}
+
 		.scrolling-bits-container {
 			border: 0.3vh solid var(--primary-color);
 			padding: 0.6vh;
 			width: 75%;
-
-			&:nth-of-type(1) {
-				height: 22vh;
-			}
-
-			&:nth-of-type(2) {
-				height: 17vh;
-			}
 		}
 
 		.chevron-status-container {
 			border: 0.3vh solid var(--primary-color);
+			position: relative;
 			width: 100%;
+
+			.lights {
+				position: absolute;
+				right: -3vh;
+				top: 2vh;
+			}
 		}
 	}
 
@@ -117,6 +141,14 @@
 
 		@media (aspect-ratio: 4/3) {
 			padding-top: 5vh;
+		}
+
+		.lights {
+			bottom: 0.5vh;
+			column-gap: 0.5vh;
+			display: flex;
+			position: absolute;
+			right: 0;
 		}
 	}
 
@@ -198,4 +230,10 @@ sg-floating-chevron-box {
 	&.chevron-9 {
 		top: 65vh;
 	}
+}
+
+.corner-lights {
+	bottom: 3vh;
+	position: absolute;
+	right: 3vh;
 }

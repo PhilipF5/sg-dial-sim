@@ -1,0 +1,30 @@
+:host {
+	--border-style: 0.15vh solid var(--primary-color);
+	border-left: var(--border-style);
+	border-right: var(--border-style);
+	border-top: var(--border-style);
+	display: flex;
+	gap: 0.5vh;
+	height: fit-content;
+	padding: 0.5vh 0.5vh 0 0.5vh;
+
+	&.vertical {
+		border-bottom: var(--border-style);
+		border-left: none;
+		flex-direction: column;
+		padding: 0.5vh 0.5vh 0.5vh 0;
+	}
+
+	&.reversed {
+		border-bottom: var(--border-style);
+		border-top: none;
+		padding: 0 0.5vh 0.5vh 0.5vh;
+
+		&.vertical {
+			border-left: var(--border-style);
+			border-right: none;
+			border-top: var(--border-style);
+			padding: 0.5vh 0 0.5vh 0.5vh;
+		}
+	}
+}
