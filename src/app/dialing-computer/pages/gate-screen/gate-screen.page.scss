@@ -61,6 +61,11 @@
 			letter-spacing: 4px;
 			text-transform: uppercase;
 		}
+
+		sg-segment-display {
+			position: relative;
+			right: -0.8vh;
+		}
 	}
 }
 
@@ -209,7 +214,9 @@ sg-gate {
 	font-style: italic;
 
 	sg-segment-display {
+		left: -0.8vh;
 		font-size: 1.25em;
+		position: relative;
 	}
 
 	.label {
@@ -239,4 +246,22 @@ sg-floating-chevron-box {
 	bottom: 3vh;
 	position: absolute;
 	right: 3vh;
+}
+
+.left-border-cutout {
+	background-color: var(--black-color);
+	bottom: 0;
+	height: 2em;
+	left: -2vh;
+	position: absolute;
+	width: 5vh;
+}
+
+.right-border-cutout {
+	background-color: var(--black-color);
+	height: 2em;
+	position: absolute;
+	right: -2vh;
+	top: 0;
+	width: 5vh;
 }
