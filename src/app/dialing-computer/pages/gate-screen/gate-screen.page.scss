@@ -15,15 +15,18 @@
 }
 
 .spinning-logo {
-	column-gap: 0.5vh;
 	display: flex;
-	left: 1vh;
+	left: -0.4vh;
 	position: absolute;
 	top: 2vh;
 	z-index: -1;
 
 	img {
 		width: 15vh;
+	}
+
+	sg-light-bar {
+		margin-right: 0.5vh;
 	}
 }
 
