@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { random } from "lodash";
+import { random } from "lodash-es";
 
 @Component({
 	selector: "sg-blinky-lights",
