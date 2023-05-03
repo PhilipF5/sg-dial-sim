@@ -10,8 +10,7 @@ export class BlinkyLightsComponent {
 	private static readonly _colors: string[] = [
 		"var(--primary-color)",
 		"var(--secondary-color)",
-		"transparent",
-		"transparent",
+		...Array(5).fill("transparent"),
 	];
 	private static readonly _delays: number[] = [1.5, 3, 4.5, 6.0];
 

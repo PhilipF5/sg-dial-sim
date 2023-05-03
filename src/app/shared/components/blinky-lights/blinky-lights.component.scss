@@ -8,10 +8,10 @@
 }
 
 :host {
-	column-gap: 0.25vh;
 	display: flex;
 	flex-wrap: wrap;
 	height: 1vh;
+	row-gap: 0.25vh;
 	width: 1.25vh;
 }
 

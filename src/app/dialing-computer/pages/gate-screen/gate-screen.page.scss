@@ -2,8 +2,8 @@
 	align-items: center;
 	aspect-ratio: 4 / 3;
 	border: 0.6vh solid var(--primary-color);
-	border-bottom-right-radius: 6vh;
-	border-top-left-radius: 6vh;
+	border-bottom-right-radius: 8vh;
+	border-top-left-radius: 8vh;
 	box-sizing: border-box;
 	flex-direction: column;
 	display: flex;
@@ -245,7 +245,7 @@ sg-floating-chevron-box {
 .corner-lights {
 	bottom: 3vh;
 	position: absolute;
-	right: 3vh;
+	right: 3.5vh;
 }
 
 .left-border-cutout {
