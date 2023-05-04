@@ -1,51 +1,25 @@
 @keyframes eh-idle {
-	from {
-		transform: translate(-50%, -50%) scale(0);
+	0%,
+	70% {
+		transform: scale(0);
 	}
-	to {
-		transform: translate(-50%, -50%) scale(1);
-	}
-}
-
-@keyframes eh-active {
-	from {
-		transform: translate(-50%, -50%) scale(3);
-	}
-	to {
-		transform: translate(-50%, -50%) scale(2.75);
+	100% {
+		transform: scale(1);
 	}
 }
 
 :host {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	width: 100%;
+}
+
+.idle-flasher {
+	animation: 0.5s ease-in 0s infinite alternate eh-idle;
 	background: radial-gradient(circle at center, white 0%, #7f2c19 20%, black 40%, rgba(0, 0, 0, 0) 60%);
 	height: 17.77vh;
-	transform: translate(-50%, -50%) scale(0);
 	transform-origin: center;
 	width: 17.77vh;
-
-	&.anim-idle {
-		animation: 0.5s ease-in 0s infinite alternate eh-idle;
-	}
-
-	&.anim-active {
-		animation: 1s ease-in-out 0s infinite alternate eh-active;
-	}
-
-	&.active {
-		background: radial-gradient(
-			circle at center,
-			rgba(0, 119, 255, 0.8) 0%,
-			rgba(0, 60, 255, 0.5) 40%,
-			rgba(0, 0, 0, 0) 60%
-		);
-	}
-
-	&.activating {
-		background: radial-gradient(
-			circle at center,
-			rgb(255, 255, 255) 0%,
-			rgb(128, 158, 255) 40%,
-			rgba(0, 0, 0, 0) 60%
-		);
-	}
 }
