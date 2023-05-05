@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { gateClosed } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
@@ -15,7 +15,7 @@ import { filter, takeUntil } from "rxjs/operators";
 	templateUrl: "./event-horizon.component.html",
 	styleUrls: ["./event-horizon.component.scss"],
 })
-export class EventHorizonComponent implements AfterViewInit, OnDestroy, OnInit {
+export class EventHorizonComponent implements OnDestroy, OnInit {
 	private activeAnimationTimer: ReturnType<typeof setInterval>;
 	private eventHorizon: Application<HTMLCanvasElement>;
 	private readonly ignoredStatuses = [GateStatus.Dialing, GateStatus.Engaged];
@@ -30,10 +30,6 @@ export class EventHorizonComponent implements AfterViewInit, OnDestroy, OnInit {
 	}
 
 	constructor(private audio: AudioService, private _elem: ElementRef, private store$: Store<any>) {}
-
-	ngAfterViewInit(): void {
-		this.createEventHorizon();
-	}
 
 	ngOnDestroy() {
 		this.killSubscriptions.next({});
@@ -57,6 +53,7 @@ export class EventHorizonComponent implements AfterViewInit, OnDestroy, OnInit {
 				break;
 			case GateStatus.Active:
 				this.animationIdle = false;
+				this.createEventHorizon();
 				this.animateEventHorizon();
 				this.audio.startEventHorizon();
 				break;
@@ -142,7 +139,7 @@ export class EventHorizonComponent implements AfterViewInit, OnDestroy, OnInit {
 			this.eventHorizon.stage.children.forEach((particle) => (particle.alpha -= 0.0005));
 
 			if (this.eventHorizon.stage.children.length === 0) {
-				this.eventHorizon.ticker.remove(clearFn);
+				this.eventHorizon.destroy(true);
 			}
 		};
 
