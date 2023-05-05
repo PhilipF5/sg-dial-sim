@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { gateClosed } from "app/dialing-computer/actions";
 import { getGateStatus } from "app/dialing-computer/selectors";
@@ -29,12 +29,7 @@ export class EventHorizonComponent implements AfterViewInit, OnDestroy, OnInit {
 		return this._elem.nativeElement;
 	}
 
-	constructor(
-		private audio: AudioService,
-		private _elem: ElementRef,
-		private ngZone: NgZone,
-		private store$: Store<any>,
-	) {}
+	constructor(private audio: AudioService, private _elem: ElementRef, private store$: Store<any>) {}
 
 	ngAfterViewInit(): void {
 		this.createEventHorizon();
@@ -107,8 +102,10 @@ export class EventHorizonComponent implements AfterViewInit, OnDestroy, OnInit {
 		const originalY = eventHorizonParticle.position.y;
 
 		this.eventHorizon.ticker.add(() => {
-			const totalChangeX = Math.abs(originalX - eventHorizonParticle.position.x);
-			const totalChangeY = Math.abs(originalY - eventHorizonParticle.position.y);
+			const distanceFromOrigin = Math.sqrt(
+				Math.pow(eventHorizonParticle.position.x - originalX, 2) +
+					Math.pow(eventHorizonParticle.position.y - originalY, 2),
+			);
 			const clampedSpeedFactor = clamp(speedFactor, 0.25, 0.5);
 
 			const xChange = Math.cos(vector) * clampedSpeedFactor;
@@ -119,10 +116,7 @@ export class EventHorizonComponent implements AfterViewInit, OnDestroy, OnInit {
 			eventHorizonParticle.position.x += xChange;
 			eventHorizonParticle.position.y += yChange;
 
-			if (eventHorizonParticle.tint == 0xffffff && Math.max(totalChangeX, totalChangeY) > 100) {
-				eventHorizonParticle.alpha -= 0.0025;
-			}
-			if (Math.max(totalChangeX, totalChangeY) > 150) {
+			if (distanceFromOrigin > (eventHorizonParticle.tint == 0xffffff ? 100 : 150)) {
 				eventHorizonParticle.alpha -= 0.0025;
 			}
 			if (eventHorizonParticle.alpha < 0) {
