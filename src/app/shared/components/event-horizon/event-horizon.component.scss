@@ -17,7 +17,7 @@
 }
 
 .idle-flasher {
-	animation: 0.5s ease-in 0s infinite alternate eh-idle;
+	animation: 0.5s ease-in 0s infinite alternate-reverse eh-idle;
 	background: radial-gradient(circle at center, white 0%, #7f2c19 20%, black 40%, rgba(0, 0, 0, 0) 60%);
 	height: 17.77vh;
 	transform-origin: center;
