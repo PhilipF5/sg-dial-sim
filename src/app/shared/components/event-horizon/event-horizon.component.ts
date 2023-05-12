@@ -87,7 +87,7 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 		eventHorizonParticle.y = this.eventHorizon.renderer.height / 2;
 
 		const vector = random(0, 359);
-		let speedFactor = 0.25;
+		let speedFactor = 0.5;
 
 		if (eventHorizonParticle.tint == 0xffffff) {
 			this.eventHorizon.stage.addChild(eventHorizonParticle);
@@ -98,23 +98,23 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 		const originalX = eventHorizonParticle.position.x;
 		const originalY = eventHorizonParticle.position.y;
 
-		this.eventHorizon.ticker.add(() => {
+		this.eventHorizon.ticker.add((delta) => {
 			const distanceFromOrigin = Math.sqrt(
 				Math.pow(eventHorizonParticle.position.x - originalX, 2) +
 					Math.pow(eventHorizonParticle.position.y - originalY, 2),
 			);
-			const clampedSpeedFactor = clamp(speedFactor, 0.25, 0.5);
+			const clampedSpeedFactor = clamp(speedFactor, 0.5, 1.0) * delta;
 
 			const xChange = Math.cos(vector) * clampedSpeedFactor;
 			const yChange = Math.sin(vector) * clampedSpeedFactor;
 
-			speedFactor += 0.001;
+			speedFactor += 0.002 * delta;
 
 			eventHorizonParticle.position.x += xChange;
 			eventHorizonParticle.position.y += yChange;
 
 			if (distanceFromOrigin > (eventHorizonParticle.tint == 0xffffff ? 100 : 150)) {
-				eventHorizonParticle.alpha -= 0.0025;
+				eventHorizonParticle.alpha -= 0.005 * delta;
 			}
 			if (eventHorizonParticle.alpha < 0) {
 				this.eventHorizon.stage.removeChild(eventHorizonParticle);
@@ -135,8 +135,8 @@ export class EventHorizonComponent implements OnDestroy, OnInit {
 
 	private stopEventHorizon(): void {
 		clearInterval(this.activeAnimationTimer);
-		const clearFn = () => {
-			this.eventHorizon.stage.children.forEach((particle) => (particle.alpha -= 0.0005));
+		const clearFn = (delta) => {
+			this.eventHorizon.stage.children.forEach((particle) => (particle.alpha -= 0.001 * delta));
 
 			if (this.eventHorizon.stage.children.length === 0) {
 				this.eventHorizon.destroy(true);
