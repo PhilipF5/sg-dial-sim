@@ -2,11 +2,11 @@
 	.chevron-box {
 		align-items: flex-start;
 		display: flex;
-		height: 20vh;
+		height: 30vh;
 		justify-content: right;
 		opacity: 0;
 		position: relative;
-		width: 42vh;
+		width: 60vh;
 
 		&.locked {
 			.chevron-symbol-box {
@@ -17,7 +17,7 @@
 
 	.chevron-number {
 		font-family: var(--interface-font);
-		font-size: 2rem;
+		font-size: 2.5rem;
 		color: var(--secondary-color);
 		left: 1vh;
 		line-height: 0.75em;
@@ -44,7 +44,7 @@
 		.sg1-symbol {
 			color: var(--white-color);
 			font-family: var(--glyphs-font);
-			font-size: 7.125rem;
+			font-size: 5.125rem;
 			margin-top: 1.2vh;
 			transform-origin: center;
 			visibility: hidden;
@@ -57,5 +57,12 @@
 				color: var(--red-color);
 			}
 		}
+	}
+
+	.corner-fill {
+		fill: var(--primary-color);
+		left: 0;
+		position: absolute;
+		top: 0;
 	}
 }

@@ -85,7 +85,7 @@ export class ChevronBoxAnimations {
 			.addLabel("toEndPoint", "+=2")
 			.to(
 				config.symbol,
-				{ duration: 0.75, ease: "none", x: 0, y: 0, scale: config.number >= 8 ? 1.5 : 1 },
+				{ duration: 0.75, ease: "none", x: 0, y: 0, scale: config.number >= 8 ? 2.5 : 1 },
 				"+=2",
 			);
 	}

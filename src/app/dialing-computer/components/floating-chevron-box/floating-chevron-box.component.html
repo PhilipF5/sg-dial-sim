@@ -1,5 +1,8 @@
 <div #chevronBox class="chevron-box chevron-{{ number }}">
 	<div class="chevron-symbol-box chevron-{{ number }}">
+		<svg viewBox="0 0 100 5" class="corner-fill">
+			<path d="M 50 0 L 90 20 H 100 V 0"></path>
+		</svg>
 		<div class="chevron-number chevron-{{ number }}">{{ number }}</div>
 		<div #symbol class="sg1-symbol chevron-{{ number }}">{{ glyph?.char }}</div>
 	</div>
